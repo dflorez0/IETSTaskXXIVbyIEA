@@ -446,6 +446,10 @@ document.addEventListener("DOMContentLoaded", function () {
             Object.keys(e).forEach(function (key) {
               if (["name", "full_name", "type", "subtype", "reference"].indexOf(key) >= 0) return;
               var q = e[key];
+              if (key === "parameters" && Array.isArray(q)) {             // extra parameters, one row each
+                q.forEach(function (p) { if (p && typeof p === "object") params.push({ name: str(p.parameter || p.full_name || p.name), value: val(p), f: fOf(p), unit: str(p.unit) }); });
+                return;
+              }
               if (q && typeof q === "object") params.push({ name: str(q.full_name) || key, value: val(q), f: fOf(q), unit: str(q.unit) });
             });
             return { name: str(e.full_name || e.name), type: str(e.type), subtype: str(e.subtype), reference: str(e.reference), params: params };
