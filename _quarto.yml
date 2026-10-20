@@ -47,7 +47,7 @@ book:
         - 1-EnergyTechnologies/CoolingTower/index.qmd
         - 1-EnergyTechnologies/FurnaceNG/index.qmd
         - 1-EnergyTechnologies/HeatPump/index.qmd
-        - 1-EnergyTechnologies/Refigerator/index.qmd
+        - 1-EnergyTechnologies/Refrigerator/index.qmd
 
     - part: 2-DecarbTechnologies/index.qmd
       chapters:
