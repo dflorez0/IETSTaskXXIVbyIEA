@@ -1,0 +1,30 @@
+# About this database {.unnumbered}
+
+This is the **Database of IEA Task XXIV Process Integration for Industry Decarbonization**, developed within the IEA Technology Collaboration Programme on Industrial Energy-Related Technologies and Systems (IETS).
+
+It collects and documents the **ex-ante models** contributed by the Task participants — industrial processes, decarbonization technologies and energy systems — described with a common template so that they can be combined in process integration and industrial symbiosis studies.
+
+
+## How the database is organised {.unnumbered}
+
+* **Task XXIV** describes the Task, the rules for contributing, and how to use the database and add a model to it.
+* **Energy technologies**, **Decarbonisation technologies** and **Industrial processes** hold one page per model.
+
+Each model lives in its own folder, which contains its documentation page and its supplementary material: the OSMOSE (Lua) implementation, the JSON description, the Excel template, figures and background documents. Every model page links to these files.
+
+Each model page also includes an interactive overview generated from the model's JSON description:
+
+* the **flows** entering and leaving the model, and its heat demand and heat release;
+* the **heat streams** table;
+* the **composite curves** and the **grand composite curve**, with the minimum hot and cold utility requirements and the pinch.
+
+
+## Tools {.unnumbered}
+
+* Models are implemented in OSMOSE (Lua) and described in the Task XXIV JSON format.
+* This documentation is built with [**Quarto**](https://quarto.org/), an open-source scientific and technical publishing system.
+
+
+## Task participants {.unnumbered}
+
+Task XXIV is managed by *Daniel Flórez-Orrego* and *François Maréchal* (EPFL), with participants from Canada, Denmark, France, Germany, Italy, the Netherlands, Norway, Portugal, Sweden and Switzerland, and observers from Belgium, Chile and Colombia. See the [Task XXIV description](00-TaskDescription.qmd) for the objectives, activities and the list of participants, and the [rules for participating and sharing models](01-ParticipationRules.qmd).

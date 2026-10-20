@@ -1,0 +1,77 @@
+# Rules for participating and sharing models {.unnumbered}
+
+These rules were established at the Task XXIV kick-off meeting (14 March 2025) and refined through the intra-task meetings, the bilateral meetings with each participating country and the participants' survey held in 2025.
+
+## Joining the Task {.unnumbered}
+
+Participating Organizations join Subtask 1 through an **engagement procedure** and a **Letter of Commitment**, in which they give the date of notification and the organizations and enterprises that make up their national consortium. The Task managers notify the IETS Secretariat, which contacts the Contracting Party (a country or a sponsor) to formalize the participation.
+
+Participating Organizations commit to:
+
+* dedicate **at least 13 person-weeks per year** to the Task, a time that can be shared with their own national research projects;
+* secure the funding and availability needed to attend the working meetings throughout the operating period.
+
+Participants contribute in one or more of the following areas:
+
+* industrial sectors and industrial process models;
+* decarbonization technologies;
+* process integration models;
+* energy system models;
+* life cycle sustainability assessment models;
+* roadmap generation and dissemination.
+
+The database first incorporates **published models**, which have already cleared confidentiality and quality hurdles, while trust and procedures are built to progressively include unpublished models and industrial data.
+
+## The ex-ante model template {.unnumbered}
+
+Every model is documented with the same **software-agnostic template** (deliverable D1), editable as a spreadsheet or a JSON file. It accommodates black-, grey- and white-box models, from linear programming to metaheuristic optimization and from sequential-modular to equation-oriented structures, provided that they give consistent overall mass and energy balances whatever their internal level of detail.
+
+The template is a class-attribute tree with six primary entities:
+
+| Entity | Content |
+|:--|:--|
+| **METADATA** | Status, attribution, references, documentation, confidentiality and sharing layer, grade, reference capacity, TRL, software |
+| **CHANGELOG** | Version and change tracking |
+| **SUPPL MATERIAL** | Index of the auxiliary files (flowsheets, publications, software files, figures) |
+| **VARIABLES** | Engineering parameters and model variables, each with a type and a user grade |
+| **UNIT** | For each process unit: connectors, heat streams, equipment and operating costs |
+| **CALCULATIONS** | Derived quantities, in an equation-oriented form that respects the model constraints |
+
+: Primary entities of the ex-ante model template {.striped}
+
+* **Variable types**: decision, measured, literature, context or calculated. A value may be a default value, a formula, or a path to a variable of the flowsheeting software (for example an Aspen Plus variable) for automated data extraction.
+* **User grades**: mandatory, optional or private, which control access and modification rights.
+* **Units** have a nominal size, a binary variable defining their existence and a continuous load factor bounded by the minimum and maximum **capacity multipliers**, which distinguish fixed process units from scalable utilities.
+* **Connectors** specify the boundary flows (mass, electricity, emissions, information) with their direction and quality attributes (composition, temperature, pressure, vapour fraction, phase). External connectors reference unique identifiers of a **global connectors database**, so that models can be linked to each other and to the infrastructure; internal connectors describe exchanges between the units of one model.
+* **Heat streams** document heating and cooling demands — waste heat recovery, reactions, phase changes and dissipative devices — with temperature levels, enthalpy flows, heat capacity, mass flow, ΔT~min~ contribution and heat transfer coefficient. They are what the composite curves of each model page are built from.
+* **Equipment** entries link to investment cost databases, and **operating costs** give the fixed and variable components.
+
+## Confidentiality: the layered disclosure framework {.unnumbered}
+
+Industrial confidentiality (non-disclosure agreements, patents, co-owned models) is the main barrier to sharing models. Each model therefore declares a **sharing layer**, which sets how much of it is disclosed:
+
+| Layer | Content disclosed | Access |
+|:--|:--|:--|
+| L0 | Public metadata | Public |
+| L1 | Structure and topology | Public |
+| L2 | Mass and energy balances | Public |
+| L3 | Thermodynamic data | Case by case |
+| L4 | Kinetic and reaction data | Case by case |
+| L5 | Economic data | Bilateral agreement, with embargo periods and co-authorship arrangements |
+| L6 | Full model details | Bilateral agreement, with embargo periods and co-authorship arrangements |
+
+: Multi-layered sharing framework {.striped}
+
+Sensitive industrial data can be made shareable through **anonymization**: generalization and obfuscation (replacing specific values with ranges or categories), thermodynamically consistent masking of proprietary process configurations, and aggregation of data from several sources so that individual facilities cannot be identified.
+
+## Intellectual property and recognition {.unnumbered}
+
+* Original contributors **retain ownership** of their models and grant usage rights to Task participants under agreed terms.
+* Citation formats are standardized; citation in publications that use a shared model is the primary form of recognition. Co-authorship in derivative publications is negotiated case by case.
+* Derivative-work protocols specify the conditions under which modified models may be shared or published.
+* Embargo periods protect recent industrial collaborations and allow papers to be published before full disclosure.
+* These arrangements are formalized through participation agreements that clarify rights and responsibilities.
+
+## Versioning and data management {.unnumbered}
+
+The database follows the FAIR principles (findability, accessibility, interoperability and reproducibility). Models are kept in a **git-based version control repository**, in which every modification is recorded with its author, date and description, so that any previous version of a model can be retrieved. The data management strategy is designed to comply with the Swiss Federal Act on Data Protection (FADP), the EU General Data Protection Regulation (GDPR) and equivalent frameworks in the participating countries.

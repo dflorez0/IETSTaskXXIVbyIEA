@@ -1,0 +1,105 @@
+<!--
+  Three pieces of the bookdown gitbook layout that Quarto has no config
+  slot for:
+
+  1. A pinned bottom bar on the sidebar, holding the search box and download
+     dropdown side by side. Quarto renders
+     search and download inline in the sidebar header instead, and has no
+     footer slot at all — both are moved here after the page loads, and the
+     bar itself is `position: sticky; bottom: 0` (see theme.scss) so it
+     stays put under a long, scrolling chapter list the way gitbook's fixed
+     `.book-header` / `.summary-footer` did.
+
+  2. The sidebar toggle. gitbook put a .fa-align-justify button in the book
+     header that toggled `.book.with-summary`; Quarto only collapses its
+     sidebar below the lg breakpoint. The button below reinstates the
+     desktop toggle, and remembers the choice across pages.
+-->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // --- 1. Pinned bottom bar: search + download -----------------------
+    var sidebar = document.getElementById("quarto-sidebar");
+    var searchBox = sidebar && sidebar.querySelector(".sidebar-search");
+    var toolsMain = sidebar && sidebar.querySelector(".sidebar-tools-main");
+
+    if (sidebar) {
+      var bottom = document.createElement("div");
+      bottom.className = "ipese-sidebar-bottom";
+
+      if (searchBox || toolsMain) {
+        var row = document.createElement("div");
+        row.className = "ipese-sidebar-tools-row";
+        // The wrapper divs these came in (a header title slot and a
+        // standalone `.mt-2` block) are left empty once we move the real
+        // controls out; drop them rather than leave blank gaps behind.
+        if (searchBox) {
+          var searchWrap = searchBox.parentElement;
+          row.appendChild(searchBox);
+          if (searchWrap && searchWrap !== sidebar && !searchWrap.children.length) {
+            searchWrap.remove();
+          }
+        }
+        if (toolsMain) {
+          row.appendChild(toolsMain);
+        }
+        bottom.appendChild(row);
+      }
+
+      sidebar.appendChild(bottom);
+    }
+
+    // --- 2. Sidebar toggle -------------------------------------------
+    var KEY = "ipese-summary-hidden";
+    var body = document.body;
+
+    function apply(hidden) {
+      body.classList.toggle("ipese-summary-hidden", hidden);
+      btn.setAttribute("aria-expanded", String(!hidden));
+      btn.setAttribute("aria-label", hidden ? "Show sidebar" : "Hide sidebar");
+      btn.title = hidden ? "Show sidebar" : "Hide sidebar";
+    }
+
+    var btn = document.createElement("button");
+    btn.id = "ipese-sidebar-toggle";
+    btn.type = "button";
+    btn.innerHTML = '<i class="bi bi-list"></i>';
+    btn.setAttribute("aria-controls", "quarto-sidebar");
+    document.body.appendChild(btn);
+
+    var stored = false;
+    try { stored = localStorage.getItem(KEY) === "1"; } catch (e) { /* private mode */ }
+    apply(stored);
+
+    btn.addEventListener("click", function () {
+      var hidden = !body.classList.contains("ipese-summary-hidden");
+      apply(hidden);
+      try { localStorage.setItem(KEY, hidden ? "1" : "0"); } catch (e) { /* ignore */ }
+    });
+
+    // --- 3. Per-page bibliography ------------------------------------
+    // bookdown::gitbook renders with split_bib: yes, so every page carries
+    // the works it cites at its own foot. Quarto emits that same per-chapter
+    // #refs list but hides it with an inline display:none, because it expects
+    // a single References chapter to be the only bibliography. Reveal it, give
+    // it the heading bookdown printed, and keep the citation links on the page
+    // instead of jumping to the References chapter.
+    var refs = document.getElementById("refs");
+    if (refs && refs.style.display === "none") {
+      refs.style.display = "";
+
+      var h = document.createElement("h2");
+      h.className = "ipese-refs-title";
+      h.id = "ipese-references";
+      h.textContent = "References";
+      refs.parentNode.insertBefore(h, refs);
+
+      var links = document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i = 0; i < links.length; i++) {
+        var hash = (links[i].getAttribute("href") || "").split("#")[1];
+        if (hash && document.getElementById(hash)) {
+          links[i].setAttribute("href", "#" + hash);
+        }
+      }
+    }
+  });
+</script>

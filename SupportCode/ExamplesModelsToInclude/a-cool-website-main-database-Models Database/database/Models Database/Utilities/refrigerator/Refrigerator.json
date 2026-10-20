@@ -1,0 +1,430 @@
+{
+  "HEADER": {
+    "Model Name": "Refrigerator",
+    "Authors and Contributors": "Daniel Florez-Orrego, Meire Domingos",
+    "Version": "1.0",
+    "Confidentiality": "Open",
+    "Creation Date": "2025-07-20 00:00:00",
+    "References": "[1] Ludwig, E., (2001). Chapter 11 Refrigeration systems. Applied Process Design for Chemical & Petrochemical Plants, Gulf Professional Publishing. 3: 289-367.\n[2] Gupta et al, A comprehensive review on the sustainable refrigeration systems, 2021, Materials today, Volume 44, Part 6, 2021, Pages 4850-4854",
+    "Grade": "GRAY-BOX",
+    "Software": "None",
+    "URL": "https://gitlab.epfl.ch/boztas/dairy-casestudy/-/blob/main/DairyROSMOSE/model/Refrigerator/Refrigerator.Rmd?ref_type=heads",
+    "Last Update Date": "2025-10-10",
+    "Keywords": "Refrigerator",
+    "Reference Capacity": "5000 kW",
+    "Description": "This model represents a refrigerator for low temperature cooling supply.",
+    "BlockFlowDiagram": "model/Refrigerator/refrigerator.svg",
+    "Import Source": "Web Interface"
+  },
+  "VARIABLES": [
+    {
+      "Variable name": "Evap_Tin",
+      "Type": "DECISION",
+      "Full name": "Evaporator inlet temperature",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": -4,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$T_{evapin}$",
+      "Bibliography": "-",
+      "Comment": "Cold-side inlet temperature"
+    },
+    {
+      "Variable name": "Evap_Tout",
+      "Type": "DECISION",
+      "Full name": "Evaporator outlet temperature",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": -4,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$T_{evapout}$",
+      "Bibliography": "-",
+      "Comment": "Cold-side outlet temperature"
+    },
+    {
+      "Variable name": "Cond_Tin",
+      "Type": "DECISION",
+      "Full name": "Condenser inlet temperature",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 22,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$T_{condin}$",
+      "Bibliography": "-",
+      "Comment": "Hot-side inlet temperature"
+    },
+    {
+      "Variable name": "Cond_Tout",
+      "Type": "DECISION",
+      "Full name": "Condenser outlet temperature",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 22,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$T_{condout}$",
+      "Bibliography": "-",
+      "Comment": "Hot-side outlet temperature"
+    },
+    {
+      "Variable name": "Evap_Qmax",
+      "Type": "DECISION",
+      "Full name": "Evaporator reference heat flow",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 5000,
+      "Physical unit": "kW",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$Q_{evapmax}$",
+      "Bibliography": "-",
+      "Comment": "Reference refrigeration load"
+    },
+    {
+      "Variable name": "exeff",
+      "Type": "DECISION",
+      "Full name": "Second law efficiency",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 0.5,
+      "Physical unit": "-",
+      "Min bound": 0,
+      "Max bound": 1,
+      "Latex syntax": "$\\eta_{ex}$",
+      "Bibliography": "-",
+      "Comment": "Efficiency based on Carnot"
+    },
+    {
+      "Variable name": "dtmin_2ph",
+      "Type": "LITERATURE",
+      "Full name": "Minimum phase change delta T",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 2,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$\\Delta T_{min2ph}$",
+      "Bibliography": "-",
+      "Comment": "Phase-change Tmin constraint"
+    },
+    {
+      "Variable name": "COPcarnot",
+      "Type": "DECISION",
+      "Full name": "Carnot COP",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 10.346153846153847,
+        "formula": "=(Evap_Tin+273)/(Cond_Tin-Evap_Tin)"
+      },
+      "Physical unit": "-",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$COP_{Carnot}$",
+      "Bibliography": "-",
+      "Comment": "Idealized performance"
+    },
+    {
+      "Variable name": "COP",
+      "Type": "DECISION",
+      "Full name": "Actual COP",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 5.173076923076923,
+        "formula": "=exeff*COPcarnot"
+      },
+      "Physical unit": "-",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$COP$",
+      "Bibliography": "-",
+      "Comment": "Based on second-law efficiency"
+    },
+    {
+      "Variable name": "W_refrig",
+      "Type": "DECISION",
+      "Full name": "Compressor power input",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 966.542750929368,
+        "formula": "=Evap_Qmax/COP"
+      },
+      "Physical unit": "kW",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$W_{refrig}$",
+      "Bibliography": "-",
+      "Comment": "Required electrical power"
+    },
+    {
+      "Variable name": "Cond_Qmax",
+      "Type": "DECISION",
+      "Full name": "Condenser heat rejection",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 5966.542750929368,
+        "formula": "=Evap_Qmax*(COP+1)/COP"
+      },
+      "Physical unit": "kW",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$Q_{cond}$",
+      "Bibliography": "-",
+      "Comment": "Heat released at condenser"
+    },
+    {
+      "Variable name": "Refrigerator_fmin",
+      "Type": "DECISION",
+      "Full name": "Minimum capacity multiplier for Refrigerator",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 0,
+      "Physical unit": "-",
+      "Min bound": 0,
+      "Max bound": {
+        "value": 10,
+        "formula": "=Refrigerator_fmax"
+      },
+      "Latex syntax": "$F^{refrig}_{min}$",
+      "Bibliography": "-",
+      "Comment": "The minimum capacity multiplier for the refrigeration unit"
+    },
+    {
+      "Variable name": "Refrigerator_fmax",
+      "Type": "DECISION",
+      "Full name": "Maximum capacity multiplier for Refrigerator",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 10,
+      "Physical unit": "-",
+      "Min bound": {
+        "value": 0,
+        "formula": "=Refrigerator_fmin"
+      },
+      "Max bound": 15,
+      "Latex syntax": "$F^{refrig}_{max}$",
+      "Bibliography": "-",
+      "Comment": "The maximum capacity multiplier for the refrigeration unit"
+    },
+    {
+      "Variable name": "lifetime",
+      "Type": "DECISION",
+      "Full name": "Equipment liifetime",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 20,
+      "Physical unit": "years",
+      "Min bound": 5,
+      "Max bound": 40,
+      "Latex syntax": "$L_{equipment}}$",
+      "Bibliography": "-",
+      "Comment": "Lifetime of an equipment for the calculating of annualized investment cost"
+    },
+    {
+      "Variable name": "year",
+      "Type": "DECISION",
+      "Full name": "Investment year",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 2025,
+      "Physical unit": "years",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$Y_{current}}$",
+      "Bibliography": "-",
+      "Comment": "The year of the equipment purchase"
+    }
+  ],
+  "CONNECTORS": {
+    "EXTERNAL CONNECTORS": [
+      {
+        "Unique Identifier Number, UID": "ELECTRICITY",
+        "NAME (ALIAS)": "Electricity",
+        "TYPE": "ELECTRICITY",
+        "PHYSICAL UNIT": "kW",
+        "TEMPERATURE": "-",
+        "TEMPERATURE UNIT": "-",
+        "PRESSURE": "-",
+        "PRESSURE UNIT": "-",
+        "VAPOR FRACTION [MASS]": "-",
+        "PHASE": "-",
+        "COMPOSITION [MOLE/MASS]": ""
+      }
+    ],
+    "INTERNAL CONNECTORS": []
+  },
+  "UNITS": {
+    "Refrigerator": {
+      "Unit Description": "Some industrial processes, such as liquefaction, solidification, conservation and separation, require a cooling process at temperatures below the ambient conditions. Since the conventional water and air cooling are not able to achieve the desired operating conditions, other cooling cycles, based on specialized working fluids called refrigerants, become necessary. The thermodynamic properties of those fluids confere them characteristics that are suitable to absorb heat from process streams by evaporating in a heat exchanger at a temperature below that of the environment.\nIn addition, when the evaporated fluids are recompressed, the temperature can significantly increase above the ambient temperature, facilitating the heat rejection in a condensation heat exchanger using common cooling methods (e.g. air or water cooling). The capacity of these fluids to achieve much lower temperatures is due to the Joule-Thomson effect, by which certain fluids exhibit a rapid cooling accompanied by partial vaporization when throttled or expanded through a valve, a capillar tube or an expander. In this regard, a typical refrigeration cycle requires different components, namely an evaporator, a compressor, a condenser and an expansion device. The main electricity input is the compressor power consumption, which in turn depends on the isoentropic efficiency and other compressor design details. Since a refrigerator is a thermal cycle, the actual coefficient of performance (COP) is limited by the theoretical Carnot COP (= T_{evap}/(T_{cond}-T_{evap})), which is only a function of the temperatures, and not of the substance. In practice, this ideal COP is virtually impossible to achieve, but it can be approached by reducing the technology inefficiencies. Commercially, the ratio between COP_{actual} and COP_{Carnot} is around 0.45-0.55, which can be used as an heuristic correction factor to estimate the actual performance. Based on the previous parameters, it is possible to calcualte the total power demand for the reference refrigeration capacity W_refrig and the corresponding condenser heat rejection Cond_Qmax",
+      "Unit Info": {
+        "Unit name": "Refrigerator",
+        "Minimum capacity multiplier": {
+          "value": 0,
+          "formula": "=Refrigerator_fmin"
+        },
+        "Maximum capacity multiplier": 10.0
+      },
+      "Connectors Description": "the electricity consumed by the refrigerator unit (in kW) is imported through the Electricity layer from a electricity supply grid located in the market model.",
+      "Connectors": [
+        {
+          "NAME (ALIAS)": "Electricity",
+          "TYPE": "ENERGY",
+          "DIRECTION": "IN",
+          "VALUE": {
+            "value": 966.542750929368,
+            "formula": "=W_refrig"
+          },
+          "PHYSICAL UNIT": "kW",
+          "TEMPERATURE": "-",
+          "TEMPERATURE UNIT": "-",
+          "PRESSURE": "-",
+          "PRESSURE UNIT": "-",
+          "VAPOR FRACTION [MASS]": "-",
+          "PHASE": "-",
+          "COMPOSITION [MOLE/MASS]": "-"
+        }
+      ],
+      "Heat Streams Description": "The heat streams are composed of one evaporation and one condensation.",
+      "Heat Streams": [
+        {
+          "name": "evaporation",
+          "Type": "Cold",
+          "Inlet Temperature [C]": {
+            "value": -4,
+            "formula": "=Evap_Tin"
+          },
+          "Outlet Temperature [C]": {
+            "value": -4,
+            "formula": "=Evap_Tout"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 5000,
+            "formula": "=Evap_Qmax"
+          },
+          "dTmin Contribution [C]": {
+            "value": 2,
+            "formula": "=dtmin_2ph"
+          },
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "condensation",
+          "Type": "Hot",
+          "Inlet Temperature [C]": {
+            "value": 22,
+            "formula": "=Cond_Tin"
+          },
+          "Outlet Temperature [C]": {
+            "value": 22,
+            "formula": "=Cond_Tout"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 5966.542750929368,
+            "formula": "=Cond_Qmax"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 2,
+            "formula": "=dtmin_2ph"
+          },
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        }
+      ],
+      "Equipments Description": "The refrigerator is composed of 2 heat exchangers, 1 compressor and 1 throttle valve.",
+      "Equipments": {
+        "Heat_exchanger_cond": {
+          "Type": "Heat Exchanger",
+          "Parameters": [
+            {
+              "Parameter": "Area",
+              "Value": 400.0,
+              "units": "m2"
+            },
+            {
+              "Parameter": "Pressure",
+              "Value": 20.0,
+              "units": "bar"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": {
+                "value": 20,
+                "formula": "=lifetime"
+              },
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": {
+                "value": 2025,
+                "formula": "=year"
+              },
+              "units": "year"
+            }
+          ]
+        },
+        "Heat_exchanger_evap": {
+          "Type": "Heat Exchanger",
+          "Parameters": [
+            {
+              "Parameter": "Area",
+              "Value": 300.0,
+              "units": "m2"
+            },
+            {
+              "Parameter": "Pressure",
+              "Value": 3.0,
+              "units": "bar"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": {
+                "value": 20,
+                "formula": "=lifetime"
+              },
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": {
+                "value": 2025,
+                "formula": "=year"
+              },
+              "units": "year"
+            }
+          ]
+        },
+        "Compressor": {
+          "Type": "Compressor",
+          "Parameters": [
+            {
+              "Parameter": "Power",
+              "Value": 1000.0,
+              "units": "kW"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": {
+                "value": 20,
+                "formula": "=lifetime"
+              },
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": {
+                "value": 2025,
+                "formula": "=year"
+              },
+              "units": "year"
+            }
+          ]
+        }
+      },
+      "Operating Cost Description": "The fixed and variable operating costs includes manpower, fixed cost of operation, taxes etc.",
+      "Operating Cost": {
+        "Fixed Operating Cost [EUR/y]": 0.0,
+        "Variable Operating Cost [EUR/h]": 0.0
+      }
+    }
+  }
+}

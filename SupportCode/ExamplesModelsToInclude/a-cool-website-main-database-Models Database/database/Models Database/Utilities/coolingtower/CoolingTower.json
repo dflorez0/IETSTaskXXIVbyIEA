@@ -1,0 +1,364 @@
+{
+  "HEADER": {
+    "Model Name": "CoolingTower",
+    "Authors and Contributors": "Daniel Florez-Orrego, Meire Domingos",
+    "Version": "1.0",
+    "Confidentiality": "Open",
+    "Creation Date": "2025-07-20 00:00:00",
+    "References": "[1] Spirax Sarco Cooling towers, available at: https://spxcooling.com/coolingtowers\n[2] Huchler, L. (2009). \"Cooling towers part 2: operating, monitoring and maintaining.\" Chemical Engineering Progress October: 38-41.",
+    "Grade": "GRAY-BOX",
+    "Software": "None",
+    "URL": "https://gitlab.epfl.ch/boztas/dairy-casestudy/-/tree/main/DairyROSMOSE/model/CoolingWater?ref_type=heads",
+    "Last Update Date": "2025-10-10",
+    "Keywords": "Cooling",
+    "Reference Capacity": "1000 kW",
+    "Description": "This model represent a cooling supply.",
+    "BlockFlowDiagram": "model/CoolingWater/coolingtower.svg",
+    "Import Source": "Web Interface"
+  },
+  "VARIABLES": [
+    {
+      "Variable name": "Cool_Tin",
+      "Type": "DECISION",
+      "Full name": "Cooling tower inlet temperature",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 15,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$T_{cool,in}$",
+      "Bibliography": "-",
+      "Comment": "Cooling water entering CT"
+    },
+    {
+      "Variable name": "Cool_Tout",
+      "Type": "DECISION",
+      "Full name": "Cooling tower outlet temperature",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 16,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$T_{cool,out}$",
+      "Bibliography": "-",
+      "Comment": "Cooling water exiting CT"
+    },
+    {
+      "Variable name": "Cool_Qmax",
+      "Type": "DECISION",
+      "Full name": "Cooling tower reference heat load",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 1000,
+      "Physical unit": "kW",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$Q_{cool,max}$",
+      "Bibliography": "-",
+      "Comment": "Reference thermal duty"
+    },
+    {
+      "Variable name": "Cool_Elec",
+      "Type": "DECISION",
+      "Full name": "Cooling tower electricity input",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 0.021,
+      "Physical unit": "kW/kW",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$E_{cool}$",
+      "Bibliography": "-",
+      "Comment": "Electric consumption per unit thermal"
+    },
+    {
+      "Variable name": "dtmin_liq",
+      "Type": "LITERATURE",
+      "Full name": "Minimum delta T for cooling liquid",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 5,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$\\Delta T_{min,liq}$",
+      "Bibliography": "-",
+      "Comment": "For cooling water/liquid streams"
+    },
+    {
+      "Variable name": "deltaH",
+      "Type": "LITERATURE",
+      "Full name": "Enthalpy change for cooling water",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 62.8,
+      "Physical unit": "kJ/kg",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$\\Delta h$",
+      "Bibliography": "-",
+      "Comment": "From 15\u00b0C to 30\u00b0C at 1 bar"
+    },
+    {
+      "Variable name": "Twetbulb",
+      "Type": "CONTEXT",
+      "Full name": "Wet bulb temperature",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 12.17,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$T_{wet\\bulb}$",
+      "Bibliography": "-",
+      "Comment": "Ambient wet bulb temperature"
+    },
+    {
+      "Variable name": "E_ref_CT",
+      "Type": "DECISION",
+      "Full name": "Cooling tower electricity demand",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 21,
+        "formula": "=Cool_Elec*Cool_Qmax"
+      },
+      "Physical unit": "kW",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$E_{refCT}$",
+      "Bibliography": "-",
+      "Comment": "Total electrical input of CT"
+    },
+    {
+      "Variable name": "deltaT_CT",
+      "Type": "DECISION",
+      "Full name": "CT temperature difference",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 1,
+        "formula": "=Cool_Tout-Cool_Tin"
+      },
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$\\Delta T_{CT}$",
+      "Bibliography": "-",
+      "Comment": "Cooling temperature drop"
+    },
+    {
+      "Variable name": "approach",
+      "Type": "DECISION",
+      "Full name": "Approach temperature",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 2.83,
+        "formula": "=Cool_Tin-Twetbulb"
+      },
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$T_{approach}$",
+      "Bibliography": "-",
+      "Comment": "Distance to wet bulb"
+    },
+    {
+      "Variable name": "water_flow",
+      "Type": "DECISION",
+      "Full name": "Cooling water flow rate",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 57324.84076433122,
+        "formula": "=Cool_Qmax/deltaH*3600"
+      },
+      "Physical unit": "kg/h",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$\\dot{m}_{H2O}$",
+      "Bibliography": "-",
+      "Comment": "Water mass flow to remove heat"
+    },
+    {
+      "Variable name": "watermu_CT",
+      "Type": "DECISION",
+      "Full name": "Makeup water flow",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 48.783439490445865,
+        "formula": "=0.000851*water_flow*(Cool_Tout-Cool_Tin)"
+      },
+      "Physical unit": "kg/h",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$\\dot{m}_{MU}$",
+      "Bibliography": "-",
+      "Comment": "Makeup water in CT"
+    }
+  ],
+  "CONNECTORS": {
+    "EXTERNAL CONNECTORS": [
+      {
+        "Unique Identifier Number, UID": "ELECTRICITY",
+        "NAME (ALIAS)": "Electricity",
+        "TYPE": "ELECTRICITY",
+        "PHYSICAL UNIT": "kW",
+        "TEMPERATURE": "-",
+        "TEMPERATURE UNIT": "-",
+        "PRESSURE": "-",
+        "PRESSURE UNIT": "-",
+        "VAPOR FRACTION [MASS]": "-",
+        "PHASE": "-",
+        "COMPOSITION [MOLE/MASS]": "-"
+      },
+      {
+        "Unique Identifier Number, UID": "WATER",
+        "NAME (ALIAS)": "Water",
+        "TYPE": "MASS",
+        "PHYSICAL UNIT": "kg/h",
+        "TEMPERATURE": 25.0,
+        "TEMPERATURE UNIT": "\u00b0C",
+        "PRESSURE": 1.0,
+        "PRESSURE UNIT": "bar",
+        "VAPOR FRACTION [MASS]": 0.0,
+        "PHASE": "(L)",
+        "COMPOSITION [MOLE/MASS]": "MASSFRAC:H2O[1]"
+      }
+    ],
+    "INTERNAL CONNECTORS": []
+  },
+  "UNITS": {
+    "CoolTower": {
+      "Unit Description": "The cooling tower is a specialized heat and mass exchange equipment in which the hot circulating water is sprayed and brought into contact with fresh air in order to reduce the water temperature. As this occurs, a small volume of water is evaporated, reducing the temperature of the water being passed through the tower. The cooled water is pumped back to the process equipment, where it absorbs heat, then it is pumped back to the cooling tower to be cooled once again. In the cooling tower, return water enters at 30\u00b0C and reduces the temperature by evaporative cooling up to 15\u00b0C. The temperature difference is important to determine the flow of the circulating water, considering the enthalpy change of water at the specified pressure and temperature. The cooling tower can achieve lower temperatures than the intake air thanks to the water evaporation effect, which drops the system temperature from the dry to the web bulb temperature. The latter is a function of the former temperature and the relative humidity, and can be found using psychrometry charts. Considering the cooling tower supply and return temperatures, and the heat removal capacity Cool_Qmax, a single cold stream can be associated to the cooling tower unit. In addition, both recirculation pumps and forced draft fans consume electricity at a ratio of around 0.021 kWe per kWt",
+      "Unit Info": {
+        "Unit name": "CoolTower",
+        "Minimum capacity multiplier": 0.0,
+        "Maximum capacity multiplier": 100.0
+      },
+      "Connectors Description": "the electricity consumed by the cooling tower unit (in kW) is imported through the Electricity layer from a electricity supply grid located in the market model. In turn, makeup water consumed could be supplied through the water layer by the water grid.",
+      "Connectors": [
+        {
+          "NAME (ALIAS)": "Electricity",
+          "TYPE": "ENERGY",
+          "DIRECTION": "IN",
+          "VALUE": {
+            "value": 21,
+            "formula": "=E_ref_CT"
+          },
+          "PHYSICAL UNIT": "kW",
+          "TEMPERATURE": "-",
+          "TEMPERATURE UNIT": "-",
+          "PRESSURE": "-",
+          "PRESSURE UNIT": "-",
+          "VAPOR FRACTION [MASS]": "-",
+          "PHASE": "-",
+          "COMPOSITION [MOLE/MASS]": "-"
+        },
+        {
+          "NAME (ALIAS)": "Water",
+          "TYPE": "MASS",
+          "DIRECTION": "IN",
+          "VALUE": {
+            "value": 48.783439490445865,
+            "formula": "=watermu_CT"
+          },
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": 25.0,
+          "TEMPERATURE UNIT": 1.0,
+          "PRESSURE": 1.0,
+          "PRESSURE UNIT": 1.0,
+          "VAPOR FRACTION [MASS]": 0.0,
+          "PHASE": "(L)",
+          "COMPOSITION [MOLE/MASS]": "MASSFRAC:H20[1]"
+        }
+      ],
+      "Heat Streams Description": "The heat stream of the cooling water is represented as one cold stream varying between the supply and return temperature.",
+      "Heat Streams": [
+        {
+          "name": "cooltowerheat",
+          "Type": "Cold",
+          "Inlet Temperature [C]": {
+            "value": 15,
+            "formula": "=Cool_Tin"
+          },
+          "Outlet Temperature [C]": {
+            "value": 16,
+            "formula": "=Cool_Tout"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 1000,
+            "formula": "=Cool_Qmax"
+          },
+          "dTmin Contribution [C]": {
+            "value": 5,
+            "formula": "=dtmin_liq"
+          },
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        }
+      ],
+      "Equipments Description": "The system is composed by 1 fan, 1 recirculation pump, as well as the infrastructure for piping and the structural components of the cooling tower.",
+      "Equipments": {
+        "Circulation_pump": {
+          "Type": "Pump",
+          "Parameters": [
+            {
+              "Parameter": "Power",
+              "Value": 100.0,
+              "units": "kW"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": 40.0,
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": 2025.0,
+              "units": "year"
+            }
+          ]
+        },
+        "Cooling_fan": {
+          "Type": "Fan",
+          "Parameters": [
+            {
+              "Parameter": "Power",
+              "Value": 10.0,
+              "units": "kW"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": 40.0,
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": 2025.0,
+              "units": "year"
+            }
+          ]
+        },
+        "Structure_and_piping": {
+          "Type": "Civil works",
+          "Parameters": [
+            {
+              "Parameter": "Capital",
+              "Value": 300.0,
+              "units": "k\u20ac"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": 40.0,
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": 2025.0,
+              "units": "year"
+            }
+          ]
+        }
+      },
+      "Operating Cost Description": "The fixed and variable operating costs includes manpower, fixed cost of operation, taxes etc.",
+      "Operating Cost": {
+        "Fixed Operating Cost [EUR/y]": 0.0,
+        "Variable Operating Cost [EUR/h]": 0.0
+      }
+    }
+  }
+}

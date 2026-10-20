@@ -1,0 +1,5 @@
+# High-temperature electrolysis {.unnumbered}
+
+::: {.callout-note}
+Documentation for this model is not available yet.
+:::

@@ -1,0 +1,90 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.6 Chrome/144.0.7559.236 Electron/40.8.4 Safari/537.36" version="29.6.6">
+  <diagram name="Cooling tower" id="0KDV4ARqqSQjMvWxIVs3">
+    <mxGraphModel dx="1003" dy="-1375" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="yP7-tzMtR3XmOT10SEqR-2081" edge="1" parent="1" source="203" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1191.6315789473686" y="2530" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject label="" tags="Equipment" id="203">
+          <mxCell parent="1" style="vsdxID=207;fillColor=#FFFFFF;gradientColor=none;shape=stencil(tVXbdoMgEPwaHuVwEZDnNP0PToPKqZUctE3698WiNphoq03elt1hZXZGAHTXlOqoAUFN6+yrPplDWwL6BAgxdamdaX0E6B7QXW6dLpx9rw9hfVQdsove7EfX4Rz2YQop7XYR9BkyEn0vnwO6MvUFOuOQiwW0ci++5IbenEDGAtz1eEwwlDjkepi4OgLq64k6myZxtlWtsXVUq5QrdOK/l+SVKqJSc9L6eJHG83zIFZ/f6MgbdNKIzuxEH8LHBz/S5qaqgjPG+pzuDEVHZAuiY7SEjduuNAgWkGfxRDMKM/EPfwg5orfOdN0fsoXSnO9uU/ICjPAVnBZkigXNBGTz8sfYwQx/csoq8PQUm/2aIsji4TIBkbhPbz7eaANaQs7v0ptRmD6st4QpXZ5JdJNMbhEfTB8UnwqPEd1/AQ==);strokeColor=#000000;points=[[0.5,0.5,0],[1,0.5,0],[1,0.5,0],[0.5,0,0],[0.5,0,0]];labelBackgroundColor=none;rounded=0;html=1;whiteSpace=wrap;flipV=0;flipH=0;" vertex="1">
+            <mxGeometry height="132" width="110" x="1137" y="2550" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="204" parent="203" style="text;vsdxID=207;fillColor=none;gradientColor=none;strokeColor=none;points=[[0.5,0.5,0],[1,0.5,0],[1,0.5,0],[0.5,0,0],[0.5,0,0]];labelBackgroundColor=none;rounded=0;html=1;whiteSpace=wrap;verticalAlign=middle;align=center;overflow=width;;html=1;" value="&lt;div style=&quot;font-size: 1px&quot;&gt;&lt;font style=&quot;font-size:14.11px;font-family:Arial;color:#000000;direction:ltr;letter-spacing:0px;line-height:120%;opacity:1&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="28.23" width="112.89" x="3.5600000000000023" y="163.88" as="geometry" />
+        </mxCell>
+        <mxCell id="yP7-tzMtR3XmOT10SEqR-2072" parent="203" style="shape=mxgraph.pid.agitators.agitator_(propeller);html=1;pointerEvents=1;align=center;verticalLabelPosition=bottom;verticalAlign=top;dashed=0;rotation=-180;" value="" vertex="1">
+          <mxGeometry height="14" width="62" x="24" y="104" as="geometry" />
+        </mxCell>
+        <mxCell id="yP7-tzMtR3XmOT10SEqR-1969" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" value="Waste heat from processes" vertex="1">
+          <mxGeometry height="30" width="104.89" x="1294.86" y="2654" as="geometry" />
+        </mxCell>
+        <mxCell id="yP7-tzMtR3XmOT10SEqR-2010" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" value="Cooling Tower" vertex="1">
+          <mxGeometry height="30" width="40" x="1310" y="2570" as="geometry" />
+        </mxCell>
+        <mxCell id="yP7-tzMtR3XmOT10SEqR-2011" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;fontSize=14;startSize=4;jumpStyle=arc;endSize=6;dashed=1;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1099.9999999999995" y="2649" as="sourcePoint" />
+            <mxPoint x="1154.8899999999999" y="2649.000000000001" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yP7-tzMtR3XmOT10SEqR-2012" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" value="Electricity" vertex="1">
+          <mxGeometry height="30" width="40" x="1097" y="2610" as="geometry" />
+        </mxCell>
+        <mxCell id="yP7-tzMtR3XmOT10SEqR-2063" edge="1" parent="1" source="203" style="endArrow=classic;html=1;rounded=0;fontSize=14;startSize=4;jumpStyle=arc;endSize=6;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;edgeStyle=orthogonalEdgeStyle;exitX=0.885;exitY=0.995;exitDx=0;exitDy=0;exitPerimeter=0;" target="yP7-tzMtR3XmOT10SEqR-2064" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="1234" y="2715" />
+            </Array>
+            <mxPoint x="1250" y="2680" as="sourcePoint" />
+            <mxPoint x="1229.97" y="2742" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yP7-tzMtR3XmOT10SEqR-2087" edge="1" parent="1" source="yP7-tzMtR3XmOT10SEqR-2064" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="yP7-tzMtR3XmOT10SEqR-2085">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yP7-tzMtR3XmOT10SEqR-2064" parent="1" style="shape=mxgraph.pid.heat_exchangers.shell_and_tube_heat_exchanger_1;html=1;pointerEvents=1;align=center;verticalLabelPosition=bottom;verticalAlign=top;dashed=0;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="1254.86" y="2700" as="geometry" />
+        </mxCell>
+        <mxCell id="yP7-tzMtR3XmOT10SEqR-2065" edge="1" parent="1" source="yP7-tzMtR3XmOT10SEqR-2085" style="endArrow=classic;html=1;rounded=0;fontSize=14;startSize=4;jumpStyle=arc;endSize=6;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;edgeStyle=orthogonalEdgeStyle;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=none;" target="203" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="1410" y="2715" />
+              <mxPoint x="1410" y="2616" />
+            </Array>
+            <mxPoint x="1240.0040000000006" y="2681.9790000000003" as="sourcePoint" />
+            <mxPoint x="1250" y="2670" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yP7-tzMtR3XmOT10SEqR-2073" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;fontSize=14;startSize=4;jumpStyle=arc;endSize=6;edgeStyle=orthogonalEdgeStyle;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1120" y="2712" as="sourcePoint" />
+            <mxPoint x="1160" y="2682" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yP7-tzMtR3XmOT10SEqR-2074" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" value="Make up water" vertex="1">
+          <mxGeometry height="30" width="60" x="1070" y="2670" as="geometry" />
+        </mxCell>
+        <mxCell id="yP7-tzMtR3XmOT10SEqR-2082" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" value="Humid air" vertex="1">
+          <mxGeometry height="30" width="40" x="1230" y="2540" as="geometry" />
+        </mxCell>
+        <mxCell id="yP7-tzMtR3XmOT10SEqR-2083" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;fontSize=14;startSize=4;jumpStyle=arc;endSize=6;edgeStyle=orthogonalEdgeStyle;entryX=0.805;entryY=0.747;entryDx=0;entryDy=0;entryPerimeter=0;" target="203" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1270" y="2649" as="sourcePoint" />
+            <mxPoint x="1310" y="2624" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yP7-tzMtR3XmOT10SEqR-2084" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" value="Air" vertex="1">
+          <mxGeometry height="30" width="40" x="1254.8600000000001" y="2624" as="geometry" />
+        </mxCell>
+        <mxCell id="yP7-tzMtR3XmOT10SEqR-2085" parent="1" style="shape=mxgraph.pid.heat_exchangers.shell_and_tube_heat_exchanger_1;html=1;pointerEvents=1;align=center;verticalLabelPosition=bottom;verticalAlign=top;dashed=0;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="1332.3" y="2700" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

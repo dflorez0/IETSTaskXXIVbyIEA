@@ -1,0 +1,5531 @@
+{
+  "HEADER": {
+    "Model Name": "Dual Bed Gasifier",
+    "Authors and Contributors": "Daniel Florez-Orrego, Meire Domingos",
+    "Version": "1.0",
+    "Confidentiality": "Open",
+    "Creation Date": "2025-09-30 00:00:00",
+    "References": "[1] Fl\u00f3rez-Orrego, D., Mar\u00e9chal, F. and de Oliveira Junior, S., 2019. Comparative exergy and economic assessment of fossil and biomass-based routes for ammonia production. Energy Conversion and Management, 194, pp.22-36.\n[2] Hanchate, N., Ramani, S., Mathpati, C.S. and Dalvi, V.H., 2021. Biomass gasification using dual fluidized bed gasification systems: A review. Journal of cleaner production, 280, p.123148.\n[3] D. Chiche, C. Diverchy, A.-C. Lucquin, F. Porcheron, F. Defoort. Synthesis Gas Purification. Oil & Gas Science and Technology - Revue d\u2019IFP Energies nouvelles, 2013, 68 (4), pp.707-723.10.2516/ogst/2013175 . hal-01936192\n[4] A.P. Steynberg,Chapter 1 - Introduction to Fischer-Tropsch Technology, Editor(s): Andr\u00e9 Steynberg, Mark Dry,Studies in Surface Science and Catalysis,Elsevier,Volume 152,2004,Pages 1-63, https://doi.org/10.1016/S0167-2991(04)80458-0.https://www.sciencedirect.com/science/article/pii/S0167299104804580).\n[5] e-Fuels A technoeconomic assessment of european domestic production and imports towards 2050 - Concawe Aramco",
+    "Grade": "GREY-BOX",
+    "Software": "None",
+    "URL": "None",
+    "Last Update Date": "2025-10-10",
+    "Keywords": "Dual Bed Gasifier",
+    "Reference Capacity": "Kerosene",
+    "Description": "Dual Bed Gasifier with purification and FT liquids production (kerosene)",
+    "BlockFlowDiagram": "../dualbedgasifft.svg",
+    "Import Source": "Web Interface"
+  },
+  "VARIABLES": [
+    {
+      "Variable name": "dtmin_gas",
+      "Type": "DECISION",
+      "Full name": "Minimum temperature difference contribution for gases",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 8,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "",
+      "Bibliography": "-",
+      "Comment": ""
+    },
+    {
+      "Variable name": "dtmin_liq",
+      "Type": "DECISION",
+      "Full name": "Minimum temperature difference contribution for liquids",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 5,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "",
+      "Bibliography": "-",
+      "Comment": ""
+    },
+    {
+      "Variable name": "dtmin_2ph",
+      "Type": "LITERATURE",
+      "Full name": "Minimum temperature difference contribution for two phase streams",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 2,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "",
+      "Bibliography": "-",
+      "Comment": ""
+    },
+    {
+      "Variable name": "Bio_LHV_wet",
+      "Type": "LITERATURE",
+      "Full name": "Biomass lower heating value wet",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 8695,
+      "Physical unit": "kJ/kg_wetbiom",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "",
+      "Bibliography": "-",
+      "Comment": ""
+    },
+    {
+      "Variable name": "Bio_LHV_dry",
+      "Type": "LITERATURE",
+      "Full name": "Biomass lower heating value dry",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 17391,
+      "Physical unit": "kJ/kg_drybiom",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "",
+      "Bibliography": "-",
+      "Comment": ""
+    },
+    {
+      "Variable name": "Bio_massf_wet",
+      "Type": "LITERATURE",
+      "Full name": "Mass flow rate of wet biomass",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 225000,
+      "Physical unit": "kg/h",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "",
+      "Bibliography": "-",
+      "Comment": "Ultimate analysis (mass basis dry) 47%C, 6%H, 45%O, 0%N, 0%S, 2%ASH , Proximate analysis (mass basis) 14%FC, 84%VM, 2%ASH, 50%M"
+    },
+    {
+      "Variable name": "Bio_mass_dry",
+      "Type": "LITERATURE",
+      "Full name": "Mass flow rate of dry biomass",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 112500,
+      "Physical unit": "kg/h",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "",
+      "Bibliography": "-",
+      "Comment": ""
+    },
+    {
+      "Variable name": "Bio_energy",
+      "Type": "CONTEXT",
+      "Full name": "Biomass energy flow rate",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 543453,
+      "Physical unit": "kW",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "",
+      "Bibliography": "-",
+      "Comment": ""
+    },
+    {
+      "Variable name": "Ash_massflow",
+      "Type": "CONTEXT",
+      "Full name": "Ash Mass flow rate within biomass wet",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 2408,
+      "Physical unit": "kg/h]",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "",
+      "Bibliography": "-",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h1_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of external humidity cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 120,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "",
+      "Bibliography": "-",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h1_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of external humidity cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 30,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "",
+      "Bibliography": "-",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h1_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of external humidity cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 74766,
+      "Physical unit": "kW",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "",
+      "Bibliography": "-",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h2_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of ash cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 870,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "",
+      "Bibliography": "-",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h2_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of ash cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 100,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "",
+      "Bibliography": "-",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h2_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of ash cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 534,
+      "Physical unit": "kW",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "",
+      "Bibliography": "-",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h3_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of syngas cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 870,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h3_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of syngas cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 400,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h3_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of syngas cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 50831,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h4_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of flue gas cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 890,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h4_to",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of flue gas cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 100,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h4_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of flue gas cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 60066,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h5_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of ammonia cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 870,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h5_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of ammonia cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 400,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h5_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of ammonia cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 96,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h6_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of scrubbing water cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 65,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h6_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of scrubbing water cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 30,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h6_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of scrubbing water cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 59940,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h7_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of compressor intercooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 194,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h7_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of compressor intercooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 35,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h7_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of syngas compressor intercooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 28813,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h8_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of compressor intercooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 155,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h8_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of compressor intercooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 35,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h8_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of syngas compressor intercooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 6575,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h9_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of compressor intercooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 153,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h9_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of compressor intercooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 35,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_h9_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of syngas compressor intercooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 6079,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_c1_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of biomass drying",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 25,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_c1_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of biomass drying",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 120,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_c1_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of external biomass drying",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 79576,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_c2_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of boiler feedwater heating",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 30,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_c2_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of boiler feedwater heating",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 121,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_c2_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of boiler feedwater heating",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 8297,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_c3_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of gasifier steam generation",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 121,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_c3_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of gasifier steam generation",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 121,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_c3_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of gasifier steam generation",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 45416,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_c4_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of air preheater",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 30,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_c4_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of air preheater",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 400,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "gasif_c4_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of air preheating",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 24396,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "chippingelec",
+      "Type": "CONTEXT",
+      "Full name": "Power consumption in chipping process (2% of biomass LHV)",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 10869,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "syngascp",
+      "Type": "CONTEXT",
+      "Full name": "Power consumption in syngas compressor",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 19512,
+        "formula": "=8144+5795+5573"
+      },
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "syngasdried",
+      "Type": "CONTEXT",
+      "Full name": "Mass flow rate of dry syngas after guard bed (guard bed exit)",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 99097,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": "molfrac [23%CO2, 21%CO, 42%H2, 14%CH4] / massfrac [53%CO2, 30%CO, 4%H2, 12%CH4]"
+    },
+    {
+      "Variable name": "syngasdried_molf",
+      "Type": "LITERATURE",
+      "Full name": "Molar flow of dry syngas after guard bed",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 5185,
+      "Physical unit": "kmol/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "syngasdried_LHV",
+      "Type": "LITERATURE",
+      "Full name": "Lower heating value of dry syngas after guard bed",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 14381,
+      "Physical unit": "kJ/kg",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "syngasdried_percent",
+      "Type": "CONTEXT",
+      "Full name": "Syngas energy (dry LHV) to biomass energy (LHV) ratio",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 0.728,
+      "Physical unit": "-",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "fluegas_massf",
+      "Type": "CONTEXT",
+      "Full name": "Mass flow rate of flue gas at combustor stack",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 245016,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": "molfrac [17%CO2, 4%O2, 79%N2], massfrac [24%CO2, 4%O2, 72%N2]"
+    },
+    {
+      "Variable name": "CO2influegasif",
+      "Type": "CONTEXT",
+      "Full name": "Mass flow rate of CO2 in flue gas at combustor stack, 17% CO2 molar",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 59881,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "water_consgasif",
+      "Type": "CONTEXT",
+      "Full name": "Volumetric flow rate of water consumed in gasifier",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 71.9,
+      "Physical unit": "m3/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": "steam to biomass ratio 0.75 (excl. H2O in biomass)"
+    },
+    {
+      "Variable name": "air_consgasif",
+      "Type": "CONTEXT",
+      "Full name": "Mass flow rate of the air to the combustion bed",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 228674,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "water_condgasif",
+      "Type": "CONTEXT",
+      "Full name": "Volumetric flow rate of water condensate produced in the gasification section",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 179.3,
+        "formula": "=100+51+27+1+0.3"
+      },
+      "Physical unit": "m3/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "C_Efficiency",
+      "Type": "CONTEXT",
+      "Full name": "Carbon outlet to inlet ratio",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 0.69,
+      "Physical unit": "-",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h1_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of ATR Cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 1063,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h1_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of ATR Cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 350,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h1_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of ATR Cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 47688,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h2_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of HTS Cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 476,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h2_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of HTS Cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 123,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h2_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of HTS Cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": -22567,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h3_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of HTS Cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 123,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h3_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of HTS Cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 30,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h3_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of HTS Cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": -11284,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h4_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of Recycled gas",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 95,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h4_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of Recycled gas",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 30,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h4_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of the recycled gas",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": -49,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h5_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of the CO2 compressor",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 84,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h5_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of the CO2 compressor",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 35,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h5_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of the CO2 compressor",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": -767,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h6_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of the CO2 compressor",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 97,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h6_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of the CO2 compressor",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 35,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h6_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of the CO2 compressor",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": -970,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h7_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of the CO2 compressor",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 97,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h7_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of the CO2 compressor",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 35,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_h7_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of the CO2 compressor",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": -973,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_c1_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of the saturator",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 50,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_c1_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of the saturator",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 540,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_c1_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of the saturator",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 2641,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_c2_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of the saturator",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 34,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_c2_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of the saturator",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 216,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_c2_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of the saturator",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 11232,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_c3_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of the saturator",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 216,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_c3_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of the saturator",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 398,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_c3_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of the saturator",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 10024,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_c4_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of oxygen preheating",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 398,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_c4_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of oxygen preheating",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 580,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_c4_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of oxygen preheating",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 10671,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_c5_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of selexol temperature adjustment",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 24,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_c5_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of selexol temperature adjustment",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 25,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_c5_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of selexol temperature adjustment",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 601,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_c6_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of syngas H2:CO 2:1 preheating",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 42,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_c6_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of syngas H2:CO 2:1 preheating",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 50,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyn_c6_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of syngas H2:CO 2:1 preheating to Fischer Tropsch unit",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 312,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "oxycompr",
+      "Type": "CONTEXT",
+      "Full name": "Electricity consumption of oxygen to ATR",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 74,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "waterpump",
+      "Type": "CONTEXT",
+      "Full name": "Electricity consumption of the water pump",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 3,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "recyclcomp",
+      "Type": "CONTEXT",
+      "Full name": "Electricity consumption of the recycle compressor",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 47,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "expander1",
+      "Type": "CONTEXT",
+      "Full name": "Electricity generation of the expander",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": -811,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "expander2",
+      "Type": "CONTEXT",
+      "Full name": "Electricity generation of the expander",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": -57,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "expander3",
+      "Type": "CONTEXT",
+      "Full name": "Electricity generation of the expander",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": -288,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "expander4",
+      "Type": "CONTEXT",
+      "Full name": "Electricity generation of the expander",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": -1897,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "circpump1",
+      "Type": "CONTEXT",
+      "Full name": "Electricity consumption of the selexol pump",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 159,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "circpump2",
+      "Type": "CONTEXT",
+      "Full name": "Electricity consumption of the selexol pump",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 2760,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "co2comp1",
+      "Type": "CONTEXT",
+      "Full name": "Electricity consumption of the CO2 compressor",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 932,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "co2comp2",
+      "Type": "CONTEXT",
+      "Full name": "Electricity consumption of the CO2 compressor",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 966,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "co2comp3",
+      "Type": "CONTEXT",
+      "Full name": "Electricity consumption of the CO2 compressor",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 965,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "syntoft",
+      "Type": "CONTEXT",
+      "Full name": "Electricity consumption of the syngas compressor to FT unit",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 649,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "co2capturedGasif",
+      "Type": "CONTEXT",
+      "Full name": "Mass flow rate of the CO2 captured",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 60428,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "co2capturedGasif_molf",
+      "Type": "CONTEXT",
+      "Full name": "Molar flow of the CO2 captured, 95% molar, 1bar, 30\u00b0C",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 1373,
+      "Physical unit": "kmol/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "o2consumedATRGasif",
+      "Type": "CONTEXT",
+      "Full name": "Mass flow rate of the oxygen at 30 bar",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 19217,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "water_consrefshift",
+      "Type": "CONTEXT",
+      "Full name": "Volumetric flow rate of water for ATR and WGS reactions",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 3,
+      "Physical unit": "m3/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "water_condshift",
+      "Type": "CONTEXT",
+      "Full name": "Volumetric flow rate of produced condensate",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 8,
+      "Physical unit": "m3/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "purifsyngasdry",
+      "Type": "CONTEXT",
+      "Full name": "Mass flow rate of syngas to FT",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 51060,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": "molfrac [0%CO2, 32%CO, 67%H2, 1%CH4], massfrac [1%CO2, 85%CO, 13%H2, 1%CH4]"
+    },
+    {
+      "Variable name": "purifsyngasdry_molf",
+      "Type": "LITERATURE",
+      "Full name": "Molar flow rate of syngas to FT",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 4830,
+      "Physical unit": "kmol/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h1_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of FT reactor cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 240,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h1_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of FT reactor cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 240,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h1_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of FT reactor cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 73421,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h2_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of FT product cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 240,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h2_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of FT product cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 120,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h2_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of FT product cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 21259,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h3_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of light separation cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 120,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h3_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of light separation cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 120,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h3_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of light separation cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 1160,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h4_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of lights chilling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 120,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h4_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of lights chilling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 15,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h4_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of lights chilling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 5299,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h5_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of light separation cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 15,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h5_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of light separation cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 15,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h5_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of light separation cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 225,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h6_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of produced water cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 120,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h6_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of produced water cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 30,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h6_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of produced water cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 2839,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h7_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of condenser of distillation column",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 38,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h7_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of condenser of distillation column",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 38,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h7_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of condenser of distillation column",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 3832,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h8_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of wax cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 430,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h8_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of wax cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 350,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h8_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of wax cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 643,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h9_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of raw diesel cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 289,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h9_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of raw diesel cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 100,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h9_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of raw diesel cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 1007,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h10_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of hydrocaker outlet cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 346,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h10_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of hydrocaker outlet cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 100,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h10_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of hydrocaker outlet cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 2755,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h11_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of naphtha cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 110,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h11_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of naphtha cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 30,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h11_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of naphtha cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 292,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h12_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of kerosene cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 250,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h12_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of kerosene cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 30,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h12_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of kerosene cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 1675,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h13_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of diesel cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 300,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h13_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of diesel cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 30,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h13_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of diesel cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 511,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h14_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of light recycle cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 98,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h14_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of light recycle cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 50,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h14_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of light recycle cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 136,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h15_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of lights compression intercooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 100,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h15_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of lights compression intercooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 50,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h15_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of lights compression intercooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 1117,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h16_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of ATR reformer effluent cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 950,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h16_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of ATR reformer effluent cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 500,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h16_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of ATR reformer effluent cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 16540,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h17_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of ATR reformer effluent cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 500,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h17_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of ATR reformer effluent cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 250,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h17_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of ATR reformer effluent cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 8760,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h18_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of ATR reformer effluent cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 250,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h18_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of ATR reformer effluent cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 100,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h18_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of ATR reformer effluent cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 8405,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h19_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of ATR reformer effluent cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 100,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h19_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of ATR reformer effluent cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 40,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h19_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of ATR reformer effluent cooling",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 3523,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h20_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of FT offgas combustion heat",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 1050,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h20_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of FT offgas combustion heat",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 1050,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h20_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of FT offgas combustion heat",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 17032,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h21_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of FT Offgas combustion heat",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 1050,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h21_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of FT Offgas combustion heat",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 100,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_h21_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of FT Offgas combustion heat",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 18119,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c1_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of FT reactor feed preheating",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 52,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c1_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of FT reactor feed preheating",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 240,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c1_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of FT reactor feed preheating",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 11868,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c2_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of furnace of distillation column",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 430,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c2_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of furnace of distillation column",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 430,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c2_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of furnace of distillation column",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 5644,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c3_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of stripping diesel distillation column",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 238,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c3_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of stripping diesel distillation column",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 254,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c3_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of stripping diesel distillation column",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 1000,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c4_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of stripping steam preheating distillation column",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 30,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c4_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of stripping steam preheating distillation column",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 263,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c4_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of stripping steam preheating distillation column",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 64,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c5_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of stripping steam evaporation distillation column",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 263,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c5_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of stripping steam evaporation distillation column",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 263,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c5_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of stripping steam evaporation distillation column",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 96,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c6_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of stripping steam superheating distillation column",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 263,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c6_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of stripping steam superheating distillation column",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 500,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c6_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of stripping steam superheating distillation column",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 31,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c7_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of hydrocracker heating",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 350,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c7_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of hydrocracker heating",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 350,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c7_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of hydrocracker heating",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 759,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c8_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of naphtha separation heat",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 100,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c8_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of naphtha separation heat",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 180,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c8_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of naphtha separation heat",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 183,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c9_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of kerosene separation heat",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 100,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c9_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of kerosene separation heat",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 250,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c9_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of kerosene separation heat",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 1211,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c10_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of diesel separation heat",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 100,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c10_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of diesel separation heat",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 300,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c10_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of diesel separation heat",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 399,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c11_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of oxygen preheating to ATR",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 63,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c11_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of oxygen preheating to ATR",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 169,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c11_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of oxygen preheating to ATR",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 342,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c12_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of steam preheating to ATR",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 30,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c12_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of steam preheating to ATR",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 250,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c12_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of steam preheating to ATR",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 748,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c13_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of steam evaporation to ATR",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 250,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c13_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of steam evaporation to ATR",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 250,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c13_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of steam evaporation to ATR",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 1249,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c14_ti",
+      "Type": "DECISION",
+      "Full name": "Temperature inlet of steam superheating to ATR",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 250,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c14_to",
+      "Type": "DECISION",
+      "Full name": "Temperature outlet of steam superheating to ATR",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 500,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FischerT_c14_ho",
+      "Type": "DECISION",
+      "Full name": "Heat duty of steam superheating to ATR",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 401,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "FreshSynmassf",
+      "Type": "CONTEXT",
+      "Full name": "Mass flow of fresh syngas from syngas purification",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 50581,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": "molfrac [0%CO2, 32%CO, 65%H2, 3%CH4], massfrac [0%CO2, 83%CO, 12%H2, 4%CH4]"
+    },
+    {
+      "Variable name": "MolratH2CO",
+      "Type": "LITERATURE",
+      "Full name": "H2:CO ratio of both recirculated and fresh syngas",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 2.01,
+      "Physical unit": "-",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "CO2seprecirc",
+      "Type": "CONTEXT",
+      "Full name": "Mass flow of CO2 separated using PSA before FT gases recirculation",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 4319,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": "94% CO2, 4 bar"
+    },
+    {
+      "Variable name": "RecSynmassf",
+      "Type": "CONTEXT",
+      "Full name": "Mass flow of recirculated syngas after FT CO2 separation",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 32219,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": "molfrac [1%CO2, 33%CO, 66%H2, 0%CH4], massfrac [1%CO2, 85%CO, 12%H2, 0%CH4]"
+    },
+    {
+      "Variable name": "DistiSteamCons",
+      "Type": "CONTEXT",
+      "Full name": "Volumetric flow rate of water for steam generation for distillation column",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 0.2,
+      "Physical unit": "m3/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "ReformSteamCons",
+      "Type": "CONTEXT",
+      "Full name": "Volumetric flow rate of water for steam generation for reformer",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 2.54,
+      "Physical unit": "m3/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "Wastewaterlights1",
+      "Type": "CONTEXT",
+      "Full name": "Volumetric flow rate of water outlet",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 24.9,
+      "Physical unit": "m3/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "Wastewaterlights2",
+      "Type": "CONTEXT",
+      "Full name": "Volumetric flow rate of water outlet",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 3.5,
+      "Physical unit": "m3/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "Wastewaterdistcol",
+      "Type": "CONTEXT",
+      "Full name": "Volumetric flow rate of water outlet",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 0.34,
+      "Physical unit": "m3/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "Wastewaterrecycl",
+      "Type": "CONTEXT",
+      "Full name": "Volumetric flow rate of water outlet",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 7.1,
+      "Physical unit": "m3/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "Wastewaterdecant",
+      "Type": "CONTEXT",
+      "Full name": "Volumetric flow rate of water outlet",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 0,
+      "Physical unit": "m3/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "H2massconsFT",
+      "Type": "CONTEXT",
+      "Full name": "Mass flow rate of H2 to FT process, H2 at 30\u00b0C and 30 bar,99.99%, compressed at 50 bar",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 761,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "O2massconsFT",
+      "Type": "CONTEXT",
+      "Full name": "Mass flow rate of O2 to FT process, O2 at 30\u00b0C and 30 bar, compressed at 40 bar",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 11787,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "Naphtha",
+      "Type": "CONTEXT",
+      "Full name": "Mass flow rate of naphtha production, carbon chains: C5-C10",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 5733,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "Kerosene",
+      "Type": "CONTEXT",
+      "Full name": "Mass flow rate of kerosene production, carbon chains : C11-C15",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 10720,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "Diesel",
+      "Type": "CONTEXT",
+      "Full name": "Mass flow rate of diesel production, carbon chains : C16-C20",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 2628,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "lightrecy1",
+      "Type": "CONTEXT",
+      "Full name": "Electricity consumption of light recycle compressor",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 534,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "lightrecy2",
+      "Type": "CONTEXT",
+      "Full name": "Electricity consumption of light recycle compressor",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 1260,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "O2atrcomp",
+      "Type": "CONTEXT",
+      "Full name": "Electricity consumption of oxygen compression to ATR from 30 bar to 50 bar",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 96,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "waterpumpft",
+      "Type": "CONTEXT",
+      "Full name": "Electricity consumption of water pump",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 4,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "circulator",
+      "Type": "CONTEXT",
+      "Full name": "Electricity consumption of circulator",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 353,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "hydrocrackpump",
+      "Type": "CONTEXT",
+      "Full name": "Electricity consumption of pump for hydrocracker",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 30,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "h2compressor",
+      "Type": "CONTEXT",
+      "Full name": "Electricity consumption of H2 compressor from 30 bar compress to 41 bar",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 164,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "Offgasmassflo",
+      "Type": "CONTEXT",
+      "Full name": "Mass flow rate of offgas to combustion",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 6469,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": "molfrac [4%CO2, 32%CO, 64%H2, 0%CH4], massfrac [13%CO2, 75%CO, 11%H2, 0%CH4]"
+    },
+    {
+      "Variable name": "Airmassflo",
+      "Type": "CONTEXT",
+      "Full name": "Mass flow rate of air for offgas combustion",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 45000,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "Fluegasmassflo",
+      "Type": "CONTEXT",
+      "Full name": "Mass flow of flue gas from offgas combustion",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 51469,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": "molfrac [10%CO2, 4%CO, 19%H2, 67%CH4], massfrac [16%CO2, 4%CO, 12%H2, 67%CH4]"
+    },
+    {
+      "Variable name": "CO2influegasFT",
+      "Type": "CONTEXT",
+      "Full name": "Mass flow of CO2 in the flue gas of the offgas combustion to CCS, 10%CO2 molar",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 8181,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "Spec_GasiftoFTCost",
+      "Type": "CONTEXT",
+      "Full name": "Specific investment cost GoBiGas Project gasifier",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 1300,
+      "Physical unit": "Eur/kW_biom",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "Spec_FischerTCost",
+      "Type": "CONTEXT",
+      "Full name": "Specific investment FT synthesis cost",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 10512,
+        "formula": "=1200/1000*8760"
+      },
+      "Physical unit": "Eur/(kg/h)",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": "1120e6 EUR for 1e6 tpy or 1370 MW FT fluids (44000 kJ/kg) = 1120 EUR/tpy"
+    },
+    {
+      "Variable name": "n",
+      "Type": "CONTEXT",
+      "Full name": "Lifetime",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 40,
+      "Physical unit": "years",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "i",
+      "Type": "CONTEXT",
+      "Full name": "Interest rate",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 0.06,
+      "Physical unit": "-",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "CEPCI_2020",
+      "Type": "LITERATURE",
+      "Full name": "Actual CEPCI",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 596.2,
+      "Physical unit": "-",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "CEPCI_2019",
+      "Type": "LITERATURE",
+      "Full name": "Old CEPCI",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 585,
+      "Physical unit": "-",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "WaterBalanceOutGasif",
+      "Type": "DECISION",
+      "Full name": "Net volumetric flow rate of the water exiting the system",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": {
+        "value": 112.4,
+        "formula": "=-water_consgasif-water_consrefshift+water_condshift+water_condgasif"
+      },
+      "Physical unit": "m3/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "CO2BalanceGasif",
+      "Type": "DECISION",
+      "Full name": "Net mass flow rate of the pure CO2 leaving the syngas production and purification system",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": {
+        "value": 60428,
+        "formula": "=co2capturedGasif"
+      },
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "CO2inFlueBalanceGasif",
+      "Type": "DECISION",
+      "Full name": "Mass flow rate of CO2 to capture unit, 17% CO2 molar",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": {
+        "value": 59881,
+        "formula": "=CO2influegasif"
+      },
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "ElecBalanceGasif",
+      "Type": "DECISION",
+      "Full name": "Net electricity consumption in the syngas production and purification system",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": {
+        "value": 33883,
+        "formula": "=chippingelec+syngascp+oxycompr+waterpump+recyclcomp+circpump1+circpump2+co2comp1+co2comp2+co2comp3+expander1+expander2+expander3+expander4+syntoft"
+      },
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "WaterBalanceOutFT",
+      "Type": "DECISION",
+      "Full name": "Net volumetric flow rate of the water exiting the system",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": {
+        "value": 33.5,
+        "formula": "=DistiSteamCons-ReformSteamCons+Wastewaterlights2+Wastewaterlights1+Wastewaterdistcol+Wastewaterrecycl+Wastewaterdecant"
+      },
+      "Physical unit": "m3/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "CO2BalanceFT",
+      "Type": "DECISION",
+      "Full name": "Net mass flow rate of the pure CO2 leaving the FT system",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": {
+        "value": 4319,
+        "formula": "=CO2seprecirc"
+      },
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "CO2inFlueBalanceFT",
+      "Type": "DECISION",
+      "Full name": "Mass flow rate of CO2 from FT to capture unit, 17% CO2 molar",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": {
+        "value": 8181,
+        "formula": "=CO2influegasFT"
+      },
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "ElecBalanceFT",
+      "Type": "DECISION",
+      "Full name": "Net electricity consumption in the FT system",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": {
+        "value": 2441,
+        "formula": "=lightrecy1+lightrecy2+O2atrcomp+waterpumpft+circulator+hydrocrackpump+h2compressor"
+      },
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "Annuity",
+      "Type": "DECISION",
+      "Full name": "Annualization factor",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": {
+        "value": 0.0664615359206755,
+        "formula": "=(i*(i+1)^n)/((i+1)^n-1)"
+      },
+      "Physical unit": "-",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "Cinv2_GasiftoFT",
+      "Type": "DECISION",
+      "Full name": "Investment cost of the gasifier and purification unit",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": {
+        "value": 46954337.404908516,
+        "formula": "=Spec_GasiftoFTCost*Bio_energy*(CEPCI_2020/CEPCI_2020)*Annuity"
+      },
+      "Physical unit": "Euro/y",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    },
+    {
+      "Variable name": "Cinv2_FischerT",
+      "Type": "DECISION",
+      "Full name": "Investment cost of the gasification system for producing FT liquids",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": {
+        "value": 13330819.783278124,
+        "formula": "=Spec_FischerTCost*(Naphtha+Kerosene+Diesel)*(CEPCI_2020/CEPCI_2020)*Annuity"
+      },
+      "Physical unit": "Eur/y",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "",
+      "Bibliography": "",
+      "Comment": ""
+    }
+  ],
+  "CONNECTORS": {
+    "EXTERNAL CONNECTORS": [
+      {
+        "Unique Identifier Number, UID": "ELECTRICITY",
+        "NAME (ALIAS)": "Electricity",
+        "TYPE": "ELECTRICITY",
+        "PHYSICAL UNIT": "kW",
+        "TEMPERATURE": "-",
+        "TEMPERATURE UNIT": "-",
+        "PRESSURE": "-",
+        "PRESSURE UNIT": "-",
+        "VAPOR FRACTION [MASS]": "-",
+        "PHASE": "-",
+        "COMPOSITION [MOLE/MASS]": ""
+      },
+      {
+        "Unique Identifier Number, UID": "CH4",
+        "NAME (ALIAS)": "natGas",
+        "TYPE": "ENERGY",
+        "PHYSICAL UNIT": "kW",
+        "TEMPERATURE": "",
+        "TEMPERATURE UNIT": "",
+        "PRESSURE": "",
+        "PRESSURE UNIT": "",
+        "VAPOR FRACTION [MASS]": "",
+        "PHASE": "",
+        "COMPOSITION [MOLE/MASS]": ""
+      },
+      {
+        "Unique Identifier Number, UID": "CO2",
+        "NAME (ALIAS)": "CO2",
+        "TYPE": "MASS",
+        "PHYSICAL UNIT": "kg/h",
+        "TEMPERATURE": "",
+        "TEMPERATURE UNIT": "",
+        "PRESSURE": "",
+        "PRESSURE UNIT": "",
+        "VAPOR FRACTION [MASS]": "",
+        "PHASE": "",
+        "COMPOSITION [MOLE/MASS]": ""
+      },
+      {
+        "Unique Identifier Number, UID": "water",
+        "NAME (ALIAS)": "water",
+        "TYPE": "MASS",
+        "PHYSICAL UNIT": "m3/h",
+        "TEMPERATURE": "",
+        "TEMPERATURE UNIT": "",
+        "PRESSURE": "",
+        "PRESSURE UNIT": "",
+        "VAPOR FRACTION [MASS]": "",
+        "PHASE": "",
+        "COMPOSITION [MOLE/MASS]": ""
+      },
+      {
+        "Unique Identifier Number, UID": "oxyprocess",
+        "NAME (ALIAS)": "oxyprocess",
+        "TYPE": "MASS",
+        "PHYSICAL UNIT": "kg/h",
+        "TEMPERATURE": "",
+        "TEMPERATURE UNIT": "",
+        "PRESSURE": "",
+        "PRESSURE UNIT": "",
+        "VAPOR FRACTION [MASS]": "",
+        "PHASE": "",
+        "COMPOSITION [MOLE/MASS]": ""
+      },
+      {
+        "Unique Identifier Number, UID": "hydrogen",
+        "NAME (ALIAS)": "hydrogen",
+        "TYPE": "MASS",
+        "PHYSICAL UNIT": "kg/h",
+        "TEMPERATURE": "",
+        "TEMPERATURE UNIT": "",
+        "PRESSURE": "",
+        "PRESSURE UNIT": "",
+        "VAPOR FRACTION [MASS]": "",
+        "PHASE": "",
+        "COMPOSITION [MOLE/MASS]": ""
+      },
+      {
+        "Unique Identifier Number, UID": "Wood",
+        "NAME (ALIAS)": "Wood",
+        "TYPE": "ENERGY",
+        "PHYSICAL UNIT": "kW",
+        "TEMPERATURE": "",
+        "TEMPERATURE UNIT": "",
+        "PRESSURE": "",
+        "PRESSURE UNIT": "",
+        "VAPOR FRACTION [MASS]": "",
+        "PHASE": "",
+        "COMPOSITION [MOLE/MASS]": ""
+      },
+      {
+        "Unique Identifier Number, UID": "Naphtha",
+        "NAME (ALIAS)": "Naphtha",
+        "TYPE": "MASS",
+        "PHYSICAL UNIT": "kg/h",
+        "TEMPERATURE": "",
+        "TEMPERATURE UNIT": "",
+        "PRESSURE": "",
+        "PRESSURE UNIT": "",
+        "VAPOR FRACTION [MASS]": "",
+        "PHASE": "",
+        "COMPOSITION [MOLE/MASS]": ""
+      },
+      {
+        "Unique Identifier Number, UID": "CO2inFlueGas",
+        "NAME (ALIAS)": "CO2inFlueGas",
+        "TYPE": "EMISSION",
+        "PHYSICAL UNIT": "kW",
+        "TEMPERATURE": "",
+        "TEMPERATURE UNIT": "",
+        "PRESSURE": "",
+        "PRESSURE UNIT": "",
+        "VAPOR FRACTION [MASS]": "",
+        "PHASE": "",
+        "COMPOSITION [MOLE/MASS]": ""
+      },
+      {
+        "Unique Identifier Number, UID": "Kerosene",
+        "NAME (ALIAS)": "Kerosene",
+        "TYPE": "MASS",
+        "PHYSICAL UNIT": "kg/h",
+        "TEMPERATURE": "",
+        "TEMPERATURE UNIT": "",
+        "PRESSURE": "",
+        "PRESSURE UNIT": "",
+        "VAPOR FRACTION [MASS]": "",
+        "PHASE": "",
+        "COMPOSITION [MOLE/MASS]": ""
+      },
+      {
+        "Unique Identifier Number, UID": "Diesel",
+        "NAME (ALIAS)": "Diesel",
+        "TYPE": "MASS",
+        "PHYSICAL UNIT": "kg/h",
+        "TEMPERATURE": "",
+        "TEMPERATURE UNIT": "",
+        "PRESSURE": "",
+        "PRESSURE UNIT": "",
+        "VAPOR FRACTION [MASS]": "",
+        "PHASE": "",
+        "COMPOSITION [MOLE/MASS]": ""
+      }
+    ],
+    "INTERNAL CONNECTORS": [
+      {
+        "Unique Identifier Number, UID": "SyngasToFT",
+        "NAME (ALIAS)": "SyngasToFT",
+        "TYPE": "EMISSION",
+        "PHYSICAL UNIT": "kg/h",
+        "TEMPERATURE": "",
+        "TEMPERATURE UNIT": "",
+        "PRESSURE": "",
+        "PRESSURE UNIT": "",
+        "VAPOR FRACTION [MASS]": "",
+        "PHASE": "",
+        "COMPOSITION [MOLE/MASS]": ""
+      }
+    ]
+  },
+  "UNITS": {
+    "DualBedGasiftoFT": {
+      "Unit Description": "Biomass gasification is a thermochemical conversion that decomposes biomass at elevated temperatures (>700\u00b0C) in presence of a gasification agent such as air, `O_{2}`, steam, `CO_{2}` or combination thereof. The gasification process is typically modeled as a series of interrelated drying, pyrolysis, reduction and combustion processes. The actual mass yields of volatiles, condensables, and solids in the pyrolysis reaction step, as well as the gaseous volumetric fractions of the hydrogen, carbon monoxide, carbon dioxide, methane produced in the reduction step strongly depend on the gasifier operating parameters, such as temperature, pressure, feed moisture and chemical composition, gasification agent, energy supply, among other hydraulic and structural characteristics.\n\nIn particular, a dual bed gasifier consists of two interconnected fluidized beds. The first bed is a bubbling fluidized bed, in which biomass is converted into syngas. The second bed is a fast fluidized combustion bed, which oxidizes the residual char with air or oxygen, thus providing the heating requirements of the the highly endothermic gasification reactions occurring in the first bed. The feed of biomass or other gasifying materials is supplied to the first gasifier bed with the help of a screw conveyor. The two fluidized beds are controlled separately, but they are interconnected via a non-mechanical valve, such as a loop seal valve, to ensure the circulation of the bed particles. A cyclone separator is employed to separate the heat-carrying material (e.g. sand with olivine) and the flue gases in the top of the combustion bed. The heat-carrying material is returned to the first gasifier, while the flue gases are sent to the heat recovery system. The product gas obtained from the gasifier is primarily composed of `H2`, `CO`, `CO_{2}`, `CH_{4}`, and small amounts of tar and other undesired components. The gaseous mixture continues to the purification units (e.g. water scrubber and ZnO guard bed) in order to remove the impurities and to upgrade the syngas quality via water gas shift reactions with intercooling.",
+      "Unit Info": {
+        "Unit name": "DualBedGasiftoFT",
+        "Minimum capacity multiplier": 0.0,
+        "Maximum capacity multiplier": 0.1
+      },
+      "Connectors Description": "the mass and resource streams of the different units associated to each relevant layer are defined. It must be carefully inserted each one of the `%tags%` defined in the previous chunks. It is important to define the direction of the mass or resource streams from the perspective of each unit. For instance, electricity is consumed in the unit (i.e. direction is `in`)",
+      "Connectors": [
+        {
+          "NAME (ALIAS)": "Wood",
+          "TYPE": "ENERGY",
+          "DIRECTION": "IN",
+          "VALUE": {
+            "value": 543453,
+            "formula": "=Bio_energy"
+          },
+          "PHYSICAL UNIT": "kW",
+          "TEMPERATURE": "-",
+          "TEMPERATURE UNIT": "-",
+          "PRESSURE": "-",
+          "PRESSURE UNIT": "-",
+          "VAPOR FRACTION [MASS]": "-",
+          "PHASE": "-",
+          "COMPOSITION [MOLE/MASS]": "-"
+        },
+        {
+          "NAME (ALIAS)": "CO2",
+          "TYPE": "MASS",
+          "DIRECTION": "OUT",
+          "VALUE": {
+            "value": 60428,
+            "formula": "=CO2BalanceGasif"
+          },
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": "-",
+          "TEMPERATURE UNIT": "-",
+          "PRESSURE": "-",
+          "PRESSURE UNIT": "-",
+          "VAPOR FRACTION [MASS]": "-",
+          "PHASE": "-",
+          "COMPOSITION [MOLE/MASS]": "-"
+        },
+        {
+          "NAME (ALIAS)": "CO2inFlueGas",
+          "TYPE": "EMISSION",
+          "DIRECTION": "OUT",
+          "VALUE": {
+            "value": 59881,
+            "formula": "=CO2inFlueBalanceGasif"
+          },
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": "-",
+          "TEMPERATURE UNIT": "-",
+          "PRESSURE": "-",
+          "PRESSURE UNIT": "-",
+          "VAPOR FRACTION [MASS]": "-",
+          "PHASE": "-",
+          "COMPOSITION [MOLE/MASS]": "-"
+        },
+        {
+          "NAME (ALIAS)": "oxyprocess",
+          "TYPE": "MASS",
+          "DIRECTION": "IN",
+          "VALUE": {
+            "value": 19217,
+            "formula": "=o2consumedATRGasif"
+          },
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": "-",
+          "TEMPERATURE UNIT": "-",
+          "PRESSURE": "-",
+          "PRESSURE UNIT": "-",
+          "VAPOR FRACTION [MASS]": "-",
+          "PHASE": "-",
+          "COMPOSITION [MOLE/MASS]": "-"
+        },
+        {
+          "NAME (ALIAS)": "water",
+          "TYPE": "MASS",
+          "DIRECTION": "OUT",
+          "VALUE": {
+            "value": 112.4,
+            "formula": "=WaterBalanceOutGasif"
+          },
+          "PHYSICAL UNIT": "m3/h",
+          "TEMPERATURE": "-",
+          "TEMPERATURE UNIT": "-",
+          "PRESSURE": "-",
+          "PRESSURE UNIT": "-",
+          "VAPOR FRACTION [MASS]": "-",
+          "PHASE": "-",
+          "COMPOSITION [MOLE/MASS]": "-"
+        },
+        {
+          "NAME (ALIAS)": "Electricity",
+          "TYPE": "ELECTRICITY",
+          "DIRECTION": "IN",
+          "VALUE": {
+            "value": 33883,
+            "formula": "=ElecBalanceGasif"
+          },
+          "PHYSICAL UNIT": "kW",
+          "TEMPERATURE": "-",
+          "TEMPERATURE UNIT": "-",
+          "PRESSURE": "-",
+          "PRESSURE UNIT": "-",
+          "VAPOR FRACTION [MASS]": "-",
+          "PHASE": "-",
+          "COMPOSITION [MOLE/MASS]": "-"
+        },
+        {
+          "NAME (ALIAS)": "SyngasToFT",
+          "TYPE": "EMISSION",
+          "DIRECTION": "OUT",
+          "VALUE": {
+            "value": 51060,
+            "formula": "=purifsyngasdry"
+          },
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": "-",
+          "TEMPERATURE UNIT": "-",
+          "PRESSURE": "-",
+          "PRESSURE UNIT": "-",
+          "VAPOR FRACTION [MASS]": "-",
+          "PHASE": "-",
+          "COMPOSITION [MOLE/MASS]": "-"
+        }
+      ],
+      "Heat Streams Description": "It is important to highlight that the layer for the heat streams balance is not explicitly defined, since a `DefaultHeatCascade` is already implemented for all the units in Rosmose. The heat streams are defined with source and target temperatures, and the respective heat flows (calculated as `H_{out}-H_{in}` in kW). These utility streams are used to do the combined heat and power balance of the process and to apply the optimization routine that minimizes the energy requirement (MER) by maximizing the waste heat recovery.",
+      "Heat Streams": [
+        {
+          "name": "qt_h100",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 120,
+            "formula": "=gasif_h1_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 30,
+            "formula": "=gasif_h1_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 74766,
+            "formula": "=gasif_h1_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 2,
+            "formula": "=dtmin_2ph"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h101",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 870,
+            "formula": "=gasif_h2_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 100,
+            "formula": "=gasif_h2_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 534,
+            "formula": "=gasif_h2_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h102",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 870,
+            "formula": "=gasif_h3_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 400,
+            "formula": "=gasif_h3_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 50831,
+            "formula": "=gasif_h3_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h103",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 890,
+            "formula": "=gasif_h4_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 100,
+            "formula": "=gasif_h4_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 60066,
+            "formula": "=gasif_h4_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h104",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 870,
+            "formula": "=gasif_h5_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 400,
+            "formula": "=gasif_h5_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 96,
+            "formula": "=gasif_h5_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h105",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 65,
+            "formula": "=gasif_h6_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 30,
+            "formula": "=gasif_h6_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 59940,
+            "formula": "=gasif_h6_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 5,
+            "formula": "=dtmin_liq"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h106",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 194,
+            "formula": "=gasif_h7_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 35,
+            "formula": "=gasif_h7_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 28813,
+            "formula": "=gasif_h7_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h107",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 155,
+            "formula": "=gasif_h8_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 35,
+            "formula": "=gasif_h8_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 6575,
+            "formula": "=gasif_h8_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h108",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 153,
+            "formula": "=gasif_h9_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 35,
+            "formula": "=gasif_h9_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 6079,
+            "formula": "=gasif_h9_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c100",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 25,
+            "formula": "=gasif_c1_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 120,
+            "formula": "=gasif_c1_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 79576,
+            "formula": "=gasif_c1_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c101",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 30,
+            "formula": "=gasif_c2_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 121,
+            "formula": "=gasif_c2_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 8297,
+            "formula": "=gasif_c2_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 5,
+            "formula": "=dtmin_liq"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c102",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 121,
+            "formula": "=gasif_c3_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 121,
+            "formula": "=gasif_c3_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 45416,
+            "formula": "=gasif_c3_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 2,
+            "formula": "=dtmin_2ph"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c103",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 30,
+            "formula": "=gasif_c4_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 400,
+            "formula": "=gasif_c4_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 24396,
+            "formula": "=gasif_c4_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h109",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 1063,
+            "formula": "=purifsyn_h1_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 350,
+            "formula": "=purifsyn_h1_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 47688,
+            "formula": "=purifsyn_h1_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h110",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 476,
+            "formula": "=purifsyn_h2_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 123,
+            "formula": "=purifsyn_h2_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": -22567,
+            "formula": "=purifsyn_h2_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h111",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 123,
+            "formula": "=purifsyn_h3_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 30,
+            "formula": "=purifsyn_h3_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": -11284,
+            "formula": "=purifsyn_h3_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h112",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 95,
+            "formula": "=purifsyn_h4_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 30,
+            "formula": "=purifsyn_h4_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": -49,
+            "formula": "=purifsyn_h4_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h113",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 84,
+            "formula": "=purifsyn_h5_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 35,
+            "formula": "=purifsyn_h5_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": -767,
+            "formula": "=purifsyn_h5_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h114",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 97,
+            "formula": "=purifsyn_h6_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 35,
+            "formula": "=purifsyn_h6_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": -970,
+            "formula": "=purifsyn_h6_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h115",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 97,
+            "formula": "=purifsyn_h7_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 35,
+            "formula": "=purifsyn_h7_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": -973,
+            "formula": "=purifsyn_h7_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c104",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 50,
+            "formula": "=purifsyn_c1_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 540,
+            "formula": "=purifsyn_c1_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 2641,
+            "formula": "=purifsyn_c1_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 5,
+            "formula": "=dtmin_liq"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c105",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 34,
+            "formula": "=purifsyn_c2_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 216,
+            "formula": "=purifsyn_c2_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 11232,
+            "formula": "=purifsyn_c2_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 2,
+            "formula": "=dtmin_2ph"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c106",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 216,
+            "formula": "=purifsyn_c3_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 398,
+            "formula": "=purifsyn_c3_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 10024,
+            "formula": "=purifsyn_c3_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c107",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 398,
+            "formula": "=purifsyn_c4_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 580,
+            "formula": "=purifsyn_c4_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 10671,
+            "formula": "=purifsyn_c4_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c108",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 24,
+            "formula": "=purifsyn_c5_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 25,
+            "formula": "=purifsyn_c5_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 601,
+            "formula": "=purifsyn_c5_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 5,
+            "formula": "=dtmin_liq"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c109",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 42,
+            "formula": "=purifsyn_c6_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 50,
+            "formula": "=purifsyn_c6_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 312,
+            "formula": "=purifsyn_c6_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        }
+      ],
+      "Equipments Description": "The only equipment is the Dual Bed Gasifier itself",
+      "Equipments": {
+        "DualBedGasifier": {
+          "Type": "Asset",
+          "Parameters": [
+            {
+              "Parameter": "Capacity",
+              "Value": {
+                "value": 543453,
+                "formula": "=Bio_energy"
+              },
+              "units": "kW_biom"
+            },
+            {
+              "Parameter": "Price",
+              "Value": {
+                "value": 1300,
+                "formula": "=Spec_GasiftoFTCost"
+              },
+              "units": "EUR/kW_biom"
+            },
+            {
+              "Parameter": "Annuity",
+              "Value": {
+                "value": 0.0664615359206755,
+                "formula": "=Annuity"
+              },
+              "units": "-"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": {
+                "value": 40,
+                "formula": "=n"
+              },
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": 2025.0,
+              "units": "year"
+            }
+          ]
+        }
+      },
+      "Operating Cost Description": "The fixed and variable operating costs includes manpower, fixed cost of operation, taxes etc.",
+      "Operating Cost": {
+        "Fixed Operating Cost [EUR/y]": 46954337.404908516,
+        "Variable Operating Cost [EUR/h]": 0.0
+      }
+    },
+    "FischerTUnit": {
+      "Unit Description": "",
+      "Unit Info": {
+        "Unit name": "FischerTUnit",
+        "Minimum capacity multiplier": 0.0,
+        "Maximum capacity multiplier": 1.0
+      },
+      "Connectors Description": "",
+      "Connectors": [
+        {
+          "NAME (ALIAS)": "CO2",
+          "TYPE": "MASS",
+          "DIRECTION": "OUT",
+          "VALUE": {
+            "value": 4319,
+            "formula": "=CO2BalanceFT"
+          },
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": "",
+          "TEMPERATURE UNIT": "",
+          "PRESSURE": "",
+          "PRESSURE UNIT": "",
+          "VAPOR FRACTION [MASS]": "",
+          "PHASE": "",
+          "COMPOSITION [MOLE/MASS]": ""
+        },
+        {
+          "NAME (ALIAS)": "CO2inFlueGas",
+          "TYPE": "EMISSION",
+          "DIRECTION": "OUT",
+          "VALUE": {
+            "value": 8181,
+            "formula": "=CO2influegasFT"
+          },
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": "",
+          "TEMPERATURE UNIT": "",
+          "PRESSURE": "",
+          "PRESSURE UNIT": "",
+          "VAPOR FRACTION [MASS]": "",
+          "PHASE": "",
+          "COMPOSITION [MOLE/MASS]": ""
+        },
+        {
+          "NAME (ALIAS)": "oxyprocess",
+          "TYPE": "MASS",
+          "DIRECTION": "IN",
+          "VALUE": {
+            "value": 11787,
+            "formula": "=O2massconsFT"
+          },
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": "",
+          "TEMPERATURE UNIT": "",
+          "PRESSURE": "",
+          "PRESSURE UNIT": "",
+          "VAPOR FRACTION [MASS]": "",
+          "PHASE": "",
+          "COMPOSITION [MOLE/MASS]": ""
+        },
+        {
+          "NAME (ALIAS)": "water",
+          "TYPE": "MASS",
+          "DIRECTION": "OUT",
+          "VALUE": {
+            "value": 33.5,
+            "formula": "=WaterBalanceOutFT"
+          },
+          "PHYSICAL UNIT": "m3/h",
+          "TEMPERATURE": "",
+          "TEMPERATURE UNIT": "",
+          "PRESSURE": "",
+          "PRESSURE UNIT": "",
+          "VAPOR FRACTION [MASS]": "",
+          "PHASE": "",
+          "COMPOSITION [MOLE/MASS]": ""
+        },
+        {
+          "NAME (ALIAS)": "Electricity",
+          "TYPE": "ELECTRICITY",
+          "DIRECTION": "IN",
+          "VALUE": {
+            "value": 2441,
+            "formula": "=ElecBalanceFT"
+          },
+          "PHYSICAL UNIT": "kW",
+          "TEMPERATURE": "",
+          "TEMPERATURE UNIT": "",
+          "PRESSURE": "",
+          "PRESSURE UNIT": "",
+          "VAPOR FRACTION [MASS]": "",
+          "PHASE": "",
+          "COMPOSITION [MOLE/MASS]": ""
+        },
+        {
+          "NAME (ALIAS)": "SyngasToFT",
+          "TYPE": "EMISSION",
+          "DIRECTION": "IN",
+          "VALUE": {
+            "value": 50581,
+            "formula": "=FreshSynmassf"
+          },
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": "",
+          "TEMPERATURE UNIT": "",
+          "PRESSURE": "",
+          "PRESSURE UNIT": "",
+          "VAPOR FRACTION [MASS]": "",
+          "PHASE": "",
+          "COMPOSITION [MOLE/MASS]": ""
+        },
+        {
+          "NAME (ALIAS)": "hydrogen",
+          "TYPE": "MASS",
+          "DIRECTION": "IN",
+          "VALUE": {
+            "value": 761,
+            "formula": "=H2massconsFT"
+          },
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": "",
+          "TEMPERATURE UNIT": "",
+          "PRESSURE": "",
+          "PRESSURE UNIT": "",
+          "VAPOR FRACTION [MASS]": "",
+          "PHASE": "",
+          "COMPOSITION [MOLE/MASS]": ""
+        },
+        {
+          "NAME (ALIAS)": "Naphtha",
+          "TYPE": "MASS",
+          "DIRECTION": "OUT",
+          "VALUE": {
+            "value": 5733,
+            "formula": "=Naphtha"
+          },
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": "",
+          "TEMPERATURE UNIT": "",
+          "PRESSURE": "",
+          "PRESSURE UNIT": "",
+          "VAPOR FRACTION [MASS]": "",
+          "PHASE": "",
+          "COMPOSITION [MOLE/MASS]": ""
+        },
+        {
+          "NAME (ALIAS)": "Kerosene",
+          "TYPE": "MASS",
+          "DIRECTION": "OUT",
+          "VALUE": {
+            "value": 10720,
+            "formula": "=Kerosene"
+          },
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": "",
+          "TEMPERATURE UNIT": "",
+          "PRESSURE": "",
+          "PRESSURE UNIT": "",
+          "VAPOR FRACTION [MASS]": "",
+          "PHASE": "",
+          "COMPOSITION [MOLE/MASS]": ""
+        },
+        {
+          "NAME (ALIAS)": "Diesel",
+          "TYPE": "MASS",
+          "DIRECTION": "OUT",
+          "VALUE": {
+            "value": 2628,
+            "formula": "=Diesel"
+          },
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": "",
+          "TEMPERATURE UNIT": "",
+          "PRESSURE": "",
+          "PRESSURE UNIT": "",
+          "VAPOR FRACTION [MASS]": "",
+          "PHASE": "",
+          "COMPOSITION [MOLE/MASS]": ""
+        }
+      ],
+      "Heat Streams Description": "",
+      "Heat Streams": [
+        {
+          "name": "qt_h116",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 240,
+            "formula": "=FischerT_h1_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 240,
+            "formula": "=FischerT_h1_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 73421,
+            "formula": "=FischerT_h1_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 2,
+            "formula": "=dtmin_2ph"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h117",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 240,
+            "formula": "=VARIABLES!$E$137"
+          },
+          "Outlet Temperature [C]": {
+            "value": 120,
+            "formula": "=VARIABLES!$E$138"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 21259,
+            "formula": "=FischerT_h2_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 2,
+            "formula": "=dtmin_2ph"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h118",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 120,
+            "formula": "=FischerT_h3_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 120,
+            "formula": "=FischerT_h3_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 1160,
+            "formula": "=FischerT_h3_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 2,
+            "formula": "=dtmin_2ph"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h119",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 120,
+            "formula": "=FischerT_h4_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 15,
+            "formula": "=FischerT_h4_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 5299,
+            "formula": "=FischerT_h4_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 2,
+            "formula": "=dtmin_2ph"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h120",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 15,
+            "formula": "=FischerT_h5_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 15,
+            "formula": "=FischerT_h5_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 225,
+            "formula": "=FischerT_h5_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 2,
+            "formula": "=dtmin_2ph"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h121",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 120,
+            "formula": "=FischerT_h6_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 30,
+            "formula": "=FischerT_h6_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 2839,
+            "formula": "=FischerT_h6_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 5,
+            "formula": "=dtmin_liq"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h122",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 38,
+            "formula": "=FischerT_h7_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 38,
+            "formula": "=FischerT_h7_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 3832,
+            "formula": "=FischerT_h7_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 2,
+            "formula": "=dtmin_2ph"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h123",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 430,
+            "formula": "=FischerT_h8_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 350,
+            "formula": "=FischerT_h8_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 643,
+            "formula": "=FischerT_h8_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 5,
+            "formula": "=dtmin_liq"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h124",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 289,
+            "formula": "=FischerT_h9_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 100,
+            "formula": "=FischerT_h9_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 1007,
+            "formula": "=FischerT_h9_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 5,
+            "formula": "=dtmin_liq"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h125",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 346,
+            "formula": "=FischerT_h10_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 100,
+            "formula": "=FischerT_h10_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 2755,
+            "formula": "=FischerT_h10_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 5,
+            "formula": "=dtmin_liq"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h126",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 110,
+            "formula": "=FischerT_h11_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 30,
+            "formula": "=FischerT_h11_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 292,
+            "formula": "=FischerT_h11_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 5,
+            "formula": "=dtmin_liq"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h127",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 250,
+            "formula": "=FischerT_h12_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 30,
+            "formula": "=FischerT_h12_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 1675,
+            "formula": "=FischerT_h12_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 5,
+            "formula": "=dtmin_liq"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h128",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 300,
+            "formula": "=FischerT_h13_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 30,
+            "formula": "=FischerT_h13_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 511,
+            "formula": "=FischerT_h13_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 5,
+            "formula": "=dtmin_liq"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h129",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 98,
+            "formula": "=FischerT_h14_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 50,
+            "formula": "=FischerT_h14_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 136,
+            "formula": "=FischerT_h14_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h130",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 100,
+            "formula": "=FischerT_h15_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 50,
+            "formula": "=FischerT_h15_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 1117,
+            "formula": "=FischerT_h15_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h131",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 950,
+            "formula": "=FischerT_h16_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 500,
+            "formula": "=FischerT_h16_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 16540,
+            "formula": "=FischerT_h16_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h132",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 500,
+            "formula": "=FischerT_h17_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 250,
+            "formula": "=FischerT_h17_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 8760,
+            "formula": "=FischerT_h17_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h133",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 250,
+            "formula": "=FischerT_h18_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 100,
+            "formula": "=FischerT_h18_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 8405,
+            "formula": "=FischerT_h18_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h134",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 100,
+            "formula": "=FischerT_h19_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 40,
+            "formula": "=FischerT_h19_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 3523,
+            "formula": "=FischerT_h19_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 2,
+            "formula": "=dtmin_2ph"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h135",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 1050,
+            "formula": "=FischerT_h20_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 1050,
+            "formula": "=FischerT_h20_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 17032,
+            "formula": "=FischerT_h20_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_h136",
+          "Type": "HOT",
+          "Inlet Temperature [C]": {
+            "value": 1050,
+            "formula": "=FischerT_h21_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 100,
+            "formula": "=FischerT_h21_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 18119,
+            "formula": "=FischerT_h21_ho"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c110",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 52,
+            "formula": "=FischerT_c1_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 240,
+            "formula": "=FischerT_c1_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 11868,
+            "formula": "=FischerT_c1_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c111",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 430,
+            "formula": "=FischerT_c2_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 430,
+            "formula": "=FischerT_c2_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 5644,
+            "formula": "=FischerT_c2_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 5,
+            "formula": "=dtmin_liq"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c112",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 238,
+            "formula": "=FischerT_c3_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 254,
+            "formula": "=FischerT_c3_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 1000,
+            "formula": "=FischerT_c3_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 2,
+            "formula": "=dtmin_2ph"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c113",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 30,
+            "formula": "=FischerT_c4_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 263,
+            "formula": "=FischerT_c4_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 64,
+            "formula": "=FischerT_c4_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 5,
+            "formula": "=dtmin_liq"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c114",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 263,
+            "formula": "=FischerT_c5_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 263,
+            "formula": "=FischerT_c5_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 96,
+            "formula": "=FischerT_c5_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 2,
+            "formula": "=dtmin_2ph"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c115",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 263,
+            "formula": "=FischerT_c6_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 500,
+            "formula": "=FischerT_c6_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 31,
+            "formula": "=FischerT_c6_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c116",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 350,
+            "formula": "=FischerT_c7_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 350,
+            "formula": "=FischerT_c7_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 759,
+            "formula": "=FischerT_c7_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 5,
+            "formula": "=dtmin_liq"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c117",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 100,
+            "formula": "=FischerT_c8_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 180,
+            "formula": "=FischerT_c8_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 183,
+            "formula": "=FischerT_c8_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 2,
+            "formula": "=dtmin_2ph"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c118",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 100,
+            "formula": "=FischerT_c9_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 250,
+            "formula": "=FischerT_c9_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 1211,
+            "formula": "=FischerT_c9_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 2,
+            "formula": "=dtmin_2ph"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c119",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 100,
+            "formula": "=FischerT_c10_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 300,
+            "formula": "=FischerT_c10_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 399,
+            "formula": "=FischerT_c10_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 2,
+            "formula": "=dtmin_2ph"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c120",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 63,
+            "formula": "=FischerT_c11_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 169,
+            "formula": "=FischerT_c11_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 342,
+            "formula": "=FischerT_c11_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c121",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 30,
+            "formula": "=FischerT_c12_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 250,
+            "formula": "=FischerT_c12_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 748,
+            "formula": "=FischerT_c12_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 5,
+            "formula": "=dtmin_liq"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c122",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 250,
+            "formula": "=FischerT_c13_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 250,
+            "formula": "=FischerT_c13_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 1249,
+            "formula": "=FischerT_c13_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 2,
+            "formula": "=dtmin_2ph"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        },
+        {
+          "name": "qt_c123",
+          "Type": "COLD",
+          "Inlet Temperature [C]": {
+            "value": 250,
+            "formula": "=FischerT_c14_ti"
+          },
+          "Outlet Temperature [C]": {
+            "value": 500,
+            "formula": "=FischerT_c14_to"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 401,
+            "formula": "=FischerT_c14_ho"
+          },
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dtmin_gas"
+          },
+          "Heat Transfer Coef [kW/m2K]": "",
+          "HeatCascade": ""
+        }
+      ],
+      "Equipments Description": "",
+      "Equipments": {
+        "FischerTUnit": {
+          "Type": "Asset",
+          "Parameters": [
+            {
+              "Parameter": "Capacity",
+              "Value": {
+                "value": 19081,
+                "formula": "=Naphtha+Kerosene+Diesel"
+              },
+              "units": "kg/h"
+            },
+            {
+              "Parameter": "Price",
+              "Value": {
+                "value": 10512,
+                "formula": "=Spec_FischerTCost"
+              },
+              "units": "EUR/(kg/h)"
+            },
+            {
+              "Parameter": "Annuity",
+              "Value": {
+                "value": 0.0664615359206755,
+                "formula": "=Annuity"
+              },
+              "units": "-"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": {
+                "value": 40,
+                "formula": "=n"
+              },
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": 2025.0,
+              "units": "year"
+            }
+          ]
+        }
+      },
+      "Operating Cost Description": "The fixed and variable operating costs includes manpower, fixed cost of operation, taxes etc.",
+      "Operating Cost": {
+        "Fixed Operating Cost [EUR/y]": 13330819.783278124,
+        "Variable Operating Cost [EUR/h]": 0.0
+      }
+    }
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "HEADER": {
+    "Model Name": "HeaterEE",
+    "Authors and Contributors": "Daniel Florez-Orrego, Meire Domingos",
+    "Version": "1.0",
+    "Confidentiality": "Open",
+    "Creation Date": "2025-07-20 00:00:00",
+    "References": "Eeheater.bib",
+    "Grade": "GRAY-BOX",
+    "Software": "None",
+    "URL": "https://gitlab.epfl.ch/boztas/dairy-casestudy/-/blob/main/DairyROSMOSE/model/ElectricalHeater/Electrical_heater.Rmd?ref_type=heads",
+    "Last Update Date": "2025-09-23",
+    "Keywords": "Heat Supply, Electrified",
+    "Reference Capacity": "1000 kW",
+    "Description": "This model represent an electrical heater for high temperature heat supply.",
+    "BlockFlowDiagram": "model/ElectricalHeater/electrical_heater.svg",
+    "Import Source": "Web Interface"
+  },
+  "VARIABLES": [
+    {
+      "Variable name": "dTmin_0",
+      "Type": "LITERATURE",
+      "Full name": "assumed waste heat dissipation dTmin contribution",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 0,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$dTmin_{0}$",
+      "Bibliography": "-",
+      "Comment": "assumed waste heat dissipation dTmin contribution"
+    },
+    {
+      "Variable name": "dTmin_radiation",
+      "Type": "LITERATURE",
+      "Full name": "radiation dTmin contribution",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 2,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$dTmin_{rad}$",
+      "Bibliography": "-",
+      "Comment": "radiation dTmin contribution"
+    },
+    {
+      "Variable name": "dTmin_convection",
+      "Type": "LITERATURE",
+      "Full name": "convection dTmin contribution",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 8,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$dTmin_{conv}$",
+      "Bibliography": "-",
+      "Comment": "convection dTmin contribution"
+    },
+    {
+      "Variable name": "To",
+      "Type": "CONTEXT",
+      "Full name": "Environmental temperature",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 25,
+      "Physical unit": "C",
+      "Min bound": "-273 C",
+      "Max bound": 1000,
+      "Latex syntax": "$T_{o}$",
+      "Bibliography": "@Boztas et al",
+      "Comment": "Environmental temperature used for the calculation of the PV efficiency (it is overwritten by the GIS information)"
+    },
+    {
+      "Variable name": "TeleresistON",
+      "Type": "DECISION",
+      "Full name": "ON control setpoint temperature",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 130,
+      "Physical unit": "C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$T_{eleresitON}$",
+      "Bibliography": "-",
+      "Comment": "ON control setpoint temperature"
+    },
+    {
+      "Variable name": "TeleresistOFF",
+      "Type": "DECISION",
+      "Full name": "OFF control setpoint temperature",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 130,
+      "Physical unit": "C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$T_{eleresitOFF}$",
+      "Bibliography": "-",
+      "Comment": "OFF control setpoint temperature"
+    },
+    {
+      "Variable name": "Twall",
+      "Type": "DECISION",
+      "Full name": "Assumed heater outer wall temperature",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 60,
+      "Physical unit": "\u00b0C",
+      "Min bound": -273,
+      "Max bound": 1000,
+      "Latex syntax": "$T_{wall}$",
+      "Bibliography": "-",
+      "Comment": "Assumed electrical heater outer wall temperature can vary depending on the application"
+    },
+    {
+      "Variable name": "Tloss",
+      "Type": "CONTEXT",
+      "Full name": "Heat loss temperature to environment (gas escaping)",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 30,
+      "Physical unit": "\u00b0C",
+      "Min bound": -273,
+      "Max bound": 1000,
+      "Latex syntax": "$T_{loss}$",
+      "Bibliography": "-",
+      "Comment": "Dissipation temperature to environment to characterize hot gas escaping"
+    },
+    {
+      "Variable name": "cpair",
+      "Type": "LITERATURE",
+      "Full name": "Heat capacity of air",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 1.012,
+      "Physical unit": "kJ/kg\u00b7K",
+      "Min bound": 0,
+      "Max bound": 10,
+      "Latex syntax": "$c_{pair}$",
+      "Bibliography": "-",
+      "Comment": "-"
+    },
+    {
+      "Variable name": "losses",
+      "Type": "DECISION",
+      "Full name": "Fraction of losses (wall + escaping gas)",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 0.05,
+      "Physical unit": "\u2013",
+      "Min bound": 0,
+      "Max bound": 1,
+      "Latex syntax": "$losses$",
+      "Bibliography": "-",
+      "Comment": "Includes the effect of the hot gas escaping and wall losses"
+    },
+    {
+      "Variable name": "Heater_electric_LOAD",
+      "Type": "DECISION",
+      "Full name": "Reference electrical heater load",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 1000,
+      "Physical unit": "kW",
+      "Min bound": 0,
+      "Max bound": 10000,
+      "Latex syntax": "$Q_{heater}$",
+      "Bibliography": "-",
+      "Comment": "Used as reference sizing value"
+    },
+    {
+      "Variable name": "inst2avgratio",
+      "Type": "DECISION",
+      "Full name": "Installed to average power ratio",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 1,
+      "Physical unit": "\u2013",
+      "Min bound": 0,
+      "Max bound": 10,
+      "Latex syntax": "$r_{inst/avg}$",
+      "Bibliography": "-",
+      "Comment": "Installed to average (measured) capacity ratio for peak costing"
+    },
+    {
+      "Variable name": "Q_electrical",
+      "Type": "DECISION",
+      "Full name": "Heating power of the electrical heater",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 1000,
+        "formula": "=1*Heater_electric_LOAD"
+      },
+      "Physical unit": "kW",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$Q_{electrical}$",
+      "Bibliography": "-",
+      "Comment": "Based on set heater load"
+    },
+    {
+      "Variable name": "ElecHeaterEff",
+      "Type": "DECISION",
+      "Full name": "Efficiency of electrical heater",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 0.95,
+        "formula": "=1-losses"
+      },
+      "Physical unit": "-",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$\\eta_{heater}$",
+      "Bibliography": "-",
+      "Comment": "Overall efficiency considering losses"
+    },
+    {
+      "Variable name": "EE_demand",
+      "Type": "DECISION",
+      "Full name": "Electrical heater demand",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 1052.6315789473686,
+        "formula": "=Q_electrical/ElecHeaterEff"
+      },
+      "Physical unit": "kW",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$Q_{EEdemand}$",
+      "Bibliography": "-",
+      "Comment": "Total electric demand from the grid"
+    }
+  ],
+  "CONNECTORS": {
+    "EXTERNAL CONNECTORS": [
+      {
+        "Unique Identifier Number, UID": "ELECTRICITY",
+        "NAME (ALIAS)": "Electricity",
+        "TYPE": "ELECTRICITY",
+        "PHYSICAL UNIT": "kW",
+        "TEMPERATURE": "-",
+        "TEMPERATURE UNIT": "-",
+        "PRESSURE": "-",
+        "PRESSURE UNIT": "-",
+        "VAPOR FRACTION [MASS]": "-",
+        "PHASE": "-",
+        "COMPOSITION [MOLE/MASS]": "-"
+      }
+    ],
+    "INTERNAL CONNECTORS": []
+  },
+  "UNITS": {
+    "EE_heater": {
+      "Unit Description": "The electrical heater is a utility unit that can supply heat at various temperature levels (up to 700\u00b0C) to different industrial applications. The electrical heater model converts the electrical energy into the thermal energy of hot gases (i.e. convective heating) or radiant energy (as in radiant elements or tubes) using a dissipative resistance (Joule effect).",
+      "Unit Info": {
+        "Unit name": "EE_heater",
+        "Minimum capacity multiplier": 0.0,
+        "Maximum capacity multiplier": 400.0
+      },
+      "Connectors Description": "the electricity consumed by the electrical heater (in kW) is imported through the Electricity layer from a electricity grid located in the market model.",
+      "Connectors": [
+        {
+          "NAME (ALIAS)": "Electricity",
+          "TYPE": "ENERGY",
+          "DIRECTION": "IN",
+          "VALUE": {
+            "value": 1052.6315789473686,
+            "formula": "=EE_demand"
+          },
+          "PHYSICAL UNIT": "kW",
+          "TEMPERATURE": "-",
+          "TEMPERATURE UNIT": "-",
+          "PRESSURE": "-",
+          "PRESSURE UNIT": "-",
+          "VAPOR FRACTION [MASS]": "-",
+          "PHASE": "-",
+          "COMPOSITION [MOLE/MASS]": "-"
+        }
+      ],
+      "Heat Streams Description": "The heat streams consists of radiation and convection.",
+      "Heat Streams": [
+        {
+          "name": "QelecRes",
+          "Type": "Hot",
+          "Inlet Temperature [C]": {
+            "value": 130,
+            "formula": "=TeleresistON"
+          },
+          "Outlet Temperature [C]": {
+            "value": 130,
+            "formula": "=TeleresistOFF"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 1000,
+            "formula": "=Q_electrical"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dTmin_convection"
+          },
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        }
+      ],
+      "Equipments Description": "The equipments consists of an electrical resistance for applying the Joule effect, and the infrastructure of the insulation materials of the furnace.",
+      "Equipments": {
+        "electric_furnace": {
+          "Type": "Furnace",
+          "Parameters": [
+            {
+              "Parameter": "Power",
+              "Value": 1000.0,
+              "units": "kW"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": 30.0,
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": 2025.0,
+              "units": "year"
+            }
+          ]
+        }
+      },
+      "Operating Cost Description": "The fixed and variable operating costs includes manpower, fixed cost of operation, taxes etc.",
+      "Operating Cost": {
+        "Fixed Operating Cost [EUR/y]": 0.0,
+        "Variable Operating Cost [EUR/h]": 0.0
+      }
+    }
+  }
+}

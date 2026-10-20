@@ -1,0 +1,7 @@
+# Task XXIV {.unnumbered}
+
+IETS Task XXIV **Process Integration for Industry Decarbonization** (2025–2027) builds a shared, documented database of ex-ante models of industrial processes, decarbonization technologies and energy systems. This part describes:
+
+* the [Task](../00-TaskDescription.qmd): context, objectives, activities, deliverables and participants;
+* the [rules for participating and sharing models](../01-ParticipationRules.qmd): joining the Task, the model template, confidentiality layers and intellectual property;
+* [how to use this database](../02-HowToUseThisDatabase.qmd).

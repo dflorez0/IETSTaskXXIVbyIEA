@@ -1,0 +1,97 @@
+# How to use and contribute to this database {.unnumbered}
+
+## Browsing the models {.unnumbered}
+
+Models are grouped in three parts: **Energy technologies**, **Decarbonisation technologies** and **Industrial processes**. Each model has one page, which contains:
+
+* a **model card** with the metadata of the template (authors, version, status, confidentiality and sharing layer, grade, reference capacity, TRL, keywords, main publication);
+* a description of the technology or process and its block flow diagram;
+* an interactive **model overview** generated from the model's JSON description, with four views: the flows entering and leaving the model, the heat streams table, the composite curves and the grand composite curve. A scale factor *f* rescales every duty and flow;
+* the model equations, its input and calculated parameters, and its units and streams;
+* links to the **supplementary material**: the OSMOSE (Lua) implementation, the JSON and Excel descriptions, documents and editable figures.
+
+The search box at the bottom of the sidebar searches the full text of every page.
+
+## Getting the repository {.unnumbered}
+
+The database is a [Quarto](https://quarto.org/) book kept in a git repository. Task participants are given access by the Task managers. To work on it locally, you need:
+
+* [Git](https://git-scm.com/);
+* [Quarto](https://quarto.org/docs/get-started/);
+* optionally, [Visual Studio Code](https://code.visualstudio.com/) with the *Quarto* extension, which provides syntax highlighting, a preview button and git integration.
+
+Clone the repository and preview the book:
+
+```bash
+git clone git@github.com:dflorez0/IETSTaskXXIVbyIEA.git
+cd IETSTaskXXIVbyIEA
+quarto preview
+```
+
+`quarto preview` serves the book in your browser and reloads it every time a file is saved. `quarto render` builds the complete site into `_book/`, which is the folder that is deployed.
+
+## Adding a model {.unnumbered}
+
+The [Cooling tower](1-EnergyTechnologies/CoolingTower/index.qmd) is a complete example to copy from.
+
+**1. Create the model folder** in the part it belongs to, named after the model:
+
+```
+1-EnergyTechnologies/
+  CoolingTower/
+    index.qmd        the model page
+    JSON/            model description in the Task XXIV template format
+    Osmoses/         OSMOSE (Lua) implementation, or the files of your own software
+    Excel/           Excel version of the template
+    Documents/       background documents
+    Figures/         block flow diagram (.svg) and its editable source
+    Literature/      publications used by the model
+```
+
+Only `index.qmd` and the JSON description are required; the other folders hold whatever supplementary material the model has.
+
+**2. Fill in the template.** Document the model with the ex-ante model template described in the [rules for participating and sharing models](01-ParticipationRules.qmd): metadata, variables, and for each unit its connectors, heat streams, equipment and operating costs. Export it as JSON into the `JSON/` folder. Choose the sharing layer that matches what you are allowed to disclose.
+
+**3. Write the model page** `index.qmd`, starting with a level-1 title:
+
+```markdown
+# Cooling tower {.unnumbered}
+```
+
+followed by the model card, a description, the block flow diagram, the model equations and parameters, and a table linking every supplementary file, for example:
+
+```markdown
+| [CoolingTower.json](JSON/CoolingTower.json) | Model description in the Task XXIV JSON format |
+```
+
+Files linked from the page are published with it, so readers can download them.
+
+**4. Add the model overview.** One line renders the flows, heat streams, composite curves and grand composite curve from the JSON description:
+
+```markdown
+{{{< model-viewer JSON/CoolingTower.json >}}}
+```
+
+The overview also runs data checks — for example a stream declared *Hot* whose temperature rises, or a heat stream without a ΔT~min~ contribution — and lists them under the heat streams table, so it is a quick way to validate a JSON file.
+
+**5. Register the page** in `_quarto.yml`, under `book: chapters:` in the right part:
+
+```yaml
+    - part: 1-EnergyTechnologies/index.qmd
+      chapters:
+        - 1-EnergyTechnologies/CoolingTower/index.qmd
+```
+
+**6. Preview, commit and push.** Check the page with `quarto preview`, then commit your changes and push them:
+
+```bash
+git add 1-EnergyTechnologies/CoolingTower _quarto.yml
+git commit -m "Add cooling tower model"
+git push
+```
+
+Every change is recorded in the repository history with its author, date and description, which keeps track of the provenance of each model.
+
+## Writing with Quarto {.unnumbered}
+
+Model pages are written in Markdown, with LaTeX equations, cross-referenced figures and tables, and citations. The [Quarto guide](https://quarto.org/docs/guide/) covers the syntax, and [cross-references](https://quarto.org/docs/authoring/cross-references.html) explains how to number and reference equations, figures and tables.

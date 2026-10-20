@@ -1,0 +1,87 @@
+project:
+  type: book
+  output-dir: _book
+
+  # Only the pages below are rendered. Model folders also hold supplementary
+  # material (.Rmd, .lua, .json, .xlsm, ...) that Quarto must not try to
+  # render.
+  render:
+    - index.qmd
+    - 00-TaskDescription.qmd
+    - 01-ParticipationRules.qmd
+    - 02-HowToUseThisDatabase.qmd
+    - "*/index.qmd"
+    - "*/*/index.qmd"
+
+book:
+  title: "IETS Task XXIV"
+  subtitle: "Database of IEA Task XXIV Process Integration for Industry Decarbonization"
+  author: "IETS Task XXIV"
+  date: today
+  date-format: "YYYY-MM-DD"
+  favicon: template_files/iets-logo.png
+
+  search: true
+  page-footer:
+    center: "©2026 - IETS Task XXIV"
+
+  sidebar:
+    logo: template_files/iets-logo.png
+    title: "Task XXIV"
+    style: docked
+    collapse-level: 1
+
+  # One part per top-level folder; one page per model folder. A part entry
+  # pointing at a file makes that file the part's landing page.
+  chapters:
+    - index.qmd
+
+    - part: 0-TaskXXIVDescription/index.qmd
+      chapters:
+        - 00-TaskDescription.qmd
+        - 01-ParticipationRules.qmd
+        - 02-HowToUseThisDatabase.qmd
+
+    - part: 1-EnergyTechnologies/index.qmd
+      chapters:
+        - 1-EnergyTechnologies/CoolingTower/index.qmd
+        - 1-EnergyTechnologies/FurnaceNG/index.qmd
+        - 1-EnergyTechnologies/HeatPump/index.qmd
+        - 1-EnergyTechnologies/Refigerator/index.qmd
+
+    - part: 2-DecarbTechnologies/index.qmd
+      chapters:
+        - 2-DecarbTechnologies/CcsAmines/index.qmd
+        - 2-DecarbTechnologies/HighTElectrolysis/index.qmd
+        - 2-DecarbTechnologies/LowTElectrolysis/index.qmd
+
+    - part: 3-IndustrialProcesses/index.qmd
+      chapters:
+        - 3-IndustrialProcesses/ChemicalSector/index.qmd
+        - 3-IndustrialProcesses/FoodSector/index.qmd
+
+# {{< model-viewer JSON/Model.json >}} on a model page renders that model's
+# key figures, block flow diagram and composite curves (HTML only).
+shortcodes:
+  - template_files/model-viewer.lua
+
+crossref:
+  eq-prefix: "Eq."
+  fig-prefix: "Fig."
+  tbl-prefix: "Table"
+  sec-prefix: "Sec."
+
+format:
+  html:
+    theme:
+      - cosmo
+      - template_files/theme.scss
+    include-after-body:
+      - template_files/ipese-footer.html
+      - template_files/model-viewer.html
+    toc: true
+    toc-depth: 3
+    number-sections: false
+    code-copy: true
+    fig-align: center
+

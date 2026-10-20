@@ -1,0 +1,759 @@
+<!--
+  Model viewer: renders every <div class="model-viewer"> that the model-viewer
+  shortcode (model-viewer.lua) left in the page, from the JSON embedded in it.
+
+  One model at a time, four views of its imprint:
+    Flows                  black-box diagram: connectors in and out, heat
+                           demand and heat release with their temperature ranges
+    Heat streams           the stream table, with shifted temperatures and CP
+    Composite curves       hot and cold composites, Q_HU / Q_CU and the pinch
+    Grand composite curve  the cascade, i.e. what is left for utilities
+
+  The cascade, diagrams and curves are ported from the "Model Representation
+  and Integration" prototype. Both JSON layouts used in the database are read:
+    - the Excel export   { METADATA, VARIABLES, CONNECTORS, UNITS: {name: {...}} }
+    - the Lua export     { header, variables, units: [ {...} ] }
+  A stream's hot/cold role comes from its temperatures (Tin > Tout is hot)
+  whenever they differ, and from its declared type only when it is isothermal;
+  a declared type that contradicts the temperatures is reported, not obeyed.
+-->
+<style>
+.model-viewer { margin: 1.5rem 0 2rem; }
+.mv-bar { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.25rem;
+          margin-bottom: 1rem; font-size: .9rem; }
+.mv-bar label { display: flex; align-items: center; gap: .45rem; margin: 0; }
+.mv-bar select, .mv-bar input { border: 1px solid #ced4da; border-radius: 4px;
+          padding: .2rem .45rem; font-size: .9rem; background: #fff; }
+.mv-bar input { width: 6.5rem; }
+.mv-kind { font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+          padding: .2rem .55rem; border-radius: 3px; background: #f3e5f5; color: #7d3c98; }
+.mv-kind.is-process { background: #e8f5e9; color: #1e8449; }
+
+.mv-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+          gap: .55rem; margin-bottom: 1.25rem; }
+.mv-stat { border: 1px solid #dee2e6; border-radius: 6px; padding: .45rem .7rem; background: #fff; }
+.mv-stat-label { font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; color: #7f8c9b; }
+.mv-stat-value { font-size: 1.02rem; font-weight: 700; white-space: nowrap; }
+
+.mv-tabs { display: flex; flex-wrap: wrap; border-bottom: 1px solid #dee2e6; margin-bottom: .9rem; }
+.mv-tab { border: 1px solid transparent; border-bottom: 0; background: none; color: #555;
+          padding: .45rem .9rem; margin-bottom: -1px; font-size: .88rem; cursor: pointer;
+          border-radius: 5px 5px 0 0; }
+.mv-tab:hover { color: #ff0000; }
+.mv-tab.is-active { border-color: #dee2e6; background: #fff; color: #212121; font-weight: 600; }
+.mv-panel[hidden] { display: none !important; }
+
+.mv-frame { position: relative; border: 1px solid #dee2e6; border-radius: 6px; background: #fafbfc;
+          padding: .5rem; overflow-x: auto; }
+.mv-frame svg { display: block; width: 100%; height: auto; margin: 0 auto; }
+.mv-frame canvas { display: block; margin: 0 auto; }
+.mv-tools { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
+          margin-top: .4rem; font-size: .8rem; color: #7f8c9b; }
+.mv-tools p { margin: 0; text-align: left !important; }
+.mv-dl { border: 1px solid #ced4da; background: #fff; color: #444; border-radius: 4px;
+          padding: .15rem .55rem; font-size: .78rem; cursor: pointer; white-space: nowrap; }
+.mv-dl:hover { border-color: #ff0000; color: #ff0000; }
+.mv-tip { position: absolute; pointer-events: none; z-index: 5; background: rgba(33,33,33,.92);
+          color: #fff; font-size: .75rem; line-height: 1.35; padding: .3rem .5rem; border-radius: 4px;
+          white-space: nowrap; transform: translate(-50%, calc(-100% - 10px)); }
+.mv-dot { position: absolute; pointer-events: none; z-index: 4; width: 10px; height: 10px;
+          margin: -5px 0 0 -5px; border: 2px solid #212121; border-radius: 50%; background: #fff; }
+
+.mv-table { width: 100%; border-collapse: collapse; font-size: .82rem; display: table !important; }
+.mv-table th { background: #f0f1f4; color: #555; font-weight: 600; font-size: .78rem;
+          padding: .4rem .5rem;
+          border-bottom: 1px solid #d8dce3; text-align: right; white-space: nowrap; }
+.mv-table td { padding: .32rem .5rem; border-bottom: 1px solid #eceef2; text-align: right;
+          font-variant-numeric: tabular-nums; white-space: nowrap; }
+.mv-table th:first-child, .mv-table td:first-child,
+.mv-table th:nth-child(2), .mv-table tbody td:nth-child(2) { text-align: left; }
+.mv-table td:first-child { border-left: 4px solid transparent; }
+.mv-table tr.is-hot td:first-child { border-left-color: #d9453d; }
+.mv-table tr.is-cold td:first-child { border-left-color: #2980b9; }
+.mv-table tfoot td { font-weight: 700; border-top: 2px solid #d8dce3; border-bottom: 0; }
+.mv-type-hot { color: #d9453d; font-weight: 600; }
+.mv-type-cold { color: #2980b9; font-weight: 600; }
+.mv-warn { margin: .6rem 0 0; padding: .45rem .7rem; border-left: 3px solid #ca6f1e;
+          background: #fdf5ec; font-size: .82rem; }
+.mv-warn ul { margin: .2rem 0 0; padding-left: 1.1rem; }
+.mv-empty { color: #7f8c9b; font-size: .9rem; padding: 1.5rem; text-align: center; }
+.mv-source { font-size: .78rem; color: #7f8c9b; margin-top: .6rem; }
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  "use strict";
+  var roots = document.querySelectorAll(".model-viewer");
+  if (!roots.length) return;
+
+  var MONO = 'SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace';
+  var PHASE_CHANGE_DT = 0.01;   // isothermal streams get a sliver of span so CP is finite
+  var C = {
+    text: "#2C3E50", muted: "#7F8C9B", border: "#D8DCE3", bg: "#FAFBFC", card: "#FFFFFF",
+    hot: "#D9453D", cold: "#2980B9", out: "#27AE60", pinch: "#B8860B", grid: "#E8ECF0"
+  };
+
+  // ---------------------------------------------------------------- helpers
+  function val(x) { return (x && typeof x === "object" && "value" in x) ? x.value : x; }
+  function num(x) { var v = val(x); if (v === null || v === "" || v === undefined) return NaN; v = Number(v); return isFinite(v) ? v : NaN; }
+  function str(x) { var v = val(x); return v == null ? "" : String(v); }
+  function fmt(n, d) { var v = Number(n); return isFinite(v) ? v.toFixed(d) : "-"; }
+  // Flows span watts to tonnes per hour: keep 4-5 significant figures, group thousands.
+  function nice(v) {
+    if (!isFinite(v)) return "-";
+    var a = Math.abs(v), d = a >= 1000 ? 0 : a >= 100 ? 1 : a >= 10 ? 2 : a >= 1 ? 3 : 4;
+    return v.toLocaleString("en-US", { maximumFractionDigits: d, minimumFractionDigits: 0 });
+  }
+  function xesc(s) {
+    return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  function prettyUnit(u) {
+    return String(u || "").replace(/\bNm3\b/g, "Nm³").replace(/\bm3\b/g, "m³").replace(/\bm2\b/g, "m²");
+  }
+  // A digit straight after a letter is a subscript: CO2, H2O, C2H4.
+  function chemSVG(s) {
+    var out = "", back = 0, i = 0, buf = "";
+    s = String(s);
+    function flush() {
+      if (!buf) return;
+      out += "<tspan" + (back ? ' dy="' + back + '"' : "") + ">" + xesc(buf) + "</tspan>";
+      back = 0; buf = "";
+    }
+    while (i < s.length) {
+      if (/[0-9]/.test(s[i]) && i > 0 && /[A-Za-z)\]]/.test(s[i - 1])) {
+        var j = i; while (j < s.length && /[0-9]/.test(s[j])) j++;
+        flush();
+        out += '<tspan font-size="76%" dy="2.2">' + xesc(s.slice(i, j)) + "</tspan>";
+        back = -2.2; i = j;
+      } else { buf += s[i]; i++; }
+    }
+    flush();
+    if (back) out += '<tspan dy="' + back + '"></tspan>';
+    return out;
+  }
+  function download(name, content, mime) {
+    var a = document.createElement("a");
+    a.download = name;
+    a.href = typeof content === "string" && content.indexOf("data:") === 0
+      ? content : URL.createObjectURL(new Blob([content], { type: mime }));
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+  function slug(s) { return String(s).replace(/[^A-Za-z0-9_.-]+/g, "_"); }
+
+  // ---------------------------------------------------------- JSON reading
+  function makeStream(name, declared, Tin, Tout, hin, hout, dtc, htc) {
+    hin = isFinite(hin) ? hin : 0; hout = isFinite(hout) ? hout : 0;
+    var decl = /^h/i.test(declared) ? "hot" : /^c/i.test(declared) ? "cold" : "";
+    var type, isothermal = !(isFinite(Tin) && isFinite(Tout) && Math.abs(Tin - Tout) > 1e-9);
+    if (!isothermal) type = Tin > Tout ? "hot" : "cold";
+    else type = decl || ((hout - hin) < 0 ? "hot" : "cold");
+    return { name: name, type: type, declared: decl, Tin: Tin, Tout: Tout,
+             kW: Math.abs(hout - hin), dtc: isFinite(dtc) ? dtc : 5, dtcGiven: isFinite(dtc), htc: htc,
+             mismatch: !!decl && decl !== type };
+  }
+
+  function normalise(d) {
+    var units = [];
+    if (d && d.UNITS && typeof d.UNITS === "object" && !Array.isArray(d.UNITS)) {
+      Object.keys(d.UNITS).forEach(function (k) {
+        var u = d.UNITS[k] || {}, info = u["Unit Info"] || {};
+        units.push({
+          name: info["Unit name"] || k, kind: "", description: str(u["Unit Description"]),
+          fmin: num(info["Minimum capacity multiplier"]), fmax: num(info["Maximum capacity multiplier"]),
+          streams: (u["Heat Streams"] || []).map(function (h) {
+            return makeStream(str(h.NAME), str(h.TYPE),
+              num(h["INLET TEMPERATURE VALUE"]), num(h["OUTLET TEMPERATURE VALUE"]),
+              num(h["INLET ENTHALPY FLOW VALUE"]), num(h["OUTLET ENTHALPY FLOW VALUE"]),
+              num(h["DTMIN CONTR VALUE"]), num(h["HEAT TRANSFER COEF VALUE"]));
+          }),
+          connectors: (u.Connectors || []).map(function (c) {
+            return { name: str(c["NAME (ALIAS)"]), type: str(c.TYPE),
+                     dir: /^in/i.test(str(c.DIRECTION)) ? "in" : "out",
+                     flow: num(c["FLOW VALUE"]), unit: str(c["FLOW UNIT"]), temp: num(c["TEMPERATURE VALUE"]) };
+          })
+        });
+      });
+    } else if (d && Array.isArray(d.units)) {
+      d.units.forEach(function (u) {
+        var info = u.unit_info || {};
+        units.push({
+          name: info.full_name || info.unit_name || "Unit", kind: str(info.unit_type).toLowerCase(),
+          description: str(u.unit_description),
+          fmin: num(info.minimum_capacity_multiplier), fmax: num(info.maximum_capacity_multiplier),
+          streams: (u.heat_streams || []).map(function (h) {
+            return makeStream(str(h.full_name || h.name), str(h.type),
+              num(h.inlet_temperature), num(h.outlet_temperature),
+              num(h.inlet_enthalpy), num(h.outlet_enthalpy), num(h.dtmin), num(h.heat_transfer_coef));
+          }),
+          connectors: (u.connectors || []).map(function (c) {
+            return { name: str(c.full_name || c.name), type: str(c.type),
+                     dir: /^in/i.test(str(c.direction)) ? "in" : "out",
+                     flow: num(c.flow), unit: str(c.flow && c.flow.unit), temp: num(c.temperature) };
+          })
+        });
+      });
+    }
+    // The Excel template also exports empty sheets (e.g. "Documentation") as
+    // units; keep only units that define something, unless none does.
+    var used = units.filter(function (u) { return u.streams.length || u.connectors.length; });
+    return used.length ? used : units.slice(0, 1);
+  }
+
+  // ------------------------------------------------------ pinch cascade
+  function effTin(s) { return Math.abs(s.Tin - s.Tout) < 1e-6 ? (s.type === "hot" ? s.Tin + PHASE_CHANGE_DT : s.Tin) : s.Tin; }
+  function effTout(s) { return Math.abs(s.Tin - s.Tout) < 1e-6 ? (s.type === "cold" ? s.Tout + PHASE_CHANGE_DT : s.Tout) : s.Tout; }
+  function shift(s, T) { return s.type === "hot" ? T - s.dtc : T + s.dtc; }
+  function sHi(s) { return Math.max(shift(s, effTin(s)), shift(s, effTout(s))); }
+  function sLo(s) { return Math.min(shift(s, effTin(s)), shift(s, effTout(s))); }
+  function streamCP(s) { var dT = Math.abs(effTin(s) - effTout(s)); return dT > 1e-9 ? s.kW / dT : 0; }
+  function heatIn(s, Thi, Tlo) {
+    var hi = Math.min(sHi(s), Thi), lo = Math.max(sLo(s), Tlo);
+    return hi > lo + 1e-9 ? streamCP(s) * (hi - lo) : 0;
+  }
+
+  function solve(list) {
+    var temps = {};
+    list.forEach(function (s) { temps[sHi(s)] = 1; temps[sLo(s)] = 1; });
+    var sorted = Object.keys(temps).map(Number).sort(function (a, b) { return b - a; });
+    var intervals = [];
+    for (var i = 0; i < sorted.length - 1; i++)
+      if (Math.abs(sorted[i] - sorted[i + 1]) > 1e-9) intervals.push([sorted[i], sorted[i + 1]]);
+    if (!intervals.length) return null;
+
+    var delta = intervals.map(function (iv) {
+      return list.reduce(function (a, s) {
+        var q = heatIn(s, iv[0], iv[1]);
+        return a + (s.type === "hot" ? q : -q);
+      }, 0);
+    });
+    var cum = 0, minCum = 0;
+    delta.forEach(function (d) { cum += d; if (cum < minCum) minCum = cum; });
+    var Qhu = Math.max(0, -minCum), R = [Qhu];
+    delta.forEach(function (d) { R.push(R[R.length - 1] + d); });
+    var Qcu = Math.max(0, R[R.length - 1]);
+
+    // A pinch is an INTERIOR boundary where nothing cascades. Zero at either end
+    // only means that one utility is not needed: a threshold problem.
+    var tol = 1e-6 * Math.max(1, Qhu, Qcu), pinchTemp = null;
+    for (var k = 1; k < R.length - 1; k++)
+      if (Math.abs(R[k]) <= tol) { pinchTemp = intervals[k - 1][1]; break; }
+    return { intervals: intervals, R: R, Qhu: Qhu, Qcu: Qcu, pinchTemp: pinchTemp };
+  }
+
+  // --------------------------------------------- flows (black-box) diagram
+  var DEFS = "<defs>" +
+    '<marker id="mvArrIn" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="' + C.cold + '"/></marker>' +
+    '<marker id="mvArrOut" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="' + C.out + '"/></marker>' +
+    '<marker id="mvArrHot" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="' + C.hot + '"/></marker>' +
+    '<marker id="mvArrCold" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="' + C.cold + '"/></marker>' +
+    "</defs>";
+
+  function connValue(c, f) {
+    if (!isFinite(c.flow)) return "-";
+    var u = prettyUnit(c.unit.trim());
+    return nice(c.flow * f) + (u ? " " + u : "") + (isFinite(c.temp) ? "  @ " + fmt(c.temp, 0) + " °C" : "");
+  }
+
+  function heatSummary(list, type) {
+    var ss = list.filter(function (s) { return s.type === type; });
+    if (!ss.length) return null;
+    var q = ss.reduce(function (a, s) { return a + s.kW; }, 0);
+    var tFrom = type === "hot" ? Math.max.apply(null, ss.map(function (s) { return s.Tin; }))
+                               : Math.min.apply(null, ss.map(function (s) { return s.Tin; }));
+    var tTo = type === "hot" ? Math.min.apply(null, ss.map(function (s) { return s.Tout; }))
+                             : Math.max.apply(null, ss.map(function (s) { return s.Tout; }));
+    return { n: ss.length, q: q, from: tFrom, to: tTo };
+  }
+
+  function buildFlows(u, list, f) {
+    var LW = 200, LH = 48, ARROW = 70, BW = 260, ROW = 70, PAD = 18, VARR = 42;
+    var conns = u.connectors.filter(function (c) { return c.name.trim() !== ""; });
+    var ins = conns.filter(function (c) { return c.dir === "in"; });
+    var outs = conns.filter(function (c) { return c.dir === "out"; });
+    var demand = heatSummary(list, "cold"), release = heatSummary(list, "hot");
+
+    var leftW = ins.length ? LW + ARROW : 30, rightW = outs.length ? LW + ARROW : 30;
+    var W = PAD + leftW + BW + rightW + PAD;
+    var topH = demand ? LH + VARR : 0, botH = release ? LH + VARR : 0;
+    var BH = Math.max(140, (Math.max(ins.length, outs.length, 1) - 1) * ROW + 90);
+    var bx = PAD + leftW, by = PAD + topH, cy = by + BH / 2, cxB = bx + BW / 2;
+    var H = by + BH + botH + PAD;
+    var s = "";
+
+    function label(x, y, w, color, title, value, dashed) {
+      return '<rect x="' + x + '" y="' + (y - LH / 2) + '" width="' + w + '" height="' + LH +
+        '" rx="5" fill="' + C.card + '" stroke="' + color + '" stroke-width="1.3"' +
+        (dashed ? ' stroke-dasharray="5,3"' : "") + "/>" +
+        '<text x="' + (x + w / 2) + '" y="' + (y - 5) + '" text-anchor="middle" font-size="12.5" font-weight="700" fill="' + color + '">' + chemSVG(title) + "</text>" +
+        '<text x="' + (x + w / 2) + '" y="' + (y + 13) + '" text-anchor="middle" font-size="11" fill="' + C.muted + '">' + chemSVG(value) + "</text>";
+    }
+
+    // the unit itself
+    s += '<rect x="' + bx + '" y="' + by + '" width="' + BW + '" height="' + BH +
+         '" rx="10" fill="' + C.card + '" stroke="' + C.text + '" stroke-width="2"/>';
+    s += '<text x="' + cxB + '" y="' + (cy - 8) + '" text-anchor="middle" font-size="14" font-weight="700" fill="' + C.text + '">' + xesc(u.name) + "</text>";
+    var sub = [];
+    if (u.kind) sub.push(u.kind);
+    if (f !== 1) sub.push("f = " + nice(f));
+    if (sub.length) s += '<text x="' + cxB + '" y="' + (cy + 12) + '" text-anchor="middle" font-size="11" fill="' + C.muted + '">' + xesc(sub.join("  ·  ")) + "</text>";
+
+    // material and electricity connectors
+    ins.forEach(function (c, i) {
+      var y = cy - (ins.length - 1) * ROW / 2 + i * ROW;
+      s += label(PAD, y, LW, C.cold, c.name, connValue(c, f));
+      s += '<line x1="' + (PAD + LW + 4) + '" y1="' + y + '" x2="' + (bx - 10) + '" y2="' + y + '" stroke="' + C.cold + '" stroke-width="2.2" marker-end="url(#mvArrIn)"/>';
+    });
+    outs.forEach(function (c, i) {
+      var y = cy - (outs.length - 1) * ROW / 2 + i * ROW, lx = bx + BW + ARROW;
+      s += '<line x1="' + (bx + BW + 4) + '" y1="' + y + '" x2="' + (lx - 10) + '" y2="' + y + '" stroke="' + C.out + '" stroke-width="2.2" marker-end="url(#mvArrOut)"/>';
+      s += label(lx, y, LW, C.out, c.name, connValue(c, f));
+    });
+
+    // heat: demand enters from above, release leaves below (dashed: energy, not matter)
+    var HW = 250;
+    if (demand) {
+      var yl = PAD + LH / 2;
+      s += label(cxB - HW / 2, yl, HW, C.cold, "Heat demand · " + demand.n + " cold stream" + (demand.n === 1 ? "" : "s"),
+                 nice(demand.q) + " kW  ·  " + fmt(demand.from, 0) + " → " + fmt(demand.to, 0) + " °C", true);
+      s += '<line x1="' + cxB + '" y1="' + (yl + LH / 2 + 3) + '" x2="' + cxB + '" y2="' + (by - 9) + '" stroke="' + C.cold +
+           '" stroke-width="2.2" stroke-dasharray="6,4" marker-end="url(#mvArrCold)"/>';
+    }
+    if (release) {
+      var yr = by + BH + VARR + LH / 2;
+      s += '<line x1="' + cxB + '" y1="' + (by + BH + 3) + '" x2="' + cxB + '" y2="' + (yr - LH / 2 - 9) + '" stroke="' + C.hot +
+           '" stroke-width="2.2" stroke-dasharray="6,4" marker-end="url(#mvArrHot)"/>';
+      s += label(cxB - HW / 2, yr, HW, C.hot, "Heat release · " + release.n + " hot stream" + (release.n === 1 ? "" : "s"),
+                 nice(release.q) + " kW  ·  " + fmt(release.from, 0) + " → " + fmt(release.to, 0) + " °C", true);
+    }
+    if (!ins.length && !outs.length && !demand && !release)
+      s += '<text x="' + cxB + '" y="' + (by + BH + 20) + '" text-anchor="middle" font-size="11" fill="' + C.muted + '">No connectors or heat streams defined.</text>';
+
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + " " + H +
+           "\" font-family='" + MONO + "'>" + '<rect width="' + W + '" height="' + H + '" fill="' + C.bg + '"/>' + DEFS + s + "</svg>";
+  }
+
+  // ------------------------------------------------------ heat stream table
+  function streamTable(list) {
+    if (!list.length) return { html: '<div class="mv-empty">This unit has no heat streams.</div>', csv: "" };
+    var rows = list.slice().sort(function (a, b) {
+      return (a.type === b.type ? 0 : a.type === "hot" ? -1 : 1) || (b.kW - a.kW);
+    });
+    var hasH = rows.some(function (s) { return isFinite(s.htc); });
+    var head = ["Stream", "Type", "T<sub>in</sub> °C", "T<sub>out</sub> °C", "T*<sub>in</sub> °C", "T*<sub>out</sub> °C",
+                "ΔT<sub>min</sub>/2 °C", "CP kW/K", "Duty kW"].concat(hasH ? ["h kW/m²K"] : []);
+    var csv = [["stream", "type", "Tin_C", "Tout_C", "Tin_shifted_C", "Tout_shifted_C", "dTmin_half_C", "CP_kW_per_K", "duty_kW"]
+                .concat(hasH ? ["h_kW_per_m2K"] : []).join(",")];
+    var body = rows.map(function (s) {
+      var iso = Math.abs(s.Tin - s.Tout) < 1e-6;
+      var cp = iso ? "phase change" : nice(streamCP(s));
+      var duty = (s.type === "hot" ? "−" : "") + nice(s.kW);
+      csv.push(['"' + s.name.replace(/"/g, '""') + '"', s.type, s.Tin, s.Tout, shift(s, s.Tin), shift(s, s.Tout), s.dtc,
+                iso ? "" : streamCP(s), (s.type === "hot" ? -1 : 1) * s.kW].concat(hasH ? [isFinite(s.htc) ? s.htc : ""] : []).join(","));
+      return '<tr class="is-' + s.type + '"><td>' + xesc(s.name) + '</td><td class="mv-type-' + s.type + '">' + s.type + "</td>" +
+        "<td>" + fmt(s.Tin, 1) + "</td><td>" + fmt(s.Tout, 1) + "</td><td>" + fmt(shift(s, s.Tin), 1) + "</td><td>" + fmt(shift(s, s.Tout), 1) + "</td>" +
+        "<td>" + fmt(s.dtc, 1) + "</td><td>" + cp + "</td><td>" + duty + "</td>" +
+        (hasH ? "<td>" + (isFinite(s.htc) ? nice(s.htc) : "-") + "</td>" : "") + "</tr>";
+    }).join("");
+    var qh = list.filter(function (s) { return s.type === "hot"; }).reduce(function (a, s) { return a + s.kW; }, 0);
+    var qc = list.filter(function (s) { return s.type === "cold"; }).reduce(function (a, s) { return a + s.kW; }, 0);
+    var span = head.length - 1;
+    var foot = '<tr><td colspan="' + (span - (hasH ? 1 : 0)) + '">Total released by hot streams</td><td class="mv-type-hot">−' + nice(qh) + "</td>" + (hasH ? "<td></td>" : "") + "</tr>" +
+               '<tr><td colspan="' + (span - (hasH ? 1 : 0)) + '">Total absorbed by cold streams</td><td class="mv-type-cold">' + nice(qc) + "</td>" + (hasH ? "<td></td>" : "") + "</tr>";
+    // "<" + "table": Quarto tries to parse a literal table tag in included HTML as a pandoc table
+    var html = '<div style="overflow-x:auto"><' + 'table class="mv-table"><thead><tr>' +
+      head.map(function (h) { return "<th>" + h + "</th>"; }).join("") + "</tr></thead><tbody>" + body +
+      "</tbody><tfoot>" + foot + "</tfoot></" + "table></div>";
+    return { html: html, csv: csv.join("\n") + "\n" };
+  }
+
+  function dataWarnings(u, list) {
+    var w = [];
+    u.streams.forEach(function (s) {
+      if (s.mismatch)
+        w.push("<b>" + xesc(s.name) + "</b> is declared <i>" + s.declared + "</i>, but it goes from " + fmt(s.Tin, 1) +
+               " to " + fmt(s.Tout, 1) + " °C, so it is treated as <i>" + s.type + "</i>.");
+      if (!isFinite(s.Tin) || !isFinite(s.Tout))
+        w.push("<b>" + xesc(s.name) + "</b> has no inlet or outlet temperature and is left out.");
+      else if (!(s.kW > 0))
+        w.push("<b>" + xesc(s.name) + "</b> has zero duty and is left out.");
+      if (!s.dtcGiven)
+        w.push("<b>" + xesc(s.name) + "</b> has no ΔT<sub>min</sub>/2 contribution; 5 °C is assumed.");
+    });
+    u.connectors.forEach(function (c) {
+      if (!isFinite(c.flow)) w.push("Connector <b>" + xesc(c.name) + "</b> has no flow value.");
+    });
+    return w.length ? '<div class="mv-warn"><b>Data checks</b><ul><li>' + w.join("</li><li>") + "</li></ul></div>" : "";
+  }
+
+  // ---------------------------------------------------- canvas plotting
+  function niceStep(span, n) {
+    var raw = span / n, mag = Math.pow(10, Math.floor(Math.log10(raw))), e = raw / mag;
+    return (e >= 7.5 ? 10 : e >= 3.5 ? 5 : e >= 1.5 ? 2 : 1) * mag;
+  }
+  function ticks(lo, hi, n) {
+    var step = niceStep(hi - lo || 1, n), out = [];
+    for (var v = Math.ceil(lo / step) * step; v <= hi + step * 1e-9; v += step) out.push(Math.abs(v) < step * 1e-9 ? 0 : v);
+    return out;
+  }
+  function tickLabel(v) {
+    var a = Math.abs(v);
+    if (a >= 1e6) return (v / 1e6).toLocaleString("en-US", { maximumFractionDigits: 2 }) + "M";
+    if (a >= 1e4) return (v / 1e3).toLocaleString("en-US", { maximumFractionDigits: 1 }) + "k";
+    return v.toLocaleString("en-US", { maximumFractionDigits: 2 });
+  }
+
+  // Size the canvas to its frame, at the screen's pixel density.
+  function prep(canvas) {
+    var avail = canvas.parentElement.clientWidth - 16;
+    if (avail <= 0) return null;                       // hidden tab: draw when shown
+    var W = Math.max(320, Math.min(860, avail)), H = Math.round(W * 0.6);
+    var dpr = window.devicePixelRatio || 1;
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    canvas.style.width = W + "px"; canvas.style.height = H + "px";
+    var ctx = canvas.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+    return { ctx: ctx, W: W, H: H };
+  }
+  function emptyPlot(p, msg) {
+    p.ctx.fillStyle = C.muted; p.ctx.font = "12px " + MONO; p.ctx.textAlign = "center";
+    p.ctx.fillText(msg, p.W / 2, p.H / 2);
+  }
+  function axes(p, pad, xLo, xHi, tLo, tHi, cx, cy, xLabel) {
+    var ctx = p.ctx;
+    ctx.lineWidth = 1; ctx.font = "10px " + MONO;
+    ticks(tLo, tHi, 6).forEach(function (t) {
+      ctx.strokeStyle = C.grid; ctx.beginPath(); ctx.moveTo(pad.left, cy(t)); ctx.lineTo(p.W - pad.right, cy(t)); ctx.stroke();
+      ctx.fillStyle = C.muted; ctx.textAlign = "right"; ctx.fillText(tickLabel(t), pad.left - 6, cy(t) + 3);
+    });
+    ticks(xLo, xHi, 6).forEach(function (q) {
+      ctx.strokeStyle = C.grid; ctx.beginPath(); ctx.moveTo(cx(q), pad.top); ctx.lineTo(cx(q), p.H - pad.bottom); ctx.stroke();
+      ctx.fillStyle = C.muted; ctx.textAlign = "center"; ctx.fillText(tickLabel(q), cx(q), p.H - pad.bottom + 15);
+    });
+    ctx.strokeStyle = C.border; ctx.strokeRect(pad.left, pad.top, p.W - pad.left - pad.right, p.H - pad.top - pad.bottom);
+    ctx.fillStyle = C.text; ctx.font = "11px " + MONO; ctx.textAlign = "center";
+    ctx.fillText(xLabel, (pad.left + p.W - pad.right) / 2, p.H - 10);
+    ctx.save(); ctx.translate(15, (pad.top + p.H - pad.bottom) / 2); ctx.rotate(-Math.PI / 2);
+    ctx.fillText("Shifted temperature T* (°C)", 0, 0); ctx.restore();
+  }
+  // "Q" with a subscript, on a light chip so it stays readable over a curve
+  function qTag(p, pad, x, y, sub, value, color) {
+    var ctx = p.ctx, tail = " = " + nice(value) + " kW";
+    ctx.font = "bold 10.5px " + MONO; var wq = ctx.measureText("Q").width, wt = ctx.measureText(tail).width;
+    ctx.font = "bold 8px " + MONO; var ws = ctx.measureText(sub).width;
+    var tot = wq + ws + wt;
+    x = Math.max(pad.left + 3, Math.min(x - tot / 2, p.W - pad.right - tot - 3));
+    y = Math.max(pad.top + 13, Math.min(y, p.H - pad.bottom - 5));
+    ctx.fillStyle = "rgba(250,251,252,0.92)"; ctx.fillRect(x - 3, y - 11, tot + 6, 15);
+    ctx.fillStyle = color; ctx.textAlign = "left";
+    ctx.font = "bold 10.5px " + MONO; ctx.fillText("Q", x, y);
+    ctx.font = "bold 8px " + MONO; ctx.fillText(sub, x + wq, y + 2.5);
+    ctx.font = "bold 10.5px " + MONO; ctx.fillText(tail, x + wq + ws, y);
+  }
+  function pinchLine(p, pad, cy, T) {
+    var ctx = p.ctx;
+    ctx.strokeStyle = "rgba(184,134,11,0.6)"; ctx.lineWidth = 1.3; ctx.setLineDash([5, 4]);
+    ctx.beginPath(); ctx.moveTo(pad.left, cy(T)); ctx.lineTo(p.W - pad.right, cy(T)); ctx.stroke(); ctx.setLineDash([]);
+    var txt = "Pinch  T* = " + fmt(T, 1) + " °C";
+    ctx.font = "bold 10.5px " + MONO;
+    var w = ctx.measureText(txt).width, x = p.W - pad.right - w - 8, y = cy(T) - 7;
+    ctx.fillStyle = "rgba(250,251,252,0.92)"; ctx.fillRect(x - 4, y - 11, w + 8, 15);
+    ctx.fillStyle = C.pinch; ctx.textAlign = "left"; ctx.fillText(txt, x, y);
+  }
+  function legend(p, pad, items) {
+    var ctx = p.ctx, w = 160, h = 10 + items.length * 16, x = p.W - pad.right - w - 8, y = p.H - pad.bottom - h - 8;
+    ctx.fillStyle = "rgba(250,251,252,0.94)"; ctx.fillRect(x, y, w, h);
+    ctx.strokeStyle = C.grid; ctx.strokeRect(x, y, w, h);
+    ctx.font = "10.5px " + MONO; ctx.textAlign = "left";
+    items.forEach(function (it, i) {
+      ctx.fillStyle = it[0]; ctx.fillRect(x + 8, y + 12 + i * 16, 18, 3);
+      ctx.fillStyle = C.text; ctx.fillText(it[1], x + 32, y + 16 + i * 16);
+    });
+  }
+
+  function composite(list, type) {
+    var ss = list.filter(function (s) { return s.type === type; });
+    if (!ss.length) return null;
+    var t = {}; ss.forEach(function (s) { t[sHi(s)] = 1; t[sLo(s)] = 1; });
+    var sorted = Object.keys(t).map(Number).sort(function (a, b) { return a - b; });
+    var T = [sorted[0]], Hs = [0];
+    for (var i = 0; i < sorted.length - 1; i++) {
+      var lo = sorted[i], hi = sorted[i + 1], cp = 0;
+      ss.forEach(function (s) { if (sHi(s) >= hi - 1e-9 && sLo(s) <= lo + 1e-9) cp += streamCP(s); });
+      Hs.push(Hs[Hs.length - 1] + cp * (hi - lo)); T.push(hi);
+    }
+    return { H: Hs, T: T };
+  }
+
+  function drawComposite(canvas, list, res) {
+    var p = prep(canvas); if (!p) return false;
+    var pts = [];
+    canvas._pts = pts;
+    var hc = composite(list, "hot"), cc = composite(list, "cold");
+    if (!hc && !cc) { emptyPlot(p, "No heat streams"); return true; }
+    var pad = { top: 34, right: 22, bottom: 50, left: 62 }, ctx = p.ctx;
+    // the cold composite is shifted right by Q_CU, which the cascade gives exactly
+    var curves = [];
+    if (hc) curves.push({ H: hc.H, T: hc.T, color: C.hot, name: "Hot composite" });
+    if (cc) curves.push({ H: cc.H.map(function (h) { return h + (res ? res.Qcu : 0); }), T: cc.T, color: C.cold, name: "Cold composite" });
+    var allH = [], allT = [];
+    curves.forEach(function (c) { allH = allH.concat(c.H); allT = allT.concat(c.T); });
+    var hMax = Math.max.apply(null, allH) * 1.04 || 1;
+    var t0 = Math.min.apply(null, allT), t1 = Math.max.apply(null, allT);
+    var head = Math.max(4, (t1 - t0) * 0.1), tLo = t0 - head, tHi = t1 + head;
+    var cx = function (h) { return pad.left + h / hMax * (p.W - pad.left - pad.right); };
+    var cy = function (t) { return p.H - pad.bottom - (t - tLo) / (tHi - tLo) * (p.H - pad.top - pad.bottom); };
+    axes(p, pad, 0, hMax, tLo, tHi, cx, cy, "Heat load H (kW)");
+
+    curves.forEach(function (c) {
+      ctx.strokeStyle = c.color; ctx.lineWidth = 2.5; ctx.lineJoin = "round"; ctx.beginPath();
+      c.H.forEach(function (h, i) { if (i) ctx.lineTo(cx(h), cy(c.T[i])); else ctx.moveTo(cx(h), cy(c.T[i])); });
+      ctx.stroke();
+      ctx.fillStyle = c.color;
+      c.H.forEach(function (h, i) {
+        ctx.beginPath(); ctx.arc(cx(h), cy(c.T[i]), 3, 0, Math.PI * 2); ctx.fill();
+        pts.push({ x: cx(h), y: cy(c.T[i]), html: "<b>" + c.name + "</b><br>T* = " + fmt(c.T[i], 1) + " °C<br>H = " + nice(h) + " kW" });
+      });
+    });
+
+    if (res) {
+      var hot = hc ? curves[0] : null, cold = cc ? curves[curves.length - 1] : null;
+      function bracket(x1, x2, y, color) {
+        ctx.strokeStyle = color; ctx.lineWidth = 1.4; ctx.setLineDash([4, 3]);
+        ctx.beginPath(); ctx.moveTo(x1, y); ctx.lineTo(x2, y); ctx.stroke(); ctx.setLineDash([]);
+        ctx.beginPath(); ctx.moveTo(x1, y - 5); ctx.lineTo(x1, y + 5); ctx.moveTo(x2, y - 5); ctx.lineTo(x2, y + 5); ctx.stroke();
+      }
+      if (res.Qhu > 1e-6 && cold) {
+        var a = hot ? cx(hot.H[hot.H.length - 1]) : cx(0), b = cx(cold.H[cold.H.length - 1]);
+        var y = cy(t1) - 14;
+        bracket(a, b, y, C.hot); qTag(p, pad, (a + b) / 2, y - 7, "HU", res.Qhu, C.hot);
+      }
+      if (res.Qcu > 1e-6 && hot) {
+        var a2 = cx(hot.H[0]), b2 = cold ? cx(cold.H[0]) : cx(res.Qcu);
+        var y2 = cy(t0) + 14;
+        bracket(a2, b2, y2, C.cold); qTag(p, pad, (a2 + b2) / 2, y2 + 17, "CU", res.Qcu, C.cold);
+      }
+      if (res.pinchTemp !== null) pinchLine(p, pad, cy, res.pinchTemp);
+    }
+    legend(p, pad, curves.map(function (c) { return [c.color, c.name]; }));
+    return true;
+  }
+
+  function drawGCC(canvas, res) {
+    var p = prep(canvas); if (!p) return false;
+    var pts = [];
+    canvas._pts = pts;
+    if (!res) { emptyPlot(p, "No heat streams"); return true; }
+    var pad = { top: 34, right: 22, bottom: 50, left: 62 }, ctx = p.ctx;
+    var g = [[res.R[0], res.intervals[0][0]]];
+    res.intervals.forEach(function (iv, k) { g.push([res.R[k + 1], iv[1]]); });
+    var xs = g.map(function (q) { return q[0]; });
+    var xLo = Math.min(0, Math.min.apply(null, xs)), xHi = Math.max(0, Math.max.apply(null, xs));
+    var px = Math.max(1, (xHi - xLo) * 0.06); xLo -= px * 0.3; xHi += px;
+    var t0 = Math.min.apply(null, g.map(function (q) { return q[1]; }));
+    var t1 = Math.max.apply(null, g.map(function (q) { return q[1]; }));
+    var head = Math.max(4, (t1 - t0) * 0.1), tLo = t0 - head, tHi = t1 + head;
+    var cx = function (q) { return pad.left + (q - xLo) / (xHi - xLo) * (p.W - pad.left - pad.right); };
+    var cy = function (t) { return p.H - pad.bottom - (t - tLo) / (tHi - tLo) * (p.H - pad.top - pad.bottom); };
+    axes(p, pad, xLo, xHi, tLo, tHi, cx, cy, "Net heat flow (kW)");
+
+    // shade back to the zero axis so pockets read as area
+    ctx.beginPath(); ctx.moveTo(cx(0), cy(g[0][1]));
+    g.forEach(function (q) { ctx.lineTo(cx(q[0]), cy(q[1])); });
+    ctx.lineTo(cx(0), cy(g[g.length - 1][1])); ctx.closePath();
+    ctx.fillStyle = "rgba(212,116,14,0.10)"; ctx.fill();
+    ctx.strokeStyle = "rgba(44,62,80,0.5)"; ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(cx(0), pad.top); ctx.lineTo(cx(0), p.H - pad.bottom); ctx.stroke();
+    ctx.strokeStyle = C.pinch; ctx.lineWidth = 2.5; ctx.lineJoin = "round"; ctx.beginPath();
+    g.forEach(function (q, i) { if (i) ctx.lineTo(cx(q[0]), cy(q[1])); else ctx.moveTo(cx(q[0]), cy(q[1])); });
+    ctx.stroke();
+    ctx.fillStyle = C.pinch;
+    g.forEach(function (q) {
+      ctx.beginPath(); ctx.arc(cx(q[0]), cy(q[1]), 2.6, 0, Math.PI * 2); ctx.fill();
+      pts.push({ x: cx(q[0]), y: cy(q[1]), html: "T* = " + fmt(q[1], 1) + " °C<br>Net heat flow = " + nice(q[0]) + " kW" });
+    });
+
+    if (res.pinchTemp !== null) pinchLine(p, pad, cy, res.pinchTemp);
+    var top = g[0], bot = g[g.length - 1];
+    if (top[0] > 1e-6) qTag(p, pad, cx(top[0]), cy(top[1]) - 9, "HU", top[0], C.hot);
+    if (bot[0] > 1e-6) qTag(p, pad, cx(bot[0]), cy(bot[1]) + 19, "CU", bot[0], C.cold);
+    return true;
+  }
+
+  // Snap to the nearest plotted point and show its values.
+  function attachHover(canvas) {
+    var frameEl = canvas.parentElement;
+    var tip = document.createElement("div"); tip.className = "mv-tip"; tip.hidden = true;
+    var dot = document.createElement("div"); dot.className = "mv-dot"; dot.hidden = true;
+    frameEl.appendChild(tip); frameEl.appendChild(dot);
+    canvas.addEventListener("mousemove", function (e) {
+      var r = canvas.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
+      var best = null, bd = 196;                       // within 14 px
+      (canvas._pts || []).forEach(function (q) {
+        var d = (q.x - mx) * (q.x - mx) + (q.y - my) * (q.y - my);
+        if (d < bd) { bd = d; best = q; }
+      });
+      if (!best) { tip.hidden = dot.hidden = true; return; }
+      var ox = canvas.offsetLeft + best.x, oy = canvas.offsetTop + best.y;
+      dot.style.left = ox + "px"; dot.style.top = oy + "px";
+      tip.style.left = ox + "px"; tip.style.top = oy + "px";
+      tip.innerHTML = best.html; tip.hidden = dot.hidden = false;
+    });
+    canvas.addEventListener("mouseleave", function () { tip.hidden = dot.hidden = true; });
+  }
+
+  // ---------------------------------------------------------------- page
+  function stat(label, value, color, title) {
+    return '<div class="mv-stat"' + (title ? ' title="' + xesc(title) + '"' : "") + '><div class="mv-stat-label">' + label +
+           '</div><div class="mv-stat-value"' + (color ? ' style="color:' + color + '"' : "") + ">" + value + "</div></div>";
+  }
+
+  var TABS = [["flows", "Flows"], ["streams", "Heat streams"], ["cc", "Composite curves"], ["gcc", "Grand composite curve"]];
+  var CC_NOTE = "Hot and cold composites against shifted temperature. Their horizontal overlap is the heat the unit can recover internally; " +
+                "the overhangs are the minimum hot (Q<sub>HU</sub>) and cold (Q<sub>CU</sub>) utility. Hover a point for its values.";
+  var GCC_NOTE = "Net heat cascaded down at each shifted temperature. The width at the top is Q<sub>HU</sub>, at the bottom Q<sub>CU</sub>; " +
+                 "where the curve touches zero the unit is pinched, and a pocket is heat it can exchange with itself.";
+
+  function mount(root) {
+    var src = root.getAttribute("data-src") || "the model file", data;
+    try {
+      var node = root.querySelector('script[type="application/json"]');
+      data = JSON.parse(node ? node.textContent : "");
+    } catch (e) {
+      root.innerHTML = '<div class="mv-empty">Could not read ' + xesc(src) + ".</div>";
+      return;
+    }
+    var units = normalise(data);
+    if (!units.length) { root.innerHTML = '<div class="mv-empty">No units found in ' + xesc(src) + ".</div>"; return; }
+
+    var state = { unit: 0, f: 1, tab: "flows" }, dirty = {};
+    root.innerHTML =
+      '<div class="mv-bar">' +
+        (units.length > 1 ? '<label>Unit <select class="mv-unit">' + units.map(function (u, i) {
+          return '<option value="' + i + '">' + xesc(u.name) + "</option>"; }).join("") + "</select></label>" : "") +
+        '<label title="Multiplies every duty and flow of the unit; temperatures are unchanged">Scale factor <i>f</i> ' +
+          '<input class="mv-f" type="number" min="0" step="0.1" value="1"></label>' +
+        '<span class="mv-kind" hidden></span>' +
+      "</div>" +
+      '<div class="mv-stats"></div>' +
+      '<div class="mv-tabs" role="tablist">' + TABS.map(function (t) {
+        return '<button type="button" class="mv-tab" role="tab" data-tab="' + t[0] + '">' + t[1] + "</button>"; }).join("") + "</div>" +
+      '<div class="mv-panel" data-tab="flows"><div class="mv-frame mv-flows"></div>' +
+        '<div class="mv-tools"><p>Inputs left, outputs right; heat demand above and heat release below, dashed because they are energy rather than matter.</p>' +
+        '<button type="button" class="mv-dl" data-dl="svg">Download SVG</button></div></div>' +
+      '<div class="mv-panel" data-tab="streams"><div class="mv-streams"></div><div class="mv-warns"></div>' +
+        '<div class="mv-tools"><p>T* is the shifted temperature: hot streams are lowered and cold streams raised by their ΔT<sub>min</sub>/2 contribution.</p>' +
+        '<button type="button" class="mv-dl" data-dl="csv">Download CSV</button></div></div>' +
+      '<div class="mv-panel" data-tab="cc"><div class="mv-frame"><canvas class="mv-cc"></canvas></div>' +
+        '<div class="mv-tools"><p>' + CC_NOTE + '</p><button type="button" class="mv-dl" data-dl="cc">Download PNG</button></div></div>' +
+      '<div class="mv-panel" data-tab="gcc"><div class="mv-frame"><canvas class="mv-gcc"></canvas></div>' +
+        '<div class="mv-tools"><p>' + GCC_NOTE + '</p><button type="button" class="mv-dl" data-dl="gcc">Download PNG</button></div></div>' +
+      '<div class="mv-source">Generated from <code>' + xesc(src) + "</code>, considering the unit on its own.</div>";
+
+    var $ = function (q) { return root.querySelector(q); };
+    var ccCanvas = $(".mv-cc"), gccCanvas = $(".mv-gcc");
+    attachHover(ccCanvas); attachHover(gccCanvas);
+    var current = {};
+
+    function compute() {
+      var u = units[state.unit], f = state.f;
+      var list = u.streams.filter(function (s) { return isFinite(s.Tin) && isFinite(s.Tout) && s.kW > 0; })
+                          .map(function (s) { return Object.assign({}, s, { kW: s.kW * f }); });
+      var res = list.length ? solve(list) : null;
+      var qh = list.filter(function (s) { return s.type === "hot"; }).reduce(function (a, s) { return a + s.kW; }, 0);
+      var qc = list.filter(function (s) { return s.type === "cold"; }).reduce(function (a, s) { return a + s.kW; }, 0);
+      current = { u: u, f: f, list: list, res: res, qh: qh, qc: qc };
+    }
+
+    function drawStats() {
+      var c = current, u = c.u, res = c.res;
+      var kind = $(".mv-kind");
+      kind.hidden = !u.kind; kind.textContent = u.kind;
+      kind.className = "mv-kind" + (u.kind === "process" ? " is-process" : "");
+      var temps = [];
+      c.list.forEach(function (s) { temps.push(s.Tin, s.Tout); });
+      var recovered = res ? Math.max(0, c.qh - res.Qcu) : 0;
+      $(".mv-stats").innerHTML =
+        stat("Min. hot utility Q<sub>HU</sub>", res ? nice(res.Qhu) + " kW" : "-", C.hot, "Heat that must come from outside the unit") +
+        stat("Min. cold utility Q<sub>CU</sub>", res ? nice(res.Qcu) + " kW" : "-", C.cold, "Heat that must be removed by a utility") +
+        stat("Internal recovery", res ? nice(recovered) + " kW" : "-", C.out, "Heat exchanged between the unit's own streams") +
+        stat("Pinch T*", res ? (res.pinchTemp !== null ? fmt(res.pinchTemp, 1) + " °C" : "none (threshold)") : "-", C.pinch) +
+        stat("Hot / cold duty", nice(c.qh) + " / " + nice(c.qc) + " kW", null, "Heat released by hot streams / absorbed by cold streams") +
+        stat("Temperature span", temps.length ? fmt(Math.min.apply(null, temps), 0) + " → " + fmt(Math.max.apply(null, temps), 0) + " °C" : "-") +
+        stat("Streams · connectors", u.streams.length + " · " + u.connectors.length);
+    }
+
+    function drawTab(tab) {
+      var c = current;
+      if (tab === "flows") $(".mv-flows").innerHTML = c.flowsSvg = buildFlows(c.u, c.list, c.f);
+      else if (tab === "streams") {
+        var t = streamTable(c.list);
+        c.csv = t.csv;
+        $(".mv-streams").innerHTML = t.html;
+        $(".mv-warns").innerHTML = dataWarnings(c.u, c.list);
+      }
+      else if (tab === "cc") { if (!drawComposite(ccCanvas, c.list, c.res)) return; }
+      else if (tab === "gcc") { if (!drawGCC(gccCanvas, c.res)) return; }
+      dirty[tab] = false;
+    }
+
+    function show(tab) {
+      state.tab = tab;
+      root.querySelectorAll(".mv-tab").forEach(function (b) {
+        var on = b.getAttribute("data-tab") === tab;
+        b.classList.toggle("is-active", on); b.setAttribute("aria-selected", on ? "true" : "false");
+      });
+      root.querySelectorAll(".mv-panel").forEach(function (pn) { pn.hidden = pn.getAttribute("data-tab") !== tab; });
+      if (dirty[tab] !== false) drawTab(tab);
+    }
+
+    function refresh() {
+      compute(); drawStats();
+      TABS.forEach(function (t) { dirty[t[0]] = true; });
+      drawTab(state.tab);
+    }
+
+    root.querySelectorAll(".mv-tab").forEach(function (b) {
+      b.addEventListener("click", function () { show(b.getAttribute("data-tab")); });
+    });
+    var sel = $(".mv-unit");
+    if (sel) sel.addEventListener("change", function () { state.unit = Number(sel.value); refresh(); });
+    var fin = $(".mv-f");
+    fin.addEventListener("input", function () {
+      var v = parseFloat(fin.value);
+      if (isFinite(v) && v >= 0) { state.f = v; refresh(); }
+    });
+    root.querySelectorAll(".mv-dl").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var kind = b.getAttribute("data-dl"), base = slug(current.u.name) + (current.f !== 1 ? "_f" + current.f : "");
+        if (kind === "svg") download(base + "_flows.svg", current.flowsSvg, "image/svg+xml");
+        else if (kind === "csv") download(base + "_heat_streams.csv", current.csv, "text/csv");
+        else if (kind === "cc") download(base + "_composite_curves.png", ccCanvas.toDataURL("image/png"));
+        else if (kind === "gcc") download(base + "_grand_composite_curve.png", gccCanvas.toDataURL("image/png"));
+      });
+    });
+
+    var resizeTimer = null, lastW = root.clientWidth;
+    window.addEventListener("resize", function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        if (root.clientWidth === lastW) return;
+        lastW = root.clientWidth;
+        dirty.cc = dirty.gcc = true;
+        if (state.tab === "cc" || state.tab === "gcc") drawTab(state.tab);
+      }, 150);
+    });
+
+    compute(); drawStats();
+    show("flows");
+  }
+
+  for (var i = 0; i < roots.length; i++) {
+    try { mount(roots[i]); }
+    catch (e) {
+      console.error("model-viewer:", e);
+      roots[i].innerHTML = '<div class="mv-empty">The model viewer could not render this model.</div>';
+    }
+  }
+});
+</script>

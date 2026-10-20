@@ -1,0 +1,16 @@
+# Quarto build output and cache (regenerated on every render)
+/_book/
+/.quarto/
+/_freeze/
+
+# Python
+__pycache__/
+.venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+~$*
+
+**/*.quarto_ipynb

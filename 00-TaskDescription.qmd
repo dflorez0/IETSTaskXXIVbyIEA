@@ -1,0 +1,82 @@
+# Task XXIV description {.unnumbered}
+
+**Process Integration for Industry Decarbonization** is Task XXIV of the IEA Technology Collaboration Programme on Industrial Energy-Related Technologies and Systems (IETS TCP).
+
+| | |
+|:--|:--|
+| **Duration** | 1 January 2025 – 31 December 2027 |
+| **Approval** | IETS Executive Committee, 20 November 2024 |
+| **Task managers** | Daniel Flórez-Orrego and François Maréchal, École Polytechnique Fédérale de Lausanne (EPFL) |
+| **Coordination funded by** | Swiss Federal Office of Energy (SFOE) |
+| **Task page** | <https://iea-industry.org/tasks/process-integration-for-industry-decarbonization/> |
+
+: Task XXIV at a glance {.striped}
+
+## Context and motivation {.unnumbered}
+
+Process integration has long been a key approach for improving the energy performance of industrial systems. Its classical focus on heat recovery now needs to expand towards a systemic dimension that encompasses energy efficiency and conversion, carbon capture and sequestration, industrial symbiosis, urban systems integration, waste management, power-to-gas pathways and renewable energy grids.
+
+Yet many industries remain unaware of the improvement potential of their own plants, mainly because of limited access to information on process integration techniques and decarbonization technologies, insufficient financial resources, and a lack of skilled personnel to conduct thorough energy audits. Existing tools for energy auditing and process integration are often proprietary or, when open source, lack validated information about technological solutions. Results of collaborative research between academia and industry are typically presented as poorly documented, static data in journals and reports, which makes them difficult to compare, reproduce and validate.
+
+The challenge is therefore not merely to gather and share data, but to develop a structured framework that facilitates knowledge transfer and builds trust with industrial partners. Task XXIV addresses this by creating a **model-database sharing framework** that leverages process integration for decarbonizing the industrial sectors and assesses its impact on the energy transition.
+
+## Ex-ante models {.unnumbered}
+
+An **ex-ante model** is a mathematical representation of a physical industrial unit, technology or system in which material and energy transformations occur. Unlike an ex-post model, derived from measured operating data, an ex-ante model is built from first principles, design specifications and engineering correlations to predict the behaviour of a system before implementation or during early design. This predictive character makes ex-ante models essential for technology assessment, process synthesis and strategic planning in industrial decarbonization.
+
+For process integration, an ex-ante model is a bounded entity that exchanges mass, energy, heat and information with its surroundings through **connectors**: the interfaces between the model and the broader industrial ecosystem, the shared infrastructure (technosphere) and the natural environment (ecosphere). A model must therefore capture not only its internal transformations, but also the quality of its boundary flows (temperature, pressure, composition, temporal profile and impact).
+
+## Objectives {.unnumbered}
+
+1. Develop specifications and procedures for generating, validating and sharing process and energy integration models.
+2. Share flexible ex-ante (blueprint) models of key industrial sectors.
+3. Share energy technology models that promote the use of renewable energy in industry.
+4. Share energy system models, including distribution networks and seasonal demand data.
+5. Compare and document the process integration methods and tools used by the participants to assess industrial decarbonization pathways.
+6. Compare process integration results to outline roadmaps of industrial decarbonization and symbiosis.
+7. Share findings and experiences through workshops, scientific events and educational programs.
+
+## Subtask 1 and activities {.unnumbered}
+
+The Task comprises a single subtask, led by EPFL: **Subtask 1 – Enabling a shared database of ex-ante models of industrial processes, decarbonization technologies and energy systems featuring sustainability metrics.** It is organised in the following activities:
+
+| Activity | Scope |
+|:--|:--|
+| **ACT1** Specifications, ontologies and procedures | Rules, templates and procedures for building, sharing, validating and maintaining the database of ex-ante models |
+| **ACT2** Industrial sectors | Sector-based ex-ante process integration models, with their data, documentation and validation |
+| **ACT3.1** Decarbonization technologies | Ex-ante technology integration models, with their data, documentation and validation |
+| **ACT3.2** Energy systems | Integrated assessment and energy system models that provide the energy infrastructure interfaces |
+| **ACT4** Process integration (heat and mass) | Integration of process, technology and energy infrastructure models through their interfaces |
+| **ACT5** Sustainability metrics | Indicators used to assess and compare integration options and decarbonization pathways |
+| **ACT6** Roadmaps, use cases and dissemination | Roadmaps and recommendations, use cases per sector and per technology, knowledge transfer, dissemination and continuing education |
+
+: Activities of Subtask 1 {.striped}
+
+This database is the documentation side of that effort: each ex-ante model contributed to ACT2, ACT3.1 or ACT3.2 has its own page here.
+
+## Deliverables {.unnumbered}
+
+| ID | Expected outcome | Due |
+|:--|:--|:--|
+| D1 | Ontologies and procedures for sharing ex-ante models | Q4 2025 |
+| D2 | Documentation formats and web application for managing the file storage system | Q4 2026 |
+| D3 | Open-source repository of documented ex-ante models with supplementary data | Q1–Q2 2027 |
+| D4 | Annual and final reports to SFOE and the IETS Secretariat | Recurring |
+| D5 | Findings on hosting and maintaining an open database, including confidentiality and intellectual property | Q4 2025, Q4 2026, Q4 2027 |
+| D6 | Experiences using other participants' models in one's own process integration frameworks, and roadmap discussions | Q2–Q3 2027 |
+| D7 | Dissemination to SFOE, IETS workshops, EFCE and ECOS events, and continuing education | Recurring |
+
+: Deliverables of Task XXIV {.striped}
+
+## Task participants {.unnumbered}
+
+At the end of 2025, Task XXIV gathered researchers from ten participating countries — Canada, Denmark, France, Germany, Italy, the Netherlands, Norway, Portugal, Sweden and Switzerland, which manages the Task — and three observer countries: Belgium, Chile and Colombia.
+
+Task participants and contributors: Daniel Flórez-Orrego, Oktay Boztas, Meire Ellen Ribeiro Domingos, François Maréchal, Pullah Bhatnagar, Vibhu Baibhav, Rafailia Mitraki, Muhammad Salman, Grégoire Léonard, Joris Valee, Serge Bedard, Paul Stuart, Sara Russo Garrido, Marzouk Benali, Lijun Wu, Thijs Duvillard, Lieven Vandevelde, Manuele Margni, Diego Naranjo, Francisco Fuentes, Pablo Silva Ortiz, Robin Maximilian Kreipe, Henning Meschede, Florian Schlosser, Lukas Knorr, Sanduni Pathiraja, Nasrim Kermani, Roger Padullés I Solé, Zheng Grace Ma, Assaad Zoughaib, Emanuele Moioli, Mattia Vallerio, Flavio Manenti, Thomas Adams II, Andrea Ramirez, Mar Perez-Fortes, Maria Cristina Fernandes, Jorge Costa, Isabel Cabrita, Fernando Gomes Martins, Daniel Sousa, Pedro Mendes, Matilde Viegas, Henrique Matos, Carmen Bacariza, Pedro Nunes, Judit Fortet Casabella, Simon Harvey, Louis DeBackere, Greet Van Eetvelde and Michel Vinckenbosch.
+
+## Further information {.unnumbered}
+
+* Task page on the IETS website: <https://iea-industry.org/tasks/process-integration-for-industry-decarbonization/>
+* [Interim report 2025 to the Swiss Federal Office of Energy](TaskInformation/IETS-TaskXXIV-Interim-Report-2025.pdf) (PDF, 8 MB, draft): coordination of Task XXIV in its first year, participants' survey, the ex-ante model template and the data management plan
+* [Task proposal](https://iea-industry.org/app/uploads/Proposal-_-IETS-Task-Process-integration-for-Industrial-Decarbonization-DFO-FM-TB-PAF-1.pdf) and [Subtask 1 proposal](https://iea-industry.org/app/uploads/SubTask1-IETS-Task-Process-integration-for-Industrial-Decarbonization-DFO-FM-TB-PAF.pdf) (PDF)
+* Contact: <francois.marechal@epfl.ch>, <daniel.florezorrego@epfl.ch>

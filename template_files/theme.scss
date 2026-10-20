@@ -1,0 +1,316 @@
+/*-- scss:defaults --*/
+
+// EPFL / IPESE palette, carried over from the bookdown gitbook.css
+$epfl-red:      #ff0000;
+$epfl-grey:     #212121;
+$epfl-grey-mid: #c1c1c1;
+$epfl-grey-lt:  #d5d5d5;
+$epfl-grey-bg:  #e6e6e6;
+
+$primary:       $epfl-red;
+$link-color:    $epfl-red;
+$body-color:    $epfl-grey;
+
+// Sidebar (the gitbook "book-summary" equivalent).
+// gitbook: .book-summary { width: 300px } — Quarto's grid knob for that.
+$grid-sidebar-width:    300px;
+
+$sidebar-bg:            #fafafa;
+$sidebar-fg:            #364149;
+$sidebar-hl:            $epfl-red;
+
+// Code blocks
+$code-block-border-left:        $epfl-red;
+$code-block-border-left-style:  solid;
+$code-block-bg:                 #f7f7f7;
+
+/*-- scss:rules --*/
+
+/* ---- Figure captions (gitbook: p.caption) ---------------------------- */
+figcaption,
+.figure-caption,
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+
+/* ---- Sidebar / TOC --------------------------------------------------- */
+/* gitbook: .book-summary ul.summary li.active > a */
+#quarto-sidebar .sidebar-item-container .active,
+#quarto-sidebar .sidebar-item-container > .sidebar-item > a.active {
+  border-right: 2px solid $epfl-red;
+  background: $epfl-grey-bg;
+  font-weight: 700;
+  color: $epfl-grey;
+}
+
+/* gitbook: li a:hover */
+#quarto-sidebar .sidebar-item a:hover,
+#quarto-margin-sidebar nav#TOC a:hover {
+  color: $epfl-red;
+}
+
+/* IETS logo + "Task XXIV" wordmark above the TOC */
+#quarto-sidebar .sidebar-header {
+  display: flex;
+  align-items: center;
+  height: 70px;
+  margin-bottom: 1rem;
+}
+#quarto-sidebar .sidebar-header img,
+#quarto-sidebar .sidebar-logo img {
+  width: 160px;
+  max-width: 100%;
+  margin-right: 1rem;
+  padding: 0 15px 0 1rem;
+  border-right: 1px solid $epfl-grey-mid;
+}
+#quarto-sidebar .sidebar-title,
+#quarto-sidebar .sidebar-header .title {
+  font-size: 1em;
+  color: $epfl-red;
+  text-transform: uppercase;
+}
+
+/* gitbook: the fixed `.book-header` (search/tools) and `.summary-footer`
+   (IPESE logo), both pinned to the bottom of `.book-summary` below the
+   scrolling chapter list. Quarto puts search and download inline in the
+   sidebar header instead, and has no footer slot at all — ipese-footer.html
+   moves both into `.ipese-sidebar-bottom` after the page loads; this makes
+   that bar sit at the bottom of the sidebar and stay there while the
+   chapter list scrolls underneath it. */
+#quarto-sidebar {
+  display: flex;
+  flex-direction: column;
+}
+#quarto-sidebar .sidebar-menu-container {
+  flex: 1 1 auto;
+}
+.ipese-sidebar-bottom {
+  flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  background: $sidebar-bg;
+  border-top: 1px solid $epfl-grey-lt;
+  padding: .75rem 0;
+}
+.ipese-sidebar-tools-row {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: 0 1rem;
+}
+/* Bootstrap ships `#quarto-sidebar .sidebar-search { display: none }` and
+   expects Quarto's search JS to reveal it; reasserting `display` here would
+   fight that toggle, so only the sizing changes. */
+.ipese-sidebar-tools-row .sidebar-search {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.ipese-sidebar-tools-row .sidebar-tools-main {
+  flex: 0 0 auto;
+  margin-left: 0;
+}
+
+
+/* ---- Content --------------------------------------------------------- */
+/* gitbook: navigation + header buttons hover red */
+.page-navigation a:hover,
+#quarto-header .navbar .nav-link:hover,
+#quarto-back-to-top:hover {
+  color: $epfl-red;
+}
+
+/* gitbook: pre.sourceCode red left rule */
+div.sourceCode,
+pre.sourceCode {
+  border-left: 2px solid $epfl-red;
+}
+
+/* gitbook: section.normal { text-align: justify } */
+main.content p,
+main.content li {
+  text-align: justify;
+}
+
+/* gitbook: section.normal table { display: block } — wide tables scroll
+   instead of overflowing the page. */
+main.content .table-responsive,
+main.content table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* gitbook: attributed quotes — last line right-aligned */
+blockquote > p:first-child { text-align: inherit; }
+blockquote > p:last-child  { text-align: right; }
+
+/* ---- Footer ---------------------------------------------------------- */
+/* gitbook: .copyright from footer.html —
+     .copyright { font-style: italic; margin-top: 50px; }
+   The 50px lead belongs to the bar only; putting it on .nav-footer-center
+   as well stacked two gaps and left the line stranded mid-band. */
+.nav-footer {
+  margin-top: 50px;
+  font-style: italic;
+  border-top: 1px solid $epfl-grey-lt;
+}
+.nav-footer,
+.nav-footer .nav-footer-center,
+.nav-footer .nav-footer-center p {
+  color: $epfl-grey;
+  font-style: italic;
+  margin-top: 0;
+}
+.nav-footer .nav-footer-center { font-size: .9em; }
+
+
+/* ---- Sidebar toolbar (collapse, download, search) --------------------- */
+/* The three controls above the TOC had three different defaults — the
+   collapse toggle used $sidebar-fg, the download link inherited the global
+   red $link-color, the search icon used Bootstrap's near-black. Put all
+   three on the same neutral-to-red hover, like gitbook's plain toolbar
+   icons. */
+#ipese-sidebar-toggle,
+#quarto-sidebar .sidebar-tools-main .quarto-navigation-tool,
+#quarto-sidebar .sidebar-search .aa-InputWrapperPrefix svg {
+  color: $sidebar-fg;
+  opacity: 1;
+  transition: color .2s;
+}
+#ipese-sidebar-toggle:hover,
+#quarto-sidebar .sidebar-tools-main .quarto-navigation-tool:hover,
+#quarto-sidebar .sidebar-search:hover .aa-InputWrapperPrefix svg,
+#quarto-sidebar .sidebar-search .aa-Form:focus-within .aa-InputWrapperPrefix svg {
+  color: $epfl-red;
+}
+#quarto-sidebar .sidebar-search .aa-Form {
+  transition: box-shadow .2s;
+}
+#quarto-sidebar .sidebar-search .aa-Form:hover {
+  box-shadow: rgba(255, 0, 0, .6) 0 0 0 1px;
+}
+
+/* ---- Sidebar geometry (gitbook: .book-summary) ------------------------ */
+/* gitbook pinned .book-summary to the left edge, full height, 300px wide,
+   with a 1px right rule. */
+#quarto-sidebar {
+  padding-left: 1rem;
+  padding-right: 0;
+  border-right: 1px solid $epfl-grey-lt;
+}
+body.nav-fixed #quarto-sidebar,
+#quarto-sidebar {
+  left: 0;
+}
+
+/* Quarto's *docked* sidebar takes its width from the page grid's leading
+   tracks, not from $grid-sidebar-width (that variable only drives the
+   floating layout), so widening the column means restating the grid.
+
+   This is Quarto's own `body.docked .page-columns` template with these
+   changes: the leading 1.5em gutter goes to 0 so the sidebar meets the
+   viewport edge, the first flexible track grows so the tracks up to
+   [body-start] add up to gitbook's 300px (180 + 60 + 60), [body-start]
+   itself widens well past gitbook's own gap — the gitbook page centred its
+   content column in the space right of the sidebar, which read as a much
+   bigger gap than a small fixed margin ever does — and the three tracks
+   reserved for the TOC (body-end / body-end-outset / page-end-inset)
+   shrink so it sits closer to the text.
+
+   The breakpoint is raised from Bootstrap's usual 992px to 1150px: the
+   tracks' minimum widths now sum to just over 1000px, so below 1150px this
+   override would make the row wider than the viewport itself.
+
+   The selector has to carry `body.docked` — a bare `.page-columns` loses
+   the cascade to Quarto's rule and silently does nothing. */
+@media (min-width: 1150px) {
+  body.docked .page-columns {
+    grid-template-columns:
+      [screen-start] 0
+      [screen-start-inset page-start] minmax(120px, 180px)
+      [page-start-inset] 60px
+      [body-start-outset] 60px
+      [body-start] 8em
+      [body-content-start] minmax(500px, calc(1000px - 3em))
+      [body-content-end] 4.5em
+      [body-end] 30px
+      [body-end-outset] minmax(30px, 70px)
+      [page-end-inset] 30px
+      [page-end] 5fr
+      [screen-end-inset] 1.5em
+      [screen-end];
+  }
+}
+
+/* ---- Collapsible sidebar (gitbook: the .fa-align-justify header button,
+   which toggled .book.with-summary) ------------------------------------- */
+#ipese-sidebar-toggle {
+  position: fixed;
+  top: 0.35rem;
+  left: 0.4rem;
+  z-index: 1050;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  line-height: 1;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: $sidebar-fg;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: color .25s;
+}
+#ipese-sidebar-toggle:hover { color: $epfl-red; }
+
+@media (min-width: 1150px) {
+  /* gitbook put the toggle at the left edge of the content area, just past
+     the summary; it moves to the viewport edge once the summary is hidden. */
+  body:not(.ipese-summary-hidden) #ipese-sidebar-toggle {
+    left: calc(#{$grid-sidebar-width} + .4rem);
+  }
+
+  /* Collapsed state: hide the sidebar and give its tracks back to the body,
+     mirroring gitbook's .book:not(.with-summary). Same template as above
+     with the leading tracks collapsed. */
+  body.ipese-summary-hidden #quarto-sidebar {
+    display: none;
+  }
+  body.docked.ipese-summary-hidden .page-columns {
+    grid-template-columns:
+      [screen-start] 1.5em
+      [screen-start-inset page-start] minmax(0px, 60px)
+      [page-start-inset] 30px
+      [body-start-outset] 30px
+      [body-start] 8em
+      [body-content-start] minmax(500px, calc(1000px - 3em))
+      [body-content-end] 4.5em
+      [body-end] 30px
+      [body-end-outset] minmax(30px, 70px)
+      [page-end-inset] 30px
+      [page-end] 5fr
+      [screen-end-inset] 1.5em
+      [screen-end];
+  }
+}
+
+/* ---- Per-chapter references (gitbook: refs at the foot of each page) --- */
+#refs {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid $epfl-grey-lt;
+}
+#refs .csl-entry { text-align: left; }
+
+.ipese-refs-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 2.5rem 0 0;
+}
+/* The rule belongs to the heading once there is one, not to the list. */
+.ipese-refs-title + #refs {
+  margin-top: .5rem;
+  padding-top: .75rem;
+}

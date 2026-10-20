@@ -1,0 +1,1490 @@
+{
+  "HEADER": {
+    "Model Name": "BeerProcessing",
+    "Authors and Contributors": "Daniel Florez-Orrego",
+    "Version": "1.0",
+    "Confidentiality": "Open",
+    "Creation Date": "05.07.2025",
+    "References": "Breweryfactory.bib",
+    "Grade": "GRAY-BOX",
+    "Software": "DWSIM",
+    "URL": "https://gitlab.epfl.ch",
+    "Last Update Date": "2025-10-10",
+    "Keywords": "Food, Milk",
+    "Reference Capacity": "103877 kg/h Beer",
+    "Description": "The brewing process consists of three main subprocesses: the mashing unit (hot section), the fermentation unit (cold section), and the CIP unit. In the mashing unit, malt is mixed with hot water to produce wort, which is boiled with hops. In the fermentation unit, the wort ferments and matures under controlled temperatures, followed by cooling, CO\u2082 adjustment, dilution, and pasteurization to produce beer. The CIP system operates automatically using rinsing and caustic washing cycles to maintain hygiene.",
+    "BlockFlowDiagram": "local/path/to/BeerProcessing.svg",
+    "Import Source": "Web Interface"
+  },
+  "VARIABLES": [
+    {
+      "Name": "Tmilk",
+      "Type": "DECISION",
+      "Full name": "Milk inlet temperature",
+      "User grade": "Mandatory",
+      "Default Value / Formula": 4,
+      "Physical unit": "C",
+      "Min bound": 3,
+      "Max bound": 20,
+      "Latex syntax": "$T_{milk}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Infeed temperature of the milk from transportation truck"
+    },
+    {
+      "Name": "Ta",
+      "Type": "CONTEXT",
+      "Full name": "Environmental temperature",
+      "User grade": "Optional",
+      "Default Value / Formula": 25,
+      "Physical unit": "C",
+      "Min bound": "-273 C",
+      "Max bound": 1000,
+      "Latex syntax": "$T_{a}$",
+      "Bibliography": "@Boztas et al",
+      "Comment": "Environmental temperature used for the calculation of the PV efficiency (it is overwritten by the GIS information)"
+    },
+    {
+      "Name": "R",
+      "Type": "LITERATURE",
+      "Full name": "Constant of the ideal gases",
+      "User grade": "Private",
+      "Default Value / Formula": 8.314,
+      "Physical unit": "kJ/kmolK",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$R_{gas}$",
+      "Bibliography": "@Ribeiro Domingos et al",
+      "Comment": "Contant of the ideal gases"
+    },
+    {
+      "Name": "Lactose",
+      "Type": "MEASURED",
+      "Full name": "Lactose fraction",
+      "User grade": "Optional",
+      "Default Value / Formula": 0.02,
+      "Physical unit": "-",
+      "Min bound": 0,
+      "Max bound": 0.05,
+      "Latex syntax": "-",
+      "Bibliography": "@Bhatnagar and Baibhav",
+      "Comment": "Content of Lactose of the milk"
+    },
+    {
+      "Name": "MAK_mixing",
+      "Type": "MEASURED",
+      "Full name": "Full name_1",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$F^{in}_{milk}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "MAT_mixing",
+      "Type": "MEASURED",
+      "Full name": "Full name_2",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$F^{in}_{salt}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "MAK_heating",
+      "Type": "MEASURED",
+      "Full name": "Full name_3",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$F^{out}_{cheese}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "MATMAK_mix1",
+      "Type": "MEASURED",
+      "Full name": "Full name_4",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$F^{out}_{WW}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "MATMAK_mix2",
+      "Type": "MEASURED",
+      "Full name": "Full name_5",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$E^{in}_{elecLV}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "MATMAK_heating",
+      "Type": "MEASURED",
+      "Full name": "Full name_6",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$F^{in}_{steam}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "hotwater_filter",
+      "Type": "MEASURED",
+      "Full name": "Full name_7",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "kg/h",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$F^{out}_{cond}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "Maische_heating1",
+      "Type": "MEASURED",
+      "Full name": "Full name_8",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$T^{in}_{milk,past}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "Maische_heating2",
+      "Type": "MEASURED",
+      "Full name": "Full name_9",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$T^{out}_{milk,past}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "vapor_cooling1",
+      "Type": "MEASURED",
+      "Full name": "Full name_10",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$H^{in}_{milk,past}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "vapor_cooling2",
+      "Type": "MEASURED",
+      "Full name": "Full name_11",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$H^{out}_{milk,past}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "wort_centrifuge",
+      "Type": "LITERATURE",
+      "Full name": "Full name_12",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$\\Delta T_{\\min}^{milk}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "wokHW_heating",
+      "Type": "LITERATURE",
+      "Full name": "Full name_13",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "kW/m2K",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$\\alpha^{milk}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "wokHW_mixing",
+      "Type": "MEASURED",
+      "Full name": "Full name_14",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$T^{in}_{milk,quench}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "Wort_Cooling",
+      "Type": "MEASURED",
+      "Full name": "Full name_15",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$T^{out}_{milk,quench}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "Fermentation Tank",
+      "Type": "MEASURED",
+      "Full name": "Full name_16",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$H^{in}_{milk,quench}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "product_cooling",
+      "Type": "MEASURED",
+      "Full name": "Full name_17",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$H^{out}_{milk,quench}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "product_chiling",
+      "Type": "LITERATURE",
+      "Full name": "Full name_18",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$\\Delta T_{\\min}^{milk}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "pasterization",
+      "Type": "LITERATURE",
+      "Full name": "Full name_19",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "kW/m2K",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$\\alpha^{milk}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "final_cooling",
+      "Type": "MEASURED",
+      "Full name": "Full name_20",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$T^{in}_{milk,preh}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "freshwater_mix1",
+      "Type": "LITERATURE",
+      "Full name": "Full name_21",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$T^{out}_{milk,preh}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "recircle_mix",
+      "Type": "MEASURED",
+      "Full name": "Full name_22",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$H^{in}_{milk,preh}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "finalrinse_heating",
+      "Type": "MEASURED",
+      "Full name": "Full name_23",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$H^{out}_{milk,preh}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "recovery_mix",
+      "Type": "LITERATURE",
+      "Full name": "Full name_24",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$\\Delta T_{\\min}^{milk}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "prerinse_mix",
+      "Type": "LITERATURE",
+      "Full name": "Full name_25",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "kW/m2K",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$\\alpha^{milk}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "freshwater_mix2",
+      "Type": "LITERATURE",
+      "Full name": "Full name_26",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$T^{in}_{milk,evap}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "recircle_dirty",
+      "Type": "LITERATURE",
+      "Full name": "Full name_27",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$T^{out}_{milk,evap}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "prerinse_cooling",
+      "Type": "MEASURED",
+      "Full name": "Full name_28",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$H^{in}_{milk,evap}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "wastewater_cooling",
+      "Type": "MEASURED",
+      "Full name": "Full name_29",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "kW",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$H^{out}_{milk,evap}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "freshwater_soap",
+      "Type": "LITERATURE",
+      "Full name": "Full name_30",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$\\Delta T_{\\min}^{milk,evap}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "recircle_soap",
+      "Type": "LITERATURE",
+      "Full name": "Full name_31",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "kW/m2K",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$\\alpha^{milk,evap}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "soapy_mix",
+      "Type": "LITERATURE",
+      "Full name": "Full name_32",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$T^{in}_{H2O,evap}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    },
+    {
+      "Name": "soda_bath",
+      "Type": "LITERATURE",
+      "Full name": "Full name_33",
+      "User grade": "MANDATORY",
+      "Default Value / Formula": 1,
+      "Physical unit": "\u00b0C",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$T^{out}_{H2O,cond}$",
+      "Bibliography": "@Florez-Orrego et al",
+      "Comment": "Lorem ipsum"
+    }
+  ],
+  "CONNECTORS": {
+    "EXTERNAL CONNECTORS": [
+      {
+        "Unique Identifier Number, UID": "MALT",
+        "NAME (ALIAS)": "MALT",
+        "TYPE": "MASS",
+        "PHYSICAL UNIT": "kg/h",
+        "TEMPERATURE": 25.0,
+        "TEMPERATURE UNIT": "C",
+        "PRESSURE": 1.0,
+        "PRESSURE UNIT": "bar",
+        "VAPOR FRACTION [MASS]": 0.0,
+        "PHASE": "(S)",
+        "COMPOSITION [MOLE/MASS]": "MASSFRAC:MALTOS[0.315]&H2O[0.685]"
+      },
+      {
+        "Unique Identifier Number, UID": "BEER",
+        "NAME (ALIAS)": "BEER",
+        "TYPE": "MASS",
+        "PHYSICAL UNIT": "kg/h",
+        "TEMPERATURE": 5.0,
+        "TEMPERATURE UNIT": "C",
+        "PRESSURE": 1.0,
+        "PRESSURE UNIT": "bar",
+        "VAPOR FRACTION [MASS]": 0.0,
+        "PHASE": "(L)",
+        "COMPOSITION [MOLE/MASS]": "MASSFRAC:Glucose[0.007]&H2O[0.95]&Ethanol[0.035]&CO2[0.005]"
+      },
+      {
+        "Unique Identifier Number, UID": "WASTEWATER",
+        "NAME (ALIAS)": "WASTEWATER",
+        "TYPE": "MASS",
+        "PHYSICAL UNIT": "kg/h",
+        "TEMPERATURE": 25.0,
+        "TEMPERATURE UNIT": "C",
+        "PRESSURE": 1.0,
+        "PRESSURE UNIT": "bar",
+        "VAPOR FRACTION [MASS]": -1.0,
+        "PHASE": "(L)",
+        "COMPOSITION [MOLE/MASS]": "MASSFRAC:H2O[1]"
+      },
+      {
+        "Unique Identifier Number, UID": "WATER",
+        "NAME (ALIAS)": "WATER",
+        "TYPE": "MASS",
+        "PHYSICAL UNIT": "kg/h",
+        "TEMPERATURE": 25.0,
+        "TEMPERATURE UNIT": "C",
+        "PRESSURE": 1.0,
+        "PRESSURE UNIT": "bar",
+        "VAPOR FRACTION [MASS]": -1.0,
+        "PHASE": "(L)",
+        "COMPOSITION [MOLE/MASS]": "MASSFRAC:H2O[1]"
+      },
+      {
+        "Unique Identifier Number, UID": "DREGS",
+        "NAME (ALIAS)": "DREGS",
+        "TYPE": "MASS",
+        "PHYSICAL UNIT": "kg/h",
+        "TEMPERATURE": 25.0,
+        "TEMPERATURE UNIT": "C",
+        "PRESSURE": 1.0,
+        "PRESSURE UNIT": "bar",
+        "VAPOR FRACTION [MASS]": -1.0,
+        "PHASE": "(S)",
+        "COMPOSITION [MOLE/MASS]": "MASSFRAC:MALTOS[1]"
+      },
+      {
+        "Unique Identifier Number, UID": "TRUB",
+        "NAME (ALIAS)": "TRUB",
+        "TYPE": "MASS",
+        "PHYSICAL UNIT": "kg/h",
+        "TEMPERATURE": 25.0,
+        "TEMPERATURE UNIT": "C",
+        "PRESSURE": 1.0,
+        "PRESSURE UNIT": "bar",
+        "VAPOR FRACTION [MASS]": -1.0,
+        "PHASE": "(S)",
+        "COMPOSITION [MOLE/MASS]": "MASSFRAC:Glucose[1]"
+      },
+      {
+        "Unique Identifier Number, UID": "CO2",
+        "NAME (ALIAS)": "CO2",
+        "TYPE": "MASS",
+        "PHYSICAL UNIT": "kg/h",
+        "TEMPERATURE": 25.0,
+        "TEMPERATURE UNIT": "C",
+        "PRESSURE": 1.0,
+        "PRESSURE UNIT": "bar",
+        "VAPOR FRACTION [MASS]": 1.0,
+        "PHASE": "(V)",
+        "COMPOSITION [MOLE/MASS]": "MASSFRAC:CO2[1]"
+      }
+    ],
+    "INTERNAL CONNECTORS": [
+      {
+        "Unique Identifier Number, UID": "Wort",
+        "NAME (ALIAS)": "WORT",
+        "TYPE": "MASS",
+        "PHYSICAL UNIT": "kg/h",
+        "TEMPERATURE": "SAT",
+        "TEMPERATURE UNIT": "-",
+        "PRESSURE": 1.0,
+        "PRESSURE UNIT": "bar",
+        "VAPOR FRACTION [MASS]": 0.0,
+        "PHASE": "(L)",
+        "COMPOSITION [MOLE/MASS]": "MASSFRAC:Glucose[0.15]&H2O[0.85]"
+      }
+    ]
+  },
+  "UNITS": {
+    "Mashcing": {
+      "Unit Description": "This unit models the hot section of wort production\u2014including mashing, lautering, boiling with hops, and trub separation\u2014at atmospheric pressure, with a capacity of 10260  kg/h and heat supplied by steam at 1 bar",
+      "Unit Info": {
+        "Unit name": "Mashcing",
+        "Minimum capacity multiplier": 1.0,
+        "Maximum capacity multiplier": 1.0
+      },
+      "Connectors Description": "Malt is mixed with hot water to create the Maische. From this, wort is separated, and the remaining Dresche and Trub are removed as by-products. Steam provides the heat, and the condensate is returned to the boiler.",
+      "Connectors": [
+        {
+          "NAME (ALIAS)": "MALT",
+          "TYPE": "MASS",
+          "DIRECTION": "IN",
+          "VALUE": 10260.0,
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": 15.0,
+          "TEMPERATURE UNIT": 1.0,
+          "PRESSURE": 1.0,
+          "PRESSURE UNIT": 1.0,
+          "VAPOR FRACTION [MASS]": -1.0,
+          "PHASE": "(S)",
+          "COMPOSITION [MOLE/MASS]": "MASSFRAC:MALTOS[0.315]&H2O[0.685]"
+        },
+        {
+          "NAME (ALIAS)": "WATER",
+          "TYPE": "MASS",
+          "DIRECTION": "IN",
+          "VALUE": 44326.0,
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": 15.0,
+          "TEMPERATURE UNIT": 1.0,
+          "PRESSURE": 1.0,
+          "PRESSURE UNIT": 1.0,
+          "VAPOR FRACTION [MASS]": -1.0,
+          "PHASE": "(L)",
+          "COMPOSITION [MOLE/MASS]": "MASSFRAC:H2O[1]"
+        },
+        {
+          "NAME (ALIAS)": "DREGS",
+          "TYPE": "MASS",
+          "DIRECTION": "OUT",
+          "VALUE": 2780.5,
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": 25.0,
+          "TEMPERATURE UNIT": 1.0,
+          "PRESSURE": 1.0,
+          "PRESSURE UNIT": 1.0,
+          "VAPOR FRACTION [MASS]": -1.0,
+          "PHASE": "(S)",
+          "COMPOSITION [MOLE/MASS]": "MASSFRAC:MALTOS[1]"
+        },
+        {
+          "NAME (ALIAS)": "TRUB",
+          "TYPE": "MASS",
+          "DIRECTION": "OUT",
+          "VALUE": 15.7,
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": 25.0,
+          "TEMPERATURE UNIT": 1.0,
+          "PRESSURE": 1.0,
+          "PRESSURE UNIT": 1.0,
+          "VAPOR FRACTION [MASS]": -1.0,
+          "PHASE": "(S)",
+          "COMPOSITION [MOLE/MASS]": "MASSFRAC:Glucose[1]"
+        },
+        {
+          "NAME (ALIAS)": "WORT",
+          "TYPE": "MASS",
+          "DIRECTION": "OUT",
+          "VALUE": 51789.9,
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": 10.0,
+          "TEMPERATURE UNIT": 1.0,
+          "PRESSURE": 1.0,
+          "PRESSURE UNIT": 1.0,
+          "VAPOR FRACTION [MASS]": -1.0,
+          "PHASE": "(L)",
+          "COMPOSITION [MOLE/MASS]": "MASSFRAC:Glucose[0.15]&H2O[0.85]"
+        }
+      ],
+      "Heat Streams Description": "In the hot section, the mash is heated for starch conversion to produce wort, which is then boiled with hops to sterilize it and remove unwanted compounds.",
+      "Heat Streams": [
+        {
+          "name": "MAK_mixing",
+          "Type": "Cold",
+          "Inlet Temperature [C]": 15.0,
+          "Outlet Temperature [C]": 48.0,
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": 422.6,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "MAT_mixing",
+          "Type": "Cold",
+          "Inlet Temperature [C]": 15.0,
+          "Outlet Temperature [C]": 48.0,
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": 956.5,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "MAK_heating",
+          "Type": "Cold",
+          "Inlet Temperature [C]": 48.0,
+          "Outlet Temperature [C]": 98.0,
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": 658.2,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "MATMAK_mix1",
+          "Type": "Hot",
+          "Inlet Temperature [C]": 98.0,
+          "Outlet Temperature [C]": 65.0,
+          "Inlet Enthalpy Flow  [kW]": 435.8,
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "MATMAK_mix2",
+          "Type": "Cold",
+          "Inlet Temperature [C]": 48.0,
+          "Outlet Temperature [C]": 65.0,
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": 508.0,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "MATMAK_heating",
+          "Type": "Cold",
+          "Inlet Temperature [C]": 65.0,
+          "Outlet Temperature [C]": 75.0,
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": 422.3,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "hotwater_filter",
+          "Type": "Cold",
+          "Inlet Temperature [C]": 15.0,
+          "Outlet Temperature [C]": 80.0,
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": 1729.5,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "Maische_heating1",
+          "Type": "Cold",
+          "Inlet Temperature [C]": 78.0,
+          "Outlet Temperature [C]": 100.2,
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": 1539.5,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "Maische_heating2",
+          "Type": "Cold",
+          "Inlet Temperature [C]": 100.2,
+          "Outlet Temperature [C]": 100.3,
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": 6181.0,
+          "dTmin Contribution [C]": 2.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "vapor_cooling1",
+          "Type": "Hot",
+          "Inlet Temperature [C]": 100.6,
+          "Outlet Temperature [C]": 100.0,
+          "Inlet Enthalpy Flow  [kW]": 4701.3,
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": 2.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "vapor_cooling2",
+          "Type": "Hot",
+          "Inlet Temperature [C]": 99.8,
+          "Outlet Temperature [C]": 15.0,
+          "Inlet Enthalpy Flow  [kW]": 899.2,
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "wort_centrifuge",
+          "Type": "Hot",
+          "Inlet Temperature [C]": 100.6,
+          "Outlet Temperature [C]": 99.5,
+          "Inlet Enthalpy Flow  [kW]": 148.2,
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "wokHW_heating",
+          "Type": "Cold",
+          "Inlet Temperature [C]": 15.0,
+          "Outlet Temperature [C]": 80.0,
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": 691.8,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "wokHW_mixing",
+          "Type": "Cold",
+          "Inlet Temperature [C]": 80.0,
+          "Outlet Temperature [C]": 99.5,
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": 208.1,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        }
+      ],
+      "Equipments Description": "A set of mixing tanks, heating vessels, a filtration unit, a boiling tank, a centrifuge, heat exchangers, and a hot water tank are required, along with steam supply and mixing equipment.",
+      "Equipments": {
+        "MAT": {
+          "Type": "Tank",
+          "Parameters": [
+            {
+              "Parameter": "Power",
+              "Value": 2.0,
+              "units": "kW"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": 20.0,
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": 2025.0,
+              "units": "year"
+            }
+          ]
+        },
+        "MAK": {
+          "Type": "Tank",
+          "Parameters": [
+            {
+              "Parameter": "Area",
+              "Value": 3000.0,
+              "units": "m2"
+            },
+            {
+              "Parameter": "Pressure",
+              "Value": 1.0,
+              "units": "bar"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": 20.0,
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": 2025.0,
+              "units": "year"
+            }
+          ]
+        },
+        "MAT+MAK": {
+          "Type": "Boiling Tank",
+          "Parameters": [
+            {
+              "Parameter": "Capital",
+              "Value": 75000.0,
+              "units": "EUR"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": 20.0,
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": 2025.0,
+              "units": "year"
+            }
+          ]
+        },
+        "Wok": {
+          "Type": "Boiling Tank",
+          "Parameters": [
+            {
+              "Parameter": "Capital",
+              "Value": 75000.0,
+              "units": "EUR"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": 20.0,
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": 2025.0,
+              "units": "year"
+            }
+          ]
+        },
+        "lautering_unit": {
+          "Type": "Filter",
+          "Parameters": [
+            {
+              "Parameter": "Power",
+              "Value": 2.0,
+              "units": "kW"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": 20.0,
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": 2025.0,
+              "units": "year"
+            }
+          ]
+        },
+        "centrifuge": {
+          "Type": "Separator",
+          "Parameters": [
+            {
+              "Parameter": "Area",
+              "Value": 3000.0,
+              "units": "m2"
+            },
+            {
+              "Parameter": "Pressure",
+              "Value": 1.0,
+              "units": "bar"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": 20.0,
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": 2025.0,
+              "units": "year"
+            }
+          ]
+        }
+      },
+      "Operating Cost Description": "The fixed and variable operating costs includes manpower, fixed cost of operation, taxes etc.",
+      "Operating Cost": {
+        "Fixed Operating Cost [EUR/y]": 0.0,
+        "Variable Operating Cost [EUR/h]": 0.0
+      }
+    },
+    "Fermentation": {
+      "Unit Description": "This unit covers fermentation and maturation, where wort ferments at 10\u202f\u00b0C for 14 days with glycol cooling to remove fermentation heat.It is then matured at 6\u202f\u00b0C to eliminate diacetyl, cooled to 1\u202f\u00b0C for yeast removal, and pasteurized at 70\u202f\u00b0C before final cooling and packaging.",
+      "Unit Info": {
+        "Unit name": "Fermentation",
+        "Minimum capacity multiplier": 1.0,
+        "Maximum capacity multiplier": 1.0
+      },
+      "Connectors Description": "The wort enters fermentation tanks where glycol cooling maintains 10\u202f\u00b0C; after fermentation and maturation, the beer is cooled to remove yeast.\nCO\u2082 may be adjusted, and the beer is diluted with water if needed, then transferred to the packaging unit.",
+      "Connectors": [
+        {
+          "NAME (ALIAS)": "WORT",
+          "TYPE": "MASS",
+          "DIRECTION": "IN",
+          "VALUE": 5178.9,
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": 10.0,
+          "TEMPERATURE UNIT": 1.0,
+          "PRESSURE": 1.0,
+          "PRESSURE UNIT": 1.0,
+          "VAPOR FRACTION [MASS]": -1.0,
+          "PHASE": "(L)",
+          "COMPOSITION [MOLE/MASS]": "MASSFRAC:Glucose[0.15]&H2O[0.85]"
+        },
+        {
+          "NAME (ALIAS)": "WATER",
+          "TYPE": "MASS",
+          "DIRECTION": "IN",
+          "VALUE": 55000.0,
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": 15.0,
+          "TEMPERATURE UNIT": 1.0,
+          "PRESSURE": 1.0,
+          "PRESSURE UNIT": 1.0,
+          "VAPOR FRACTION [MASS]": -1.0,
+          "PHASE": "(L)",
+          "COMPOSITION [MOLE/MASS]": "MASSFRAC:H2O[1]"
+        },
+        {
+          "NAME (ALIAS)": "CO2",
+          "TYPE": "MASS",
+          "DIRECTION": "OUT",
+          "VALUE": 2912.6,
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": 10.0,
+          "TEMPERATURE UNIT": 1.0,
+          "PRESSURE": 1.0,
+          "PRESSURE UNIT": 1.0,
+          "VAPOR FRACTION [MASS]": -1.0,
+          "PHASE": "(V)",
+          "COMPOSITION [MOLE/MASS]": "MASSFRAC:CO2[1]"
+        },
+        {
+          "NAME (ALIAS)": "BEER",
+          "TYPE": "MASS",
+          "DIRECTION": "OUT",
+          "VALUE": 103877.0,
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": 4.87,
+          "TEMPERATURE UNIT": 1.0,
+          "PRESSURE": 1.0,
+          "PRESSURE UNIT": 1.0,
+          "VAPOR FRACTION [MASS]": -1.0,
+          "PHASE": "(L)",
+          "COMPOSITION [MOLE/MASS]": "MASSFRAC:Glucose[0.007]&H2O[0.95]&Ethanol[0.035]&CO2[0.005]"
+        }
+      ],
+      "Heat Streams Description": "This heat stream covers cooling to remove fermentation heat via glycol and heating to 70\u202f\u00b0C for beer pasteurization before packaging.",
+      "Heat Streams": [
+        {
+          "name": "Wort_Cooling",
+          "Type": "Hot",
+          "Inlet Temperature [C]": 99.4,
+          "Outlet Temperature [C]": 10.0,
+          "Inlet Enthalpy Flow  [kW]": 6388.5,
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 0.1,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "Fermentation_Tank",
+          "Type": "Hot",
+          "Inlet Temperature [C]": 10.0,
+          "Outlet Temperature [C]": 10.0,
+          "Inlet Enthalpy Flow  [kW]": 998.0,
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 0.1,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "product_cooling",
+          "Type": "Hot",
+          "Inlet Temperature [C]": 10.0,
+          "Outlet Temperature [C]": 6.0,
+          "Inlet Enthalpy Flow  [kW]": 270.6,
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 0.1,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "product_chiling",
+          "Type": "Hot",
+          "Inlet Temperature [C]": 6.0,
+          "Outlet Temperature [C]": 1.0,
+          "Inlet Enthalpy Flow  [kW]": 336.5,
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 0.1,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "pasterization",
+          "Type": "Cold",
+          "Inlet Temperature [C]": 8.6,
+          "Outlet Temperature [C]": 70.0,
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": 9229.0,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 0.1,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "final_cooling",
+          "Type": "Hot",
+          "Inlet Temperature [C]": 70.0,
+          "Outlet Temperature [C]": 5.0,
+          "Inlet Enthalpy Flow  [kW]": 9753.2,
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 0.1,
+          "HeatCascade": "DEFAULT"
+        }
+      ],
+      "Equipments Description": "The cold section includes fermentation tanks, which ferment the cooled wort at around 10\u202f\u00b0C, and maturation tanks, where the beer is held at 6\u202f\u00b0C to develop flavor and remove diacetyl. After maturation, the chillage unit cools the beer to 1\u202f\u00b0C to help yeast settle. Finally, the pasteurizer heats the beer to 70\u202f\u00b0C and cools it again to ensure microbial stability before packaging.",
+      "Equipments": {
+        "Fermentation": {
+          "Type": "Tank",
+          "Parameters": [
+            {
+              "Parameter": "Power",
+              "Value": 0.01,
+              "units": "kW"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": 20.0,
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": 2025.0,
+              "units": "year"
+            }
+          ]
+        },
+        "Warm Hold": {
+          "Type": "Tank",
+          "Parameters": [
+            {
+              "Parameter": "Area",
+              "Value": 5000.0,
+              "units": "m2"
+            },
+            {
+              "Parameter": "Pressure",
+              "Value": 3.0,
+              "units": "bar"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": 20.0,
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": 2025.0,
+              "units": "year"
+            }
+          ]
+        },
+        "Chillage": {
+          "Type": "Heat Exchanger / Chiller",
+          "Parameters": [
+            {
+              "Parameter": "Capital",
+              "Value": 75000.0,
+              "units": "EUR"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": 20.0,
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": 2025.0,
+              "units": "year"
+            }
+          ]
+        },
+        "Pasteurization": {
+          "Type": "Heat Exchanger",
+          "Parameters": [
+            {
+              "Parameter": "Power",
+              "Value": 0.01,
+              "units": "kW"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": 20.0,
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": 2025.0,
+              "units": "year"
+            }
+          ]
+        }
+      },
+      "Operating Cost Description": "The fixed and variable operating costs includes manpower, fixed cost of operation, taxes etc.",
+      "Operating Cost": {
+        "Fixed Operating Cost [EUR/y]": 0.0,
+        "Variable Operating Cost [EUR/h]": 0.0
+      }
+    },
+    "CIPBrewery": {
+      "Unit Description": "The washing system cleans bottles and kegs before filling, using pre-rinsing, soda washing, and final rinsing with water at 15\u202f\u00b0C. Steam maintains bath temperatures, and rinse water is reused to recover heat.",
+      "Unit Info": {
+        "Unit name": "CIPBrewery",
+        "Minimum capacity multiplier": 1.0,
+        "Maximum capacity multiplier": 1.0
+      },
+      "Connectors Description": "The CIP system cleans brewery equipment in three steps: pre-rinsing with water, washing with caustic soda, and a final rinse with clean water. It works automatically without taking anything apart.",
+      "Connectors": [
+        {
+          "NAME (ALIAS)": "WATER",
+          "TYPE": "MASS",
+          "DIRECTION": "IN",
+          "VALUE": 30956.0,
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": 15.0,
+          "TEMPERATURE UNIT": 1.0,
+          "PRESSURE": 1.0,
+          "PRESSURE UNIT": 1.0,
+          "VAPOR FRACTION [MASS]": -1.0,
+          "PHASE": "(L)",
+          "COMPOSITION [MOLE/MASS]": "MASSFRAC:H2O[1]"
+        },
+        {
+          "NAME (ALIAS)": "WASTEWATER",
+          "TYPE": "MASS",
+          "DIRECTION": "OUT",
+          "VALUE": 30956.0,
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": 15.0,
+          "TEMPERATURE UNIT": 1.0,
+          "PRESSURE": 1.0,
+          "PRESSURE UNIT": 1.0,
+          "VAPOR FRACTION [MASS]": -1.0,
+          "PHASE": "(L)",
+          "COMPOSITION [MOLE/MASS]": "MASSFRAC:H2O[1]"
+        }
+      ],
+      "Heat Streams Description": "team is used to heat cleaning solutions in the CIP system for effective removal of residues and microbial control.",
+      "Heat Streams": [
+        {
+          "name": "freshwater_mix1",
+          "Type": "Cold",
+          "Inlet Temperature [C]": 15.0,
+          "Outlet Temperature [C]": 25.0,
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": 159.0,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT",
+          "- Hot/cold can be deduced": "- How to decide dT min "
+        },
+        {
+          "name": "recircle_mix",
+          "Type": "Hot",
+          "Inlet Temperature [C]": 35.0,
+          "Outlet Temperature [C]": 25.0,
+          "Inlet Enthalpy Flow  [kW]": 159.0,
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT",
+          "- Hot/cold can be deduced": ""
+        },
+        {
+          "name": "finalrinse_heating",
+          "Type": "Cold",
+          "Inlet Temperature [C]": 25.0,
+          "Outlet Temperature [C]": 35.0,
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": 317.7,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT",
+          "- Hot/cold can be deduced": ""
+        },
+        {
+          "name": "recovery_mix",
+          "Type": "Cold",
+          "Inlet Temperature [C]": 35.0,
+          "Outlet Temperature [C]": 62.5,
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": 437.0,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT",
+          "- Hot/cold can be deduced": ""
+        },
+        {
+          "name": "prerinse_mix",
+          "Type": "Hot",
+          "Inlet Temperature [C]": 62.5,
+          "Outlet Temperature [C]": 60.0,
+          "Inlet Enthalpy Flow  [kW]": 88.4,
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT",
+          "- Hot/cold can be deduced": ""
+        },
+        {
+          "name": "freshwater_mix2",
+          "Type": "Cold",
+          "Inlet Temperature [C]": 15.0,
+          "Outlet Temperature [C]": 60.0,
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": 28.2,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT",
+          "- Hot/cold can be deduced": ""
+        },
+        {
+          "name": "recircle_dirty",
+          "Type": "Cold",
+          "Inlet Temperature [C]": 40.0,
+          "Outlet Temperature [C]": 60.0,
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": 479.4,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT",
+          "- Hot/cold can be deduced": ""
+        },
+        {
+          "name": "prerinse_cooling",
+          "Type": "Hot",
+          "Inlet Temperature [C]": 60.0,
+          "Outlet Temperature [C]": 40.0,
+          "Inlet Enthalpy Flow  [kW]": 1198.6,
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT",
+          "- Hot/cold can be deduced": ""
+        },
+        {
+          "name": "wastewater_cooling",
+          "Type": "Hot",
+          "Inlet Temperature [C]": 40.0,
+          "Outlet Temperature [C]": 15.0,
+          "Inlet Enthalpy Flow  [kW]": 898.9,
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT",
+          "- Hot/cold can be deduced": ""
+        },
+        {
+          "name": "freshwater_soap",
+          "Type": "Cold",
+          "Inlet Temperature [C]": 15.0,
+          "Outlet Temperature [C]": 85.0,
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": 1362.0,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT",
+          "- Hot/cold can be deduced": ""
+        },
+        {
+          "name": "recircle_soap",
+          "Type": "Cold",
+          "Inlet Temperature [C]": 65.0,
+          "Outlet Temperature [C]": 85.0,
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": 266.5,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT",
+          "- Hot/cold can be deduced": ""
+        },
+        {
+          "name": "soapy_mix",
+          "Type": "Hot",
+          "Inlet Temperature [C]": 85.0,
+          "Outlet Temperature [C]": 62.5,
+          "Inlet Enthalpy Flow  [kW]": 438.6,
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT",
+          "- Hot/cold can be deduced": ""
+        },
+        {
+          "name": "soda_bath",
+          "Type": "Hot",
+          "Inlet Temperature [C]": 85.0,
+          "Outlet Temperature [C]": 65.0,
+          "Inlet Enthalpy Flow  [kW]": 266.5,
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": 5.0,
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT",
+          "- Hot/cold can be deduced": ""
+        }
+      ],
+      "Equipments Description": "The CIP section uses a caustic bath tank for cleaning, a rinsing tank for final wash, and a recovery tank to collect used fluids. These units enable automatic cleaning through pre-rinse, soda wash, and final rinse cycles.",
+      "Equipments": {
+        "Bath": {
+          "Type": "Cleaning Tank",
+          "Parameters": [
+            {
+              "Parameter": "Power",
+              "Value": 0.01,
+              "units": "kW"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": 20.0,
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": 2025.0,
+              "units": "year"
+            }
+          ]
+        },
+        "Recovery": {
+          "Type": "Collection Tank",
+          "Parameters": [
+            {
+              "Parameter": "Area",
+              "Value": 5000.0,
+              "units": "m2"
+            },
+            {
+              "Parameter": "Pressure",
+              "Value": 3.0,
+              "units": "bar"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": 20.0,
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": 2025.0,
+              "units": "year"
+            }
+          ]
+        },
+        "Rinsing": {
+          "Type": "Rinse Tank",
+          "Parameters": [
+            {
+              "Parameter": "Capital",
+              "Value": 75000.0,
+              "units": "EUR"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": 20.0,
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": 2025.0,
+              "units": "year"
+            }
+          ]
+        }
+      },
+      "Operating Cost Description": "",
+      "Operating Cost": {
+        "Fixed Operating Cost [EUR/y]": 0.0,
+        "Variable Operating Cost [EUR/h]": 0.0
+      }
+    }
+  }
+}

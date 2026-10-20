@@ -1,0 +1,583 @@
+{
+  "HEADER": {
+    "Model Name": "NGFurnace",
+    "Authors and Contributors": "Daniel Florez-Orrego, Meire Domingos",
+    "Version": "1.0",
+    "Confidentiality": "Open",
+    "Creation Date": "2025-07-20 00:00:00",
+    "References": "[1] Florez-Orrego, D., Ribeiro Domingos, M. E. G., Marechal, F., A systematic framework for the multi-time integration of industrial complexes and urban systems, 7th International Conference on Contemporary Problems of Thermal Engineering - CPOTE 2022, Warsaw, Poland, 20th-23th September, 2022",
+    "Grade": "GRAY-BOX",
+    "Software": "None",
+    "URL": "https://gitlab.epfl.ch/boztas/dairy-casestudy/-/blob/main/DairyROSMOSE/model/Furnaces/Furnace.Rmd?ref_type=heads",
+    "Last Update Date": "2025-10-08",
+    "Keywords": "Heat Supply, Natural Gas, Fossil, Combustion, Furnace, High Temperature Heat",
+    "Reference Capacity": "1000 kW",
+    "Description": "This model represents a furnace using natural gas for heat supply.",
+    "BlockFlowDiagram": "model/Furnaces/furnace_generic.svg",
+    "Import Source": "Web Interface"
+  },
+  "VARIABLES": [
+    {
+      "Variable name": "T_ad",
+      "Type": "LITERATURE",
+      "Full name": "Adiabatic flame temperature of the fuel",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 2025,
+      "Physical unit": "C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$T_{ad}$",
+      "Bibliography": "-",
+      "Comment": "Adiabatic flame temperature of the fuel"
+    },
+    {
+      "Variable name": "dTmin_radiation",
+      "Type": "LITERATURE",
+      "Full name": "radiation dTmin contribution",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 2,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$dTmin_{rad}$",
+      "Bibliography": "-",
+      "Comment": "radiation dTmin contribution"
+    },
+    {
+      "Variable name": "dTmin_convection",
+      "Type": "LITERATURE",
+      "Full name": "convection dTmin contribution",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 8,
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$dTmin_{conv}$",
+      "Bibliography": "-",
+      "Comment": "convection dTmin contribution"
+    },
+    {
+      "Variable name": "To",
+      "Type": "CONTEXT",
+      "Full name": "Environmental temperature",
+      "User grade": "OPTIONAL",
+      "Default Value or Formula": 25,
+      "Physical unit": "C",
+      "Min bound": -273,
+      "Max bound": 1000,
+      "Latex syntax": "$T_{o}$",
+      "Bibliography": "@Boztas et al",
+      "Comment": "Environmental temperature used for the calculation of the PV efficiency (it is overwritten by the GIS information)"
+    },
+    {
+      "Variable name": "T_rad",
+      "Type": "LITERATURE",
+      "Full name": "Radiation temperature threshold",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 1050,
+      "Physical unit": "C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$T_{rad}$",
+      "Bibliography": "",
+      "Comment": "Radiation temperature threshold, actual temperature is 1050\u00b0C but 400 can be used for plot visualization"
+    },
+    {
+      "Variable name": "T_stack",
+      "Type": "LITERATURE",
+      "Full name": "Stack temperature threshold",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 100,
+      "Physical unit": "C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$T_{stack}$",
+      "Bibliography": "",
+      "Comment": "Stack temperature threshold for no dew point"
+    },
+    {
+      "Variable name": "MW_air",
+      "Type": "LITERATURE",
+      "Full name": "Molecular weight of dry air",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 29,
+      "Physical unit": "kg/kmol",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$MW_{air}$",
+      "Bibliography": "",
+      "Comment": "Molecular weight of dry air = 79% N2 + 21% O2"
+    },
+    {
+      "Variable name": "MW_fuel",
+      "Type": "LITERATURE",
+      "Full name": "Molecular weight of CH4",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 16,
+      "Physical unit": "kg/kmol",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$MW_{CH4}$",
+      "Bibliography": "",
+      "Comment": "Molecular weight of methane"
+    },
+    {
+      "Variable name": "MW_CO2",
+      "Type": "LITERATURE",
+      "Full name": "Molecular weight of CO2",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 44,
+      "Physical unit": "kg/kmol",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$MW_{CO2}$",
+      "Bibliography": "",
+      "Comment": "Molecular weight of CO2"
+    },
+    {
+      "Variable name": "losses",
+      "Type": "DECISION",
+      "Full name": "Furnace losses",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 0.03,
+      "Physical unit": "%",
+      "Min bound": "",
+      "Max bound": "",
+      "Latex syntax": "$Furnace_{losses}$",
+      "Bibliography": "",
+      "Comment": "Furnace losses"
+    },
+    {
+      "Variable name": "LHV_CH4",
+      "Type": "LITERATURE",
+      "Full name": "natural gas LHV @ 25\u00b0C,1 bar",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 50000,
+      "Physical unit": "kJ/kg",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$LHV_{CH4}$",
+      "Bibliography": "",
+      "Comment": "natural gas LHV @ 25\u00b0C,1 bar"
+    },
+    {
+      "Variable name": "molrat_st",
+      "Type": "LITERATURE",
+      "Full name": "Stoichiometric molar air-to-fuel ratio",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 9.52,
+      "Physical unit": "kmol/kmol",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$\\text{molrat}_{st}$",
+      "Bibliography": "-",
+      "Comment": "Air-to-fuel ratio for CH\u2084 combustion"
+    },
+    {
+      "Variable name": "a",
+      "Type": "LITERATURE",
+      "Full name": "Excess air coefficient",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 1.02,
+      "Physical unit": "-",
+      "Min bound": 0,
+      "Max bound": 2,
+      "Latex syntax": "$a$",
+      "Bibliography": "-",
+      "Comment": "excess air as in: CH4 + a*2(O2+3.76N2) --> CO2 + 2H2O + 2*3.76N2 + 2(a-1)(O2 + 3.76N2)"
+    },
+    {
+      "Variable name": "cp_air",
+      "Type": "LITERATURE",
+      "Full name": "Air heat capacity @427\u00b0C, 1 bar",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": 1.075,
+      "Physical unit": "kJ/kg/K",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "-",
+      "Bibliography": "$c_{pair}$",
+      "Comment": "Engineering Toolbox. Air heat capacity at typical furnace conditions"
+    },
+    {
+      "Variable name": "T_prin",
+      "Type": "CONTEXT",
+      "Full name": "Preheating temperature",
+      "User grade": "OPTIONAL",
+      "Default Value or Formula": 26,
+      "Physical unit": "\u00b0C",
+      "Min bound": -273,
+      "Max bound": 1000,
+      "Latex syntax": "$T_{prin}$",
+      "Bibliography": "-",
+      "Comment": "Preheated air inlet temperature"
+    },
+    {
+      "Variable name": "Furnace_natGas_LOAD",
+      "Type": "DECISION",
+      "Full name": "Reference furnace load",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": 1000,
+      "Physical unit": "kW",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$Q_{furnace}$",
+      "Bibliography": "-",
+      "Comment": "Reference natural gas input load"
+    },
+    {
+      "Variable name": "v",
+      "Type": "LITERATURE",
+      "Full name": "Stoichiometric air-to-fuel mass ratio",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": {
+        "value": 17.255,
+        "formula": "=molrat_st*MW_air/MW_fuel"
+      },
+      "Physical unit": "kg/kg",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$v$",
+      "Bibliography": "-",
+      "Comment": "Computed from molar ratio and molecular weights"
+    },
+    {
+      "Variable name": "cpg",
+      "Type": "DECISION",
+      "Full name": "Flue gas heat capacity at 1 bar",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 0.024390243902439025,
+        "formula": "=To/(T_ad-Furnace_natGas_LOAD)"
+      },
+      "Physical unit": "kW/K",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$c_{pg}$",
+      "Bibliography": "-",
+      "Comment": "Used for heat capacity before correction"
+    },
+    {
+      "Variable name": "Tad_corr",
+      "Type": "DECISION",
+      "Full name": "Corrected adiabatic flame temperature",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 31461.759992567117,
+        "formula": "=To+(Furnace_natGas_LOAD/(cpg+(cp_air*(a-1)*v*Furnace_natGas_LOAD/LHV_CH4)))"
+      },
+      "Physical unit": "\u00b0C",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$T_{adcorr}$",
+      "Bibliography": "-",
+      "Comment": "Accounts for excess air and preheating"
+    },
+    {
+      "Variable name": "cpg_corr",
+      "Type": "DECISION",
+      "Full name": "Corrected flue gas heat capacity @1 bar",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 0.03180989390243903,
+        "formula": "=Furnace_natGas_LOAD/(Tad_corr-To)"
+      },
+      "Physical unit": "kW/K",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$c_{pg,corr}$",
+      "Bibliography": "-",
+      "Comment": "Heat capacity using corrected flame temp"
+    },
+    {
+      "Variable name": "Q_rad_gross",
+      "Type": "DECISION",
+      "Full name": "Heat rate at radiation threshold",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 967.39485875,
+        "formula": "=Furnace_natGas_LOAD*(Tad_corr-T_rad)/(Tad_corr-To)"
+      },
+      "Physical unit": "kW",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$Q_{rad,gross}$",
+      "Bibliography": "-",
+      "Comment": "Radiative heat transfer portion"
+    },
+    {
+      "Variable name": "Q_conv_gross",
+      "Type": "DECISION",
+      "Full name": "Heat rate at convection threshold",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 30.21939920731708,
+        "formula": "=Furnace_natGas_LOAD*(T_rad-T_stack)/(Tad_corr-To)"
+      },
+      "Physical unit": "kW",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$Q_{conv,gross}$",
+      "Bibliography": "-",
+      "Comment": "Convective heat transfer portion"
+    },
+    {
+      "Variable name": "Q_preh",
+      "Type": "DECISION",
+      "Full name": "Air preheating load",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 0.37098249999999994,
+        "formula": "=cp_air*v*Furnace_natGas_LOAD/LHV_CH4*(T_prin-To)"
+      },
+      "Physical unit": "kW",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$Q_{preh}$",
+      "Bibliography": "-",
+      "Comment": "Heat load for air preheating"
+    },
+    {
+      "Variable name": "Q_stack",
+      "Type": "DECISION",
+      "Full name": "Stack losses",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 2.3857420426829274,
+        "formula": "=cpg_corr*(T_stack-To)"
+      },
+      "Physical unit": "kW",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$Q_{stack}$",
+      "Bibliography": "-",
+      "Comment": "Energy lost in stack"
+    },
+    {
+      "Variable name": "Q_radpreh",
+      "Type": "DECISION",
+      "Full name": "Radiation + preheating load",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 967.76584125,
+        "formula": "=Q_preh+Q_rad_gross"
+      },
+      "Physical unit": "kW",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$Q_{rad+preh}$",
+      "Bibliography": "-",
+      "Comment": "Combined high-temp + preheat load"
+    },
+    {
+      "Variable name": "Q_demand",
+      "Type": "DECISION",
+      "Full name": "Total furnace demand",
+      "User grade": "MANDATORY",
+      "Default Value or Formula": {
+        "value": 1030.9278350515465,
+        "formula": "=Furnace_natGas_LOAD/(1-losses)"
+      },
+      "Physical unit": "kW",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$Q_{demand}$",
+      "Bibliography": "-",
+      "Comment": "Energy needed accounting for losses"
+    },
+    {
+      "Variable name": "TotalCO2Flow",
+      "Type": "DECISION",
+      "Full name": "CO2 Emitted after combustion",
+      "User grade": "PRIVATE",
+      "Default Value or Formula": {
+        "value": 204.1237113402062,
+        "formula": "=Q_demand/LHV_CH4*3600*MW_CO2/MW_fuel"
+      },
+      "Physical unit": "kg/h",
+      "Min bound": "-",
+      "Max bound": "-",
+      "Latex syntax": "$F_{CO2}$",
+      "Bibliography": "-",
+      "Comment": "The amount of co2 emitted in the stack of the boiler"
+    }
+  ],
+  "CONNECTORS": {
+    "EXTERNAL CONNECTORS": [
+      {
+        "Unique Identifier Number, UID": "NATURALGAS",
+        "NAME (ALIAS)": "CH4",
+        "TYPE": "MASS",
+        "PHYSICAL UNIT": "kg/h",
+        "TEMPERATURE": 5.0,
+        "TEMPERATURE UNIT": "C",
+        "PRESSURE": 30.0,
+        "PRESSURE UNIT": "bar",
+        "VAPOR FRACTION [MASS]": -1.0,
+        "PHASE": "(V)",
+        "COMPOSITION [MOLE/MASS]": "MASSFRAC:CH4[1]"
+      },
+      {
+        "Unique Identifier Number, UID": "EnvCO2Em",
+        "NAME (ALIAS)": "CO2inFlueGases",
+        "TYPE": "EMISSIONS",
+        "PHYSICAL UNIT": "kg/h",
+        "TEMPERATURE": 25.0,
+        "TEMPERATURE UNIT": "C",
+        "PRESSURE": 1.0,
+        "PRESSURE UNIT": "bar",
+        "VAPOR FRACTION [MASS]": -1.0,
+        "PHASE": "(V)",
+        "COMPOSITION [MOLE/MASS]": "MASSFRAC:CO2[1]"
+      }
+    ],
+    "INTERNAL CONNECTORS": []
+  },
+  "UNITS": {
+    "Furnace": {
+      "Unit Description": "The furnace is a utility unit that can supply heat at very high temperatures (> 500\u00b0C) to industrial processes such as sintering, curing, metallurgical and thermal treatments, among other applications.The furnace model converts the chemical energy of a fuel into the thermal energy of hot flue gases by burning the fuel with air.",
+      "Unit Info": {
+        "Unit name": "Furnace",
+        "Minimum capacity multiplier": 0.0,
+        "Maximum capacity multiplier": 100.0
+      },
+      "Connectors Description": "The energy consumed by the furnace in the form of natural gas (in kW) is imported through the NATURALGAS layer from the natural gas supply grid located in the market model or produced by a methanation or an anaerobic digestion with purification process. In turn, the CO_{2} released from the flue stack that is susceptible to be captured in a flue gas purification unit can be sent to it through the CO2inFlueGas layer. The CO_{2} emissions arisen from the leakages of the hot gases are, in turn, sent to the environment through the layer EnvCO2em.",
+      "Connectors": [
+        {
+          "NAME (ALIAS)": "CH4",
+          "TYPE": "ENERGY",
+          "DIRECTION": "IN",
+          "VALUE": {
+            "value": 1030.9278350515465,
+            "formula": "=Q_demand"
+          },
+          "PHYSICAL UNIT": "kW",
+          "TEMPERATURE": 25.0,
+          "TEMPERATURE UNIT": 1.0,
+          "PRESSURE": 30.0,
+          "PRESSURE UNIT": 1.0,
+          "VAPOR FRACTION [MASS]": -1.0,
+          "PHASE": "(V)",
+          "COMPOSITION [MOLE/MASS]": "MASSFRAC:CH4[1]"
+        },
+        {
+          "NAME (ALIAS)": "CO2inFlueGases",
+          "TYPE": "EMISSIONS",
+          "DIRECTION": "OUT",
+          "VALUE": {
+            "value": 204.1237113402062,
+            "formula": "=TotalCO2Flow"
+          },
+          "PHYSICAL UNIT": "kg/h",
+          "TEMPERATURE": 25.0,
+          "TEMPERATURE UNIT": 1.0,
+          "PRESSURE": 1.0,
+          "PRESSURE UNIT": 1.0,
+          "VAPOR FRACTION [MASS]": -1.0,
+          "PHASE": "(V)",
+          "COMPOSITION [MOLE/MASS]": "MASSFRAC:CO2[1]"
+        }
+      ],
+      "Heat Streams Description": "The heat streams consists of radiation and convection heat transfer mechanism, and the preheating of the stoichiometric combustion air.",
+      "Heat Streams": [
+        {
+          "name": "radiation",
+          "Type": "Hot",
+          "Inlet Temperature [C]": {
+            "value": 1050,
+            "formula": "=T_rad"
+          },
+          "Outlet Temperature [C]": {
+            "value": 1050,
+            "formula": "=T_rad"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 967.76584125,
+            "formula": "=Q_radpreh"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 2,
+            "formula": "=dTmin_radiation"
+          },
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "convection",
+          "Type": "Hot",
+          "Inlet Temperature [C]": {
+            "value": 1050,
+            "formula": "=T_rad"
+          },
+          "Outlet Temperature [C]": {
+            "value": 100,
+            "formula": "=T_stack"
+          },
+          "Inlet Enthalpy Flow  [kW]": {
+            "value": 30.21939920731708,
+            "formula": "=Q_conv_gross"
+          },
+          "Outlet Enthalpy Flow [kW]": 0.0,
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dTmin_convection"
+          },
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        },
+        {
+          "name": "preheating",
+          "Type": "Cold",
+          "Inlet Temperature [C]": {
+            "value": 25,
+            "formula": "=To"
+          },
+          "Outlet Temperature [C]": {
+            "value": 26,
+            "formula": "=T_prin"
+          },
+          "Inlet Enthalpy Flow  [kW]": 0.0,
+          "Outlet Enthalpy Flow [kW]": {
+            "value": 0.37098249999999994,
+            "formula": "=Q_preh"
+          },
+          "dTmin Contribution [C]": {
+            "value": 8,
+            "formula": "=dTmin_convection"
+          },
+          "Heat Transfer Coef [kW/m2K]": 1.0,
+          "HeatCascade": "DEFAULT"
+        }
+      ],
+      "Equipments Description": "The system consists of burner equipment and control, as well as the infrastructure of the structutal and isolation material.",
+      "Equipments": {
+        "Gas_furnace": {
+          "Type": "furnace",
+          "Parameters": [
+            {
+              "Parameter": "Power",
+              "Value": 1000.0,
+              "units": "kW"
+            },
+            {
+              "Parameter": "Lifetime",
+              "Value": 30.0,
+              "units": "years"
+            },
+            {
+              "Parameter": "Date",
+              "Value": 2025.0,
+              "units": "year"
+            }
+          ]
+        }
+      },
+      "Operating Cost Description": "The fixed and variable operating costs includes manpower, fixed cost of operation, taxes etc.",
+      "Operating Cost": {
+        "Fixed Operating Cost [EUR/y]": 0.0,
+        "Variable Operating Cost [EUR/h]": 0.0
+      }
+    }
+  }
+}
