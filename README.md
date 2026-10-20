@@ -30,3 +30,10 @@ inline code are linked to their definitions. See
     ./compileAll.sh            # HTML book, output in _book/
 
 `quarto preview` serves the book locally and reloads on every change.
+
+## Publishing
+
+Every push to `main` runs `.github/workflows/publish.yml`, which renders the
+book with Quarto and publishes `_book/` on GitHub Pages. The workflow can also
+be run by hand from the repository's Actions tab. Pages must be enabled once,
+under Settings > Pages > Build and deployment > Source: GitHub Actions.

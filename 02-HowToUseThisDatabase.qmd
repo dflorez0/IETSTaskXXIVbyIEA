@@ -32,7 +32,7 @@ cd IETSTaskXXIVbyIEA
 quarto preview
 ```
 
-`quarto preview` serves the book in your browser and reloads it every time a file is saved. `quarto render` builds the complete site into `_book/`, which is the folder that is deployed.
+`quarto preview` serves the book in your browser and reloads it every time a file is saved. `quarto render` builds the complete site into `_book/`. The website itself is rebuilt and published automatically every time changes are pushed to the `main` branch.
 
 ## Adding a model {.unnumbered}
 
@@ -113,7 +113,7 @@ git commit -m "Add cooling tower model"
 git push
 ```
 
-Every change is recorded in the repository history with its author, date and description, which keeps track of the provenance of each model.
+Every change is recorded in the repository history with its author, date and description, which keeps track of the provenance of each model. A few minutes after the push, the new page is online; the repository's *Actions* tab shows the progress of the build.
 
 ## Writing with Quarto {.unnumbered}
 
