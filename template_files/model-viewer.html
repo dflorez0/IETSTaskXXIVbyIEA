@@ -122,7 +122,8 @@ mjx-container a[href^="#mv-var-"]:hover { color: #ff0000; }
 document.addEventListener("DOMContentLoaded", function () {
   "use strict";
 
-  var MONO = 'SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace';
+  // Plots and diagrams are lettered in the page's own font, read from the page at start.
+  var FONT = '"Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
   var MATHJAX_URL = "https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js";
   var PHASE_CHANGE_DT = 0.01;   // isothermal streams get a sliver of span so CP is finite
   var C = { text: "#2C3E50", muted: "#7F8C9B", border: "#D8DCE3", bg: "#FAFBFC", card: "#FFFFFF",
@@ -715,15 +716,15 @@ document.addEventListener("DOMContentLoaded", function () {
     function label(x, y, w, color, title, value, dashed) {
       return '<rect x="' + x + '" y="' + (y - LH / 2) + '" width="' + w + '" height="' + LH + '" rx="5" fill="' + C.card + '" stroke="' + color +
         '" stroke-width="1.3"' + (dashed ? ' stroke-dasharray="5,3"' : "") + "/>" +
-        '<text x="' + (x + w / 2) + '" y="' + (y - 5) + '" text-anchor="middle" font-size="12.5" font-weight="700" fill="' + color + '">' + chemSVG(title) + "</text>" +
-        '<text x="' + (x + w / 2) + '" y="' + (y + 13) + '" text-anchor="middle" font-size="11" fill="' + C.muted + '">' + chemSVG(value) + "</text>";
+        '<text x="' + (x + w / 2) + '" y="' + (y - 5) + '" text-anchor="middle" font-size="13.5" font-weight="700" fill="' + color + '">' + chemSVG(title) + "</text>" +
+        '<text x="' + (x + w / 2) + '" y="' + (y + 14) + '" text-anchor="middle" font-size="12.5" fill="' + C.muted + '">' + chemSVG(value) + "</text>";
     }
     s += '<rect x="' + bx + '" y="' + by + '" width="' + BW + '" height="' + BH + '" rx="10" fill="' + C.card + '" stroke="' + C.text + '" stroke-width="2"/>';
-    s += '<text x="' + cxB + '" y="' + (cy - 8) + '" text-anchor="middle" font-size="14" font-weight="700" fill="' + C.text + '">' + xesc(u.name) + "</text>";
+    s += '<text x="' + cxB + '" y="' + (cy - 8) + '" text-anchor="middle" font-size="15.5" font-weight="700" fill="' + C.text + '">' + xesc(u.name) + "</text>";
     var sub = [];
     if (u.kind) sub.push(u.kind);
     if (f !== 1) sub.push("f = " + nice(f));
-    if (sub.length) s += '<text x="' + cxB + '" y="' + (cy + 12) + '" text-anchor="middle" font-size="11" fill="' + C.muted + '">' + xesc(sub.join("  ·  ")) + "</text>";
+    if (sub.length) s += '<text x="' + cxB + '" y="' + (cy + 13) + '" text-anchor="middle" font-size="12.5" fill="' + C.muted + '">' + xesc(sub.join("  ·  ")) + "</text>";
     ins.forEach(function (c, i) {
       var y = cy - (ins.length - 1) * ROW / 2 + i * ROW;
       s += label(PAD, y, LW, C.cold, c.name, connValue(c, f));
@@ -748,8 +749,8 @@ document.addEventListener("DOMContentLoaded", function () {
                  nice(release.q) + " kW  ·  " + fmt(release.from, 0) + " → " + fmt(release.to, 0) + " °C", true);
     }
     if (!ins.length && !outs.length && !demand && !release)
-      s += '<text x="' + cxB + '" y="' + (by + BH + 20) + '" text-anchor="middle" font-size="11" fill="' + C.muted + '">No connectors or heat streams defined.</text>';
-    return '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + " " + H + "\" font-family='" + MONO + "'>" +
+      s += '<text x="' + cxB + '" y="' + (by + BH + 20) + '" text-anchor="middle" font-size="12.5" fill="' + C.muted + '">No connectors or heat streams defined.</text>';
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + " " + H + '" font-family="' + xesc(FONT) + '">' +
            '<rect width="' + W + '" height="' + H + '" fill="' + C.bg + '"/>' + DEFS + s + "</svg>";
   }
 
@@ -823,17 +824,18 @@ document.addEventListener("DOMContentLoaded", function () {
     for (var v = Math.ceil(lo / step) * step; v <= hi + step * 1e-9; v += step) out.push(Math.abs(v) < step * 1e-9 ? 0 : v);
     return out;
   }
-  function tickLabel(v) {
-    var a = Math.abs(v);
-    if (a >= 1e6) return (v / 1e6).toLocaleString("en-US", { maximumFractionDigits: 2 }) + "M";
-    if (a >= 1e4) return (v / 1e3).toLocaleString("en-US", { maximumFractionDigits: 1 }) + "k";
-    return v.toLocaleString("en-US", { maximumFractionDigits: 2 });
-  }
+  function minus(s) { return String(s).replace(/^-/, "−"); }
+  function tickLabel(v) { return minus(v.toLocaleString("en-US", { maximumFractionDigits: 2 })); }
+  function font(px, bold) { return (bold ? "700 " : "400 ") + px + "px " + FONT; }
+  // Heat axes read in kW, MW or GW, whichever keeps the numbers short.
+  function heatUnit(max) { return max >= 1e7 ? { k: 1e6, u: "GW" } : max >= 1e4 ? { k: 1e3, u: "MW" } : { k: 1, u: "kW" }; }
+  function heatText(v, hu) { return minus(nice(v / hu.k)) + " " + hu.u; }
   // Size the canvas to its frame, at the screen's pixel density.
   function prep(canvas) {
     var avail = canvas.parentElement.clientWidth - 26;
     if (avail <= 0) return null;                        // hidden: draw when shown
-    var W = Math.max(320, Math.min(860, avail)), H = Math.round(W * 0.6), dpr = window.devicePixelRatio || 1;
+    // narrow plots are taller, so that the temperature axis keeps room for its labels
+    var W = Math.max(320, Math.min(860, avail)), H = Math.round(W * (W >= 640 ? 0.6 : 0.6 + (640 - W) / 320 * 0.25)), dpr = window.devicePixelRatio || 1;
     canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
     canvas.style.width = W + "px"; canvas.style.height = H + "px";
     var ctx = canvas.getContext("2d");
@@ -841,55 +843,86 @@ document.addEventListener("DOMContentLoaded", function () {
     ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
     return { ctx: ctx, W: W, H: H };
   }
-  function emptyPlot(p, msg) { p.ctx.fillStyle = C.muted; p.ctx.font = "12px " + MONO; p.ctx.textAlign = "center"; p.ctx.fillText(msg, p.W / 2, p.H / 2); }
-  function axes(p, pad, xLo, xHi, tLo, tHi, cx, cy, xLabel) {
-    var ctx = p.ctx;
-    ctx.lineWidth = 1; ctx.font = "10px " + MONO;
-    ticks(tLo, tHi, 6).forEach(function (t) {
-      ctx.strokeStyle = C.grid; ctx.beginPath(); ctx.moveTo(pad.left, cy(t)); ctx.lineTo(p.W - pad.right, cy(t)); ctx.stroke();
-      ctx.fillStyle = C.muted; ctx.textAlign = "right"; ctx.fillText(tickLabel(t), pad.left - 6, cy(t) + 3);
+  function emptyPlot(p, msg) { p.ctx.fillStyle = C.muted; p.ctx.font = font(13); p.ctx.textAlign = "center"; p.ctx.fillText(msg, p.W / 2, p.H / 2); }
+  // x and y: { lo, hi, map } in kW and °C; x.k is the factor of the unit the heat axis reads in.
+  function axes(p, pad, x, y, xTitle, yTitle) {
+    var ctx = p.ctx, pw = p.W - pad.left - pad.right, ph = p.H - pad.top - pad.bottom;
+    ctx.lineWidth = 1; ctx.font = font(12);
+    ticks(y.lo, y.hi, Math.max(3, Math.min(7, Math.round(ph / 55)))).forEach(function (t) {
+      var py = y.map(t);
+      ctx.strokeStyle = C.grid; ctx.beginPath(); ctx.moveTo(pad.left, py); ctx.lineTo(p.W - pad.right, py); ctx.stroke();
+      ctx.fillStyle = C.muted; ctx.textAlign = "right"; ctx.fillText(tickLabel(t), pad.left - 8, py + 4);
     });
-    ticks(xLo, xHi, 6).forEach(function (q) {
-      ctx.strokeStyle = C.grid; ctx.beginPath(); ctx.moveTo(cx(q), pad.top); ctx.lineTo(cx(q), p.H - pad.bottom); ctx.stroke();
-      ctx.fillStyle = C.muted; ctx.textAlign = "center"; ctx.fillText(tickLabel(q), cx(q), p.H - pad.bottom + 15);
+    ticks(x.lo / x.k, x.hi / x.k, Math.max(3, Math.min(7, Math.round(pw / 95)))).forEach(function (q) {
+      var px = x.map(q * x.k);
+      ctx.strokeStyle = C.grid; ctx.beginPath(); ctx.moveTo(px, pad.top); ctx.lineTo(px, p.H - pad.bottom); ctx.stroke();
+      ctx.fillStyle = C.muted; ctx.textAlign = "center"; ctx.fillText(tickLabel(q), px, p.H - pad.bottom + 18);
     });
-    ctx.strokeStyle = C.border; ctx.strokeRect(pad.left, pad.top, p.W - pad.left - pad.right, p.H - pad.top - pad.bottom);
-    ctx.fillStyle = C.text; ctx.font = "11px " + MONO; ctx.textAlign = "center";
-    ctx.fillText(xLabel, (pad.left + p.W - pad.right) / 2, p.H - 10);
-    ctx.save(); ctx.translate(15, (pad.top + p.H - pad.bottom) / 2); ctx.rotate(-Math.PI / 2);
-    ctx.fillText("Shifted temperature T* (°C)", 0, 0); ctx.restore();
+    ctx.strokeStyle = C.border; ctx.strokeRect(pad.left, pad.top, pw, ph);
+    ctx.fillStyle = C.text; ctx.font = font(13); ctx.textAlign = "center";
+    ctx.fillText(xTitle, pad.left + pw / 2, p.H - 14);
+    ctx.save(); ctx.translate(18, pad.top + ph / 2); ctx.rotate(-Math.PI / 2);
+    ctx.fillText(yTitle, 0, 0); ctx.restore();
   }
-  function qTag(p, pad, x, y, sub, value, color) {
-    var ctx = p.ctx, tail = " = " + nice(value) + " kW";
-    ctx.font = "bold 10.5px " + MONO; var wq = ctx.measureText("Q").width, wt = ctx.measureText(tail).width;
-    ctx.font = "bold 8px " + MONO; var ws = ctx.measureText(sub).width;
-    var tot = wq + ws + wt;
-    x = Math.max(pad.left + 3, Math.min(x - tot / 2, p.W - pad.right - tot - 3));
-    y = Math.max(pad.top + 13, Math.min(y, p.H - pad.bottom - 5));
-    ctx.fillStyle = "rgba(250,251,252,0.92)"; ctx.fillRect(x - 3, y - 11, tot + 6, 15);
+  // A label on the plot: its name in regular weight, its value in bold, on a light backing.
+  function tagWidth(ctx, name, value) {
+    ctx.font = font(12.5); var w = ctx.measureText(name + " ").width;
+    ctx.font = font(12.5, true); return w + ctx.measureText(value).width;
+  }
+  function tag(p, pad, x, y, name, value, color, alignRight) {
+    var ctx = p.ctx, w = tagWidth(ctx, name, value);
+    x = Math.max(pad.left + 4, Math.min(alignRight ? x - w : x - w / 2, p.W - pad.right - w - 4));
+    y = Math.max(pad.top + 14, Math.min(y, p.H - pad.bottom - 6));
+    ctx.fillStyle = "rgba(250,251,252,0.92)"; ctx.fillRect(x - 4, y - 12, w + 8, 17);
     ctx.fillStyle = color; ctx.textAlign = "left";
-    ctx.font = "bold 10.5px " + MONO; ctx.fillText("Q", x, y);
-    ctx.font = "bold 8px " + MONO; ctx.fillText(sub, x + wq, y + 2.5);
-    ctx.font = "bold 10.5px " + MONO; ctx.fillText(tail, x + wq + ws, y);
+    ctx.font = font(12.5); ctx.fillText(name + " ", x, y);
+    ctx.font = font(12.5, true); ctx.fillText(value, x + w - ctx.measureText(value).width, y);
+  }
+  // A dimension line between two heat loads, labelled on the line when the label fits,
+  // otherwise above it (side -1) or below it (side 1).
+  function dimension(p, pad, x1, x2, y, side, color, name, value) {
+    var ctx = p.ctx;
+    y = Math.max(pad.top + 9, Math.min(y, p.H - pad.bottom - 9));
+    ctx.strokeStyle = color; ctx.lineWidth = 1.3; ctx.setLineDash([4, 3]);
+    ctx.beginPath(); ctx.moveTo(x1, y); ctx.lineTo(x2, y); ctx.stroke(); ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(x1, y - 5); ctx.lineTo(x1, y + 5); ctx.moveTo(x2, y - 5); ctx.lineTo(x2, y + 5); ctx.stroke();
+    var fits = Math.abs(x2 - x1) > tagWidth(ctx, name, value) + 24;
+    tag(p, pad, (x1 + x2) / 2, fits ? y + 4 : side < 0 ? y - 9 : y + 18, name, value, color);
+  }
+  // Temperature range of a plot, keeping roomTop and roomBot pixels free above and below
+  // the curves for the utility dimension lines and their labels.
+  function tRange(t0, t1, ph, roomTop, roomBot) {
+    var span = t1 - t0, free = Math.max(ph - roomTop - roomBot, ph * 0.4);
+    return { lo: t0 - Math.max(4, span * 0.12, roomBot * span / free), hi: t1 + Math.max(4, span * 0.12, roomTop * span / free) };
   }
   function pinchLine(p, pad, cy, T) {
     var ctx = p.ctx;
     ctx.strokeStyle = "rgba(184,134,11,0.6)"; ctx.lineWidth = 1.3; ctx.setLineDash([5, 4]);
     ctx.beginPath(); ctx.moveTo(pad.left, cy(T)); ctx.lineTo(p.W - pad.right, cy(T)); ctx.stroke(); ctx.setLineDash([]);
-    var txt = "Pinch  T* = " + fmt(T, 1) + " °C";
-    ctx.font = "bold 10.5px " + MONO;
-    var w = ctx.measureText(txt).width, x = p.W - pad.right - w - 8, y = cy(T) - 7;
-    ctx.fillStyle = "rgba(250,251,252,0.92)"; ctx.fillRect(x - 4, y - 11, w + 8, 15);
-    ctx.fillStyle = C.pinch; ctx.textAlign = "left"; ctx.fillText(txt, x, y);
+    tag(p, pad, p.W - pad.right - 6, cy(T) - 7, "Pinch", minus(fmt(T, 1)) + " °C", C.pinch, true);
   }
-  function legend(p, pad, items) {
-    var ctx = p.ctx, w = 160, h = 10 + items.length * 16, x = p.W - pad.right - w - 8, y = p.H - pad.bottom - h - 8;
-    ctx.fillStyle = "rgba(250,251,252,0.94)"; ctx.fillRect(x, y, w, h);
-    ctx.strokeStyle = C.grid; ctx.strokeRect(x, y, w, h);
-    ctx.font = "10.5px " + MONO; ctx.textAlign = "left";
-    items.forEach(function (it, i) {
-      ctx.fillStyle = it[0]; ctx.fillRect(x + 8, y + 12 + i * 16, 18, 3);
-      ctx.fillStyle = C.text; ctx.fillText(it[1], x + 32, y + 16 + i * 16);
+  // Curve names above the plot, where they cannot hide a curve; they wrap on narrow plots.
+  function legendRows(ctx, items, width) {
+    var rows = [[]], used = 0;
+    ctx.font = font(12.5);
+    items.forEach(function (it) {
+      var w = 29 + ctx.measureText(it[1]).width, row = rows[rows.length - 1];
+      if (row.length && used + 24 + w > width) { row = []; rows.push(row); used = 0; }
+      used += (row.length ? 24 : 0) + w; row.push(it);
+    });
+    return rows;
+  }
+  function legend(p, pad, rows) {
+    var ctx = p.ctx;
+    ctx.font = font(12.5); ctx.textAlign = "left";
+    rows.forEach(function (row, r) {
+      var x = pad.left, y = 22 + r * 18;
+      row.forEach(function (it) {
+        ctx.fillStyle = it[0]; ctx.fillRect(x, y - 5, 22, 2.5);
+        ctx.beginPath(); ctx.arc(x + 11, y - 3.75, 3, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = C.text; ctx.fillText(it[1], x + 29, y);
+        x += 29 + ctx.measureText(it[1]).width + 24;
+      });
     });
   }
   function composite(list, type) {
@@ -910,18 +943,20 @@ document.addEventListener("DOMContentLoaded", function () {
     var pts = []; canvas._pts = pts;
     var hc = composite(list, "hot"), cc = composite(list, "cold");
     if (!hc && !cc) { emptyPlot(p, "No heat streams"); return true; }
-    var pad = { top: 34, right: 22, bottom: 50, left: 62 }, ctx = p.ctx;
     // the cold composite is shifted right by Q_CU, which the cascade gives exactly
-    var curves = [];
-    if (hc) curves.push({ H: hc.H, T: hc.T, color: C.hot, name: "Hot composite" });
-    if (cc) curves.push({ H: cc.H.map(function (h) { return h + (res ? res.Qcu : 0); }), T: cc.T, color: C.cold, name: "Cold composite" });
+    var curves = [], ctx = p.ctx;
+    if (hc) curves.push({ H: hc.H, T: hc.T, color: C.hot, name: "Hot composite curve" });
+    if (cc) curves.push({ H: cc.H.map(function (h) { return h + (res ? res.Qcu : 0); }), T: cc.T, color: C.cold, name: "Cold composite curve" });
+    var rows = legendRows(ctx, curves.map(function (c) { return [c.color, c.name]; }), p.W - 92);
+    var pad = { top: 36 + 18 * (rows.length - 1), right: 24, bottom: 56, left: 68 };
     var allH = [], allT = [];
     curves.forEach(function (c) { allH = allH.concat(c.H); allT = allT.concat(c.T); });
     var hMax = Math.max.apply(null, allH) * 1.04 || 1, t0 = Math.min.apply(null, allT), t1 = Math.max.apply(null, allT);
-    var head = Math.max(4, (t1 - t0) * 0.1), tLo = t0 - head, tHi = t1 + head;
+    var tr = tRange(t0, t1, p.H - pad.top - pad.bottom, res && res.Qhu > 1e-6 && cc ? 36 : 12, res && res.Qcu > 1e-6 && hc ? 36 : 12);
+    var tLo = tr.lo, tHi = tr.hi, hu = heatUnit(hMax);
     var cx = function (h) { return pad.left + h / hMax * (p.W - pad.left - pad.right); };
     var cy = function (t) { return p.H - pad.bottom - (t - tLo) / (tHi - tLo) * (p.H - pad.top - pad.bottom); };
-    axes(p, pad, 0, hMax, tLo, tHi, cx, cy, "Heat load H (kW)");
+    axes(p, pad, { lo: 0, hi: hMax, k: hu.k, map: cx }, { lo: tLo, hi: tHi, map: cy }, "Heat load (" + hu.u + ")", "Shifted temperature (°C)");
     curves.forEach(function (c) {
       ctx.strokeStyle = c.color; ctx.lineWidth = 2.5; ctx.lineJoin = "round"; ctx.beginPath();
       c.H.forEach(function (h, i) { if (i) ctx.lineTo(cx(h), cy(c.T[i])); else ctx.moveTo(cx(h), cy(c.T[i])); });
@@ -929,44 +964,36 @@ document.addEventListener("DOMContentLoaded", function () {
       ctx.fillStyle = c.color;
       c.H.forEach(function (h, i) {
         ctx.beginPath(); ctx.arc(cx(h), cy(c.T[i]), 3, 0, Math.PI * 2); ctx.fill();
-        pts.push({ x: cx(h), y: cy(c.T[i]), html: "<b>" + c.name + "</b><br>T* = " + fmt(c.T[i], 1) + " °C<br>H = " + nice(h) + " kW" });
+        pts.push({ x: cx(h), y: cy(c.T[i]), html: "<b>" + c.name + "</b><br>Shifted temperature " + minus(fmt(c.T[i], 1)) + " °C<br>Heat load " + heatText(h, hu) });
       });
     });
     if (res) {
       var hot = hc ? curves[0] : null, cold = cc ? curves[curves.length - 1] : null;
-      var bracket = function (x1, x2, y, color) {
-        ctx.strokeStyle = color; ctx.lineWidth = 1.4; ctx.setLineDash([4, 3]);
-        ctx.beginPath(); ctx.moveTo(x1, y); ctx.lineTo(x2, y); ctx.stroke(); ctx.setLineDash([]);
-        ctx.beginPath(); ctx.moveTo(x1, y - 5); ctx.lineTo(x1, y + 5); ctx.moveTo(x2, y - 5); ctx.lineTo(x2, y + 5); ctx.stroke();
-      };
-      if (res.Qhu > 1e-6 && cold) {
-        var a = hot ? cx(hot.H[hot.H.length - 1]) : cx(0), b = cx(cold.H[cold.H.length - 1]), y = cy(t1) - 14;
-        bracket(a, b, y, C.hot); qTag(p, pad, (a + b) / 2, y - 7, "HU", res.Qhu, C.hot);
-      }
-      if (res.Qcu > 1e-6 && hot) {
-        var a2 = cx(hot.H[0]), b2 = cold ? cx(cold.H[0]) : cx(res.Qcu), y2 = cy(t0) + 14;
-        bracket(a2, b2, y2, C.cold); qTag(p, pad, (a2 + b2) / 2, y2 + 17, "CU", res.Qcu, C.cold);
-      }
+      if (res.Qhu > 1e-6 && cold)
+        dimension(p, pad, hot ? cx(hot.H[hot.H.length - 1]) : cx(0), cx(cold.H[cold.H.length - 1]), cy(t1) - 12, -1, C.hot, "Hot utility", heatText(res.Qhu, hu));
+      if (res.Qcu > 1e-6 && hot)
+        dimension(p, pad, cx(hot.H[0]), cold ? cx(cold.H[0]) : cx(res.Qcu), cy(t0) + 12, 1, C.cold, "Cold utility", heatText(res.Qcu, hu));
       if (res.pinchTemp !== null) pinchLine(p, pad, cy, res.pinchTemp);
     }
-    legend(p, pad, curves.map(function (c) { return [c.color, c.name]; }));
+    legend(p, pad, rows);
     return true;
   }
   function drawGCC(canvas, res) {
     var p = prep(canvas); if (!p) return false;
     var pts = []; canvas._pts = pts;
     if (!res) { emptyPlot(p, "No heat streams"); return true; }
-    var pad = { top: 34, right: 22, bottom: 50, left: 62 }, ctx = p.ctx;
+    var pad = { top: 24, right: 24, bottom: 56, left: 68 }, ctx = p.ctx;
     var g = [[res.R[0], res.intervals[0][0]]];
     res.intervals.forEach(function (iv, k) { g.push([res.R[k + 1], iv[1]]); });
     var xs = g.map(function (q) { return q[0]; });
     var xLo = Math.min(0, Math.min.apply(null, xs)), xHi = Math.max(0, Math.max.apply(null, xs));
     var px = Math.max(1, (xHi - xLo) * 0.06); xLo -= px * 0.3; xHi += px;
     var t0 = Math.min.apply(null, g.map(function (q) { return q[1]; })), t1 = Math.max.apply(null, g.map(function (q) { return q[1]; }));
-    var head = Math.max(4, (t1 - t0) * 0.1), tLo = t0 - head, tHi = t1 + head;
+    var tr = tRange(t0, t1, p.H - pad.top - pad.bottom, g[0][0] > 1e-6 ? 36 : 12, g[g.length - 1][0] > 1e-6 ? 36 : 12);
+    var tLo = tr.lo, tHi = tr.hi, hu = heatUnit(xHi - xLo);
     var cx = function (q) { return pad.left + (q - xLo) / (xHi - xLo) * (p.W - pad.left - pad.right); };
     var cy = function (t) { return p.H - pad.bottom - (t - tLo) / (tHi - tLo) * (p.H - pad.top - pad.bottom); };
-    axes(p, pad, xLo, xHi, tLo, tHi, cx, cy, "Net heat flow (kW)");
+    axes(p, pad, { lo: xLo, hi: xHi, k: hu.k, map: cx }, { lo: tLo, hi: tHi, map: cy }, "Net heat flow (" + hu.u + ")", "Shifted temperature (°C)");
     ctx.beginPath(); ctx.moveTo(cx(0), cy(g[0][1]));
     g.forEach(function (q) { ctx.lineTo(cx(q[0]), cy(q[1])); });
     ctx.lineTo(cx(0), cy(g[g.length - 1][1])); ctx.closePath();
@@ -979,12 +1006,12 @@ document.addEventListener("DOMContentLoaded", function () {
     ctx.fillStyle = C.pinch;
     g.forEach(function (q) {
       ctx.beginPath(); ctx.arc(cx(q[0]), cy(q[1]), 2.6, 0, Math.PI * 2); ctx.fill();
-      pts.push({ x: cx(q[0]), y: cy(q[1]), html: "T* = " + fmt(q[1], 1) + " °C<br>Net heat flow = " + nice(q[0]) + " kW" });
+      pts.push({ x: cx(q[0]), y: cy(q[1]), html: "Shifted temperature " + minus(fmt(q[1], 1)) + " °C<br>Net heat flow " + heatText(q[0], hu) });
     });
     if (res.pinchTemp !== null) pinchLine(p, pad, cy, res.pinchTemp);
     var top = g[0], bot = g[g.length - 1];
-    if (top[0] > 1e-6) qTag(p, pad, cx(top[0]), cy(top[1]) - 9, "HU", top[0], C.hot);
-    if (bot[0] > 1e-6) qTag(p, pad, cx(bot[0]), cy(bot[1]) + 19, "CU", bot[0], C.cold);
+    if (top[0] > 1e-6) dimension(p, pad, cx(0), cx(top[0]), cy(top[1]) - 12, -1, C.hot, "Hot utility", heatText(top[0], hu));
+    if (bot[0] > 1e-6) dimension(p, pad, cx(0), cx(bot[0]), cy(bot[1]) + 12, 1, C.cold, "Cold utility", heatText(bot[0], hu));
     return true;
   }
   // Snap to the nearest plotted point and show its values.
@@ -1125,7 +1152,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var c = compute(entry);
         if (!view.canvas) {
           el.innerHTML = '<div class="mv-note-slot"></div><div class="mv-frame"><canvas></canvas></div>' +
-            '<div class="mv-tools"><p>Hot and cold composites against shifted temperature. Their horizontal overlap is the heat the unit can recover internally; the overhangs are the minimum hot (Q<sub>HU</sub>) and cold (Q<sub>CU</sub>) utility. Hover a point for its values.</p>' +
+            '<div class="mv-tools"><p>Hot and cold composite curves against shifted temperature. Their horizontal overlap is the heat the unit can recover internally; the overhangs at the top and bottom are the minimum hot and cold utility. Hover a point for its values.</p>' +
             '<button type="button" class="mv-dl">Download PNG</button></div>';
           view.canvas = el.querySelector("canvas");
           attachPlotHover(view.canvas);
@@ -1144,7 +1171,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var c = compute(entry);
         if (!view.canvas) {
           el.innerHTML = '<div class="mv-note-slot"></div><div class="mv-frame"><canvas></canvas></div>' +
-            '<div class="mv-tools"><p>Net heat cascaded down at each shifted temperature. The width at the top is Q<sub>HU</sub>, at the bottom Q<sub>CU</sub>; where the curve touches zero the unit is pinched, and a pocket is heat it can exchange with itself.</p>' +
+            '<div class="mv-tools"><p>Net heat flow cascaded down the shifted temperatures. Its width at the top is the minimum hot utility and at the bottom the minimum cold utility; where the curve touches zero the unit is pinched, and a pocket is heat the unit can exchange with itself.</p>' +
             '<button type="button" class="mv-dl">Download PNG</button></div>';
           view.canvas = el.querySelector("canvas");
           attachPlotHover(view.canvas);
@@ -1406,6 +1433,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var roots = document.querySelectorAll(".model-viewer");
   if (!roots.length) return;
+  try { var bodyFont = window.getComputedStyle(document.body).fontFamily; if (bodyFont) FONT = bodyFont; } catch (e) { /* keep the default */ }
 
   // Read every embedded model first: views of one file share a single copy.
   roots.forEach(function (r) {
@@ -1440,13 +1468,20 @@ document.addEventListener("DOMContentLoaded", function () {
   decorateProse();
   bindLinks();
 
+  function redrawPlots() { order.forEach(function (s) { models[s].views.forEach(function (v) { if (v.plot) v.render(); }); }); }
+  // Text drawn on a canvas keeps the fallback font if the page font arrives later.
+  if (document.fonts && document.fonts.load) {
+    var family = FONT.split(",")[0].trim();
+    Promise.all([document.fonts.load("400 12px " + family), document.fonts.load("700 12px " + family)])
+      .then(function (got) { if (got[0].length || got[1].length) redrawPlots(); }, function () {});
+  }
   var resizeTimer = null, lastW = window.innerWidth;
   window.addEventListener("resize", function () {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function () {
       if (window.innerWidth === lastW) return;
       lastW = window.innerWidth;
-      order.forEach(function (s) { models[s].views.forEach(function (v) { if (v.plot) v.render(); }); });
+      redrawPlots();
     }, 150);
   });
 });
