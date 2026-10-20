@@ -27,4 +27,7 @@ Each model page also includes an interactive overview generated from the model's
 
 ## Task participants {.unnumbered}
 
-Task XXIV is managed by *Daniel Flórez-Orrego* and *François Maréchal* (EPFL), with participants from Canada, Denmark, France, Germany, Italy, the Netherlands, Norway, Portugal, Sweden and Switzerland, and observers from Belgium, Chile and Colombia. See the [Task XXIV description](00-TaskDescription.qmd) for the objectives, activities and the list of participants, and the [rules for participating and sharing models](01-ParticipationRules.qmd).
+* **Task managers:** *Daniel Flórez-Orrego*, *François Maréchal* (EPFL)
+* **EPFL team:** *Oktay Boztas*, *Meire Ellen Ribeiro Domingos*, *Pullah Bhatnagar*, *Dareen Dardor*, *Vibhu Baibhav*
+
+The Task gathers participants from Canada, Denmark, France, Germany, Italy, the Netherlands, Norway, Portugal, Sweden and Switzerland, and observers from Belgium, Chile and Colombia. See the [Task XXIV description](00-TaskDescription.qmd) for the objectives, activities and the list of participants, and the [rules for participating and sharing models](01-ParticipationRules.qmd).

@@ -7,6 +7,7 @@
 | **Duration** | 1 January 2025 – 31 December 2027 |
 | **Approval** | IETS Executive Committee, 20 November 2024 |
 | **Task managers** | Daniel Flórez-Orrego and François Maréchal, École Polytechnique Fédérale de Lausanne (EPFL) |
+| **EPFL team** | Oktay Boztas, Meire Ellen Ribeiro Domingos, Pullah Bhatnagar, Dareen Dardor, Vibhu Baibhav |
 | **Coordination funded by** | Swiss Federal Office of Energy (SFOE) |
 | **Task page** | <https://iea-industry.org/tasks/process-integration-for-industry-decarbonization/> |
 
@@ -72,7 +73,10 @@ This database is the documentation side of that effort: each ex-ante model contr
 
 At the end of 2025, Task XXIV gathered researchers from ten participating countries — Canada, Denmark, France, Germany, Italy, the Netherlands, Norway, Portugal, Sweden and Switzerland, which manages the Task — and three observer countries: Belgium, Chile and Colombia.
 
-Task participants and contributors: Daniel Flórez-Orrego, Oktay Boztas, Meire Ellen Ribeiro Domingos, François Maréchal, Pullah Bhatnagar, Vibhu Baibhav, Rafailia Mitraki, Muhammad Salman, Grégoire Léonard, Joris Valee, Serge Bedard, Paul Stuart, Sara Russo Garrido, Marzouk Benali, Lijun Wu, Thijs Duvillard, Lieven Vandevelde, Manuele Margni, Diego Naranjo, Francisco Fuentes, Pablo Silva Ortiz, Robin Maximilian Kreipe, Henning Meschede, Florian Schlosser, Lukas Knorr, Sanduni Pathiraja, Nasrim Kermani, Roger Padullés I Solé, Zheng Grace Ma, Assaad Zoughaib, Emanuele Moioli, Mattia Vallerio, Flavio Manenti, Thomas Adams II, Andrea Ramirez, Mar Perez-Fortes, Maria Cristina Fernandes, Jorge Costa, Isabel Cabrita, Fernando Gomes Martins, Daniel Sousa, Pedro Mendes, Matilde Viegas, Henrique Matos, Carmen Bacariza, Pedro Nunes, Judit Fortet Casabella, Simon Harvey, Louis DeBackere, Greet Van Eetvelde and Michel Vinckenbosch.
+* **Task managers:** Daniel Flórez-Orrego, François Maréchal (EPFL)
+* **EPFL team:** Oktay Boztas, Meire Ellen Ribeiro Domingos, Pullah Bhatnagar, Dareen Dardor, Vibhu Baibhav
+
+Other Task participants and contributors: Rafailia Mitraki, Muhammad Salman, Grégoire Léonard, Joris Valee, Serge Bedard, Paul Stuart, Sara Russo Garrido, Marzouk Benali, Lijun Wu, Thijs Duvillard, Lieven Vandevelde, Manuele Margni, Diego Naranjo, Francisco Fuentes, Pablo Silva Ortiz, Robin Maximilian Kreipe, Henning Meschede, Florian Schlosser, Lukas Knorr, Sanduni Pathiraja, Nasrim Kermani, Roger Padullés I Solé, Zheng Grace Ma, Assaad Zoughaib, Emanuele Moioli, Mattia Vallerio, Flavio Manenti, Thomas Adams II, Andrea Ramirez, Mar Perez-Fortes, Maria Cristina Fernandes, Jorge Costa, Isabel Cabrita, Fernando Gomes Martins, Daniel Sousa, Pedro Mendes, Matilde Viegas, Henrique Matos, Carmen Bacariza, Pedro Nunes, Judit Fortet Casabella, Simon Harvey, Louis DeBackere, Greet Van Eetvelde and Michel Vinckenbosch.
 
 ## Further information {.unnumbered}
 
