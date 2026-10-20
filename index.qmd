@@ -19,12 +19,6 @@ Each model page also includes an interactive overview generated from the model's
 * the **composite curves** and the **grand composite curve**, with the minimum hot and cold utility requirements and the pinch.
 
 
-## Tools {.unnumbered}
-
-* Models are implemented in OSMOSE (Lua) and described in the Task XXIV JSON format.
-* This documentation is built with [**Quarto**](https://quarto.org/), an open-source scientific and technical publishing system.
-
-
 ## Task participants {.unnumbered}
 
 * **Task managers:** *Daniel Flórez-Orrego*, *François Maréchal* (EPFL)
