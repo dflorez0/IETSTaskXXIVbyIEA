@@ -13,21 +13,21 @@ In the case of air coolers, the air can be put in direct contact or used in a he
 knitr::include_graphics('coolingtower.svg')
 ```
 
-In the cooling tower, return water enters at 30°C and reduces the temperature by evaporative cooling up to 15°C. The temperature difference is important to determine the flow of the circulating water, considering the enthalpy change of water at the specified pressure and temperature. The cooling tower can achieve lower temperatures than the intake air thanks to the water evaporation effect, which drops the system temperature from the dry to the web bulb temperature. The latter is a function of the former temperature and the relative humidity, and can be found using psychrometry charts. Considering the cooling tower supply and return temperatures, and the heat removal capacity `Cool_Qmax`, a single cold stream can be associated to the cooling tower unit. In addition, both recirculation pumps and forced draft fans consume electricity at a ratio of around 0.021 kWe per kWt [REF]. 
+In the cooling tower, return water enters at 30 °C and is cooled by evaporation down to 16.32 °C, 4 K above the wet-bulb temperature of the ambient air (the approach). The temperature difference (the range) determines the flow of circulating water, together with the heat capacity of water. The cooling tower can cool the water below the temperature of the intake air thanks to evaporation, down to a limit set by the wet-bulb temperature. The latter is a function of the dry-bulb temperature and the relative humidity, and is calculated with the empirical formula of Stull (2011): 12.32 °C for air at 20 °C and 40 % relative humidity. Considering the cooling tower supply and return temperatures, and the heat removal capacity `Cool_Qmax`, a single cold stream can be associated to the cooling tower unit. In addition, both recirculation pumps and forced draft fans consume electricity at a ratio of around 0.021 kWe per kWt (MARLEY, Cooling Tower energy and its management). 
 
 These and some other financial parameters are summarized in the following chunk of code, whereas the commentaries provide further details on the meaning and relevance of each term. For most industrial applications, some parameters of the cooling tower model could be set as default.
 
 
 ```{rosmose} 
-Cool_Tin = 15 [C] # Cooling tower outlet temperature 
+Cool_Tin = 16.32 [C] # Cooling tower supply water temperature, 4 K above the wet-bulb temperature
 Cool_Tout = 30 [C] # Cooling tower return temperature 
-Cool_Qmax = 1000 [kW] # Cooling tower reference heat load
+Cool_Qmax = 100000 [kW] # Cooling tower reference heat load
 Cool_Elec = 0.021 [kW/kW] # Cooling Tower electricity input
 dtmin_liq = 5 [C] # delta Tmin of the cooling water (w/ liquid streams)
-deltaH = 62.8 [kJ/kg] # Enthalpy change for cooling water 1 bar, 15-30°C
-Tdrybulb = 20 [C] # Dry bulb temperature
-RelatHum = 40 [%] # Relative humidity
-Twetbulb = 12.17 [C] # Wet bulb temperature
+cp_water = 4.2 [kJ/kgK] # Heat capacity of water at 25 °C
+Tdrybulb = 20 [C] # Dry-bulb temperature of the ambient air at the site, at design conditions
+RelatHum = 40 [%] # Relative humidity of the ambient air at the site, at design conditions
+Twetbulb = 12.32 [C] # Wet-bulb temperature for Tdrybulb = 20 and RelatHum = 40, from the formula of Stull (2011) as in the workbook
 
 # Economic parameters
 n = 40.0 [yr] # Lifetime of a cooling tower
@@ -36,16 +36,16 @@ CEPCI_2020 = 596.2 [-] # Actual CEPCI
 CEPCI_2008 = 575.4 [-] # CEPCI 2008
 ```
 
-Based on the previous parameters, it is possible to calcualte the total power demand for the reference cooling capacity `E_ref_CT`, the temperature difference `deltaT_CT`, the approach temperature difference of the cooling tower used in the cost estimation `Cool_Tin-Twetbulb`, and the circulating water flow `water_flow` and makeup flow `watermu_CT`. Finally, the annualization factor can be determined based on the assumed life time of the energy technology and the interest rate adopted to calculate the annualized investment cost.
+Based on the previous parameters, it is possible to calculate the total power demand for the reference cooling capacity `E_ref_CT`, the temperature difference `deltaT_CT`, the approach temperature difference of the cooling tower used in the cost estimation `Cool_Tin-Twetbulb`, and the circulating water flow `water_flow` and makeup flow `watermu_CT`. Finally, the annualization factor can be determined based on the assumed life time of the energy technology and the interest rate adopted to calculate the annualized investment cost.
 
 ```{rosmose} 
 E_ref_CT = %Cool_Elec%*%Cool_Qmax% [kW] # Electricity consumption 
-deltaT_CT = %Cool_Tout%-%Cool_Tin% [C]
-approach = %Cool_Tin%-%Twetbulb% [C]
-water_flow = %Cool_Qmax%/%deltaH%*3600 [kg/h] #water flow rate
-watermu_CT = 0.000851*%water_flow%*(%Cool_Tout%-%Cool_Tin%) [kg/h] #makeup water in the CT system
+deltaT_CT = %Cool_Tout%-%Cool_Tin% [C] # Temperature range
+approach = %Cool_Tin%-%Twetbulb% [C] # Difference between the cold-water supply temperature and the ambient wet-bulb temperature
+water_flow = %Cool_Qmax%/(%cp_water%*%deltaT_CT%)*3600 [kg/h] #water flow rate
+watermu_CT = 0.00085*1.8*%water_flow%*(%Cool_Tout%-%Cool_Tin%) [kg/h] #makeup water in the CT system
 
-# Economic parameters of the air separation unit (ASU)
+# Economic parameters of the cooling tower
 Annuity = (%i%*(1+%i%)**%n%)/((1+%i%)**%n%-1) [-] #annualization factor
 CTCost = 746.49/0.066*((%water_flow%/1000)**0.79)*(%deltaT_CT%**0.57)*(%approach%**-0.9924)*(0.022*%Twetbulb%+0.39)**2.447 [Euro]
 Cinv2_CT = %CTCost%*(%CEPCI_2020%/%CEPCI_2008%)*%Annuity% [Euro/y]
@@ -73,7 +73,7 @@ The concept of layers in ROsmose language is equivalent to pipes through which t
 
 **Units of the coolingtower ET**
 
-The model of the cooling tower unit consists of a single unit, the `CoolTower` unit, which is an utility unit. It means that its size (continuous) and existence (binary) can be regarded as optimization variables used to minimize the electricity and water consumpiton or any other targets. To this end, other parameters of this unit, such as the lower `fmin` and upper `fmax` sizing bounds, must be specified in the Parameters tables shown next. Other operating costs (`cost1`:fixed, in Eur/y, `cost2`:variable in Eur/kWh/y or Eur/kg/y) and investment costs (`cinv1`:fixed in Eur/y; `cinv2`:variable in Eur/kW/y or Eur/kg/y) can be also specified.
+The model of the cooling tower unit consists of a single unit, the `CoolTower` unit, which is an utility unit. It means that its size (continuous) and existence (binary) can be regarded as optimization variables used to minimize the electricity and water consumption or any other targets. To this end, other parameters of this unit, such as the lower `fmin` and upper `fmax` sizing bounds, must be specified in the Parameters tables shown next. Other operating costs (`cost1`:fixed, in Eur/y, `cost2`:variable in Eur/kWh/y or Eur/kg/y) and investment costs (`cinv1`:fixed in Eur/y; `cinv2`:variable in Eur/kW/y or Eur/kg/y) can be also specified.
 
 ```{rosmose} 
 : OSMOSE UNIT coolingtower
@@ -127,4 +127,10 @@ Defining the heat streams
 
 
 *References*
-1. https://spxcooling.com/coolingtowers
+
+1. Int. J. Environ. Sci. Tech., 5 (2), 251-262, Spring 2008
+2. ECOS2015, Florez-Orrego, et al.
+3. Stull, Wet-Bulb Temperature from Relative Humidity and Air Temperature, 2011, DOI: https://doi.org/10.1175/JAMC-D-11-0143.1
+4. Perry Chemical Engineers Handbook
+5. https://spxcooling.com/coolingtowers
+6. MARLEY, Cooling Tower energy and its management
