@@ -1,116 +1,153 @@
 <!--
-  Model viewer: renders every <div class="model-viewer"> that the model-viewer
-  shortcode (model-viewer.lua) left in the page, from the JSON embedded in it.
+  Model viewer: renders every <div class="model-viewer"> left in the page by the
+  model-viewer shortcode (model-viewer.lua), from the model's JSON description.
 
-  One model at a time, four views of its imprint:
-    Flows                  black-box diagram: connectors in and out, heat
-                           demand and heat release with their temperature ranges
-    Heat streams           the stream table, with shifted temperatures and CP
-    Composite curves       hot and cold composites, Q_HU / Q_CU and the pinch
-    Grand composite curve  the cascade, i.e. what is left for utilities
+  A model page places one view per section:
+    card        model card from the metadata
+    summary     key figures, with the unit selector and the scale factor f
+    flows       black-box diagram: connectors in and out, heat demand and release
+    equations   every calculated variable as an equation, from its JSON formula
+    variables   input and calculated variables
+    unit        unit description, connectors, equipment and operating costs
+    streams     heat stream table (hot rows red, cold rows blue) and data checks
+    cc / gcc    composite curves / grand composite curve
+    references  references listed in the metadata
+  Without a view the shortcode renders a compact tabbed widget.
 
-  The cascade, diagrams and curves are ported from the "Model Representation
-  and Integration" prototype. Both JSON layouts used in the database are read:
-    - the Excel export   { METADATA, VARIABLES, CONNECTORS, UNITS: {name: {...}} }
-    - the Lua export     { header, variables, units: [ {...} ] }
-  A stream's hot/cold role comes from its temperatures (Tin > Tout is hot)
-  whenever they differ, and from its declared type only when it is isothermal;
-  a declared type that contradicts the temperatures is reported, not obeyed.
+  Variables are linked everywhere: inline code in the page that names a
+  variable, table values that come from a variable's formula, and symbols in
+  rendered formulas show a hover card with the definition, and link to the
+  variable's row in the variables table.
+
+  Reads both JSON layouts of the database: the Excel export (METADATA,
+  VARIABLES, UNITS: {name: {...}}) and the Lua export (header, variables,
+  units: [...]). The pinch cascade and the plots are ported from the "Model
+  Representation and Integration" prototype.
 -->
 <style>
-.model-viewer { margin: 1.5rem 0 2rem; }
-.mv-bar { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.25rem;
-          margin-bottom: 1rem; font-size: .9rem; }
+.model-viewer { margin: 1.25rem 0 1.75rem; }
+.mv-bar { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.25rem; margin-bottom: 1rem; font-size: .9rem; }
 .mv-bar label { display: flex; align-items: center; gap: .45rem; margin: 0; }
-.mv-bar select, .mv-bar input { border: 1px solid #ced4da; border-radius: 4px;
-          padding: .2rem .45rem; font-size: .9rem; background: #fff; }
+.mv-bar select, .mv-bar input { border: 1px solid #ced4da; border-radius: 4px; padding: .2rem .45rem; font-size: .9rem; background: #fff; }
 .mv-bar input { width: 6.5rem; }
 .mv-kind { font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
           padding: .2rem .55rem; border-radius: 3px; background: #f3e5f5; color: #7d3c98; }
 .mv-kind.is-process { background: #e8f5e9; color: #1e8449; }
-
-.mv-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-          gap: .55rem; margin-bottom: 1.25rem; }
+.mv-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: .55rem; }
 .mv-stat { border: 1px solid #dee2e6; border-radius: 6px; padding: .45rem .7rem; background: #fff; }
 .mv-stat-label { font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; color: #7f8c9b; }
 .mv-stat-value { font-size: 1.02rem; font-weight: 700; white-space: nowrap; }
 
-.mv-tabs { display: flex; flex-wrap: wrap; border-bottom: 1px solid #dee2e6; margin-bottom: .9rem; }
-.mv-tab { border: 1px solid transparent; border-bottom: 0; background: none; color: #555;
-          padding: .45rem .9rem; margin-bottom: -1px; font-size: .88rem; cursor: pointer;
-          border-radius: 5px 5px 0 0; }
+.mv-tabs { display: flex; flex-wrap: wrap; border-bottom: 1px solid #dee2e6; margin: 1.1rem 0 .9rem; }
+.mv-tab { border: 1px solid transparent; border-bottom: 0; background: none; color: #555; padding: .45rem .9rem;
+          margin-bottom: -1px; font-size: .88rem; cursor: pointer; border-radius: 5px 5px 0 0; }
 .mv-tab:hover { color: #ff0000; }
 .mv-tab.is-active { border-color: #dee2e6; background: #fff; color: #212121; font-weight: 600; }
 .mv-panel[hidden] { display: none !important; }
 
-.mv-frame { position: relative; border: 1px solid #dee2e6; border-radius: 6px; background: #fafbfc;
-          padding: .5rem; overflow-x: auto; }
+.mv-frame { position: relative; border: 1px solid #dee2e6; border-radius: 6px; background: #fafbfc; padding: .5rem; overflow-x: auto; }
 .mv-frame svg { display: block; width: 100%; height: auto; margin: 0 auto; }
 .mv-frame canvas { display: block; margin: 0 auto; }
-.mv-tools { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
-          margin-top: .4rem; font-size: .8rem; color: #7f8c9b; }
+.mv-tools { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-top: .4rem; font-size: .8rem; color: #7f8c9b; }
 .mv-tools p { margin: 0; text-align: left !important; }
-.mv-dl { border: 1px solid #ced4da; background: #fff; color: #444; border-radius: 4px;
-          padding: .15rem .55rem; font-size: .78rem; cursor: pointer; white-space: nowrap; }
+.mv-dl { border: 1px solid #ced4da; background: #fff; color: #444; border-radius: 4px; padding: .15rem .55rem; font-size: .78rem; cursor: pointer; white-space: nowrap; }
 .mv-dl:hover { border-color: #ff0000; color: #ff0000; }
-.mv-tip { position: absolute; pointer-events: none; z-index: 5; background: rgba(33,33,33,.92);
-          color: #fff; font-size: .75rem; line-height: 1.35; padding: .3rem .5rem; border-radius: 4px;
-          white-space: nowrap; transform: translate(-50%, calc(-100% - 10px)); }
-.mv-dot { position: absolute; pointer-events: none; z-index: 4; width: 10px; height: 10px;
-          margin: -5px 0 0 -5px; border: 2px solid #212121; border-radius: 50%; background: #fff; }
+.mv-scaled { font-size: .8rem; color: #b8860b; margin-bottom: .35rem; }
+.mv-tip { position: absolute; pointer-events: none; z-index: 5; background: rgba(33,33,33,.92); color: #fff; font-size: .75rem;
+          line-height: 1.35; padding: .3rem .5rem; border-radius: 4px; white-space: nowrap; transform: translate(-50%, calc(-100% - 10px)); }
+.mv-dot { position: absolute; pointer-events: none; z-index: 4; width: 10px; height: 10px; margin: -5px 0 0 -5px;
+          border: 2px solid #212121; border-radius: 50%; background: #fff; }
 
 .mv-table { width: 100%; border-collapse: collapse; font-size: .82rem; display: table !important; }
-.mv-table th { background: #f0f1f4; color: #555; font-weight: 600; font-size: .78rem;
-          padding: .4rem .5rem;
+.mv-table th { background: #f0f1f4; color: #555; font-weight: 600; font-size: .78rem; padding: .4rem .5rem;
           border-bottom: 1px solid #d8dce3; text-align: right; white-space: nowrap; }
-.mv-table td { padding: .32rem .5rem; border-bottom: 1px solid #eceef2; text-align: right;
-          font-variant-numeric: tabular-nums; white-space: nowrap; }
-.mv-table th:first-child, .mv-table td:first-child,
-.mv-table th:nth-child(2), .mv-table tbody td:nth-child(2) { text-align: left; }
-.mv-table td:first-child { border-left: 4px solid transparent; }
-.mv-table tr.is-hot td:first-child { border-left-color: #d9453d; }
-.mv-table tr.is-cold td:first-child { border-left-color: #2980b9; }
-.mv-table tfoot td { font-weight: 700; border-top: 2px solid #d8dce3; border-bottom: 0; }
-.mv-type-hot { color: #d9453d; font-weight: 600; }
-.mv-type-cold { color: #2980b9; font-weight: 600; }
-.mv-warn { margin: .6rem 0 0; padding: .45rem .7rem; border-left: 3px solid #ca6f1e;
-          background: #fdf5ec; font-size: .82rem; }
+.mv-table td { padding: .32rem .5rem; border-bottom: 1px solid #e6e8ec; text-align: right; font-variant-numeric: tabular-nums; vertical-align: top; }
+.mv-table .l, .mv-table th.l { text-align: left !important; }
+.mv-table td.wrap { white-space: normal; min-width: 8rem; }
+.mv-table td.mv-def { min-width: 11rem; }
+.mv-table td.mv-def mjx-container[display="true"] { margin: 0 !important; text-align: left !important; font-size: 85%; }
+.mv-table td:not(.wrap) { white-space: nowrap; }
+.mv-table tr.is-hot td { background: #fdecea; }
+.mv-table tr.is-cold td { background: #e8f1fb; }
+.mv-table tr.is-hot td:first-child { box-shadow: inset 4px 0 0 #d9453d; }
+.mv-table tr.is-cold td:first-child { box-shadow: inset 4px 0 0 #2980b9; }
+.mv-table tfoot td { font-weight: 700; border-top: 2px solid #d8dce3; border-bottom: 0; background: #fff !important; box-shadow: none !important; }
+.mv-table caption { caption-side: top; color: #7f8c9b; font-size: .8rem; padding: 0 0 .3rem; text-align: left; }
+.mv-type-hot { color: #c0392b; font-weight: 600; }
+.mv-type-cold { color: #2471a3; font-weight: 600; }
+.mv-dir-in { color: #2471a3; font-weight: 600; }
+.mv-dir-out { color: #1e8449; font-weight: 600; }
+.mv-badge { display: inline-block; font-size: .68rem; text-transform: lowercase; padding: .05rem .4rem; border-radius: 3px;
+          background: #eef0f3; color: #555; white-space: nowrap; }
+.mv-badge.calc { background: #fff3e0; color: #a35a00; }
+.mv-muted { color: #7f8c9b; }
+.mv-warn { margin: .6rem 0 0; padding: .45rem .7rem; border-left: 3px solid #ca6f1e; background: #fdf5ec; font-size: .82rem; }
 .mv-warn ul { margin: .2rem 0 0; padding-left: 1.1rem; }
-.mv-empty { color: #7f8c9b; font-size: .9rem; padding: 1.5rem; text-align: center; }
-.mv-source { font-size: .78rem; color: #7f8c9b; margin-top: .6rem; }
+.mv-flag { color: #ca6f1e; cursor: help; margin-left: .25rem; }
+.mv-empty { color: #7f8c9b; font-size: .9rem; padding: 1.25rem; text-align: center; }
+.mv-source { font-size: .78rem; color: #7f8c9b; margin-top: .5rem; }
+.mv-legend { font-size: .8rem; color: #7f8c9b; margin: 0 0 .5rem; }
+
+/* model card */
+.mv-kv { width: 100%; border-collapse: collapse; font-size: .9rem; display: table !important; }
+.mv-kv th { width: 13rem; text-align: left; font-weight: 600; padding: .35rem .6rem; vertical-align: top; background: #f6f7f9; border-bottom: 1px solid #e6e8ec; }
+.mv-kv td { padding: .35rem .6rem; border-bottom: 1px solid #e6e8ec; text-align: left !important; }
+
+/* equations */
+.mv-eq { margin: .2rem 0 .9rem; padding: .1rem .75rem .45rem; border-left: 3px solid #e6e8ec; overflow-x: auto; }
+.mv-eq-meta { font-size: .82rem; color: #555; text-align: left !important; }
+
+/* linked variables */
+a.mv-var, a.mv-var:hover { text-decoration: none; }
+a.mv-var code { border-bottom: 1px dotted currentColor; cursor: pointer; }
+.mv-val { border-bottom: 1px dotted #7f8c9b; cursor: help; color: inherit; text-decoration: none; }
+a.mv-val:hover { color: #ff0000; }
+mjx-container a[href^="#mv-var-"] { color: inherit; text-decoration: none; }
+mjx-container a[href^="#mv-var-"]:hover { color: #ff0000; }
+.mv-card { position: fixed; z-index: 1100; max-width: 440px; background: #fff; border: 1px solid #d8dce3; border-radius: 6px;
+          box-shadow: 0 6px 22px rgba(0,0,0,.14); padding: .55rem .75rem; font-size: .82rem; line-height: 1.4; pointer-events: none; }
+.mv-card[hidden] { display: none; }
+.mv-card-h { display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; margin-bottom: .2rem; }
+.mv-card-sym { font-size: 1.05rem; }
+.mv-card-name { font-weight: 600; }
+.mv-card-row { margin-top: .2rem; }
+.mv-card-math { margin-top: .3rem; overflow: hidden; }
+.mv-card-math mjx-container[display="true"] { margin: 0 !important; text-align: left !important; }
+.mv-card-desc, .mv-card-ref, .mv-card-hint { margin-top: .3rem; color: #555; }
+.mv-card-ref, .mv-card-hint { color: #7f8c9b; font-size: .76rem; }
+@keyframes mvflash { from { background: #fff3b0; } to { background: transparent; } }
+.mv-flash, .mv-flash td { animation: mvflash 1.8s ease-out; }
 </style>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   "use strict";
-  var roots = document.querySelectorAll(".model-viewer");
-  if (!roots.length) return;
 
   var MONO = 'SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace';
+  var MATHJAX_URL = "https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js";
   var PHASE_CHANGE_DT = 0.01;   // isothermal streams get a sliver of span so CP is finite
-  var C = {
-    text: "#2C3E50", muted: "#7F8C9B", border: "#D8DCE3", bg: "#FAFBFC", card: "#FFFFFF",
-    hot: "#D9453D", cold: "#2980B9", out: "#27AE60", pinch: "#B8860B", grid: "#E8ECF0"
-  };
+  var C = { text: "#2C3E50", muted: "#7F8C9B", border: "#D8DCE3", bg: "#FAFBFC", card: "#FFFFFF",
+            hot: "#D9453D", cold: "#2980B9", out: "#27AE60", pinch: "#B8860B", grid: "#E8ECF0" };
 
-  // ---------------------------------------------------------------- helpers
+  // ================================================================ helpers
   function val(x) { return (x && typeof x === "object" && "value" in x) ? x.value : x; }
   function num(x) { var v = val(x); if (v === null || v === "" || v === undefined) return NaN; v = Number(v); return isFinite(v) ? v : NaN; }
   function str(x) { var v = val(x); return v == null ? "" : String(v); }
+  function blank(s) { s = String(s == null ? "" : s).trim(); return s === "" || s === "-"; }
   function fmt(n, d) { var v = Number(n); return isFinite(v) ? v.toFixed(d) : "-"; }
   // Flows span watts to tonnes per hour: keep 4-5 significant figures, group thousands.
   function nice(v) {
     if (!isFinite(v)) return "-";
-    var a = Math.abs(v), d = a >= 1000 ? 0 : a >= 100 ? 1 : a >= 10 ? 2 : a >= 1 ? 3 : 4;
+    var a = Math.abs(v), d = a >= 1000 ? 0 : a >= 100 ? 1 : a >= 10 ? 2 : a >= 1 ? 3 : a >= 0.01 ? 4 : 6;
     return v.toLocaleString("en-US", { maximumFractionDigits: d, minimumFractionDigits: 0 });
   }
   function xesc(s) {
-    return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
   function prettyUnit(u) {
-    return String(u || "").replace(/\bNm3\b/g, "Nm³").replace(/\bm3\b/g, "m³").replace(/\bm2\b/g, "m²");
+    return String(u || "").replace(/\bNm3\b/g, "Nm³").replace(/\bm3\b/g, "m³").replace(/\bm2\b/g, "m²").replace(/\bm2K\b/g, "m²K");
   }
   // A digit straight after a letter is a subscript: CO2, H2O, C2H4.
+  function chemHTML(s) { return xesc(s).replace(/([A-Za-z)\]])(\d+)/g, "$1<sub>$2</sub>"); }
   function chemSVG(s) {
     var out = "", back = 0, i = 0, buf = "";
     s = String(s);
@@ -131,6 +168,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (back) out += '<tspan dy="' + back + '"></tspan>';
     return out;
   }
+  function linkify(s) {
+    return xesc(s).replace(/(https?:\/\/[^\s;,)]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+  }
   function download(name, content, mime) {
     var a = document.createElement("a");
     a.download = name;
@@ -139,57 +179,277 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.appendChild(a); a.click(); a.remove();
   }
   function slug(s) { return String(s).replace(/[^A-Za-z0-9_.-]+/g, "_"); }
-
-  // ---------------------------------------------------------- JSON reading
-  function makeStream(name, declared, Tin, Tout, hin, hout, dtc, htc) {
-    hin = isFinite(hin) ? hin : 0; hout = isFinite(hout) ? hout : 0;
-    var decl = /^h/i.test(declared) ? "hot" : /^c/i.test(declared) ? "cold" : "";
-    var type, isothermal = !(isFinite(Tin) && isFinite(Tout) && Math.abs(Tin - Tout) > 1e-9);
-    if (!isothermal) type = Tin > Tout ? "hot" : "cold";
-    else type = decl || ((hout - hin) < 0 ? "hot" : "cold");
-    return { name: name, type: type, declared: decl, Tin: Tin, Tout: Tout,
-             kW: Math.abs(hout - hin), dtc: isFinite(dtc) ? dtc : 5, dtcGiven: isFinite(dtc), htc: htc,
-             mismatch: !!decl && decl !== type };
+  // The formula behind a JSON value, when it is a formula on the model's own variables.
+  function fOf(x) {
+    var f = x && typeof x === "object" ? x.formula : null;
+    if (f == null) return "";
+    f = String(f).trim().replace(/^=/, "").trim();
+    return /!|^[<>]{2}/.test(f) ? "" : f;   // other sheets or simulator paths
   }
 
-  function normalise(d) {
+  // ======================================================= formula -> LaTeX
+  function tokenize(s) {
+    var t = [], i = 0, m;
+    while (i < s.length) {
+      var c = s[i], rest = s.slice(i);
+      if (/\s/.test(c)) { i++; continue; }
+      if ((m = rest.match(/^(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?/))) { t.push({ k: "num", v: m[0] }); i += m[0].length; continue; }
+      if ((m = rest.match(/^[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*/))) { t.push({ k: "id", v: m[0] }); i += m[0].length; continue; }
+      if (rest.indexOf("**") === 0) { t.push({ k: "op", v: "^" }); i += 2; continue; }
+      if ("+-*/^(),".indexOf(c) >= 0) { t.push({ k: "op", v: c }); i++; continue; }
+      throw new Error("unexpected character " + c);
+    }
+    return t;
+  }
+  function parseFormula(s) {
+    var t = tokenize(s), p = 0;
+    function isOp(v) { return t[p] && t[p].k === "op" && t[p].v === v; }
+    function eat(v) { if (!isOp(v)) throw new Error("expected " + v); p++; }
+    function expr() {
+      var terms = [{ sign: "+", n: term() }];
+      while (isOp("+") || isOp("-")) { var sg = t[p++].v; terms.push({ sign: sg, n: term() }); }
+      return terms.length === 1 ? terms[0].n : { k: "sum", terms: terms };
+    }
+    function term() {
+      var fs = [{ op: "*", n: unary() }];
+      while (isOp("*") || isOp("/")) { var o = t[p++].v; fs.push({ op: o, n: unary() }); }
+      return fs.length === 1 ? fs[0].n : { k: "prod", fs: fs };
+    }
+    function unary() {
+      if (isOp("-")) { p++; return { k: "neg", n: unary() }; }
+      if (isOp("+")) { p++; return unary(); }
+      var b = atom();
+      if (isOp("^")) { p++; return { k: "pow", b: b, e: unary() }; }
+      return b;
+    }
+    function atom() {
+      var x = t[p];
+      if (!x) throw new Error("unexpected end");
+      if (x.k === "num") { p++; return { k: "num", v: x.v }; }
+      if (x.k === "id") {
+        p++;
+        if (isOp("(")) {
+          p++;
+          var args = [];
+          if (!isOp(")")) { args.push(expr()); while (isOp(",")) { p++; args.push(expr()); } }
+          eat(")");
+          return args.length ? { k: "fn", f: x.v, args: args } : { k: "id", v: x.v };   // Lua: water_flow()
+        }
+        return { k: "id", v: x.v };
+      }
+      if (isOp("(")) { p++; var e = expr(); eat(")"); return { k: "par", n: e }; }
+      throw new Error("unexpected " + x.v);
+    }
+    var r = expr();
+    if (p < t.length) throw new Error("unexpected " + t[p].v);
+    return r;
+  }
+  function strip(n) { return n.k === "par" ? strip(n.n) : n; }
+  function isAtom(n) { return n.k === "num" || n.k === "id" || n.k === "fn"; }
+  function toTex(node, varTex) {
+    function L(n) {
+      switch (n.k) {
+        case "num": return n.v.replace(/^(.*?)[eE]([+-]?\d+)$/, function (_m, a, e) { return a + "\\times 10^{" + Number(e) + "}"; });
+        case "id": return varTex(n.v);
+        case "par": return "\\left(" + L(n.n) + "\\right)";
+        case "neg": { var c = strip(n.n); return "-" + (c.k === "sum" ? "\\left(" + L(c) + "\\right)" : L(c)); }
+        case "sum": return n.terms.map(function (tm, i) {
+          var c = strip(tm.n), s = L(c);
+          if (tm.sign === "-" && (c.k === "sum" || c.k === "neg")) s = "\\left(" + s + "\\right)";
+          return (i === 0 ? (tm.sign === "-" ? "-" : "") : (tm.sign === "-" ? " - " : " + ")) + s;
+        }).join("");
+        case "prod": {
+          // consecutive divisions form one fraction: a/b/c*d/e -> \frac{a}{b c} \cdot \frac{d}{e}
+          var groups = [], cur = null;
+          n.fs.forEach(function (f) { if (f.op === "*") { cur = { num: [f.n], den: [] }; groups.push(cur); } else cur.den.push(f.n); });
+          return groups.map(function (g) {
+            return g.den.length ? "\\frac{" + factors(g.num) + "}{" + factors(g.den) + "}" : factor(g.num[0]);
+          }).join(" \\cdot ");
+        }
+        case "pow": {
+          var b = strip(n.b), bs = L(b);
+          if (!isAtom(b)) bs = "\\left(" + bs + "\\right)";
+          else if (b.k === "id") bs = "{" + bs + "}";
+          return bs + "^{" + L(strip(n.e)) + "}";
+        }
+        case "fn": {
+          var f = n.f.toLowerCase().replace(/^math\./, ""), a = n.args.map(function (x) { return L(strip(x)); });
+          if (f === "sqrt") return "\\sqrt{" + a[0] + "}";
+          if (f === "atan" || f === "arctan") return "\\arctan\\left(" + a[0] + "\\right)";
+          if (f === "sin" || f === "cos" || f === "tan") return "\\" + f + "\\left(" + a[0] + "\\right)";
+          if (f === "exp") return "e^{" + a[0] + "}";
+          if (f === "ln" || f === "log") return "\\ln\\left(" + a[0] + "\\right)";
+          if (f === "log10") return "\\log_{10}\\left(" + a[0] + "\\right)";
+          if (f === "abs") return "\\left|" + a[0] + "\\right|";
+          if (f === "min" || f === "max") return "\\" + f + "\\left(" + a.join(",\\, ") + "\\right)";
+          if (f === "pow") return "{" + a[0] + "}^{" + a[1] + "}";
+          if (f === "round") return a[0];
+          return "\\operatorname{" + n.f.replace(/_/g, "\\_") + "}\\left(" + a.join(",\\, ") + "\\right)";
+        }
+      }
+      return "";
+    }
+    function factor(x) { var s = strip(x); return (s.k === "sum" || s.k === "neg") ? "\\left(" + L(s) + "\\right)" : L(s); }
+    function factors(arr) { return arr.length === 1 ? L(strip(arr[0])) : arr.map(factor).join(" \\cdot "); }
+    return L(node);
+  }
+  // Rough printed width of a LaTeX fragment, in characters.
+  function vlen(t) {
+    return t.replace(/\\href\{[^}]*\}/g, "").replace(/\\(mathrm|operatorname|left|right|dot)\b/g, "")
+      .replace(/\\frac\{([^{}]*)\}\{([^{}]*)\}/g, function (_m, a, b) { return a.length > b.length ? a : b; })
+      .replace(/\\(cdot|times)/g, "x").replace(/\\(arctan|sin|cos|tan|ln|log|min|max)/g, "atan").replace(/\\sqrt/g, "r")
+      .replace(/\\[,;!]/g, "").replace(/\\[A-Za-z]+/g, "x").replace(/[{}_^]/g, "").length;
+  }
+  // A long top-level sum or product split into lines of about maxLen characters.
+  function toTexLines(node, varTex, maxLen) {
+    var n = strip(node), pieces = [];
+    // a product breaks between its factors (a fraction stays whole)
+    function prodPieces(p, lead) {
+      var groups = [];
+      p.fs.forEach(function (f) { if (f.op === "*") groups.push([f]); else groups[groups.length - 1].push(f); });
+      return groups.map(function (g, i) {
+        var s;
+        if (g.length > 1) s = toTex({ k: "prod", fs: g }, varTex);
+        else {
+          var c = strip(g[0].n);
+          s = (c.k === "sum" || c.k === "neg") ? "\\left(" + toTex(c, varTex) + "\\right)" : toTex(c, varTex);
+        }
+        return (i ? "\\cdot " : lead) + s;
+      });
+    }
+    if (n.k === "sum") {
+      n.terms.forEach(function (tm, i) {
+        var c = strip(tm.n), s = toTex(c, varTex);
+        var lead = i === 0 ? (tm.sign === "-" ? "-" : "") : (tm.sign === "-" ? "- " : "+ ");
+        if (tm.sign === "-" && (c.k === "sum" || c.k === "neg")) s = "\\left(" + s + "\\right)";
+        // a term too long for one line breaks between its own factors
+        if (vlen(s) > maxLen && c.k === "prod") pieces = pieces.concat(prodPieces(c, lead));
+        else pieces.push(lead + s);
+      });
+    } else if (n.k === "prod") pieces = prodPieces(n, "");
+    else return [toTex(n, varTex)];
+    var lines = [], cur = "", len = 0;
+    pieces.forEach(function (p) {
+      var l = vlen(p);
+      if (cur && len + l > maxLen) { lines.push(cur); cur = p; len = l; }
+      else { cur += (cur ? " " : "") + p; len += l; }
+    });
+    if (cur) lines.push(cur);
+    return lines;
+  }
+  // Evaluate a parsed formula with the stored values of the variables it uses.
+  function evalFormula(node, lookup) {
+    function E(n) {
+      switch (n.k) {
+        case "num": return Number(n.v);
+        case "id": return lookup(n.v);
+        case "par": return E(n.n);
+        case "neg": return -E(n.n);
+        case "sum": return n.terms.reduce(function (a, t) { return a + (t.sign === "-" ? -1 : 1) * E(t.n); }, 0);
+        case "prod": return n.fs.reduce(function (a, f) { return f.op === "*" ? a * E(f.n) : a / E(f.n); }, 1);
+        case "pow": return Math.pow(E(n.b), E(n.e));
+        case "fn": {
+          var f = n.f.toLowerCase().replace(/^math\./, ""), a = n.args.map(E);
+          var fns = { sqrt: Math.sqrt, atan: Math.atan, arctan: Math.atan, sin: Math.sin, cos: Math.cos, tan: Math.tan,
+                      exp: Math.exp, ln: Math.log, log: Math.log, log10: Math.log10, abs: Math.abs, min: Math.min, max: Math.max, pow: Math.pow,
+                      round: function (x, d) { var k = Math.pow(10, d || 0); return Math.round(x * k) / k; } };
+          if (!fns[f]) throw new Error("unknown function " + n.f);
+          return fns[f].apply(null, a);
+        }
+      }
+      return NaN;
+    }
+    return E(node);
+  }
+  // Multi-letter words of a symbol are set upright: Cool_{Tin} -> \mathrm{Cool}_{\mathrm{Tin}}
+  function prettySym(tex) {
+    tex = String(tex || "").trim().replace(/^\$+|\$+$/g, "").trim();
+    return tex.replace(/(\\[A-Za-z]+)|([A-Za-z]{2,})/g, function (m, cmd, word) { return cmd ? cmd : "\\mathrm{" + word + "}"; });
+  }
+
+  // ============================================================ JSON reading
+  function makeStream(raw, name, declared, Tin, Tout, hin, hout, dtc, extra) {
+    var Hin = num(hin), Hout = num(hout);
+    Hin = isFinite(Hin) ? Hin : 0; Hout = isFinite(Hout) ? Hout : 0;
+    var nTin = num(Tin), nTout = num(Tout), nDtc = num(dtc);
+    var decl = /^h/i.test(declared) ? "hot" : /^c/i.test(declared) ? "cold" : "";
+    var type, isothermal = !(isFinite(nTin) && isFinite(nTout) && Math.abs(nTin - nTout) > 1e-9);
+    if (!isothermal) type = nTin > nTout ? "hot" : "cold";
+    else type = decl || ((Hout - Hin) < 0 ? "hot" : "cold");
+    var dutyF = fOf(Math.abs(Hout) >= Math.abs(Hin) ? hout : hin);
+    return { name: name, type: type, declared: decl, Tin: nTin, Tout: nTout, kW: Math.abs(Hout - Hin),
+             dtc: isFinite(nDtc) ? nDtc : 5, dtcGiven: isFinite(nDtc), mismatch: !!decl && decl !== type,
+             htc: num(extra.htc), cascade: str(extra.cascade), description: str(extra.description),
+             src: { Tin: fOf(Tin), Tout: fOf(Tout), kW: dutyF, dtc: fOf(dtc) } };
+  }
+  function makeConnector(name, type, dir, flow, unit, extra) {
+    return { name: name, type: type, dir: /^in/i.test(dir) ? "in" : "out", flow: num(flow), flowF: fOf(flow), unit: str(unit),
+             temp: str(extra.temp), tempF: fOf(extra.temp), tunit: str(extra.tunit), pres: str(extra.pres), punit: str(extra.punit),
+             phase: str(extra.phase), comp: str(extra.comp), description: str(extra.description) };
+  }
+
+  function readUnits(d) {
     var units = [];
     if (d && d.UNITS && typeof d.UNITS === "object" && !Array.isArray(d.UNITS)) {
       Object.keys(d.UNITS).forEach(function (k) {
         var u = d.UNITS[k] || {}, info = u["Unit Info"] || {};
+        var eq = [];
+        var E = u.Equipments || {};
+        Object.keys(E).forEach(function (ek) {
+          var e = E[ek] || {};
+          eq.push({ name: ek, type: str(e.Type), subtype: str(e.Subtype), reference: str(e.Reference),
+                    params: (e.Parameters || []).map(function (q) { return { name: str(q.Parameter), value: val(q.Value), f: fOf(q.Value), unit: str(q.Unit) }; }) });
+        });
+        var oc = u["Operating Cost"] || {};
         units.push({
           name: info["Unit name"] || k, kind: "", description: str(u["Unit Description"]),
+          connDesc: str(u["Connectors Description"]), hsDesc: str(u["Heat Streams Description"]),
+          eqDesc: str(u["Equipments Description"]), ocDesc: str(u["Operating Cost Description"]),
           fmin: num(info["Minimum capacity multiplier"]), fmax: num(info["Maximum capacity multiplier"]),
           streams: (u["Heat Streams"] || []).map(function (h) {
-            return makeStream(str(h.NAME), str(h.TYPE),
-              num(h["INLET TEMPERATURE VALUE"]), num(h["OUTLET TEMPERATURE VALUE"]),
-              num(h["INLET ENTHALPY FLOW VALUE"]), num(h["OUTLET ENTHALPY FLOW VALUE"]),
-              num(h["DTMIN CONTR VALUE"]), num(h["HEAT TRANSFER COEF VALUE"]));
+            return makeStream(h, str(h.NAME), str(h.TYPE), h["INLET TEMPERATURE VALUE"], h["OUTLET TEMPERATURE VALUE"],
+              h["INLET ENTHALPY FLOW VALUE"], h["OUTLET ENTHALPY FLOW VALUE"], h["DTMIN CONTR VALUE"],
+              { htc: h["HEAT TRANSFER COEF VALUE"], cascade: h["HEAT CASCADE"], description: h.DESCRIPTION });
           }),
           connectors: (u.Connectors || []).map(function (c) {
-            return { name: str(c["NAME (ALIAS)"]), type: str(c.TYPE),
-                     dir: /^in/i.test(str(c.DIRECTION)) ? "in" : "out",
-                     flow: num(c["FLOW VALUE"]), unit: str(c["FLOW UNIT"]), temp: num(c["TEMPERATURE VALUE"]) };
-          })
+            return makeConnector(str(c["NAME (ALIAS)"]), str(c.TYPE), str(c.DIRECTION), c["FLOW VALUE"], c["FLOW UNIT"],
+              { temp: c["TEMPERATURE VALUE"], tunit: c["TEMPERATURE UNIT"], pres: c["PRESSURE VALUE"], punit: c["PRESSURE UNIT"],
+                phase: c.PHASE, comp: c["COMPOSITION [MOLE/MASS]"], description: c.DESCRIPTION });
+          }),
+          equipments: eq,
+          opcost: Object.keys(oc).map(function (key) { return { name: key, value: val(oc[key]), f: fOf(oc[key]), unit: "" }; })
         });
       });
     } else if (d && Array.isArray(d.units)) {
       d.units.forEach(function (u) {
         var info = u.unit_info || {};
+        var oc = u.operating_cost || {};
         units.push({
           name: info.full_name || info.unit_name || "Unit", kind: str(info.unit_type).toLowerCase(),
-          description: str(u.unit_description),
+          description: str(u.unit_description), connDesc: str(u.connectors_description), hsDesc: str(u.heat_streams_description),
+          eqDesc: str(u.equipments_description), ocDesc: str(u.operating_cost_description),
           fmin: num(info.minimum_capacity_multiplier), fmax: num(info.maximum_capacity_multiplier),
           streams: (u.heat_streams || []).map(function (h) {
-            return makeStream(str(h.full_name || h.name), str(h.type),
-              num(h.inlet_temperature), num(h.outlet_temperature),
-              num(h.inlet_enthalpy), num(h.outlet_enthalpy), num(h.dtmin), num(h.heat_transfer_coef));
+            return makeStream(h, str(h.full_name || h.name), str(h.type), h.inlet_temperature, h.outlet_temperature,
+              h.inlet_enthalpy, h.outlet_enthalpy, h.dtmin,
+              { htc: h.heat_transfer_coef, cascade: h.heat_cascade, description: h.description });
           }),
           connectors: (u.connectors || []).map(function (c) {
-            return { name: str(c.full_name || c.name), type: str(c.type),
-                     dir: /^in/i.test(str(c.direction)) ? "in" : "out",
-                     flow: num(c.flow), unit: str(c.flow && c.flow.unit), temp: num(c.temperature) };
-          })
+            return makeConnector(str(c.full_name || c.name), str(c.type), str(c.direction), c.flow, c.flow && c.flow.unit,
+              { temp: c.temperature, tunit: c.temperature && c.temperature.unit, pres: c.pressure, punit: c.pressure && c.pressure.unit,
+                phase: c.phase, comp: (val(c.composition) == null ? "" : (str(c.composition && c.composition.unit) ? str(c.composition.unit) + ":" : "") + str(c.composition)),
+                description: c.description });
+          }),
+          equipments: (u.equipments || []).map(function (e) {
+            var params = [];
+            Object.keys(e).forEach(function (key) {
+              if (["name", "full_name", "type", "subtype", "reference"].indexOf(key) >= 0) return;
+              var q = e[key];
+              if (q && typeof q === "object") params.push({ name: str(q.full_name) || key, value: val(q), f: fOf(q), unit: str(q.unit) });
+            });
+            return { name: str(e.full_name || e.name), type: str(e.type), subtype: str(e.subtype), reference: str(e.reference), params: params };
+          }),
+          opcost: Object.keys(oc).map(function (key) { return { name: key.replace(/_/g, " "), value: val(oc[key]), f: fOf(oc[key]), unit: str(oc[key] && oc[key].unit) }; })
         });
       });
     }
@@ -199,7 +459,56 @@ document.addEventListener("DOMContentLoaded", function () {
     return used.length ? used : units.slice(0, 1);
   }
 
-  // ------------------------------------------------------ pinch cascade
+  function readVariables(d) {
+    var out = [];
+    (Array.isArray(d && d.VARIABLES) ? d.VARIABLES : []).forEach(function (v) {
+      var fp = str(v["FORMULA OR PATH"]), dv = v["DEFAULT VALUE"];
+      out.push({ name: str(v["VARIABLE NAME"]), type: str(v.TYPE).toLowerCase(), fullName: str(v["FULL NAME"]),
+                 grade: str(v["USER GRADE"]).toLowerCase(), value: val(dv), formula: blank(fp) ? fOf(dv) : fp.replace(/^=/, "").trim(),
+                 unit: str(v["PHYSICAL UNIT"]), min: val(v["MIN BOUND"]), max: val(v["MAX BOUND"]), latex: str(v["LATEX SYNTAX"]),
+                 reference: str(v.REFERENCE), description: str(v.DESCRIPTION) });
+    });
+    (Array.isArray(d && d.variables) ? d.variables : []).forEach(function (v) {
+      out.push({ name: str(v.var_name || v.name), type: str(v.type).toLowerCase(), fullName: str(v.full_name),
+                 grade: str(v.user_grade).toLowerCase(), value: val(v.value), formula: blank(v.formula) ? "" : String(v.formula).replace(/^=/, "").trim(),
+                 unit: str(v.physical_unit), min: val(v.min_bound), max: val(v.max_bound), latex: str(v.latex_syntax),
+                 reference: str(v.reference), description: str(v.description) });
+    });
+    return out.filter(function (v) { return v.name; }).map(function (v) {
+      v.isCalc = !!v.formula && !/^[<>]{2}/.test(v.formula);
+      v.path = /^[<>]{2}/.test(v.formula) ? v.formula : "";
+      try { v.ast = v.isCalc ? parseFormula(v.formula) : null; } catch (e) { v.ast = null; v.parseError = String(e.message || e); }
+      return v;
+    });
+  }
+
+  function readMeta(d) {
+    var M = d && d.METADATA, h = d && d.header, m = {};
+    if (M) {
+      m = { uid: str(M["Model UID"]), name: str(M["Model Name"]), authors: str(M["Authors and Contributors"]), contact: str(M["Contact Info"]),
+            created: str(M["Creation Date"]), updated: str(M["Last Updated"]), status: str(M["Model Status"]), version: str(M.Version),
+            confidentiality: str(M.Confidentiality), layer: str(M["Sharing Layer"]), grade: str(M.Grade), capacity: str(M["Reference Capacity"]),
+            trl: str(M.TRL), keywords: str(M.Keywords), description: str(M.Description), doi: str(M.DOI),
+            publication: str(M["Main Related Publication"]), references: str(M.References), software: str(M.Software),
+            softwareFile: str(M["Software File"]), url: str(M.URL) };
+    } else if (h) {
+      m = { uid: str(h.uid), name: str(h.full_name || h.name), authors: str(h.authors_and_contributors), contact: str(h.contact_info),
+            created: str(h.creation_date), updated: str(h.last_updated), status: str(h.status), version: str(h.version),
+            confidentiality: str(h.confidentiality), layer: str(h.sharing_layer), grade: str(h.grade), capacity: str(h.reference_capacity),
+            trl: str(h.TRL), keywords: Array.isArray(h.keywords) ? h.keywords.join(", ") : str(h.keywords), description: str(h.description),
+            doi: str(h.DOI), publication: str(h.main_related_publication), references: str(h.references), software: str(h.software),
+            softwareFile: str(h.software_file), url: str(h.url) };
+    }
+    return m;
+  }
+
+  function readModel(d) {
+    var vars = readVariables(d), index = {};
+    vars.forEach(function (v) { if (!index[v.name]) index[v.name] = v; });
+    return { meta: readMeta(d), vars: vars, varIndex: index, units: readUnits(d) };
+  }
+
+  // ======================================================== pinch cascade
   function effTin(s) { return Math.abs(s.Tin - s.Tout) < 1e-6 ? (s.type === "hot" ? s.Tin + PHASE_CHANGE_DT : s.Tin) : s.Tin; }
   function effTout(s) { return Math.abs(s.Tin - s.Tout) < 1e-6 ? (s.type === "cold" ? s.Tout + PHASE_CHANGE_DT : s.Tout) : s.Tout; }
   function shift(s, T) { return s.type === "hot" ? T - s.dtc : T + s.dtc; }
@@ -210,7 +519,6 @@ document.addEventListener("DOMContentLoaded", function () {
     var hi = Math.min(sHi(s), Thi), lo = Math.max(sLo(s), Tlo);
     return hi > lo + 1e-9 ? streamCP(s) * (hi - lo) : 0;
   }
-
   function solve(list) {
     var temps = {};
     list.forEach(function (s) { temps[sHi(s)] = 1; temps[sLo(s)] = 1; });
@@ -219,19 +527,14 @@ document.addEventListener("DOMContentLoaded", function () {
     for (var i = 0; i < sorted.length - 1; i++)
       if (Math.abs(sorted[i] - sorted[i + 1]) > 1e-9) intervals.push([sorted[i], sorted[i + 1]]);
     if (!intervals.length) return null;
-
     var delta = intervals.map(function (iv) {
-      return list.reduce(function (a, s) {
-        var q = heatIn(s, iv[0], iv[1]);
-        return a + (s.type === "hot" ? q : -q);
-      }, 0);
+      return list.reduce(function (a, s) { var q = heatIn(s, iv[0], iv[1]); return a + (s.type === "hot" ? q : -q); }, 0);
     });
     var cum = 0, minCum = 0;
-    delta.forEach(function (d) { cum += d; if (cum < minCum) minCum = cum; });
+    delta.forEach(function (dl) { cum += dl; if (cum < minCum) minCum = cum; });
     var Qhu = Math.max(0, -minCum), R = [Qhu];
-    delta.forEach(function (d) { R.push(R[R.length - 1] + d); });
+    delta.forEach(function (dl) { R.push(R[R.length - 1] + dl); });
     var Qcu = Math.max(0, R[R.length - 1]);
-
     // A pinch is an INTERIOR boundary where nothing cascades. Zero at either end
     // only means that one utility is not needed: a threshold problem.
     var tol = 1e-6 * Math.max(1, Qhu, Qcu), pinchTemp = null;
@@ -240,64 +543,187 @@ document.addEventListener("DOMContentLoaded", function () {
     return { intervals: intervals, R: R, Qhu: Qhu, Qcu: Qcu, pinchTemp: pinchTemp };
   }
 
-  // --------------------------------------------- flows (black-box) diagram
+  // ============================================================ registry
+  // One entry per model file on the page; its views share the unit and f.
+  var models = {}, order = [], idMap = {};
+  function varId(entry, name) { return "mv-var-" + entry.prefix + name; }
+  function eqId(entry, name) { return "mv-eq-" + entry.prefix + name; }
+
+  function varTexFor(entry, withLinks) {
+    return function (name) {
+      var v = entry.model.varIndex[name];
+      if (!v) return "\\mathrm{" + name.replace(/_/g, "\\_") + "}";
+      var sym = v.latex ? prettySym(v.latex) : "\\mathrm{" + name.replace(/_/g, "\\_") + "}";
+      return withLinks ? "\\href{#" + varId(entry, name) + "}{" + sym + "}" : sym;
+    };
+  }
+  function symTex(entry, v, withLinks) { return varTexFor(entry, withLinks)(v.name); }
+  function formulaTex(entry, v, withLinks) {
+    if (v.ast) return toTex(v.ast, varTexFor(entry, withLinks));
+    return "\\texttt{" + String(v.formula).replace(/([\\{}_&%$#^~])/g, "\\$1") + "}";
+  }
+  // A definition laid out for display: one line, or aligned lines when long.
+  function displayTex(entry, v, withLinks, maxLen, lhs, tag) {
+    var lines = v.ast ? toTexLines(v.ast, varTexFor(entry, withLinks), maxLen) : [formulaTex(entry, v, withLinks)];
+    var body;
+    if (lines.length === 1) body = (lhs ? lhs + " = " : "") + lines[0];
+    else body = "\\begin{aligned} " + (lhs ? lhs + " &= " : "&") + lines[0] +
+                lines.slice(1).map(function (l) { return " \\\\ &\\quad " + l; }).join("") + " \\end{aligned}";
+    return body + (tag ? " \\tag{" + tag + "}" : "");
+  }
+  function formulaStringTex(entry, f, withLinks) {
+    try { return toTex(parseFormula(f), varTexFor(entry, withLinks)); }
+    catch (e) { return "\\texttt{" + String(f).replace(/([\\{}_&%$#^~])/g, "\\$1") + "}"; }
+  }
+
+  function varChip(entry, name, label) {
+    return '<a class="mv-var" href="#' + varId(entry, name) + '" data-mv-src="' + xesc(entry.src) + '" data-mv-var="' + xesc(name) +
+           '"><code>' + xesc(label == null ? name : label) + "</code></a>";
+  }
+  // A value that comes from a formula: linked to the variable, or showing the formula on hover.
+  function linked(entry, text, formula) {
+    if (!formula) return text;
+    if (/^[A-Za-z_]\w*$/.test(formula) && entry.model.varIndex[formula])
+      return '<a class="mv-val" href="#' + varId(entry, formula) + '" data-mv-src="' + xesc(entry.src) + '" data-mv-var="' + xesc(formula) + '">' + text + "</a>";
+    return '<span class="mv-val" tabindex="0" data-mv-src="' + xesc(entry.src) + '" data-mv-formula="' + xesc(formula) + '">' + text + "</span>";
+  }
+  function unitText(u) { return blank(u) ? "" : xesc(prettyUnit(u)); }
+  function valueText(v) {
+    if (v.grade === "private") return '<span class="mv-muted">private</span>';
+    var n = Number(v.value);
+    var t = (v.value !== null && v.value !== "" && isFinite(n)) ? nice(n) : xesc(v.value == null ? "-" : v.value);
+    return t;
+  }
+  function boundsText(v) {
+    var a = Number(v.min), b = Number(v.max), hasA = v.min !== null && v.min !== "" && v.min !== "-" && isFinite(a),
+        hasB = v.max !== null && v.max !== "" && v.max !== "-" && isFinite(b);
+    if (!hasA && !hasB) return "";
+    return (hasA ? nice(a) : "…") + " – " + (hasB ? nice(b) : "…");
+  }
+  function checkCalc(entry, v) {
+    if (!v.ast) return null;
+    var stored = Number(v.value);
+    if (!isFinite(stored)) return null;
+    try {
+      var got = evalFormula(v.ast, function (n) {
+        var w = entry.model.varIndex[n];
+        if (!w) throw new Error("unknown variable " + n);
+        var x = Number(w.value);
+        if (!isFinite(x)) throw new Error(n + " has no numeric value");
+        return x;
+      });
+      if (!isFinite(got)) return null;
+      return Math.abs(got - stored) > 1e-4 * Math.max(1, Math.abs(stored)) ? got : null;
+    } catch (e) { return null; }
+  }
+
+  // ========================================================= MathJax
+  var mjChain = null;
+  function whenMathJax() {
+    if (mjChain) return mjChain;
+    mjChain = new Promise(function (resolve, reject) {
+      var t0 = Date.now();
+      if (!document.querySelector('script[src*="mathjax"]') && !(window.MathJax && window.MathJax.typesetPromise)) {
+        // A page without math of its own: Quarto did not load MathJax, so load it
+        // here. Its automatic first pass is kept (in MathJax 4, turning it off
+        // leaves later typeset calls waiting forever) and is waited for, so
+        // that it never runs at the same time as ours; the viewer's formulas
+        // are still inert placeholders at that point.
+        window.MathJax = {
+          tex: { inlineMath: [["\\(", "\\)"]] },
+          startup: {
+            ready: function () {
+              window.MathJax.startup.defaultReady();
+              window.MathJax.startup.promise.then(resolve, reject);
+            }
+          }
+        };
+        var s = document.createElement("script"); s.src = MATHJAX_URL; s.async = true;
+        s.onerror = function () { reject(new Error("MathJax could not be loaded")); };
+        document.head.appendChild(s);
+        return;
+      }
+      (function poll() {
+        var MJ = window.MathJax;
+        if (MJ && MJ.typesetPromise && MJ.startup && MJ.startup.promise) {
+          MJ.startup.promise.then(resolve, reject);
+          return;
+        }
+        if (Date.now() - t0 > 30000) { reject(new Error("MathJax did not load")); return; }
+        setTimeout(poll, 100);
+      })();
+    });
+    return mjChain;
+  }
+  // Formulas are written as inert placeholders, so that the page's own first
+  // MathJax pass skips them, and are typeset here one element at a time.
+  function texI(tex) { return '<span class="mv-tex" data-tex="' + xesc(tex) + '"></span>'; }
+  function texD(tex) { return '<span class="mv-tex" data-display="1" data-tex="' + xesc(tex) + '"></span>'; }
+  var tsQueue = Promise.resolve();
+  function typeset(el) {
+    tsQueue = tsQueue.then(function () { return whenMathJax(); })
+      .then(function () {
+        el.querySelectorAll(".mv-tex").forEach(function (s) {
+          var tex = s.getAttribute("data-tex");
+          s.textContent = s.getAttribute("data-display") ? "\\[" + tex + "\\]" : "\\(" + tex + "\\)";
+          s.classList.remove("mv-tex");
+        });
+        // MathJax 4 may hold this promise open while it builds speech for screen
+        // readers, after the formulas are already drawn; do not let one wait
+        // block the next element in the queue.
+        return Promise.race([
+          window.MathJax.typesetPromise([el]),
+          new Promise(function (resolve) { setTimeout(resolve, 4000); })
+        ]);
+      })
+      .catch(function (e) {
+        console.warn("model-viewer: math not typeset:", e);
+        el.querySelectorAll(".mv-tex").forEach(function (s) { s.textContent = s.getAttribute("data-tex"); s.classList.remove("mv-tex"); });
+      });
+    return tsQueue;
+  }
+
+  // ======================================================== flows (SVG)
   var DEFS = "<defs>" +
     '<marker id="mvArrIn" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="' + C.cold + '"/></marker>' +
     '<marker id="mvArrOut" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="' + C.out + '"/></marker>' +
     '<marker id="mvArrHot" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="' + C.hot + '"/></marker>' +
     '<marker id="mvArrCold" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="' + C.cold + '"/></marker>' +
     "</defs>";
-
   function connValue(c, f) {
     if (!isFinite(c.flow)) return "-";
-    var u = prettyUnit(c.unit.trim());
-    return nice(c.flow * f) + (u ? " " + u : "") + (isFinite(c.temp) ? "  @ " + fmt(c.temp, 0) + " °C" : "");
+    var u = prettyUnit(c.unit.trim()), t = Number(c.temp);
+    return nice(c.flow * f) + (u ? " " + u : "") + (c.temp !== "" && isFinite(t) ? "  @ " + fmt(t, 0) + " °C" : "");
   }
-
   function heatSummary(list, type) {
     var ss = list.filter(function (s) { return s.type === type; });
     if (!ss.length) return null;
     var q = ss.reduce(function (a, s) { return a + s.kW; }, 0);
-    var tFrom = type === "hot" ? Math.max.apply(null, ss.map(function (s) { return s.Tin; }))
-                               : Math.min.apply(null, ss.map(function (s) { return s.Tin; }));
-    var tTo = type === "hot" ? Math.min.apply(null, ss.map(function (s) { return s.Tout; }))
-                             : Math.max.apply(null, ss.map(function (s) { return s.Tout; }));
-    return { n: ss.length, q: q, from: tFrom, to: tTo };
+    var from = type === "hot" ? Math.max.apply(null, ss.map(function (s) { return s.Tin; })) : Math.min.apply(null, ss.map(function (s) { return s.Tin; }));
+    var to = type === "hot" ? Math.min.apply(null, ss.map(function (s) { return s.Tout; })) : Math.max.apply(null, ss.map(function (s) { return s.Tout; }));
+    return { n: ss.length, q: q, from: from, to: to };
   }
-
   function buildFlows(u, list, f) {
     var LW = 200, LH = 48, ARROW = 70, BW = 260, ROW = 70, PAD = 18, VARR = 42;
     var conns = u.connectors.filter(function (c) { return c.name.trim() !== ""; });
-    var ins = conns.filter(function (c) { return c.dir === "in"; });
-    var outs = conns.filter(function (c) { return c.dir === "out"; });
+    var ins = conns.filter(function (c) { return c.dir === "in"; }), outs = conns.filter(function (c) { return c.dir === "out"; });
     var demand = heatSummary(list, "cold"), release = heatSummary(list, "hot");
-
     var leftW = ins.length ? LW + ARROW : 30, rightW = outs.length ? LW + ARROW : 30;
-    var W = PAD + leftW + BW + rightW + PAD;
-    var topH = demand ? LH + VARR : 0, botH = release ? LH + VARR : 0;
+    var W = PAD + leftW + BW + rightW + PAD, topH = demand ? LH + VARR : 0, botH = release ? LH + VARR : 0;
     var BH = Math.max(140, (Math.max(ins.length, outs.length, 1) - 1) * ROW + 90);
-    var bx = PAD + leftW, by = PAD + topH, cy = by + BH / 2, cxB = bx + BW / 2;
-    var H = by + BH + botH + PAD;
-    var s = "";
-
+    var bx = PAD + leftW, by = PAD + topH, cy = by + BH / 2, cxB = bx + BW / 2, H = by + BH + botH + PAD, s = "";
     function label(x, y, w, color, title, value, dashed) {
-      return '<rect x="' + x + '" y="' + (y - LH / 2) + '" width="' + w + '" height="' + LH +
-        '" rx="5" fill="' + C.card + '" stroke="' + color + '" stroke-width="1.3"' +
-        (dashed ? ' stroke-dasharray="5,3"' : "") + "/>" +
+      return '<rect x="' + x + '" y="' + (y - LH / 2) + '" width="' + w + '" height="' + LH + '" rx="5" fill="' + C.card + '" stroke="' + color +
+        '" stroke-width="1.3"' + (dashed ? ' stroke-dasharray="5,3"' : "") + "/>" +
         '<text x="' + (x + w / 2) + '" y="' + (y - 5) + '" text-anchor="middle" font-size="12.5" font-weight="700" fill="' + color + '">' + chemSVG(title) + "</text>" +
         '<text x="' + (x + w / 2) + '" y="' + (y + 13) + '" text-anchor="middle" font-size="11" fill="' + C.muted + '">' + chemSVG(value) + "</text>";
     }
-
-    // the unit itself
-    s += '<rect x="' + bx + '" y="' + by + '" width="' + BW + '" height="' + BH +
-         '" rx="10" fill="' + C.card + '" stroke="' + C.text + '" stroke-width="2"/>';
+    s += '<rect x="' + bx + '" y="' + by + '" width="' + BW + '" height="' + BH + '" rx="10" fill="' + C.card + '" stroke="' + C.text + '" stroke-width="2"/>';
     s += '<text x="' + cxB + '" y="' + (cy - 8) + '" text-anchor="middle" font-size="14" font-weight="700" fill="' + C.text + '">' + xesc(u.name) + "</text>";
     var sub = [];
     if (u.kind) sub.push(u.kind);
     if (f !== 1) sub.push("f = " + nice(f));
     if (sub.length) s += '<text x="' + cxB + '" y="' + (cy + 12) + '" text-anchor="middle" font-size="11" fill="' + C.muted + '">' + xesc(sub.join("  ·  ")) + "</text>";
-
-    // material and electricity connectors
     ins.forEach(function (c, i) {
       var y = cy - (ins.length - 1) * ROW / 2 + i * ROW;
       s += label(PAD, y, LW, C.cold, c.name, connValue(c, f));
@@ -308,84 +734,86 @@ document.addEventListener("DOMContentLoaded", function () {
       s += '<line x1="' + (bx + BW + 4) + '" y1="' + y + '" x2="' + (lx - 10) + '" y2="' + y + '" stroke="' + C.out + '" stroke-width="2.2" marker-end="url(#mvArrOut)"/>';
       s += label(lx, y, LW, C.out, c.name, connValue(c, f));
     });
-
-    // heat: demand enters from above, release leaves below (dashed: energy, not matter)
     var HW = 250;
     if (demand) {
       var yl = PAD + LH / 2;
       s += label(cxB - HW / 2, yl, HW, C.cold, "Heat demand · " + demand.n + " cold stream" + (demand.n === 1 ? "" : "s"),
                  nice(demand.q) + " kW  ·  " + fmt(demand.from, 0) + " → " + fmt(demand.to, 0) + " °C", true);
-      s += '<line x1="' + cxB + '" y1="' + (yl + LH / 2 + 3) + '" x2="' + cxB + '" y2="' + (by - 9) + '" stroke="' + C.cold +
-           '" stroke-width="2.2" stroke-dasharray="6,4" marker-end="url(#mvArrCold)"/>';
+      s += '<line x1="' + cxB + '" y1="' + (yl + LH / 2 + 3) + '" x2="' + cxB + '" y2="' + (by - 9) + '" stroke="' + C.cold + '" stroke-width="2.2" stroke-dasharray="6,4" marker-end="url(#mvArrCold)"/>';
     }
     if (release) {
       var yr = by + BH + VARR + LH / 2;
-      s += '<line x1="' + cxB + '" y1="' + (by + BH + 3) + '" x2="' + cxB + '" y2="' + (yr - LH / 2 - 9) + '" stroke="' + C.hot +
-           '" stroke-width="2.2" stroke-dasharray="6,4" marker-end="url(#mvArrHot)"/>';
+      s += '<line x1="' + cxB + '" y1="' + (by + BH + 3) + '" x2="' + cxB + '" y2="' + (yr - LH / 2 - 9) + '" stroke="' + C.hot + '" stroke-width="2.2" stroke-dasharray="6,4" marker-end="url(#mvArrHot)"/>';
       s += label(cxB - HW / 2, yr, HW, C.hot, "Heat release · " + release.n + " hot stream" + (release.n === 1 ? "" : "s"),
                  nice(release.q) + " kW  ·  " + fmt(release.from, 0) + " → " + fmt(release.to, 0) + " °C", true);
     }
     if (!ins.length && !outs.length && !demand && !release)
       s += '<text x="' + cxB + '" y="' + (by + BH + 20) + '" text-anchor="middle" font-size="11" fill="' + C.muted + '">No connectors or heat streams defined.</text>';
-
-    return '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + " " + H +
-           "\" font-family='" + MONO + "'>" + '<rect width="' + W + '" height="' + H + '" fill="' + C.bg + '"/>' + DEFS + s + "</svg>";
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + " " + H + "\" font-family='" + MONO + "'>" +
+           '<rect width="' + W + '" height="' + H + '" fill="' + C.bg + '"/>' + DEFS + s + "</svg>";
   }
 
-  // ------------------------------------------------------ heat stream table
-  function streamTable(list) {
+  // ====================================================== tables (HTML)
+  // "<" + "table": Quarto tries to parse a literal table tag in included HTML as a pandoc table
+  var TOPEN = "<" + "table", TCLOSE = "</" + "table>";
+
+  function streamTable(entry, list) {
     if (!list.length) return { html: '<div class="mv-empty">This unit has no heat streams.</div>', csv: "" };
-    var rows = list.slice().sort(function (a, b) {
-      return (a.type === b.type ? 0 : a.type === "hot" ? -1 : 1) || (b.kW - a.kW);
-    });
-    var hasH = rows.some(function (s) { return isFinite(s.htc); });
-    var head = ["Stream", "Type", "T<sub>in</sub> °C", "T<sub>out</sub> °C", "T*<sub>in</sub> °C", "T*<sub>out</sub> °C",
-                "ΔT<sub>min</sub>/2 °C", "CP kW/K", "Duty kW"].concat(hasH ? ["h kW/m²K"] : []);
+    var rows = list.slice().sort(function (a, b) { return (a.type === b.type ? 0 : a.type === "hot" ? -1 : 1) || (b.kW - a.kW); });
+    var hasH = rows.some(function (s) { return isFinite(s.htc); }),
+        hasC = rows.some(function (s) { return s.cascade && !/^default$/i.test(s.cascade.trim()); });
+    var head = ['<th class="l">Stream</th>', '<th class="l">Type</th>', "<th>T<sub>in</sub> °C</th>", "<th>T<sub>out</sub> °C</th>",
+                "<th>T*<sub>in</sub> °C</th>", "<th>T*<sub>out</sub> °C</th>", "<th>ΔT<sub>min</sub>/2 °C</th>", "<th>CP kW/K</th>", "<th>Duty kW</th>"]
+               .concat(hasH ? ["<th>h kW/m²K</th>"] : []).concat(hasC ? ['<th class="l">Cascade</th>'] : []);
     var csv = [["stream", "type", "Tin_C", "Tout_C", "Tin_shifted_C", "Tout_shifted_C", "dTmin_half_C", "CP_kW_per_K", "duty_kW"]
-                .concat(hasH ? ["h_kW_per_m2K"] : []).join(",")];
+                .concat(hasH ? ["h_kW_per_m2K"] : []).concat(hasC ? ["heat_cascade"] : []).join(",")];
     var body = rows.map(function (s) {
       var iso = Math.abs(s.Tin - s.Tout) < 1e-6;
-      var cp = iso ? "phase change" : nice(streamCP(s));
-      var duty = (s.type === "hot" ? "−" : "") + nice(s.kW);
       csv.push(['"' + s.name.replace(/"/g, '""') + '"', s.type, s.Tin, s.Tout, shift(s, s.Tin), shift(s, s.Tout), s.dtc,
-                iso ? "" : streamCP(s), (s.type === "hot" ? -1 : 1) * s.kW].concat(hasH ? [isFinite(s.htc) ? s.htc : ""] : []).join(","));
-      return '<tr class="is-' + s.type + '"><td>' + xesc(s.name) + '</td><td class="mv-type-' + s.type + '">' + s.type + "</td>" +
-        "<td>" + fmt(s.Tin, 1) + "</td><td>" + fmt(s.Tout, 1) + "</td><td>" + fmt(shift(s, s.Tin), 1) + "</td><td>" + fmt(shift(s, s.Tout), 1) + "</td>" +
-        "<td>" + fmt(s.dtc, 1) + "</td><td>" + cp + "</td><td>" + duty + "</td>" +
-        (hasH ? "<td>" + (isFinite(s.htc) ? nice(s.htc) : "-") + "</td>" : "") + "</tr>";
+                iso ? "" : streamCP(s), (s.type === "hot" ? -1 : 1) * s.kW].concat(hasH ? [isFinite(s.htc) ? s.htc : ""] : [])
+                .concat(hasC ? ['"' + s.cascade + '"'] : []).join(","));
+      return '<tr class="is-' + s.type + '"><td class="l"' + (s.description ? ' title="' + xesc(s.description) + '"' : "") + ">" + xesc(s.name) + "</td>" +
+        '<td class="l mv-type-' + s.type + '">' + s.type + "</td>" +
+        "<td>" + linked(entry, fmt(s.Tin, 1), s.src.Tin) + "</td><td>" + linked(entry, fmt(s.Tout, 1), s.src.Tout) + "</td>" +
+        "<td>" + fmt(shift(s, s.Tin), 1) + "</td><td>" + fmt(shift(s, s.Tout), 1) + "</td>" +
+        "<td>" + linked(entry, fmt(s.dtc, 1), s.src.dtc) + "</td><td>" + (iso ? '<span class="mv-muted">phase change</span>' : nice(streamCP(s))) + "</td>" +
+        "<td>" + (s.type === "hot" ? "−" : "") + linked(entry, nice(s.kW), s.src.kW) + "</td>" +
+        (hasH ? "<td>" + (isFinite(s.htc) ? nice(s.htc) : "-") + "</td>" : "") + (hasC ? '<td class="l">' + xesc(s.cascade) + "</td>" : "") + "</tr>";
     }).join("");
     var qh = list.filter(function (s) { return s.type === "hot"; }).reduce(function (a, s) { return a + s.kW; }, 0);
     var qc = list.filter(function (s) { return s.type === "cold"; }).reduce(function (a, s) { return a + s.kW; }, 0);
-    var span = head.length - 1;
-    var foot = '<tr><td colspan="' + (span - (hasH ? 1 : 0)) + '">Total released by hot streams</td><td class="mv-type-hot">−' + nice(qh) + "</td>" + (hasH ? "<td></td>" : "") + "</tr>" +
-               '<tr><td colspan="' + (span - (hasH ? 1 : 0)) + '">Total absorbed by cold streams</td><td class="mv-type-cold">' + nice(qc) + "</td>" + (hasH ? "<td></td>" : "") + "</tr>";
-    // "<" + "table": Quarto tries to parse a literal table tag in included HTML as a pandoc table
-    var html = '<div style="overflow-x:auto"><' + 'table class="mv-table"><thead><tr>' +
-      head.map(function (h) { return "<th>" + h + "</th>"; }).join("") + "</tr></thead><tbody>" + body +
-      "</tbody><tfoot>" + foot + "</tfoot></" + "table></div>";
-    return { html: html, csv: csv.join("\n") + "\n" };
+    var tail = (hasH ? "<td></td>" : "") + (hasC ? "<td></td>" : "");
+    var foot = '<tr><td class="l" colspan="8">Total released by hot streams</td><td class="mv-type-hot">' + (qh > 0 ? "−" : "") + nice(qh) + "</td>" + tail + "</tr>" +
+               '<tr><td class="l" colspan="8">Total absorbed by cold streams</td><td class="mv-type-cold">' + nice(qc) + "</td>" + tail + "</tr>";
+    return { html: '<div style="overflow-x:auto">' + TOPEN + ' class="mv-table"><thead><tr>' + head.join("") + "</tr></thead><tbody>" + body +
+                   "</tbody><tfoot>" + foot + "</tfoot>" + TCLOSE + "</div>", csv: csv.join("\n") + "\n" };
   }
 
-  function dataWarnings(u, list) {
+  function streamWarnings(u) {
     var w = [];
     u.streams.forEach(function (s) {
-      if (s.mismatch)
-        w.push("<b>" + xesc(s.name) + "</b> is declared <i>" + s.declared + "</i>, but it goes from " + fmt(s.Tin, 1) +
-               " to " + fmt(s.Tout, 1) + " °C, so it is treated as <i>" + s.type + "</i>.");
-      if (!isFinite(s.Tin) || !isFinite(s.Tout))
-        w.push("<b>" + xesc(s.name) + "</b> has no inlet or outlet temperature and is left out.");
-      else if (!(s.kW > 0))
-        w.push("<b>" + xesc(s.name) + "</b> has zero duty and is left out.");
-      if (!s.dtcGiven)
-        w.push("<b>" + xesc(s.name) + "</b> has no ΔT<sub>min</sub>/2 contribution; 5 °C is assumed.");
+      if (s.mismatch) w.push("<b>" + xesc(s.name) + "</b> is declared <i>" + s.declared + "</i>, but it goes from " + fmt(s.Tin, 1) + " to " + fmt(s.Tout, 1) + " °C, so it is treated as <i>" + s.type + "</i>.");
+      if (!isFinite(s.Tin) || !isFinite(s.Tout)) w.push("<b>" + xesc(s.name) + "</b> has no inlet or outlet temperature and is left out.");
+      else if (!(s.kW > 0)) w.push("<b>" + xesc(s.name) + "</b> has zero duty and is left out.");
+      if (!s.dtcGiven) w.push("<b>" + xesc(s.name) + "</b> has no ΔT<sub>min</sub>/2 contribution; 5 °C is assumed.");
     });
-    u.connectors.forEach(function (c) {
-      if (!isFinite(c.flow)) w.push("Connector <b>" + xesc(c.name) + "</b> has no flow value.");
-    });
+    u.connectors.forEach(function (c) { if (!isFinite(c.flow)) w.push("Connector <b>" + xesc(c.name) + "</b> has no flow value."); });
     return w.length ? '<div class="mv-warn"><b>Data checks</b><ul><li>' + w.join("</li><li>") + "</li></ul></div>" : "";
   }
 
-  // ---------------------------------------------------- canvas plotting
+  function compositionHTML(c) {
+    var s = String(c || "").trim();
+    if (blank(s)) return "";
+    var m = s.match(/^\s*(MASSFRAC|MOLEFRAC|MASS|MOLE)\s*:\s*(.*)$/i), basis = "";
+    if (m) { basis = /mol/i.test(m[1]) ? "mole" : "mass"; s = m[2]; }
+    var parts = s.split("&").map(function (p) {
+      var q = p.match(/^\s*([^\[]+)\[([^\]]*)\]\s*$/);
+      return q ? chemHTML(q[1].trim()) + " " + xesc(q[2]) : chemHTML(p.trim());
+    });
+    return parts.join(", ") + (basis ? ' <span class="mv-muted">(' + basis + ")</span>" : "");
+  }
+
+  // ============================================================ canvas plots
   function niceStep(span, n) {
     var raw = span / n, mag = Math.pow(10, Math.floor(Math.log10(raw))), e = raw / mag;
     return (e >= 7.5 ? 10 : e >= 3.5 ? 5 : e >= 1.5 ? 2 : 1) * mag;
@@ -401,13 +829,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (a >= 1e4) return (v / 1e3).toLocaleString("en-US", { maximumFractionDigits: 1 }) + "k";
     return v.toLocaleString("en-US", { maximumFractionDigits: 2 });
   }
-
   // Size the canvas to its frame, at the screen's pixel density.
   function prep(canvas) {
-    var avail = canvas.parentElement.clientWidth - 16;
-    if (avail <= 0) return null;                       // hidden tab: draw when shown
-    var W = Math.max(320, Math.min(860, avail)), H = Math.round(W * 0.6);
-    var dpr = window.devicePixelRatio || 1;
+    var avail = canvas.parentElement.clientWidth - 26;
+    if (avail <= 0) return null;                        // hidden: draw when shown
+    var W = Math.max(320, Math.min(860, avail)), H = Math.round(W * 0.6), dpr = window.devicePixelRatio || 1;
     canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
     canvas.style.width = W + "px"; canvas.style.height = H + "px";
     var ctx = canvas.getContext("2d");
@@ -415,10 +841,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
     return { ctx: ctx, W: W, H: H };
   }
-  function emptyPlot(p, msg) {
-    p.ctx.fillStyle = C.muted; p.ctx.font = "12px " + MONO; p.ctx.textAlign = "center";
-    p.ctx.fillText(msg, p.W / 2, p.H / 2);
-  }
+  function emptyPlot(p, msg) { p.ctx.fillStyle = C.muted; p.ctx.font = "12px " + MONO; p.ctx.textAlign = "center"; p.ctx.fillText(msg, p.W / 2, p.H / 2); }
   function axes(p, pad, xLo, xHi, tLo, tHi, cx, cy, xLabel) {
     var ctx = p.ctx;
     ctx.lineWidth = 1; ctx.font = "10px " + MONO;
@@ -436,7 +859,6 @@ document.addEventListener("DOMContentLoaded", function () {
     ctx.save(); ctx.translate(15, (pad.top + p.H - pad.bottom) / 2); ctx.rotate(-Math.PI / 2);
     ctx.fillText("Shifted temperature T* (°C)", 0, 0); ctx.restore();
   }
-  // "Q" with a subscript, on a light chip so it stays readable over a curve
   function qTag(p, pad, x, y, sub, value, color) {
     var ctx = p.ctx, tail = " = " + nice(value) + " kW";
     ctx.font = "bold 10.5px " + MONO; var wq = ctx.measureText("Q").width, wt = ctx.measureText(tail).width;
@@ -470,7 +892,6 @@ document.addEventListener("DOMContentLoaded", function () {
       ctx.fillStyle = C.text; ctx.fillText(it[1], x + 32, y + 16 + i * 16);
     });
   }
-
   function composite(list, type) {
     var ss = list.filter(function (s) { return s.type === type; });
     if (!ss.length) return null;
@@ -484,11 +905,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     return { H: Hs, T: T };
   }
-
   function drawComposite(canvas, list, res) {
     var p = prep(canvas); if (!p) return false;
-    var pts = [];
-    canvas._pts = pts;
+    var pts = []; canvas._pts = pts;
     var hc = composite(list, "hot"), cc = composite(list, "cold");
     if (!hc && !cc) { emptyPlot(p, "No heat streams"); return true; }
     var pad = { top: 34, right: 22, bottom: 50, left: 62 }, ctx = p.ctx;
@@ -498,13 +917,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (cc) curves.push({ H: cc.H.map(function (h) { return h + (res ? res.Qcu : 0); }), T: cc.T, color: C.cold, name: "Cold composite" });
     var allH = [], allT = [];
     curves.forEach(function (c) { allH = allH.concat(c.H); allT = allT.concat(c.T); });
-    var hMax = Math.max.apply(null, allH) * 1.04 || 1;
-    var t0 = Math.min.apply(null, allT), t1 = Math.max.apply(null, allT);
+    var hMax = Math.max.apply(null, allH) * 1.04 || 1, t0 = Math.min.apply(null, allT), t1 = Math.max.apply(null, allT);
     var head = Math.max(4, (t1 - t0) * 0.1), tLo = t0 - head, tHi = t1 + head;
     var cx = function (h) { return pad.left + h / hMax * (p.W - pad.left - pad.right); };
     var cy = function (t) { return p.H - pad.bottom - (t - tLo) / (tHi - tLo) * (p.H - pad.top - pad.bottom); };
     axes(p, pad, 0, hMax, tLo, tHi, cx, cy, "Heat load H (kW)");
-
     curves.forEach(function (c) {
       ctx.strokeStyle = c.color; ctx.lineWidth = 2.5; ctx.lineJoin = "round"; ctx.beginPath();
       c.H.forEach(function (h, i) { if (i) ctx.lineTo(cx(h), cy(c.T[i])); else ctx.moveTo(cx(h), cy(c.T[i])); });
@@ -515,22 +932,19 @@ document.addEventListener("DOMContentLoaded", function () {
         pts.push({ x: cx(h), y: cy(c.T[i]), html: "<b>" + c.name + "</b><br>T* = " + fmt(c.T[i], 1) + " °C<br>H = " + nice(h) + " kW" });
       });
     });
-
     if (res) {
       var hot = hc ? curves[0] : null, cold = cc ? curves[curves.length - 1] : null;
-      function bracket(x1, x2, y, color) {
+      var bracket = function (x1, x2, y, color) {
         ctx.strokeStyle = color; ctx.lineWidth = 1.4; ctx.setLineDash([4, 3]);
         ctx.beginPath(); ctx.moveTo(x1, y); ctx.lineTo(x2, y); ctx.stroke(); ctx.setLineDash([]);
         ctx.beginPath(); ctx.moveTo(x1, y - 5); ctx.lineTo(x1, y + 5); ctx.moveTo(x2, y - 5); ctx.lineTo(x2, y + 5); ctx.stroke();
-      }
+      };
       if (res.Qhu > 1e-6 && cold) {
-        var a = hot ? cx(hot.H[hot.H.length - 1]) : cx(0), b = cx(cold.H[cold.H.length - 1]);
-        var y = cy(t1) - 14;
+        var a = hot ? cx(hot.H[hot.H.length - 1]) : cx(0), b = cx(cold.H[cold.H.length - 1]), y = cy(t1) - 14;
         bracket(a, b, y, C.hot); qTag(p, pad, (a + b) / 2, y - 7, "HU", res.Qhu, C.hot);
       }
       if (res.Qcu > 1e-6 && hot) {
-        var a2 = cx(hot.H[0]), b2 = cold ? cx(cold.H[0]) : cx(res.Qcu);
-        var y2 = cy(t0) + 14;
+        var a2 = cx(hot.H[0]), b2 = cold ? cx(cold.H[0]) : cx(res.Qcu), y2 = cy(t0) + 14;
         bracket(a2, b2, y2, C.cold); qTag(p, pad, (a2 + b2) / 2, y2 + 17, "CU", res.Qcu, C.cold);
       }
       if (res.pinchTemp !== null) pinchLine(p, pad, cy, res.pinchTemp);
@@ -538,11 +952,9 @@ document.addEventListener("DOMContentLoaded", function () {
     legend(p, pad, curves.map(function (c) { return [c.color, c.name]; }));
     return true;
   }
-
   function drawGCC(canvas, res) {
     var p = prep(canvas); if (!p) return false;
-    var pts = [];
-    canvas._pts = pts;
+    var pts = []; canvas._pts = pts;
     if (!res) { emptyPlot(p, "No heat streams"); return true; }
     var pad = { top: 34, right: 22, bottom: 50, left: 62 }, ctx = p.ctx;
     var g = [[res.R[0], res.intervals[0][0]]];
@@ -550,14 +962,11 @@ document.addEventListener("DOMContentLoaded", function () {
     var xs = g.map(function (q) { return q[0]; });
     var xLo = Math.min(0, Math.min.apply(null, xs)), xHi = Math.max(0, Math.max.apply(null, xs));
     var px = Math.max(1, (xHi - xLo) * 0.06); xLo -= px * 0.3; xHi += px;
-    var t0 = Math.min.apply(null, g.map(function (q) { return q[1]; }));
-    var t1 = Math.max.apply(null, g.map(function (q) { return q[1]; }));
+    var t0 = Math.min.apply(null, g.map(function (q) { return q[1]; })), t1 = Math.max.apply(null, g.map(function (q) { return q[1]; }));
     var head = Math.max(4, (t1 - t0) * 0.1), tLo = t0 - head, tHi = t1 + head;
     var cx = function (q) { return pad.left + (q - xLo) / (xHi - xLo) * (p.W - pad.left - pad.right); };
     var cy = function (t) { return p.H - pad.bottom - (t - tLo) / (tHi - tLo) * (p.H - pad.top - pad.bottom); };
     axes(p, pad, xLo, xHi, tLo, tHi, cx, cy, "Net heat flow (kW)");
-
-    // shade back to the zero axis so pockets read as area
     ctx.beginPath(); ctx.moveTo(cx(0), cy(g[0][1]));
     g.forEach(function (q) { ctx.lineTo(cx(q[0]), cy(q[1])); });
     ctx.lineTo(cx(0), cy(g[g.length - 1][1])); ctx.closePath();
@@ -572,188 +981,473 @@ document.addEventListener("DOMContentLoaded", function () {
       ctx.beginPath(); ctx.arc(cx(q[0]), cy(q[1]), 2.6, 0, Math.PI * 2); ctx.fill();
       pts.push({ x: cx(q[0]), y: cy(q[1]), html: "T* = " + fmt(q[1], 1) + " °C<br>Net heat flow = " + nice(q[0]) + " kW" });
     });
-
     if (res.pinchTemp !== null) pinchLine(p, pad, cy, res.pinchTemp);
     var top = g[0], bot = g[g.length - 1];
     if (top[0] > 1e-6) qTag(p, pad, cx(top[0]), cy(top[1]) - 9, "HU", top[0], C.hot);
     if (bot[0] > 1e-6) qTag(p, pad, cx(bot[0]), cy(bot[1]) + 19, "CU", bot[0], C.cold);
     return true;
   }
-
   // Snap to the nearest plotted point and show its values.
-  function attachHover(canvas) {
+  function attachPlotHover(canvas) {
     var frameEl = canvas.parentElement;
     var tip = document.createElement("div"); tip.className = "mv-tip"; tip.hidden = true;
     var dot = document.createElement("div"); dot.className = "mv-dot"; dot.hidden = true;
     frameEl.appendChild(tip); frameEl.appendChild(dot);
     canvas.addEventListener("mousemove", function (e) {
-      var r = canvas.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
-      var best = null, bd = 196;                       // within 14 px
-      (canvas._pts || []).forEach(function (q) {
-        var d = (q.x - mx) * (q.x - mx) + (q.y - my) * (q.y - my);
-        if (d < bd) { bd = d; best = q; }
-      });
+      var r = canvas.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top, best = null, bd = 196;
+      (canvas._pts || []).forEach(function (q) { var d = (q.x - mx) * (q.x - mx) + (q.y - my) * (q.y - my); if (d < bd) { bd = d; best = q; } });
       if (!best) { tip.hidden = dot.hidden = true; return; }
       var ox = canvas.offsetLeft + best.x, oy = canvas.offsetTop + best.y;
-      dot.style.left = ox + "px"; dot.style.top = oy + "px";
-      tip.style.left = ox + "px"; tip.style.top = oy + "px";
+      dot.style.left = ox + "px"; dot.style.top = oy + "px"; tip.style.left = ox + "px"; tip.style.top = oy + "px";
       tip.innerHTML = best.html; tip.hidden = dot.hidden = false;
     });
     canvas.addEventListener("mouseleave", function () { tip.hidden = dot.hidden = true; });
   }
 
-  // ---------------------------------------------------------------- page
+  // ================================================================ views
   function stat(label, value, color, title) {
     return '<div class="mv-stat"' + (title ? ' title="' + xesc(title) + '"' : "") + '><div class="mv-stat-label">' + label +
            '</div><div class="mv-stat-value"' + (color ? ' style="color:' + color + '"' : "") + ">" + value + "</div></div>";
   }
-
-  var TABS = [["flows", "Flows"], ["streams", "Heat streams"], ["cc", "Composite curves"], ["gcc", "Grand composite curve"]];
-  var CC_NOTE = "Hot and cold composites against shifted temperature. Their horizontal overlap is the heat the unit can recover internally; " +
-                "the overhangs are the minimum hot (Q<sub>HU</sub>) and cold (Q<sub>CU</sub>) utility. Hover a point for its values.";
-  var GCC_NOTE = "Net heat cascaded down at each shifted temperature. The width at the top is Q<sub>HU</sub>, at the bottom Q<sub>CU</sub>; " +
-                 "where the curve touches zero the unit is pinched, and a pocket is heat it can exchange with itself.";
-
-  function mount(root) {
-    var src = root.getAttribute("data-src") || "the model file", data;
-    try {
-      var node = root.querySelector('script[type="application/json"]');
-      data = JSON.parse(node ? node.textContent : "");
-    } catch (e) {
-      root.innerHTML = '<div class="mv-empty">Could not read ' + xesc(src) + ".</div>";
-      return;
-    }
-    var units = normalise(data);
-    if (!units.length) { root.innerHTML = '<div class="mv-empty">No units found in ' + xesc(src) + ".</div>"; return; }
-
-    var state = { unit: 0, f: 1, tab: "flows" }, dirty = {};
-    root.innerHTML =
-      '<div class="mv-bar">' +
-        (units.length > 1 ? '<label>Unit <select class="mv-unit">' + units.map(function (u, i) {
-          return '<option value="' + i + '">' + xesc(u.name) + "</option>"; }).join("") + "</select></label>" : "") +
-        '<label title="Multiplies every duty and flow of the unit; temperatures are unchanged">Scale factor <i>f</i> ' +
-          '<input class="mv-f" type="number" min="0" step="0.1" value="1"></label>' +
-        '<span class="mv-kind" hidden></span>' +
-      "</div>" +
-      '<div class="mv-stats"></div>' +
-      '<div class="mv-tabs" role="tablist">' + TABS.map(function (t) {
-        return '<button type="button" class="mv-tab" role="tab" data-tab="' + t[0] + '">' + t[1] + "</button>"; }).join("") + "</div>" +
-      '<div class="mv-panel" data-tab="flows"><div class="mv-frame mv-flows"></div>' +
-        '<div class="mv-tools"><p>Inputs left, outputs right; heat demand above and heat release below, dashed because they are energy rather than matter.</p>' +
-        '<button type="button" class="mv-dl" data-dl="svg">Download SVG</button></div></div>' +
-      '<div class="mv-panel" data-tab="streams"><div class="mv-streams"></div><div class="mv-warns"></div>' +
-        '<div class="mv-tools"><p>T* is the shifted temperature: hot streams are lowered and cold streams raised by their ΔT<sub>min</sub>/2 contribution.</p>' +
-        '<button type="button" class="mv-dl" data-dl="csv">Download CSV</button></div></div>' +
-      '<div class="mv-panel" data-tab="cc"><div class="mv-frame"><canvas class="mv-cc"></canvas></div>' +
-        '<div class="mv-tools"><p>' + CC_NOTE + '</p><button type="button" class="mv-dl" data-dl="cc">Download PNG</button></div></div>' +
-      '<div class="mv-panel" data-tab="gcc"><div class="mv-frame"><canvas class="mv-gcc"></canvas></div>' +
-        '<div class="mv-tools"><p>' + GCC_NOTE + '</p><button type="button" class="mv-dl" data-dl="gcc">Download PNG</button></div></div>' +
-      '<div class="mv-source">Generated from <code>' + xesc(src) + "</code>, considering the unit on its own.</div>";
-
-    var $ = function (q) { return root.querySelector(q); };
-    var ccCanvas = $(".mv-cc"), gccCanvas = $(".mv-gcc");
-    attachHover(ccCanvas); attachHover(gccCanvas);
-    var current = {};
-
-    function compute() {
-      var u = units[state.unit], f = state.f;
-      var list = u.streams.filter(function (s) { return isFinite(s.Tin) && isFinite(s.Tout) && s.kW > 0; })
-                          .map(function (s) { return Object.assign({}, s, { kW: s.kW * f }); });
-      var res = list.length ? solve(list) : null;
-      var qh = list.filter(function (s) { return s.type === "hot"; }).reduce(function (a, s) { return a + s.kW; }, 0);
-      var qc = list.filter(function (s) { return s.type === "cold"; }).reduce(function (a, s) { return a + s.kW; }, 0);
-      current = { u: u, f: f, list: list, res: res, qh: qh, qc: qc };
-    }
-
-    function drawStats() {
-      var c = current, u = c.u, res = c.res;
-      var kind = $(".mv-kind");
-      kind.hidden = !u.kind; kind.textContent = u.kind;
-      kind.className = "mv-kind" + (u.kind === "process" ? " is-process" : "");
-      var temps = [];
-      c.list.forEach(function (s) { temps.push(s.Tin, s.Tout); });
-      var recovered = res ? Math.max(0, c.qh - res.Qcu) : 0;
-      $(".mv-stats").innerHTML =
-        stat("Min. hot utility Q<sub>HU</sub>", res ? nice(res.Qhu) + " kW" : "-", C.hot, "Heat that must come from outside the unit") +
-        stat("Min. cold utility Q<sub>CU</sub>", res ? nice(res.Qcu) + " kW" : "-", C.cold, "Heat that must be removed by a utility") +
-        stat("Internal recovery", res ? nice(recovered) + " kW" : "-", C.out, "Heat exchanged between the unit's own streams") +
-        stat("Pinch T*", res ? (res.pinchTemp !== null ? fmt(res.pinchTemp, 1) + " °C" : "none (threshold)") : "-", C.pinch) +
-        stat("Hot / cold duty", nice(c.qh) + " / " + nice(c.qc) + " kW", null, "Heat released by hot streams / absorbed by cold streams") +
-        stat("Temperature span", temps.length ? fmt(Math.min.apply(null, temps), 0) + " → " + fmt(Math.max.apply(null, temps), 0) + " °C" : "-") +
-        stat("Streams · connectors", u.streams.length + " · " + u.connectors.length);
-    }
-
-    function drawTab(tab) {
-      var c = current;
-      if (tab === "flows") $(".mv-flows").innerHTML = c.flowsSvg = buildFlows(c.u, c.list, c.f);
-      else if (tab === "streams") {
-        var t = streamTable(c.list);
-        c.csv = t.csv;
-        $(".mv-streams").innerHTML = t.html;
-        $(".mv-warns").innerHTML = dataWarnings(c.u, c.list);
-      }
-      else if (tab === "cc") { if (!drawComposite(ccCanvas, c.list, c.res)) return; }
-      else if (tab === "gcc") { if (!drawGCC(gccCanvas, c.res)) return; }
-      dirty[tab] = false;
-    }
-
-    function show(tab) {
-      state.tab = tab;
-      root.querySelectorAll(".mv-tab").forEach(function (b) {
-        var on = b.getAttribute("data-tab") === tab;
-        b.classList.toggle("is-active", on); b.setAttribute("aria-selected", on ? "true" : "false");
-      });
-      root.querySelectorAll(".mv-panel").forEach(function (pn) { pn.hidden = pn.getAttribute("data-tab") !== tab; });
-      if (dirty[tab] !== false) drawTab(tab);
-    }
-
-    function refresh() {
-      compute(); drawStats();
-      TABS.forEach(function (t) { dirty[t[0]] = true; });
-      drawTab(state.tab);
-    }
-
-    root.querySelectorAll(".mv-tab").forEach(function (b) {
-      b.addEventListener("click", function () { show(b.getAttribute("data-tab")); });
-    });
-    var sel = $(".mv-unit");
-    if (sel) sel.addEventListener("change", function () { state.unit = Number(sel.value); refresh(); });
-    var fin = $(".mv-f");
-    fin.addEventListener("input", function () {
+  function compute(entry) {
+    var u = entry.model.units[entry.state.unit], f = entry.state.f;
+    var list = u.streams.filter(function (s) { return isFinite(s.Tin) && isFinite(s.Tout) && s.kW > 0; })
+                        .map(function (s) { return Object.assign({}, s, { kW: s.kW * f }); });
+    var res = list.length ? solve(list) : null;
+    var qh = list.filter(function (s) { return s.type === "hot"; }).reduce(function (a, s) { return a + s.kW; }, 0);
+    var qc = list.filter(function (s) { return s.type === "cold"; }).reduce(function (a, s) { return a + s.kW; }, 0);
+    return { u: u, f: f, list: list, res: res, qh: qh, qc: qc };
+  }
+  function scaledNote(entry) {
+    return entry.state.f !== 1 ? '<div class="mv-scaled">Scaled by <i>f</i> = ' + nice(entry.state.f) + ".</div>" : "";
+  }
+  function statsHTML(c) {
+    var temps = [];
+    c.list.forEach(function (s) { temps.push(s.Tin, s.Tout); });
+    var res = c.res, recovered = res ? Math.max(0, c.qh - res.Qcu) : 0;
+    return stat("Min. hot utility Q<sub>HU</sub>", res ? nice(res.Qhu) + " kW" : "-", C.hot, "Heat that must come from outside the unit") +
+      stat("Min. cold utility Q<sub>CU</sub>", res ? nice(res.Qcu) + " kW" : "-", C.cold, "Heat that must be removed by a utility") +
+      stat("Internal recovery", res ? nice(recovered) + " kW" : "-", C.out, "Heat exchanged between the unit's own streams") +
+      stat("Pinch T*", res ? (res.pinchTemp !== null ? fmt(res.pinchTemp, 1) + " °C" : "none (threshold)") : "-", C.pinch) +
+      stat("Hot / cold duty", nice(c.qh) + " / " + nice(c.qc) + " kW", null, "Heat released by hot streams / absorbed by cold streams") +
+      stat("Temperature span", temps.length ? fmt(Math.min.apply(null, temps), 0) + " → " + fmt(Math.max.apply(null, temps), 0) + " °C" : "-") +
+      stat("Streams · connectors", c.u.streams.length + " · " + c.u.connectors.length);
+  }
+  function controlsHTML(entry) {
+    var units = entry.model.units, u = units[entry.state.unit];
+    return '<div class="mv-bar">' +
+      (units.length > 1 ? '<label>Unit <select class="mv-unit">' + units.map(function (x, i) {
+        return '<option value="' + i + '"' + (i === entry.state.unit ? " selected" : "") + ">" + xesc(x.name) + "</option>"; }).join("") + "</select></label>" : "") +
+      '<label title="Multiplies every duty and flow of the unit; temperatures are unchanged">Scale factor <i>f</i> ' +
+        '<input class="mv-f" type="number" min="0" step="0.1" value="' + entry.state.f + '"></label>' +
+      (u.kind ? '<span class="mv-kind' + (u.kind === "process" ? " is-process" : "") + '">' + xesc(u.kind) + "</span>" : "") +
+      "</div>";
+  }
+  function bindControls(entry, el) {
+    var sel = el.querySelector(".mv-unit"), fin = el.querySelector(".mv-f");
+    if (sel) sel.addEventListener("change", function () { setState(entry, { unit: Number(sel.value) }); });
+    if (fin) fin.addEventListener("input", function () {
       var v = parseFloat(fin.value);
-      if (isFinite(v) && v >= 0) { state.f = v; refresh(); }
+      if (isFinite(v) && v >= 0) setState(entry, { f: v }, fin);
     });
-    root.querySelectorAll(".mv-dl").forEach(function (b) {
-      b.addEventListener("click", function () {
-        var kind = b.getAttribute("data-dl"), base = slug(current.u.name) + (current.f !== 1 ? "_f" + current.f : "");
-        if (kind === "svg") download(base + "_flows.svg", current.flowsSvg, "image/svg+xml");
-        else if (kind === "csv") download(base + "_heat_streams.csv", current.csv, "text/csv");
-        else if (kind === "cc") download(base + "_composite_curves.png", ccCanvas.toDataURL("image/png"));
-        else if (kind === "gcc") download(base + "_grand_composite_curve.png", gccCanvas.toDataURL("image/png"));
-      });
-    });
-
-    var resizeTimer = null, lastW = root.clientWidth;
-    window.addEventListener("resize", function () {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(function () {
-        if (root.clientWidth === lastW) return;
-        lastW = root.clientWidth;
-        dirty.cc = dirty.gcc = true;
-        if (state.tab === "cc" || state.tab === "gcc") drawTab(state.tab);
-      }, 150);
-    });
-
-    compute(); drawStats();
-    show("flows");
+  }
+  function setState(entry, patch, keepFocus) {
+    Object.keys(patch).forEach(function (k) { entry.state[k] = patch[k]; });
+    entry.views.forEach(function (v) { if (v.scalable) v.render(keepFocus); });
+  }
+  function source(entry) {
+    return '<div class="mv-source">Generated from <code>' + xesc(entry.src) + "</code>.</div>";
   }
 
-  for (var i = 0; i < roots.length; i++) {
-    try { mount(roots[i]); }
+  var VIEWS = {
+    card: function (entry, el) {
+      var m = entry.model.meta, rows = [];
+      function row(k, v) { if (!blank(v)) rows.push("<tr><th>" + k + "</th><td>" + v + "</td></tr>"); }
+      row("Model name", "<code>" + xesc(m.name) + "</code>");
+      row("Description", xesc(m.description));
+      row("Authors", xesc(m.authors));
+      row("Contact", blank(m.contact) ? "" : m.contact.split(/[,;]\s*/).map(function (x) {
+        return /@/.test(x) ? '<a href="mailto:' + xesc(x.trim()) + '">' + xesc(x.trim()) + "</a>" : xesc(x); }).join(", "));
+      row("Version", xesc(m.version) + (blank(m.created) && blank(m.updated) ? "" :
+        ' <span class="mv-muted">(' + [blank(m.created) ? "" : "created " + xesc(m.created), blank(m.updated) ? "" : "last updated " + xesc(m.updated)].filter(Boolean).join(", ") + ")</span>"));
+      row("Status", xesc(m.status));
+      row("Confidentiality", xesc(m.confidentiality) + (blank(m.layer) ? "" : " · sharing layer L" + xesc(m.layer)));
+      row("Model grade", xesc(m.grade));
+      row("TRL", xesc(m.trl));
+      row("Reference capacity", xesc(m.capacity));
+      row("Keywords", xesc(m.keywords));
+      row("Main related publication", blank(m.publication) ? "" : linkify(m.publication));
+      row("DOI", blank(m.doi) ? "" : linkify(/^10\./.test(m.doi) ? "https://doi.org/" + m.doi : m.doi));
+      row("Software", xesc(m.software) + (blank(m.softwareFile) ? "" : ' <span class="mv-muted">(' + xesc(m.softwareFile) + ")</span>"));
+      row("URL", blank(m.url) ? "" : linkify(m.url));
+      row("Model UID", xesc(m.uid));
+      el.innerHTML = TOPEN + ' class="mv-kv"><tbody>' + rows.join("") + "</tbody>" + TCLOSE;
+    },
+
+    summary: function (entry, el, view) {
+      view.scalable = true;
+      view.render = function (keepFocus) {
+        var c = compute(entry);
+        if (keepFocus && el.contains(keepFocus)) { el.querySelector(".mv-stats").innerHTML = statsHTML(c); return; }
+        el.innerHTML = controlsHTML(entry) + '<div class="mv-stats">' + statsHTML(c) + "</div>";
+        bindControls(entry, el);
+      };
+    },
+
+    flows: function (entry, el, view) {
+      view.scalable = true;
+      view.render = function () {
+        var c = compute(entry);
+        view.svg = buildFlows(c.u, c.list, c.f);
+        el.innerHTML = scaledNote(entry) + '<div class="mv-frame">' + view.svg + "</div>" +
+          '<div class="mv-tools"><p>Inputs left, outputs right; heat demand above and heat release below, dashed because they are energy rather than matter.</p>' +
+          '<button type="button" class="mv-dl">Download SVG</button></div>';
+        el.querySelector(".mv-dl").addEventListener("click", function () {
+          download(slug(c.u.name) + (c.f !== 1 ? "_f" + c.f : "") + "_flows.svg", view.svg, "image/svg+xml");
+        });
+      };
+    },
+
+    streams: function (entry, el, view) {
+      view.scalable = true;
+      view.render = function () {
+        var c = compute(entry), t = streamTable(entry, c.list);
+        el.innerHTML = scaledNote(entry) + (c.u.hsDesc ? '<p class="mv-legend">' + xesc(c.u.hsDesc) + "</p>" : "") + t.html + streamWarnings(c.u) +
+          '<div class="mv-tools"><p>Hot streams in red, cold streams in blue. T* is the shifted temperature: hot streams are lowered and cold streams raised by their ΔT<sub>min</sub>/2 contribution. Underlined values come from a variable: hover for its definition.</p>' +
+          '<button type="button" class="mv-dl">Download CSV</button></div>';
+        el.querySelector(".mv-dl").addEventListener("click", function () { download(slug(c.u.name) + "_heat_streams.csv", t.csv, "text/csv"); });
+      };
+    },
+
+    cc: function (entry, el, view) {
+      view.scalable = true; view.plot = true;
+      view.render = function () {
+        var c = compute(entry);
+        if (!view.canvas) {
+          el.innerHTML = '<div class="mv-note-slot"></div><div class="mv-frame"><canvas></canvas></div>' +
+            '<div class="mv-tools"><p>Hot and cold composites against shifted temperature. Their horizontal overlap is the heat the unit can recover internally; the overhangs are the minimum hot (Q<sub>HU</sub>) and cold (Q<sub>CU</sub>) utility. Hover a point for its values.</p>' +
+            '<button type="button" class="mv-dl">Download PNG</button></div>';
+          view.canvas = el.querySelector("canvas");
+          attachPlotHover(view.canvas);
+          el.querySelector(".mv-dl").addEventListener("click", function () {
+            download(slug(compute(entry).u.name) + "_composite_curves.png", view.canvas.toDataURL("image/png"));
+          });
+        }
+        el.querySelector(".mv-note-slot").innerHTML = scaledNote(entry);
+        view.drawn = drawComposite(view.canvas, c.list, c.res);
+      };
+    },
+
+    gcc: function (entry, el, view) {
+      view.scalable = true; view.plot = true;
+      view.render = function () {
+        var c = compute(entry);
+        if (!view.canvas) {
+          el.innerHTML = '<div class="mv-note-slot"></div><div class="mv-frame"><canvas></canvas></div>' +
+            '<div class="mv-tools"><p>Net heat cascaded down at each shifted temperature. The width at the top is Q<sub>HU</sub>, at the bottom Q<sub>CU</sub>; where the curve touches zero the unit is pinched, and a pocket is heat it can exchange with itself.</p>' +
+            '<button type="button" class="mv-dl">Download PNG</button></div>';
+          view.canvas = el.querySelector("canvas");
+          attachPlotHover(view.canvas);
+          el.querySelector(".mv-dl").addEventListener("click", function () {
+            download(slug(compute(entry).u.name) + "_grand_composite_curve.png", view.canvas.toDataURL("image/png"));
+          });
+        }
+        el.querySelector(".mv-note-slot").innerHTML = scaledNote(entry);
+        view.drawn = drawGCC(view.canvas, c.res);
+      };
+    },
+
+    variables: function (entry, el) {
+      var vars = entry.model.vars;
+      if (!vars.length) { el.innerHTML = '<div class="mv-empty">No variables in ' + xesc(entry.src) + ".</div>"; return; }
+      var inputs = vars.filter(function (v) { return !v.isCalc; }), calcs = vars.filter(function (v) { return v.isCalc; });
+      var h = '<p class="mv-legend">Hover a variable name or symbol for its definition; click it to come back to this table.</p>';
+      if (inputs.length) {
+        h += '<div style="overflow-x:auto">' + TOPEN + ' class="mv-table"><caption>Input variables</caption><thead><tr>' +
+          '<th class="l">Symbol</th><th class="l">Variable</th><th class="l">Description</th><th class="l">Type</th><th>Value</th><th>Range</th><th class="l">Unit</th>' +
+          "</tr></thead><tbody>" + inputs.map(function (v) {
+            return '<tr id="' + varId(entry, v.name) + '"><td class="l">' + texI(symTex(entry, v, false)) + '</td><td class="l">' + varChip(entry, v.name) + "</td>" +
+              '<td class="l wrap"' + (v.description && v.description !== v.fullName ? ' title="' + xesc(v.description) + '"' : "") + ">" + xesc(v.fullName || v.description) + "</td>" +
+              '<td class="l"><span class="mv-badge">' + xesc(v.type || "input") + "</span>" + (v.grade && v.grade !== "mandatory" ? '<br><span class="mv-badge">' + xesc(v.grade) + "</span>" : "") + "</td>" +
+              "<td>" + valueText(v) + (v.path ? ' <span class="mv-muted" title="' + xesc(v.path) + '">(simulator)</span>' : "") + "</td><td>" + boundsText(v) + '</td><td class="l">' + unitText(v.unit) + "</td></tr>";
+          }).join("") + "</tbody>" + TCLOSE + "</div>";
+      }
+      if (calcs.length) {
+        h += '<div style="overflow-x:auto;margin-top:1rem">' + TOPEN + ' class="mv-table"><caption>Calculated variables</caption><thead><tr>' +
+          '<th class="l">Symbol</th><th class="l">Variable</th><th class="l">Description</th><th>Value</th><th class="l">Unit</th><th class="l">Definition</th>' +
+          "</tr></thead><tbody>" + calcs.map(function (v) {
+            var bad = checkCalc(entry, v);
+            return '<tr id="' + varId(entry, v.name) + '"><td class="l">' + texI(symTex(entry, v, false)) + '</td><td class="l">' + varChip(entry, v.name) + "</td>" +
+              '<td class="l wrap"' + (v.description && v.description !== v.fullName ? ' title="' + xesc(v.description) + '"' : "") + ">" + xesc(v.fullName || v.description) + "</td>" +
+              "<td>" + valueText(v) + (bad !== null ? '<span class="mv-flag" title="The formula gives ' + nice(bad) + ' with the stored values of its variables">⚠</span>' : "") + "</td>" +
+              '<td class="l">' + unitText(v.unit) + '</td><td class="l wrap mv-def">' + texD(displayTex(entry, v, true, 28)) + "</td></tr>";
+          }).join("") + "</tbody>" + TCLOSE + "</div>";
+        if (calcs.some(function (v) { return checkCalc(entry, v) !== null; }))
+          h += '<div class="mv-warn"><b>Data checks</b><ul><li>Values marked ⚠ differ from what their formula gives with the stored values of its variables; the JSON may have been exported before a change.</li></ul></div>';
+      }
+      el.innerHTML = h + source(entry);
+      typeset(el);
+    },
+
+    equations: function (entry, el) {
+      var calcs = entry.model.vars.filter(function (v) { return v.isCalc; });
+      if (!calcs.length) { el.innerHTML = '<div class="mv-empty">No calculated variables in ' + xesc(entry.src) + ".</div>"; return; }
+      el.innerHTML = '<p class="mv-legend">Each equation defines the calculated variable named in its tag. Hover a symbol for its definition; click it to go to the variables table.</p>' +
+        calcs.map(function (v) {
+          return '<div class="mv-eq" id="' + eqId(entry, v.name) + '"><div>' +
+            texD(displayTex(entry, v, true, 38, symTex(entry, v, true), v.name.replace(/_/g, "\\_"))) + "</div>" +
+            '<div class="mv-eq-meta">' + varChip(entry, v.name) + " " + xesc(v.fullName || v.description) +
+            (v.grade === "private" ? "" : " · " + valueText(v) + (unitText(v.unit) ? " " + unitText(v.unit) : "")) + "</div></div>";
+        }).join("");
+      typeset(el);
+    },
+
+    unit: function (entry, el, view) {
+      view.scalable = true;
+      view.render = function () {
+        var c = compute(entry), u = c.u, f = c.f, h = scaledNote(entry);
+        if (u.description) h += "<p>" + xesc(u.description) + "</p>";
+        var mult = (isFinite(u.fmin) || isFinite(u.fmax)) ? ' Its size multiplier ranges from ' + nice(u.fmin) + " to " + nice(u.fmax) + " times the reference size." : "";
+        h += '<p class="mv-legend">Unit <code>' + xesc(u.name) + "</code>" + (u.kind ? " (" + xesc(u.kind) + ")" : "") + "." + mult + "</p>";
+        if (u.connectors.length) {
+          var hasT = u.connectors.some(function (x) { return !blank(x.temp); }), hasP = u.connectors.some(function (x) { return !blank(x.pres); });
+          var hasPh = u.connectors.some(function (x) { return !blank(x.phase); }), hasC = u.connectors.some(function (x) { return !blank(x.comp); });
+          h += (u.connDesc ? '<p class="mv-legend">' + xesc(u.connDesc) + "</p>" : "") +
+            '<div style="overflow-x:auto">' + TOPEN + ' class="mv-table"><caption>Connectors</caption><thead><tr><th class="l">Connector</th><th class="l">Type</th><th class="l">Direction</th><th>Flow</th><th class="l">Unit</th>' +
+            (hasT ? "<th>T</th>" : "") + (hasP ? "<th>p</th>" : "") + (hasPh ? '<th class="l">Phase</th>' : "") + (hasC ? '<th class="l">Composition</th>' : "") + '<th class="l">Description</th></tr></thead><tbody>' +
+            u.connectors.map(function (x) {
+              var T = blank(x.temp) ? "" : linked(entry, xesc(x.temp), x.tempF) + (blank(x.tunit) ? "" : " " + xesc(x.tunit === "C" ? "°C" : x.tunit));
+              var P = blank(x.pres) ? "" : xesc(x.pres) + (blank(x.punit) ? "" : " " + xesc(x.punit));
+              return '<tr><td class="l">' + chemHTML(x.name) + '</td><td class="l">' + xesc(x.type) + '</td><td class="l mv-dir-' + x.dir + '">' + x.dir + "</td>" +
+                "<td>" + (isFinite(x.flow) ? linked(entry, nice(x.flow * f), x.flowF) : "-") + '</td><td class="l">' + xesc(prettyUnit(x.unit)) + "</td>" +
+                (hasT ? "<td>" + T + "</td>" : "") + (hasP ? "<td>" + P + "</td>" : "") + (hasPh ? '<td class="l">' + (blank(x.phase) ? "" : xesc(x.phase)) + "</td>" : "") +
+                (hasC ? '<td class="l">' + compositionHTML(x.comp) + "</td>" : "") + '<td class="l wrap">' + xesc(x.description) + "</td></tr>";
+            }).join("") + "</tbody>" + TCLOSE + "</div>";
+        }
+        if (u.equipments.length) {
+          h += (u.eqDesc ? '<p class="mv-legend" style="margin-top:1rem">' + xesc(u.eqDesc) + "</p>" : "") +
+            '<div style="overflow-x:auto' + (u.eqDesc ? "" : ";margin-top:1rem") + '">' + TOPEN + ' class="mv-table"><caption>Equipment</caption><thead><tr><th class="l">Equipment</th><th class="l">Type</th><th class="l">Parameter</th><th>Value</th><th class="l">Unit</th><th class="l">Reference</th></tr></thead><tbody>' +
+            u.equipments.map(function (e) {
+              var ps = e.params.length ? e.params : [{ name: "", value: "", f: "", unit: "" }];
+              return ps.map(function (q, i) {
+                var n = Number(q.value), v = (q.value !== null && q.value !== "" && isFinite(n)) ? nice(n) : xesc(q.value == null ? "-" : q.value);
+                return "<tr>" + (i === 0 ? '<td class="l" rowspan="' + ps.length + '">' + xesc(e.name) + '</td><td class="l" rowspan="' + ps.length + '">' + xesc([e.type, e.subtype].filter(Boolean).join(" · ")) + "</td>" : "") +
+                  '<td class="l">' + xesc(q.name) + "</td><td>" + linked(entry, v, q.f) + '</td><td class="l">' + unitText(q.unit) + "</td>" +
+                  (i === 0 ? '<td class="l" rowspan="' + ps.length + '">' + xesc(e.reference) + "</td>" : "") + "</tr>";
+              }).join("");
+            }).join("") + "</tbody>" + TCLOSE + "</div>";
+        }
+        if (u.opcost.length) {
+          h += (u.ocDesc ? '<p class="mv-legend" style="margin-top:1rem">' + xesc(u.ocDesc) + "</p>" : "") +
+            '<div style="overflow-x:auto' + (u.ocDesc ? "" : ";margin-top:1rem") + '">' + TOPEN + ' class="mv-table"><caption>Operating costs</caption><tbody>' +
+            u.opcost.map(function (q) {
+              var n = Number(q.value), v = (q.value !== null && q.value !== "" && isFinite(n)) ? nice(n) : xesc(q.value == null ? "-" : q.value);
+              return '<tr><td class="l">' + xesc(q.name) + "</td><td>" + linked(entry, v, q.f) + '</td><td class="l">' + unitText(q.unit) + "</td></tr>";
+            }).join("") + "</tbody>" + TCLOSE + "</div>";
+        }
+        el.innerHTML = h;
+      };
+    },
+
+    references: function (entry, el) {
+      var r = entry.model.meta.references;
+      if (blank(r)) { el.innerHTML = '<div class="mv-empty">No references in the metadata.</div>'; return; }
+      var items = r.split(/;?\s*\n|;\s*(?=\[\d+\])/).map(function (s) { return s.trim().replace(/^\[\d+\]\s*/, "").replace(/;$/, ""); }).filter(Boolean);
+      el.innerHTML = "<ol>" + items.map(function (s) { return "<li>" + linkify(s) + "</li>"; }).join("") + "</ol>";
+    },
+
+    all: function (entry, el, view) {
+      var TABS = [["flows", "Flows"], ["streams", "Heat streams"], ["cc", "Composite curves"], ["gcc", "Grand composite curve"]];
+      el.innerHTML = '<div class="mv-slot-summary"></div><div class="mv-tabs" role="tablist">' + TABS.map(function (t) {
+          return '<button type="button" class="mv-tab" role="tab" data-tab="' + t[0] + '">' + t[1] + "</button>"; }).join("") + "</div>" +
+        TABS.map(function (t) { return '<div class="mv-panel" data-tab="' + t[0] + '"></div>'; }).join("") + source(entry);
+      var subs = {};
+      subs.summary = makeView(entry, el.querySelector(".mv-slot-summary"), "summary");
+      TABS.forEach(function (t) { subs[t[0]] = makeView(entry, el.querySelector('.mv-panel[data-tab="' + t[0] + '"]'), t[0]); });
+      function show(tab) {
+        el.querySelectorAll(".mv-tab").forEach(function (b) {
+          var on = b.getAttribute("data-tab") === tab;
+          b.classList.toggle("is-active", on); b.setAttribute("aria-selected", on ? "true" : "false");
+        });
+        el.querySelectorAll(".mv-panel").forEach(function (p) { p.hidden = p.getAttribute("data-tab") !== tab; });
+        var v = subs[tab]; if (v && v.plot && !v.drawn) v.render();
+      }
+      el.querySelectorAll(".mv-tab").forEach(function (b) { b.addEventListener("click", function () { show(b.getAttribute("data-tab")); }); });
+      view.afterMount = function () { show("flows"); };
+    }
+  };
+  VIEWS.tabs = VIEWS.all;
+
+  function makeView(entry, el, kind) {
+    var view = { el: el, kind: kind, render: null };
+    var fn = VIEWS[kind];
+    if (!fn) { el.innerHTML = '<div class="mv-empty">Unknown view "' + xesc(kind) + '".</div>'; return view; }
+    fn(entry, el, view);
+    if (view.render) { entry.views.push(view); view.render(); }
+    if (view.afterMount) view.afterMount();
+    return view;
+  }
+
+  // ============================================== linked variables: page
+  function findVar(name) {
+    for (var i = 0; i < order.length; i++) { var e = models[order[i]]; if (e.model.varIndex[name]) return e; }
+    return null;
+  }
+  function decorateProse() {
+    var main = document.querySelector("main") || document.body;
+    main.querySelectorAll("code").forEach(function (c) {
+      if (c.closest("pre, a, .model-viewer, .mv-card, mjx-container, h1, h2, h3, h4, h5, h6")) return;
+      var name = c.textContent.trim(), e = findVar(name);
+      if (!e) return;
+      var a = document.createElement("a");
+      a.className = "mv-var"; a.href = "#" + varId(e, name);
+      a.setAttribute("data-mv-src", e.src); a.setAttribute("data-mv-var", name);
+      c.parentNode.insertBefore(a, c); a.appendChild(c);
+    });
+  }
+
+  // Hover card: one per variable (or formula), typeset once and reused.
+  var cards = {}, shown = null, hideTimer = null;
+  function cardFor(entry, key, build) {
+    var id = entry.src + "\u0000" + key;
+    if (cards[id]) return cards[id];
+    var el = document.createElement("div");
+    el.className = "mv-card"; el.hidden = true; el.setAttribute("role", "tooltip");
+    el.innerHTML = build();
+    document.body.appendChild(el);
+    cards[id] = el;
+    typeset(el).then(function () { if (shown && shown.card === el) place(el, shown.target); });
+    return el;
+  }
+  function varCardHTML(entry, v) {
+    var h = '<div class="mv-card-h"><span class="mv-card-sym">' + texI(symTex(entry, v, false)) + "</span><code>" + xesc(v.name) + "</code>" +
+            '<span class="mv-badge' + (v.isCalc ? " calc" : "") + '">' + (v.isCalc ? "calculated" : xesc(v.type || "input")) + "</span></div>";
+    if (v.fullName) h += '<div class="mv-card-name">' + xesc(v.fullName) + "</div>";
+    h += '<div class="mv-card-row"><b>Value</b> ' + valueText(v) + (unitText(v.unit) ? " " + unitText(v.unit) : "") +
+         (boundsText(v) ? ' <span class="mv-muted">· range ' + boundsText(v) + "</span>" : "") + "</div>";
+    if (v.isCalc) h += '<div class="mv-card-math">' + texD(displayTex(entry, v, false, 26, symTex(entry, v, false))) + "</div>";
+    if (v.path) h += '<div class="mv-card-row mv-muted">From the simulator: <code>' + xesc(v.path) + "</code></div>";
+    if (v.description && v.description !== v.fullName) h += '<div class="mv-card-desc">' + xesc(v.description) + "</div>";
+    if (v.reference) h += '<div class="mv-card-ref">Source: ' + xesc(v.reference) + "</div>";
+    if (document.getElementById(varId(entry, v.name))) h += '<div class="mv-card-hint">Click to go to its definition</div>';
+    return h;
+  }
+  function place(card, target) {
+    var r = target.getBoundingClientRect(), w = card.offsetWidth, h = card.offsetHeight, m = 8;
+    var x = Math.max(m, Math.min(r.left, window.innerWidth - w - m));
+    var y = r.bottom + 6;
+    if (y + h > window.innerHeight - m) y = Math.max(m, r.top - h - 6);
+    card.style.left = x + "px"; card.style.top = y + "px";
+  }
+  function targetInfo(t) {
+    var src = t.getAttribute("data-mv-src"), name = t.getAttribute("data-mv-var"), formula = t.getAttribute("data-mv-formula");
+    if (!src) {
+      var href = t.getAttribute("href") || "", hit = idMap[href.replace(/^#/, "")];
+      if (!hit) return null;
+      src = hit.src; name = hit.name;
+    }
+    var entry = models[src];
+    return entry ? { entry: entry, name: name, formula: formula } : null;
+  }
+  function showCard(t) {
+    var info = targetInfo(t);
+    if (!info) return;
+    clearTimeout(hideTimer);
+    var card;
+    if (info.name) {
+      var v = info.entry.model.varIndex[info.name];
+      if (!v) return;
+      card = cardFor(info.entry, "v:" + info.name, function () { return varCardHTML(info.entry, v); });
+    } else if (info.formula) {
+      card = cardFor(info.entry, "f:" + info.formula, function () {
+        return '<div class="mv-card-name">Calculated from</div><div class="mv-card-math">' + texI(formulaStringTex(info.entry, info.formula, false)) + "</div>";
+      });
+    }
+    if (!card) return;
+    if (shown && shown.card !== card) shown.card.hidden = true;
+    card.hidden = false;
+    place(card, t);
+    shown = { card: card, target: t };
+  }
+  function hideCard() {
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(function () { if (shown) { shown.card.hidden = true; shown = null; } }, 80);
+  }
+  var LINK_SEL = 'a.mv-var, .mv-val, mjx-container a[href^="#mv-var-"]';
+  function bindLinks() {
+    document.addEventListener("mouseover", function (e) {
+      var t = e.target.closest && e.target.closest(LINK_SEL);
+      if (t) showCard(t);
+    });
+    document.addEventListener("mouseout", function (e) {
+      var t = e.target.closest && e.target.closest(LINK_SEL);
+      if (t && !(e.relatedTarget && t.contains(e.relatedTarget))) hideCard();
+    });
+    document.addEventListener("focusin", function (e) { var t = e.target.closest && e.target.closest(LINK_SEL); if (t) showCard(t); });
+    document.addEventListener("focusout", function (e) { var t = e.target.closest && e.target.closest(LINK_SEL); if (t) hideCard(); });
+    window.addEventListener("scroll", function () { if (shown) { shown.card.hidden = true; shown = null; } }, { passive: true });
+    document.addEventListener("click", function (e) {
+      var t = e.target.closest && e.target.closest('a[href^="#mv-var-"], a[href^="#mv-eq-"]');
+      if (!t) return;
+      var id = (t.getAttribute("href") || "").slice(1), dest = document.getElementById(id);
+      if (!dest) { e.preventDefault(); return; }
+      setTimeout(function () {
+        dest.classList.remove("mv-flash"); void dest.offsetWidth; dest.classList.add("mv-flash");
+        setTimeout(function () { dest.classList.remove("mv-flash"); }, 1900);
+      }, 30);
+    });
+  }
+
+  // ================================================================ start
+  var api = { toTexLines: toTexLines, vlen: vlen, solve: solve, readModel: readModel, readUnits: readUnits, composite: composite, streamCP: streamCP, sHi: sHi, sLo: sLo,
+              parseFormula: parseFormula, toTex: toTex, evalFormula: evalFormula, prettySym: prettySym, buildFlows: buildFlows,
+              streamTable: streamTable, streamWarnings: streamWarnings, nice: nice, ticks: ticks, compositionHTML: compositionHTML };
+  if (window.__mvTestHook) window.__mvTestHook(api);
+
+  var roots = document.querySelectorAll(".model-viewer");
+  if (!roots.length) return;
+
+  // Read every embedded model first: views of one file share a single copy.
+  roots.forEach(function (r) {
+    var src = r.getAttribute("data-src") || "", node = r.querySelector('script[type="application/json"]');
+    if (!node || models[src]) return;
+    try {
+      var entry = { src: src, model: readModel(JSON.parse(node.textContent)), state: { unit: 0, f: 1 }, views: [] };
+      entry.prefix = order.length ? (order.length + 1) + "-" : "";
+      models[src] = entry; order.push(src);
+      entry.model.vars.forEach(function (v) { idMap[varId(entry, v.name)] = { src: src, name: v.name }; });
+    } catch (e) {
+      console.error("model-viewer:", e);
+    }
+  });
+
+  roots.forEach(function (r) {
+    var src = r.getAttribute("data-src") || "", entry = models[src];
+    var kind = r.getAttribute("data-view") || "all";
+    if (!entry) { r.innerHTML = '<div class="mv-empty">Could not read ' + xesc(src) + ".</div>"; return; }
+    if (!entry.model.units.length && ["summary", "flows", "streams", "cc", "gcc", "unit", "all", "tabs"].indexOf(kind) >= 0) {
+      r.innerHTML = '<div class="mv-empty">No units found in ' + xesc(src) + ".</div>"; return;
+    }
+    var host = document.createElement("div");
+    r.appendChild(host);
+    try { makeView(entry, host, kind); }
     catch (e) {
       console.error("model-viewer:", e);
-      roots[i].innerHTML = '<div class="mv-empty">The model viewer could not render this model.</div>';
+      host.innerHTML = '<div class="mv-empty">The model viewer could not render this view.</div>';
     }
-  }
+  });
+
+  decorateProse();
+  bindLinks();
+
+  var resizeTimer = null, lastW = window.innerWidth;
+  window.addEventListener("resize", function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      if (window.innerWidth === lastW) return;
+      lastW = window.innerWidth;
+      order.forEach(function (s) { models[s].views.forEach(function (v) { if (v.plot) v.render(); }); });
+    }, 150);
+  });
 });
 </script>

@@ -1,21 +1,6 @@
 # Cooling tower {.unnumbered}
 
-| | |
-|:--|:--|
-| **Model name** | `CoolingTower` |
-| **Category** | Energy technology — cold utility |
-| **Authors** | Daniel Flórez-Orrego, EPFL IPESE research group |
-| **Contact** | daniel.florezorrego@epfl.ch, oktay.boztas@epfl.ch |
-| **Version** | 1.0.1 (created 01.06.2025, last updated 24.03.2026) |
-| **Status** | Maintained |
-| **Confidentiality** | Open (sharing layer 1) |
-| **Model grade** | Grey box |
-| **TRL** | 9 |
-| **Reference capacity** | 100 000 kW of cooling (`Cool_Qmax`) |
-| **Keywords** | Cold utility, cooling water, electricity, evaporation |
-| **Main related publication** | <https://www.sciencedirect.com/science/article/pii/S0959652619335176> |
-
-: Model card {.striped}
+{{< model-viewer JSON/CoolingTower.json view="card" >}}
 
 ## Description
 
@@ -27,127 +12,51 @@ Recirculation pumps and forced-draft fans consume electricity, and the evaporate
 
 ![Block flow diagram of the cooling tower unit](Figures/CoolTower.svg){#fig-cooltower width=60%}
 
-## Model overview
+## Key figures
 
-The figures below are generated directly from the model's JSON description. Change the scale factor *f* to see how duties and flows scale with the size of the unit.
+Minimum utility requirements of the unit on its own, from its heat streams. The scale factor *f* multiplies every duty and flow on this page, as the optimisation does with the unit's size.
 
-{{< model-viewer JSON/CoolingTower.json >}}
+{{< model-viewer JSON/CoolingTower.json view="summary" >}}
+
+### Flows
+
+{{< model-viewer JSON/CoolingTower.json view="flows" >}}
 
 ## Model
 
-### Thermal performance
+Throughout this page, names written like `Cool_Qmax` are variables of the model: hover one for its definition, click it to go to its row in the [variables](#variables) table. The same holds for the symbols in the equations and for underlined values in the tables. The equations below are generated from the formulas of the model's JSON description, and each is tagged with the name of the variable it defines.
 
-The tower is characterised by two temperature differences:
+**Thermal performance.** The tower is characterised by its `range`, the difference between the return temperature `Cool_Tout` and the supply temperature `Cool_Tin`, and by its `approach`, the difference between the supply temperature and the ambient wet-bulb temperature `Twetbulb`. Evaporative cooling cannot bring the water below the wet-bulb temperature, so the approach must always be positive. Smaller approaches require exponentially larger towers. Typical design values are a range of 5.5–8.3 K and an approach of 3.3–6.7 K, with an inlet water temperature below 33 °C.
 
-- the **range**, the difference between the return (hot) and supply (cold) water temperatures;
-- the **approach**, the difference between the supply water temperature and the ambient wet-bulb temperature.
+**Wet-bulb temperature.** `Twetbulb` is computed from the dry-bulb temperature `Tdrybulb` and the relative humidity `RelatHum` with the empirical correlation of Stull (2011). The arctangents are evaluated in radians. The correlation is valid for 5–99 % relative humidity and −20 to 50 °C at sea-level pressure (except at combined low humidity and low temperature), with a mean absolute error below 0.3 °C.
 
-$$
-\Delta T_{range} = T_{out} - T_{in}, \qquad \Delta T_{approach} = T_{in} - T_{wb}
-$$ {#eq-ct-range-approach}
+**Water flows and electricity.** The circulating water flow `water_flow` follows from the heat load `Cool_Qmax`, the specific heat capacity `cp_water` and the range. The make-up water `watermu_CT` is estimated with the usual rule of thumb of 0.085 % of the circulating flow per °F of range (the factor 1.8 converts K to °F). The electricity of pumps and fans, `E_ref_CT`, is proportional to the heat load through `Cool_Elec`.
 
-Evaporative cooling cannot bring the water below the wet-bulb temperature, so the approach must always be positive ($T_{in} > T_{wb}$). Smaller approaches require exponentially larger towers. Typical design values are a range of 5.5–8.3 K and an approach of 3.3–6.7 K, with an inlet water temperature below 33 °C.
+**Investment cost.** The tower investment cost `CTCost` (EUR, 2008) is a correlation in the circulating water flow, the range, the approach and the wet-bulb temperature. It is updated with the cost indices `CEPCI_2020` and `CEPCI_2008` and annualised with the capital recovery factor `Annuity`, over the lifetime `n` at the interest rate `i`, to give the annualised investment cost `Cinv2_CT`.
 
-### Wet-bulb temperature
+{{< model-viewer JSON/CoolingTower.json view="equations" >}}
 
-The wet-bulb temperature is computed from the dry-bulb temperature $T$ (°C) and the relative humidity $RH$ (%) with the empirical correlation of Stull (2011):
+## Variables
 
-$$
-\begin{aligned}
-T_{wb} ={} & T \arctan\!\left[0.151977\,(RH + 8.313659)^{1/2}\right] + \arctan(T + RH) - \arctan(RH - 1.676331) \\
-& + 0.00391838\,RH^{3/2} \arctan(0.023101\,RH) - 4.686035
-\end{aligned}
-$$ {#eq-ct-stull}
+{{< model-viewer JSON/CoolingTower.json view="variables" >}}
 
-The arctangents are evaluated in radians. The correlation is valid for 5–99 % relative humidity and −20 to 50 °C at sea-level pressure (except at combined low humidity and low temperature), with a mean absolute error below 0.3 °C.
+## Unit and connectors
 
-### Water flows and electricity
+{{< model-viewer JSON/CoolingTower.json view="unit" >}}
 
-The circulating water flow follows from the heat load and the range. The make-up water is estimated with the usual rule of thumb of 0.085 % of the circulating flow per °F of range (the factor 1.8 converts K to °F). The electricity of pumps and fans is proportional to the heat load.
-
-$$
-\dot m_{w} = \frac{\dot Q_{max}}{c_{p,w}\,\Delta T_{range}}, \qquad
-\dot V_{mu} = 0.00085 \cdot 1.8\,\dot V_{w}\,\Delta T_{range}, \qquad
-\dot E_{CT} = e_{CT}\,\dot Q_{max}
-$$ {#eq-ct-flows}
-
-### Investment cost
-
-The tower investment cost (EUR, 2008) is given by the correlation below, with $\dot m_w$ in t/h and temperatures in K or °C. It is updated with the CEPCI and annualised over the lifetime $n$ at interest rate $i$:
-
-$$
-C_{CT} = \frac{746.49}{0.066}\,\dot m_w^{0.79}\,\Delta T_{range}^{0.57}\,\Delta T_{approach}^{-0.9924}\,(0.022\,T_{wb} + 0.39)^{2.447}
-$$ {#eq-ct-cost}
-
-$$
-\tau = \frac{i\,(1+i)^n}{(1+i)^n - 1}, \qquad
-C_{inv,2} = C_{CT}\,\frac{CEPCI_{2020}}{CEPCI_{2008}}\,\tau
-$$ {#eq-ct-annuity}
-
-## Parameters
-
-### Input parameters
-
-| Variable | Description | Type | Default | Bounds | Unit |
-|:--|:--|:--|--:|:--|:--|
-| `Cool_Tin` | Supply (cold) water temperature | Decision | 13 | 5 – 20 | °C |
-| `Cool_Tout` | Return (hot) water temperature | Context | 30 | 25 – 40 | °C |
-| `Cool_Qmax` | Reference heat load | Literature | 100 000 | 10 000 – 500 000 | kW |
-| `cp_water` | Specific heat capacity of water | Literature | 4.2 | 4.0 – 4.3 | kJ/(kg·K) |
-| `Tdrybulb` | Dry-bulb temperature | Context | 20 | −10 – 45 | °C |
-| `RelatHum` | Relative humidity | Context | 40 | 10 – 100 | % |
-| `Cool_Elec` | Electricity per unit of heat removed | Literature | 0.021 | 0.005 – 0.05 | kW~el~/kW~th~ |
-| `dtmin_gas` | $\Delta T_{min}/2$ contribution, gas streams | Context | 8 | 5 – 30 | °C |
-| `dtmin_liq` | $\Delta T_{min}/2$ contribution, liquid streams | Context | 5 | 2 – 15 | °C |
-| `dtmin_2ph` | $\Delta T_{min}/2$ contribution, two-phase streams | Context | 2 | 1 – 10 | °C |
-| `n` | Lifetime | Context | 40 | 10 – 60 | year |
-| `i` | Interest rate | Context | 0.06 | 0.01 – 0.15 | – |
-| `CEPCI_2020` | Cost index, 2020 | Context | 596.2 | – | – |
-| `CEPCI_2008` | Cost index, 2008 (correlation base year) | Context | 575.4 | – | – |
-
-: Input parameters of the cooling tower model {#tbl-ct-inputs .striped}
-
-### Calculated parameters
-
-Values computed with the default inputs.
-
-| Variable | Description | Formula | Value | Unit |
-|:--|:--|:--|--:|:--|
-| `Twetbulb` | Wet-bulb temperature | @eq-ct-stull | 12.32 | °C |
-| `range` | Temperature range | `Cool_Tout - Cool_Tin` | 17 | K |
-| `approach` | Approach temperature | `Cool_Tin - Twetbulb` | 0.68 | K |
-| `E_ref_CT` | Electricity consumption | `Cool_Elec * Cool_Qmax` | 2 100 | kW |
-| `water_flow` | Circulating water flow | `Cool_Qmax / cp_water / range * 3600 / 1000` | 5 042 | t/h |
-| `water_vflow` | Circulating water volume flow (1 t/m³) | `water_flow` | 5 042 | m³/h |
-| `watermu_CT` | Make-up water | `0.00085 * 1.8 * water_vflow * range` | 131.1 | m³/h |
-| `Annuity` | Capital recovery factor | @eq-ct-annuity | 0.0665 | – |
-| `CTCost` | Tower investment cost | @eq-ct-cost | 25.5 × 10^6^ | EUR |
-| `Cinv2_CT` | Annualised investment cost | @eq-ct-annuity | 1.75 × 10^6^ | EUR/y |
-
-: Calculated parameters of the cooling tower model {#tbl-ct-outputs .striped}
-
-## Units and streams
-
-The model has a single unit, `CoolingTower`, of type **utility**. Its size multiplier (between 0 and 100 times the reference capacity) and its existence are optimisation variables. The investment cost is fully proportional to the size (`Cinv2 = Cinv2_CT`); fixed and variable operating costs are zero.
-
-### Resource streams
-
-| Connector | Layer type | Direction | Flow | Unit | Conditions |
-|:--|:--|:--|:--|:--|:--|
-| `ELECTRICITY` | Electricity | in | `E_ref_CT` | kW | – |
-| `WATER` | Mass (make-up water) | in | `watermu_CT` | m³/h | 25 °C, 1 bar, liquid H~2~O |
-
-: Resource streams of the `CoolingTower` unit {#tbl-ct-resources .striped}
+## Heat integration
 
 ### Heat streams
 
-A single cold stream takes the circulating water from the supply to the return temperature and absorbs the process waste heat. The heat cascade is the default one.
+{{< model-viewer JSON/CoolingTower.json view="streams" >}}
 
-| Stream | T~in~ | T~out~ | H~in~ | H~out~ | $\Delta T_{min}/2$ | $\alpha$ |
-|:--|:--|:--|:--|:--|:--|:--|
-| Cooling tower heat | `Cool_Tin` | `Cool_Tout` | 0 kW | `Cool_Qmax` | `dtmin_liq` | 1 kW/(m²·K) |
+### Composite curves
 
-: Heat stream of the `CoolingTower` unit {#tbl-ct-heat .striped}
+{{< model-viewer JSON/CoolingTower.json view="cc" >}}
+
+### Grand composite curve
+
+{{< model-viewer JSON/CoolingTower.json view="gcc" >}}
 
 ## Supplementary material
 
@@ -163,9 +72,4 @@ A single cold stream takes the circulating water from the supply to the return t
 
 ## References
 
-1. Int. J. Environ. Sci. Tech., 5 (2), 251–262, 2008.
-2. Flórez-Orrego D., et al., ECOS2105.
-3. Stull R. (2011). Wet-bulb temperature from relative humidity and air temperature. *Journal of Applied Meteorology and Climatology*, 50(11), 2267–2269. <https://doi.org/10.1175/JAMC-D-11-0143.1>
-4. Perry's Chemical Engineers' Handbook.
-5. SPX Cooling Technologies, cooling towers. <https://spxcooling.com/coolingtowers>
-6. Marley, *Cooling tower energy and its management*.
+{{< model-viewer JSON/CoolingTower.json view="references" >}}

@@ -18,9 +18,12 @@ Each top-level folder is a part of the book, and each model has its own folder:
 Pages are listed explicitly in `_quarto.yml` under `book: chapters:`. To add a
 model, create its folder with an `index.qmd` and add that file to the chapters.
 
-On a model page, `{{< model-viewer JSON/Model.json >}}` renders an interactive
-overview from the model's JSON: flows, heat streams, composite curves and grand
-composite curve (HTML output only).
+On a model page, `{{< model-viewer JSON/Model.json view="..." >}}` renders one
+view of the model from its JSON description: `card`, `summary`, `flows`,
+`equations`, `variables`, `unit`, `streams`, `cc`, `gcc` or `references`
+(without `view`, a compact tabbed overview). Variables named in the text as
+inline code are linked to their definitions. See
+`1-EnergyTechnologies/CoolingTower/index.qmd` for a complete example.
 
 ## Building
 

@@ -2,13 +2,17 @@
 
 ## Browsing the models {.unnumbered}
 
-Models are grouped in three parts: **Energy technologies**, **Decarbonisation technologies** and **Industrial processes**. Each model has one page, which contains:
+Models are grouped in three parts: **Energy technologies**, **Decarbonisation technologies** and **Industrial processes**. Each model has one page. Its tables, equations and plots are generated from the model's JSON description, so they always match the data:
 
 * a **model card** with the metadata of the template (authors, version, status, confidentiality and sharing layer, grade, reference capacity, TRL, keywords, main publication);
 * a description of the technology or process and its block flow diagram;
-* an interactive **model overview** generated from the model's JSON description, with four views: the flows entering and leaving the model, the heat streams table, the composite curves and the grand composite curve. A scale factor *f* rescales every duty and flow;
-* the model equations, its input and calculated parameters, and its units and streams;
+* the **key figures** — minimum hot and cold utility, internal heat recovery, pinch — and the **flows** entering and leaving the model, with its heat demand and heat release. A scale factor *f* rescales every duty and flow on the page;
+* the model **equations**, one per calculated variable, and the tables of input and calculated **variables**;
+* the **unit and connectors**, equipment and operating costs;
+* the **heat streams** table (hot streams in red, cold streams in blue), the **composite curves** and the **grand composite curve**;
 * links to the **supplementary material**: the OSMOSE (Lua) implementation, the JSON and Excel descriptions, documents and editable figures.
+
+**Variables are linked everywhere.** A variable name in the text (written like `Cool_Qmax`), a symbol in an equation, or an underlined value in a table shows the variable's definition when you hover over it — symbol, value, range, formula, description and source — and takes you to its row in the variables table when you click it. Hovering a point of a plot shows its values.
 
 The search box at the bottom of the sidebar searches the full text of every page.
 
@@ -66,13 +70,32 @@ followed by the model card, a description, the block flow diagram, the model equ
 
 Files linked from the page are published with it, so readers can download them.
 
-**4. Add the model overview.** One line renders the flows, heat streams, composite curves and grand composite curve from the JSON description:
+**4. Add the generated views.** Each view is one line that renders part of the model from its JSON description; place them in the sections of the page where they belong:
 
 ```markdown
-{{{< model-viewer JSON/CoolingTower.json >}}}
+{{{< model-viewer JSON/CoolingTower.json view="card" >}}}
 ```
 
-The overview also runs data checks — for example a stream declared *Hot* whose temperature rises, or a heat stream without a ΔT~min~ contribution — and lists them under the heat streams table, so it is a quick way to validate a JSON file.
+| View | Renders |
+|:--|:--|
+| `card` | Model card from the metadata |
+| `summary` | Key figures, with the unit selector and the scale factor *f* |
+| `flows` | Flows in and out of the unit, heat demand and heat release |
+| `equations` | One equation per calculated variable, from its formula |
+| `variables` | Tables of input and calculated variables |
+| `unit` | Unit description, connectors, equipment and operating costs |
+| `streams` | Heat streams table and data checks |
+| `cc` | Composite curves |
+| `gcc` | Grand composite curve |
+| `references` | References listed in the metadata |
+
+: Views of the `model-viewer` shortcode {.striped}
+
+Without `view`, the shortcode renders a compact tabbed overview of the key figures, flows, heat streams and curves. The [cooling tower page](1-EnergyTechnologies/CoolingTower/index.qmd) uses every view and can serve as a template.
+
+When the text names a variable, write it as inline code with its exact name in the JSON — `` `Cool_Qmax` `` — and it becomes linked automatically.
+
+The views also run data checks and list them where they apply: a stream declared *Hot* whose temperature rises, a heat stream without a ΔT~min~ contribution, a connector without a flow, or a calculated value that differs from what its formula gives with the stored values of its variables. They are a quick way to validate a JSON file.
 
 **5. Register the page** in `_quarto.yml`, under `book: chapters:` in the right part:
 
