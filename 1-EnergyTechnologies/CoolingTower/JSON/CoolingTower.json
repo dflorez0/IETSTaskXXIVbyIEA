@@ -502,7 +502,7 @@
                     "PRESSURE UNIT": "bar",
                     "VAPOR FRACTION [MASS]": -1.0,
                     "PHASE": "(L)",
-                    "COMPOSITION [MOLE/MASS]": "MASSFRAC:H20[1]",
+                    "COMPOSITION [MOLE/MASS]": "MASSFRAC:H2O[1]",
                     "REFERENCE STREAM": "No",
                     "DESCRIPTION": "Water input"
                 }
@@ -511,7 +511,7 @@
             "Heat Streams": [
                 {
                     "NAME": "Cooling tower heat",
-                    "TYPE": "Hot",
+                    "TYPE": "Cold",
                     "INLET TEMPERATURE VALUE": {
                         "value": 13,
                         "formula": "=Cool_Tin"
@@ -582,7 +582,7 @@
                                 "value": 40,
                                 "formula": "=n"
                             },
-                            "Unit": "%"
+                            "Unit": "year"
                         },
                         {
                             "Parameter": "Interest rate",
