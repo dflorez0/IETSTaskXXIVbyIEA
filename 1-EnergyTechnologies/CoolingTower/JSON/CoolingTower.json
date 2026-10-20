@@ -64,7 +64,7 @@
             "MIN BOUND": 4,
             "MAX BOUND": 4.3,
             "LATEX SYNTAX": "$cp_{water}$",
-            "REFERENCE": "ECOS2015, Florez-Orrego, et al.",
+            "REFERENCE": "Daniel Florez-Orrego",
             "DESCRIPTION": "Heat capacity of water at 25°C"
         },
         {
@@ -78,7 +78,7 @@
             "MIN BOUND": 10000,
             "MAX BOUND": 500000,
             "LATEX SYNTAX": "$Cool_{Qmax}$",
-            "REFERENCE": "ECOS2015, Florez-Orrego, et al.",
+            "REFERENCE": "Daniel Florez-Orrego",
             "DESCRIPTION": "Cooling tower reference heat load"
         },
         {
@@ -92,7 +92,7 @@
             "MIN BOUND": -10,
             "MAX BOUND": 45,
             "LATEX SYNTAX": "$T_{drybulb}$",
-            "REFERENCE": "ECOS2015, Florez-Orrego, et al.",
+            "REFERENCE": "Daniel Florez-Orrego",
             "DESCRIPTION": "Dry-bulb temperature of the ambient air at the site, at design conditions"
         },
         {
@@ -106,7 +106,7 @@
             "MIN BOUND": 10,
             "MAX BOUND": 100,
             "LATEX SYNTAX": "$RelatHum$",
-            "REFERENCE": "ECOS2015, Florez-Orrego, et al.",
+            "REFERENCE": "Daniel Florez-Orrego",
             "DESCRIPTION": "Relative humidity of the ambient air at the site, at design conditions"
         },
         {
@@ -151,7 +151,7 @@
             "MIN BOUND": 5,
             "MAX BOUND": 30,
             "LATEX SYNTAX": "$\\Delta t_{min,\\,gas}$",
-            "REFERENCE": "ECOS2015, Florez-Orrego, et al.",
+            "REFERENCE": "Daniel Florez-Orrego",
             "DESCRIPTION": "Minimal temperature difference in a heat exchanger operating with gas"
         },
         {
@@ -165,7 +165,7 @@
             "MIN BOUND": 2,
             "MAX BOUND": 15,
             "LATEX SYNTAX": "$\\Delta t_{min,\\,liq}$",
-            "REFERENCE": "ECOS2015, Florez-Orrego, et al.",
+            "REFERENCE": "Daniel Florez-Orrego",
             "DESCRIPTION": "Minimal temperature difference in a heat exchanger operating with liquid"
         },
         {
@@ -179,7 +179,7 @@
             "MIN BOUND": 1,
             "MAX BOUND": 10,
             "LATEX SYNTAX": "$\\Delta t_{min,\\,2ph}$",
-            "REFERENCE": "ECOS2015, Florez-Orrego, et al.",
+            "REFERENCE": "Daniel Florez-Orrego",
             "DESCRIPTION": "Minimal temperature difference in a heat exchanger operating with two phase mixture"
         },
         {
@@ -193,7 +193,7 @@
             "MIN BOUND": 10,
             "MAX BOUND": 60,
             "LATEX SYNTAX": "$n$",
-            "REFERENCE": "ECOS2015, Florez-Orrego, et al.",
+            "REFERENCE": "Daniel Florez-Orrego",
             "DESCRIPTION": "Lifetime of the cooling tower"
         },
         {
@@ -207,7 +207,7 @@
             "MIN BOUND": 0.01,
             "MAX BOUND": 0.15,
             "LATEX SYNTAX": "$i$",
-            "REFERENCE": "ECOS2015, Florez-Orrego, et al.",
+            "REFERENCE": "Daniel Florez-Orrego",
             "DESCRIPTION": "Interest rate of the cooling tower"
         },
         {
@@ -221,7 +221,7 @@
             "MIN BOUND": "-",
             "MAX BOUND": "-",
             "LATEX SYNTAX": "$CEPCI_{2020}$",
-            "REFERENCE": "ECOS2015, Florez-Orrego, et al.",
+            "REFERENCE": "Daniel Florez-Orrego",
             "DESCRIPTION": "CEPCI (2020)"
         },
         {
@@ -235,7 +235,7 @@
             "MIN BOUND": "-",
             "MAX BOUND": "-",
             "LATEX SYNTAX": "$CEPCI_{2008}$",
-            "REFERENCE": "ECOS2015, Florez-Orrego, et al.",
+            "REFERENCE": "Daniel Florez-Orrego",
             "DESCRIPTION": "CEPCI for the reference year (2008)"
         },
         {
@@ -258,7 +258,7 @@
                 "formula": "=Cool_Elec*Cool_Qmax"
             },
             "LATEX SYNTAX": "$E_{ref,\\,CT}$",
-            "REFERENCE": "ECOS2015, Florez-Orrego, et al.",
+            "REFERENCE": "Daniel Florez-Orrego",
             "DESCRIPTION": "Electricity consumption of the cooling tower"
         },
         {
@@ -281,7 +281,7 @@
                 "formula": "=Cool_Tout-Cool_Tin"
             },
             "LATEX SYNTAX": "$range$",
-            "REFERENCE": "ECOS2015, Florez-Orrego, et al.",
+            "REFERENCE": "Daniel Florez-Orrego",
             "DESCRIPTION": "Difference between return and supply temperature"
         },
         {
@@ -298,7 +298,7 @@
             "MIN BOUND": 0,
             "MAX BOUND": 35,
             "LATEX SYNTAX": "$approach$",
-            "REFERENCE": "ECOS2015, Florez-Orrego, et al.",
+            "REFERENCE": "Daniel Florez-Orrego",
             "DESCRIPTION": "Difference between the cold-water supply temperature and the ambient wet-bulb temperature"
         },
         {
@@ -315,7 +315,7 @@
             "MIN BOUND": 100,
             "MAX BOUND": 20000,
             "LATEX SYNTAX": "$\\dot{m}_{water}$",
-            "REFERENCE": "ECOS2015, Florez-Orrego, et al.",
+            "REFERENCE": "Daniel Florez-Orrego",
             "DESCRIPTION": "Water flow rate in ton per hour"
         },
         {
@@ -338,7 +338,7 @@
                 "formula": "=water_flow"
             },
             "LATEX SYNTAX": "$\\dot{V}_{water}$",
-            "REFERENCE": "ECOS2015, Florez-Orrego, et al.",
+            "REFERENCE": "Daniel Florez-Orrego",
             "DESCRIPTION": "Water volumetric flow rate"
         },
         {
@@ -355,7 +355,7 @@
             "MIN BOUND": 1,
             "MAX BOUND": 500,
             "LATEX SYNTAX": "$\\mu_{water,\\,CT}$",
-            "REFERENCE": "ECOS2015, Florez-Orrego, et al.",
+            "REFERENCE": "Daniel Florez-Orrego",
             "DESCRIPTION": "Makeup water volumetric flow rate"
         },
         {
@@ -372,7 +372,7 @@
             "MIN BOUND": 0.01,
             "MAX BOUND": 0.2,
             "LATEX SYNTAX": "$Annuity$",
-            "REFERENCE": "ECOS2015, Florez-Orrego, et al.",
+            "REFERENCE": "Daniel Florez-Orrego",
             "DESCRIPTION": "Annualization factor"
         },
         {
@@ -389,7 +389,7 @@
             "MIN BOUND": 1000000,
             "MAX BOUND": 100000000,
             "LATEX SYNTAX": "$C_{T,\\,cost}$",
-            "REFERENCE": "ECOS2015, Florez-Orrego, et al.",
+            "REFERENCE": "Daniel Florez-Orrego",
             "DESCRIPTION": "Total investment cost"
         },
         {
@@ -406,7 +406,7 @@
             "MIN BOUND": 100000,
             "MAX BOUND": 10000000,
             "LATEX SYNTAX": "$C_{inv2,\\,CT}$",
-            "REFERENCE": "ECOS2015, Florez-Orrego, et al.",
+            "REFERENCE": "Daniel Florez-Orrego",
             "DESCRIPTION": "Annualized investment cost"
         }
     ],
