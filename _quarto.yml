@@ -1,5 +1,5 @@
 project:
-  type: book
+  type: website
   output-dir: _book
 
   # Only the pages below are rendered. Model folders also hold supplementary
@@ -12,58 +12,67 @@ project:
     - 02-HowToUseThisDatabase.qmd
     - "*/index.qmd"
     - "*/*/index.qmd"
+    - "*/*/*/index.qmd"
 
-book:
+website:
   title: "IETS Task XXIV"
-  subtitle: "Database of IEA Task XXIV Process Integration for Industry Decarbonization"
-  author: "IETS Task XXIV"
-  date: today
-  date-format: "YYYY-MM-DD"
   favicon: template_files/iets-logo.png
 
   search: true
+  page-navigation: true
   page-footer:
     center: "©2026 - IETS Task XXIV"
 
+  # One section per top-level folder; one page per model folder. A section's
+  # href is its landing page. Sections nest, e.g. a sector within a part.
   sidebar:
     logo: template_files/iets-logo.png
     title: "Task XXIV"
     style: docked
     collapse-level: 1
+    contents:
+      - href: index.qmd
+        text: "About this database"
 
-  # One part per top-level folder; one page per model folder. A part entry
-  # pointing at a file makes that file the part's landing page.
-  chapters:
-    - index.qmd
+      - section: "Task XXIV"
+        href: 0-TaskXXIVDescription/index.qmd
+        contents:
+          - 00-TaskDescription.qmd
+          - 01-ParticipationRules.qmd
+          - 02-HowToUseThisDatabase.qmd
 
-    - part: 0-TaskXXIVDescription/index.qmd
-      chapters:
-        - 00-TaskDescription.qmd
-        - 01-ParticipationRules.qmd
-        - 02-HowToUseThisDatabase.qmd
+      - section: "Energy technologies"
+        href: 1-EnergyTechnologies/index.qmd
+        contents:
+          - 1-EnergyTechnologies/CoolingTower/index.qmd
+          - 1-EnergyTechnologies/FurnaceNG/index.qmd
+          - 1-EnergyTechnologies/HeatPump/index.qmd
+          - 1-EnergyTechnologies/Refrigerator/index.qmd
 
-    - part: 1-EnergyTechnologies/index.qmd
-      chapters:
-        - 1-EnergyTechnologies/CoolingTower/index.qmd
-        - 1-EnergyTechnologies/FurnaceNG/index.qmd
-        - 1-EnergyTechnologies/HeatPump/index.qmd
-        - 1-EnergyTechnologies/Refrigerator/index.qmd
+      - section: "Decarbonisation technologies"
+        href: 2-DecarbTechnologies/index.qmd
+        contents:
+          - 2-DecarbTechnologies/CcsAmines/index.qmd
+          - 2-DecarbTechnologies/HighTElectrolysis/index.qmd
+          - 2-DecarbTechnologies/LowTElectrolysis/index.qmd
 
-    - part: 2-DecarbTechnologies/index.qmd
-      chapters:
-        - 2-DecarbTechnologies/CcsAmines/index.qmd
-        - 2-DecarbTechnologies/HighTElectrolysis/index.qmd
-        - 2-DecarbTechnologies/LowTElectrolysis/index.qmd
-
-    - part: 3-IndustrialProcesses/index.qmd
-      chapters:
-        - 3-IndustrialProcesses/ChemicalSector/index.qmd
-        - 3-IndustrialProcesses/FoodSector/index.qmd
+      - section: "Industrial processes"
+        href: 3-IndustrialProcesses/index.qmd
+        contents:
+          - section: "Chemical sector"
+            href: 3-IndustrialProcesses/ChemicalSector/index.qmd
+            contents:
+              - 3-IndustrialProcesses/ChemicalSector/MethanolToOlefins/index.qmd
+          - 3-IndustrialProcesses/FoodSector/index.qmd
 
 # {{< model-viewer JSON/Model.json >}} on a model page renders that model's
 # key figures, block flow diagram and composite curves (HTML only).
 shortcodes:
   - template_files/model-viewer.lua
+
+# A page's leading "# Title" heading is its title (see h1-title.lua).
+filters:
+  - template_files/h1-title.lua
 
 crossref:
   eq-prefix: "Eq."

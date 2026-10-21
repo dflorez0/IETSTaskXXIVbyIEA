@@ -1,3 +1,11 @@
+---
+title: "IETS Task XXIV"
+subtitle: "Database of IEA Task XXIV Process Integration for Industry Decarbonization"
+author: "IETS Task XXIV"
+date: today
+date-format: "YYYY-MM-DD"
+---
+
 # About this database {.unnumbered}
 
 This is the **Database of IEA Task XXIV Process Integration for Industry Decarbonization**, developed within the IEA Technology Collaboration Programme on Industrial Energy-Related Technologies and Systems (IETS).
