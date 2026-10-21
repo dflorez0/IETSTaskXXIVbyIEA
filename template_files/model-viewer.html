@@ -923,7 +923,6 @@ document.addEventListener("DOMContentLoaded", function () {
       var x = pad.left, y = 22 + r * 18;
       row.forEach(function (it) {
         ctx.fillStyle = it[0]; ctx.fillRect(x, y - 5, 22, 2.5);
-        ctx.beginPath(); ctx.arc(x + 11, y - 3.75, 3, 0, Math.PI * 2); ctx.fill();
         ctx.fillStyle = C.text; ctx.fillText(it[1], x + 29, y);
         x += 29 + ctx.measureText(it[1]).width + 24;
       });
@@ -965,9 +964,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ctx.strokeStyle = c.color; ctx.lineWidth = 2.5; ctx.lineJoin = "round"; ctx.beginPath();
       c.H.forEach(function (h, i) { if (i) ctx.lineTo(cx(h), cy(c.T[i])); else ctx.moveTo(cx(h), cy(c.T[i])); });
       ctx.stroke();
-      ctx.fillStyle = c.color;
       c.H.forEach(function (h, i) {
-        ctx.beginPath(); ctx.arc(cx(h), cy(c.T[i]), 3, 0, Math.PI * 2); ctx.fill();
         pts.push({ x: cx(h), y: cy(c.T[i]), html: "<b>" + c.name + "</b><br>Shifted temperature " + minus(fmt(c.T[i], 1)) + " °C<br>Heat load " + heatText(h, hu) });
       });
     });
@@ -1007,9 +1004,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ctx.strokeStyle = C.pinch; ctx.lineWidth = 2.5; ctx.lineJoin = "round"; ctx.beginPath();
     g.forEach(function (q, i) { if (i) ctx.lineTo(cx(q[0]), cy(q[1])); else ctx.moveTo(cx(q[0]), cy(q[1])); });
     ctx.stroke();
-    ctx.fillStyle = C.pinch;
     g.forEach(function (q) {
-      ctx.beginPath(); ctx.arc(cx(q[0]), cy(q[1]), 2.6, 0, Math.PI * 2); ctx.fill();
       pts.push({ x: cx(q[0]), y: cy(q[1]), html: "Shifted temperature " + minus(fmt(q[1], 1)) + " °C<br>Net heat flow " + heatText(q[0], hu) });
     });
     if (res.pinchTemp !== null) pinchLine(p, pad, cy, res.pinchTemp);
