@@ -78,10 +78,16 @@ p.caption {
    sidebar header instead, and has no footer slot at all — ipese-footer.html
    moves both into `.ipese-sidebar-bottom` after the page loads; this makes
    that bar sit at the bottom of the sidebar and stay there while the
-   chapter list scrolls underneath it. */
-#quarto-sidebar {
-  display: flex;
-  flex-direction: column;
+   chapter list scrolls underneath it.
+
+   Only where the sidebar is docked: below Bootstrap's lg breakpoint the
+   sidebar is a collapsed menu that Bootstrap hides with display: none, and
+   this rule (an id selector, so it wins) would keep it on screen. */
+@media (min-width: 992px) {
+  #quarto-sidebar {
+    display: flex;
+    flex-direction: column;
+  }
 }
 #quarto-sidebar .sidebar-menu-container {
   flex: 1 1 auto;
@@ -127,17 +133,16 @@ pre.sourceCode {
   border-left: 2px solid $epfl-red;
 }
 
-/* gitbook: section.normal { text-align: justify } */
-main.content p,
-main.content li {
-  text-align: justify;
-}
-
-/* gitbook: section.normal table { display: block } — wide tables scroll
-   instead of overflowing the page. */
-main.content .table-responsive,
+/* Tables fill the text column. They stay real tables: `display: block` (as
+   gitbook did, for scrolling) stretched the table's frame to the full width
+   while its rows kept their own width, leaving the rows in a corner of an
+   empty box. Wide tables scroll inside a wrapper instead: the model views
+   wrap theirs in an overflow-x container, and .table-responsive does the
+   same for any other table. */
 main.content table {
-  display: block;
+  width: 100%;
+}
+main.content .table-responsive {
   overflow-x: auto;
   max-width: 100%;
 }
@@ -194,15 +199,19 @@ blockquote > p:last-child  { text-align: right; }
 
 /* ---- Sidebar geometry (gitbook: .book-summary) ------------------------ */
 /* gitbook pinned .book-summary to the left edge, full height, 300px wide,
-   with a 1px right rule. */
-#quarto-sidebar {
-  padding-left: 1rem;
-  padding-right: 0;
-  border-right: 1px solid $epfl-grey-lt;
-}
-body.nav-fixed #quarto-sidebar,
-#quarto-sidebar {
-  left: 0;
+   with a 1px right rule. Only where the sidebar is docked (Bootstrap's lg
+   breakpoint): below it Quarto collapses the sidebar into the mobile menu,
+   and this padding and rule would leave a strip of it over the page. */
+@media (min-width: 992px) {
+  #quarto-sidebar {
+    padding-left: 1rem;
+    padding-right: 0;
+    border-right: 1px solid $epfl-grey-lt;
+  }
+  body.nav-fixed #quarto-sidebar,
+  #quarto-sidebar {
+    left: 0;
+  }
 }
 
 /* Quarto's *docked* sidebar takes its width from the page grid's leading
@@ -289,6 +298,13 @@ body.nav-fixed #quarto-sidebar,
   transition: color .25s;
 }
 #ipese-sidebar-toggle:hover { color: $epfl-red; }
+
+/* The toggle only works with the layouts below (from 1150px). On smaller
+   screens Quarto has its own menu button at the same place, so ours would
+   sit on top of it. */
+@media (max-width: 1149.98px) {
+  #ipese-sidebar-toggle { display: none; }
+}
 
 @media (min-width: 1150px) {
   /* gitbook put the toggle at the left edge of the content area, just past
