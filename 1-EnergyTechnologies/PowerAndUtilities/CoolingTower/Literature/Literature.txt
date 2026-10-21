@@ -1,0 +1,2 @@
+Publications used by the cooling tower model (PDFs or references).
+This file keeps the folder in the repository while it has no other files.
