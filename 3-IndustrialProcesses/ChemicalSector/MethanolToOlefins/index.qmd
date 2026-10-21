@@ -1,5 +1,58 @@
 # Methanol-to-olefins {.unnumbered}
 
 ::: {.callout-note}
-Documentation for this model is not available yet.
+Documentation for this model is in preparation.
 :::
+
+<!-- model-viewer JSON/<Model>.json view="card" -->
+
+## Description
+
+<!-- The technology or process, and its block flow diagram:
+![Block flow diagram of the MTO unit](Figures/<Diagram>.svg){#fig-mto width=60%} -->
+
+## Key figures
+
+<!-- model-viewer JSON/<Model>.json view="summary" -->
+
+### Flows
+
+<!-- model-viewer JSON/<Model>.json view="flows" -->
+
+## Model
+
+<!-- One paragraph per part of the model, naming variables as inline code. -->
+
+<!-- model-viewer JSON/<Model>.json view="equations" -->
+
+## Variables
+
+<!-- model-viewer JSON/<Model>.json view="variables" -->
+
+## Unit and connectors
+
+<!-- model-viewer JSON/<Model>.json view="unit" -->
+
+## Heat integration
+
+### Heat streams
+
+<!-- model-viewer JSON/<Model>.json view="streams" -->
+
+### Composite curves
+
+<!-- model-viewer JSON/<Model>.json view="cc" -->
+
+### Grand composite curve
+
+<!-- model-viewer JSON/<Model>.json view="gcc" -->
+
+## Supplementary material
+
+| File | Content |
+|:--|:--|
+| | |
+
+## References
+
+<!-- model-viewer JSON/<Model>.json view="references" -->
