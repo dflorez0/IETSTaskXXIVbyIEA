@@ -2,7 +2,7 @@
 
 ## Browsing the models {.unnumbered}
 
-Models are grouped in three parts: **Energy technologies**, **Decarbonisation technologies** and **Industrial processes**. Each model has one page. Its tables, equations and plots are generated from the model's JSON description, so they always match the data:
+Models are grouped in three sections: **Energy technologies**, **Decarbonisation technologies** and **Industrial processes**, the last one further grouped by sector. Each model has one page. Its tables, equations and plots are generated from the model's JSON description, so they always match the data:
 
 * a **model card** with the metadata of the template (authors, version, status, confidentiality and sharing layer, grade, reference capacity, TRL, keywords, main publication);
 * a description of the technology or process and its block flow diagram;
@@ -18,13 +18,13 @@ The search box at the bottom of the sidebar searches the full text of every page
 
 ## Getting the repository {.unnumbered}
 
-The database is a [Quarto](https://quarto.org/) book kept in a git repository. Task participants are given access by the Task managers. To work on it locally, you need:
+The database is a [Quarto](https://quarto.org/) website kept in a git repository. Task participants are given access by the Task managers. To work on it locally, you need:
 
 * [Git](https://git-scm.com/);
 * [Quarto](https://quarto.org/docs/get-started/);
 * optionally, [Visual Studio Code](https://code.visualstudio.com/) with the *Quarto* extension, which provides syntax highlighting, a preview button and git integration.
 
-Clone the repository and preview the book:
+Clone the repository and preview the site:
 
 ```bash
 git clone git@github.com:dflorez0/IETSTaskXXIVbyIEA.git
@@ -32,13 +32,13 @@ cd IETSTaskXXIVbyIEA
 quarto preview
 ```
 
-`quarto preview` serves the book in your browser and reloads it every time a file is saved. `quarto render` builds the complete site into `_book/`. The website itself is rebuilt and published automatically every time changes are pushed to the `main` branch.
+`quarto preview` serves the site in your browser and reloads it every time a file is saved. `quarto render` builds the complete site into `_book/`. The website itself is rebuilt and published automatically every time changes are pushed to the `main` branch.
 
 ## Adding a model {.unnumbered}
 
 The [Cooling tower](1-EnergyTechnologies/CoolingTower/index.qmd) is a complete example to copy from.
 
-**1. Create the model folder** in the part it belongs to, named after the model:
+**1. Create the model folder** in the section it belongs to, or in a sector folder within it (as `3-IndustrialProcesses/ChemicalSector/MethanolToOlefins/`), named after the model:
 
 ```
 1-EnergyTechnologies/
@@ -97,13 +97,28 @@ When the text names a variable, write it as inline code with its exact name in t
 
 The views also run data checks and list them where they apply: a stream declared *Hot* whose temperature rises, a heat stream without a ΔT~min~ contribution, a connector without a flow, or a calculated value that differs from what its formula gives with the stored values of its variables. They are a quick way to validate a JSON file.
 
-**5. Register the page** in `_quarto.yml`, under `book: chapters:` in the right part:
+**5. Register the page** in `_quarto.yml`, under `website: sidebar: contents:`, in the contents of its section:
 
 ```yaml
-    - part: 1-EnergyTechnologies/index.qmd
-      chapters:
-        - 1-EnergyTechnologies/CoolingTower/index.qmd
+      - section: "Energy technologies"
+        href: 1-EnergyTechnologies/index.qmd
+        contents:
+          - 1-EnergyTechnologies/CoolingTower/index.qmd
 ```
+
+A model in a sector goes in the contents of the sector, which is a section within the section. The sector folder has its own `index.qmd` as landing page:
+
+```yaml
+      - section: "Industrial processes"
+        href: 3-IndustrialProcesses/index.qmd
+        contents:
+          - section: "Chemical sector"
+            href: 3-IndustrialProcesses/ChemicalSector/index.qmd
+            contents:
+              - 3-IndustrialProcesses/ChemicalSector/MethanolToOlefins/index.qmd
+```
+
+The name shown in the sidebar for a section (`"Chemical sector"`) is written here; a model page is listed under the title of its page.
 
 **6. Preview, commit and push.** Check the page with `quarto preview`, then commit your changes and push them:
 

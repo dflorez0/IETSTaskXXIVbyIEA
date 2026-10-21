@@ -1,11 +1,11 @@
-# Renders the Quarto book and publishes _book/ on GitHub Pages.
+# Renders the Quarto website and publishes _book/ on GitHub Pages.
 #
 # Runs on every push to main, and on demand from the repository's Actions tab
 # ("Run workflow"). One-time setup: Settings > Pages > Build and deployment >
 # Source: "GitHub Actions". Until Pages is enabled, the deploy job fails and
 # nothing is published.
 
-name: Publish the book
+name: Publish the site
 
 on:
   push:
@@ -32,9 +32,9 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: 1.10.19          # the version the book is built with locally
+          version: 1.10.19          # the version the site is built with locally
 
-      - name: Render the book
+      - name: Render the site
         run: quarto render
 
       - name: Configure Pages

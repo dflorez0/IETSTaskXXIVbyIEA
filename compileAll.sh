@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Builds the HTML book, the only format deployed, into _book/.
+# Builds the HTML website, the only format deployed, into _book/.
 
 set -euo pipefail
 cd "$(dirname "$0")"
