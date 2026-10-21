@@ -68,6 +68,7 @@ Throughout this page, names written like `Cool_Qmax` are variables of the model:
 | [CoolingTower.xlsm](Excel/CoolingTower.xlsm) | Excel model description template |
 | [Cooling_Tower_Model_Documentation.docx](Documents/Cooling_Tower_Model_Documentation.docx) | Background on wet-bulb calculation and design guidelines |
 | [CoolTower.drawio](Figures/CoolTower.drawio) | Editable block flow diagram |
+| [CoolingTower.Rmd](Rmarkdowns/CoolingTower.Rmd) | Old, deprecated version of the model, for reference only |
 
 ## References
 
