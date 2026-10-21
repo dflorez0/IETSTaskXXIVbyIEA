@@ -3,8 +3,8 @@ project:
   output-dir: _book
 
   # Only the pages below are rendered. Model folders also hold supplementary
-  # material (.Rmd, .lua, .json, .xlsm, ...) that Quarto must not try to
-  # render.
+  # material (.lua, .json, .xlsm, deprecated model files, ...) that Quarto
+  # must not try to render.
   render:
     - index.qmd
     - 00-TaskDescription.qmd

@@ -27,7 +27,7 @@
   "references": "[1] Int. J. Environ. Sci. Tech., 5 (2), 251-262, Spring 2008;\n[2] ECOS2015, Florez-Orrego, et al;\n[3] Stull, Wet-Bulb Temperature from Relative Humidity and Air Temperature, 2011, DOI: https://doi.org/10.1175/JAMC-D-11-0143.1;\n[4] Perry Chemical Engineers Handbook;\n[5] https://spxcooling.com/coolingtowers;\n[6] MARLEY, Cooling Tower energy and its management",
   "software": "",
   "software_file": "",
-  "block_flow_diagram": "Cooling Tower/Rmarkdowns/coolingtower.svg",
+  "block_flow_diagram": "CoolingTower/Figures/CoolTower.svg",
   "url": null,
   "supplementary_material": "See SUPPL MATERIAL tab",
   "hierarchy": "utility"
