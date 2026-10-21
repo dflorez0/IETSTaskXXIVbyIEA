@@ -1,0 +1,14 @@
+# Energy systems and grids {.unnumbered}
+
+The networks that connect processes and technologies in an integrated system.
+
+| Model type | Model | Status |
+|:--|:--|:--|
+| Heat cascade: multi-temperature utility levels (steam, hot water, cooling) | — | Work in progress |
+| Power grid: electricity import, export | — | Work in progress |
+| Material flows: feedstocks, products, by-products, wastes | — | Work in progress |
+| CO~2~ network: for capture, transport, use and storage | — | Work in progress |
+| Water networks: process water, drinking water, waste water treatment | — | Work in progress |
+| Environment: ecosphere flows | — | Work in progress |
+
+: {.striped}

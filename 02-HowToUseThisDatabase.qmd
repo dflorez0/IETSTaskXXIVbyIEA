@@ -2,7 +2,7 @@
 
 ## Browsing the models {.unnumbered}
 
-Models are grouped in three sections: **Energy technologies**, **Decarbonisation technologies** and **Industrial processes**, the last one further grouped by sector. Each model has one page. Its tables, equations and plots are generated from the model's JSON description, so they always match the data:
+Models are grouped in three sections: **Energy technologies**, **Decarbonisation technologies** and **Industrial processes**, each divided into categories (for example *Power and utilities* or *Petrochemical*). Each category page lists its models and whether they are documented yet, and each model has one page. Its tables, equations and plots are generated from the model's JSON description, so they always match the data:
 
 * a **model card** with the metadata of the template (authors, version, status, confidentiality and sharing layer, grade, reference capacity, TRL, keywords, main publication);
 * a description of the technology or process and its block flow diagram;
@@ -36,20 +36,22 @@ quarto preview
 
 ## Adding a model {.unnumbered}
 
-The [Cooling tower](1-EnergyTechnologies/CoolingTower/index.qmd) is a complete example to copy from.
+The [Cooling tower](1-EnergyTechnologies/PowerAndUtilities/CoolingTower/index.qmd) is a complete example to copy from.
 
-**1. Create the model folder** in the section it belongs to, or in a sector folder within it (as `3-IndustrialProcesses/ChemicalSector/MethanolToOlefins/`), named after the model:
+**1. Create the model folder** in the folder of its category, named after the model:
 
 ```
 1-EnergyTechnologies/
-  CoolingTower/
-    index.qmd        the model page
-    JSON/            model description in the Task XXIV template format
-    Osmoses/         OSMOSE (Lua) implementation, or the files of your own software
-    Excel/           Excel version of the template
-    Documents/       background documents
-    Figures/         block flow diagram (.svg) and its editable source
-    Literature/      publications used by the model
+  PowerAndUtilities/   the category
+    index.qmd          the category page, listing its models
+    CoolingTower/
+      index.qmd        the model page
+      JSON/            model description in the Task XXIV template format
+      Osmoses/         OSMOSE (Lua) implementation, or the files of your own software
+      Excel/           Excel version of the template
+      Documents/       background documents
+      Figures/         block flow diagram (.svg) and its editable source
+      Literature/      publications used by the model
 ```
 
 Only `index.qmd` and the JSON description are required; the other folders hold whatever supplementary material the model has.
@@ -91,39 +93,32 @@ Files linked from the page are published with it, so readers can download them.
 
 : Views of the `model-viewer` shortcode {.striped}
 
-Without `view`, the shortcode renders a compact tabbed overview of the key figures, flows, heat streams and curves. The [cooling tower page](1-EnergyTechnologies/CoolingTower/index.qmd) uses every view and can serve as a template.
+Without `view`, the shortcode renders a compact tabbed overview of the key figures, flows, heat streams and curves. The [cooling tower page](1-EnergyTechnologies/PowerAndUtilities/CoolingTower/index.qmd) uses every view and can serve as a template.
 
 When the text names a variable, write it as inline code with its exact name in the JSON — `` `Cool_Qmax` `` — and it becomes linked automatically.
 
 The views also run data checks and list them where they apply: a stream declared *Hot* whose temperature rises, a heat stream without a ΔT~min~ contribution, a connector without a flow, or a calculated value that differs from what its formula gives with the stored values of its variables. They are a quick way to validate a JSON file.
 
-**5. Register the page** in `_quarto.yml`, under `website: sidebar: contents:`, in the contents of its section:
+**5. Register the page** in `_quarto.yml`, under `website: sidebar: contents:`, in the contents of its category. A category with model pages is a section within its section:
 
 ```yaml
       - section: "Energy technologies"
         href: 1-EnergyTechnologies/index.qmd
         contents:
-          - 1-EnergyTechnologies/CoolingTower/index.qmd
-```
-
-A model in a sector goes in the contents of the sector, which is a section within the section. The sector folder has its own `index.qmd` as landing page:
-
-```yaml
-      - section: "Industrial processes"
-        href: 3-IndustrialProcesses/index.qmd
-        contents:
-          - section: "Chemical sector"
-            href: 3-IndustrialProcesses/ChemicalSector/index.qmd
+          - section: "Power and utilities"
+            href: 1-EnergyTechnologies/PowerAndUtilities/index.qmd
             contents:
-              - 3-IndustrialProcesses/ChemicalSector/MethanolToOlefins/index.qmd
+              - 1-EnergyTechnologies/PowerAndUtilities/CoolingTower/index.qmd
 ```
 
-The name shown in the sidebar for a section (`"Chemical sector"`) is written here; a model page is listed under the title of its page.
+A category without model pages yet is listed as a plain page (`- 1-EnergyTechnologies/Renewables/index.qmd`); turn it into a `section:` as above when its first model is added. The name shown in the sidebar for a section (`"Power and utilities"`) is written here; a page is listed under its title.
+
+Then, in the table of the category page, link the model in the *Model* column of its row, and set its *Status* to `Documented` once the page documents the model (`Work in progress` until then). The overview table of the section page is computed from the category pages at every render, so it needs no editing.
 
 **6. Preview, commit and push.** Check the page with `quarto preview`, then commit your changes and push them:
 
 ```bash
-git add 1-EnergyTechnologies/CoolingTower _quarto.yml
+git add 1-EnergyTechnologies/PowerAndUtilities _quarto.yml
 git commit -m "Add cooling tower model"
 git push
 ```

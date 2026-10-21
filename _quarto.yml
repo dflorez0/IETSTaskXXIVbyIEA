@@ -2,6 +2,10 @@ project:
   type: website
   output-dir: _book
 
+  # The overview table of each section page is computed from its category
+  # pages before every render (see the script).
+  pre-render: python3 SupportCode/category_overview.py
+
   # Only the pages below are rendered. Model folders also hold supplementary
   # material (.lua, .json, .xlsm, deprecated model files, ...) that Quarto
   # must not try to render.
@@ -41,29 +45,58 @@ website:
           - 01-ParticipationRules.qmd
           - 02-HowToUseThisDatabase.qmd
 
+      # Each section holds categories; a category with documented or
+      # placeholder model pages is itself a section, the others are a page.
       - section: "Energy technologies"
         href: 1-EnergyTechnologies/index.qmd
         contents:
-          - 1-EnergyTechnologies/CoolingTower/index.qmd
-          - 1-EnergyTechnologies/FurnaceNG/index.qmd
-          - 1-EnergyTechnologies/HeatPump/index.qmd
-          - 1-EnergyTechnologies/Refrigerator/index.qmd
+          - section: "Thermal conversion"
+            href: 1-EnergyTechnologies/ThermalConversion/index.qmd
+            contents:
+              - 1-EnergyTechnologies/ThermalConversion/FurnaceNG/index.qmd
+          - section: "Power and utilities"
+            href: 1-EnergyTechnologies/PowerAndUtilities/index.qmd
+            contents:
+              - 1-EnergyTechnologies/PowerAndUtilities/CoolingTower/index.qmd
+              - 1-EnergyTechnologies/PowerAndUtilities/Refrigerator/index.qmd
+          - section: "Heat recovery and upgrade"
+            href: 1-EnergyTechnologies/HeatRecoveryAndUpgrade/index.qmd
+            contents:
+              - 1-EnergyTechnologies/HeatRecoveryAndUpgrade/HeatPump/index.qmd
+          - 1-EnergyTechnologies/MassAndEnergyStorage/index.qmd
+          - 1-EnergyTechnologies/Renewables/index.qmd
+          - 1-EnergyTechnologies/AirSeparation/index.qmd
+          - 1-EnergyTechnologies/EnergySystemsAndGrids/index.qmd
 
       - section: "Decarbonisation technologies"
         href: 2-DecarbTechnologies/index.qmd
         contents:
-          - 2-DecarbTechnologies/CcsAmines/index.qmd
-          - 2-DecarbTechnologies/HighTElectrolysis/index.qmd
-          - 2-DecarbTechnologies/LowTElectrolysis/index.qmd
+          - section: "Electrochemical"
+            href: 2-DecarbTechnologies/Electrochemical/index.qmd
+            contents:
+              - 2-DecarbTechnologies/Electrochemical/HighTElectrolysis/index.qmd
+              - 2-DecarbTechnologies/Electrochemical/LowTElectrolysis/index.qmd
+          - 2-DecarbTechnologies/GasUpgradingAndSyngas/index.qmd
+          - section: "CO₂ capture, use and sequestration"
+            href: 2-DecarbTechnologies/CO2Capture/index.qmd
+            contents:
+              - 2-DecarbTechnologies/CO2Capture/CcsAmines/index.qmd
 
       - section: "Industrial processes"
         href: 3-IndustrialProcesses/index.qmd
         contents:
-          - section: "Chemical sector"
-            href: 3-IndustrialProcesses/ChemicalSector/index.qmd
+          - 3-IndustrialProcesses/HeavyIndustry/index.qmd
+          - section: "Petrochemical"
+            href: 3-IndustrialProcesses/Petrochemical/index.qmd
             contents:
-              - 3-IndustrialProcesses/ChemicalSector/MethanolToOlefins/index.qmd
-          - 3-IndustrialProcesses/FoodSector/index.qmd
+              - 3-IndustrialProcesses/Petrochemical/MethanolToOlefins/index.qmd
+          - 3-IndustrialProcesses/NitrogenChemistry/index.qmd
+          - 3-IndustrialProcesses/PrecisionIndustries/index.qmd
+          - 3-IndustrialProcesses/UrbanAndDigital/index.qmd
+          - 3-IndustrialProcesses/OxygenatesAndChemicals/index.qmd
+          - 3-IndustrialProcesses/SyntheticFuelsAndBiofuels/index.qmd
+          - 3-IndustrialProcesses/FoodAndBeverage/index.qmd
+          - 3-IndustrialProcesses/BioAndWaste/index.qmd
 
 # {{< model-viewer JSON/Model.json >}} on a model page renders that model's
 # key figures, block flow diagram and composite curves (HTML only).

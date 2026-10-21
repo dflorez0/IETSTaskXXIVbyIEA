@@ -1,0 +1,10 @@
+---
+aliases:
+  - /2-DecarbTechnologies/CcsAmines/index.html
+---
+
+# Amine-based carbon capture {.unnumbered}
+
+::: {.callout-note}
+Documentation for this model is not available yet.
+:::

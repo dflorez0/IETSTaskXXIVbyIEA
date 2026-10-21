@@ -1,3 +1,11 @@
 # Decarbonisation technologies {.unnumbered}
 
-Carbon capture and hydrogen production technology models.
+Carbon capture, hydrogen and syngas technology models, by category.
+
+<!-- category-overview:start -->
+| Category | Documented | Work in progress |
+|:--|:--|--:|
+| [Electrochemical](Electrochemical/index.qmd) | — | 2 |
+| [Gas upgrading and syngas](GasUpgradingAndSyngas/index.qmd) | — | 4 |
+| [CO~2~ capture, use and sequestration](CO2Capture/index.qmd) | — | 7 |
+<!-- category-overview:end -->

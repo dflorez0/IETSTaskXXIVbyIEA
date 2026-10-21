@@ -1,0 +1,14 @@
+# Nitrogen chemistry {.unnumbered}
+
+Ammonia and the nitrogen products made from it.
+
+| Model type | Model | Status |
+|:--|:--|:--|
+| Ammonia | — | Work in progress |
+| Urea | — | Work in progress |
+| Nitric acid | — | Work in progress |
+| Ammonium nitrate | — | Work in progress |
+| Fertilizers | — | Work in progress |
+| Explosives | — | Work in progress |
+
+: {.striped}

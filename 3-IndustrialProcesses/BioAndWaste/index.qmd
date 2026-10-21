@@ -1,0 +1,11 @@
+# Bio and waste {.unnumbered}
+
+Conversion of biomass and wastes.
+
+| Model type | Model | Status |
+|:--|:--|:--|
+| Waste upgrading (biodigestion, incineration) | — | Work in progress |
+| Hydrothermal gasification | — | Work in progress |
+| Algae cultivation | — | Work in progress |
+
+: {.striped}

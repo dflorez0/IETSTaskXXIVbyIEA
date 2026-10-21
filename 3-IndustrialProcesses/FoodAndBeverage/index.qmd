@@ -1,0 +1,18 @@
+---
+aliases:
+  - /3-IndustrialProcesses/FoodSector/index.html
+---
+
+# Food and beverage {.unnumbered}
+
+Food and drink production.
+
+| Model type | Model | Status |
+|:--|:--|:--|
+| Brewery | — | Work in progress |
+| Malting | — | Work in progress |
+| Distillery | — | Work in progress |
+| Dairy | — | Work in progress |
+| Sugar | — | Work in progress |
+
+: {.striped}

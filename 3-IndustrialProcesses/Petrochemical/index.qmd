@@ -1,0 +1,16 @@
+---
+aliases:
+  - /3-IndustrialProcesses/ChemicalSector/index.html
+---
+
+# Petrochemical {.unnumbered}
+
+Refining and the production of olefins and other petrochemicals.
+
+| Model type | Model | Status |
+|:--|:--|:--|
+| Refinery | — | Work in progress |
+| Olefins | [Methanol-to-olefins](MethanolToOlefins/index.qmd) | Documented |
+| Offshore platforms | — | Work in progress |
+
+: {.striped}

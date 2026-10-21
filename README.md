@@ -6,33 +6,31 @@ Documentation of the models contributed by the Task participants, built with
 
 ## Structure
 
-Each top-level folder is a section of the site, and each model has its own
-folder. A model sits directly in a section, or in a sector within it:
+Each top-level folder is a section of the site, divided into category folders;
+each model has its own folder in its category:
 
     1-EnergyTechnologies/
-      CoolingTower/
-        index.qmd        documentation page of the model
-        JSON/            model description (Task XXIV JSON format)
-        Osmoses/         OSMOSE (Lua) implementation
-        Excel/  Documents/  Figures/  Literature/   supplementary material
-    3-IndustrialProcesses/
-      ChemicalSector/
-        index.qmd        landing page of the sector
-        MethanolToOlefins/
+      PowerAndUtilities/
+        index.qmd        category page, listing its models
+        CoolingTower/
           index.qmd      documentation page of the model
+          JSON/          model description (Task XXIV JSON format)
+          Osmoses/       OSMOSE (Lua) implementation
+          Excel/  Documents/  Figures/  Literature/   supplementary material
 
 Pages are listed explicitly in `_quarto.yml` under `website: sidebar:
 contents:`, as nested `section:` entries. To add a model, create its folder
-with an `index.qmd` and add that file to the contents of its section (or
-sector). A section's name in the sidebar is written in `_quarto.yml`, not
-taken from its page.
+with an `index.qmd`, add that file to the contents of its category, and link
+it from the category page. A section's name in the sidebar is written in
+`_quarto.yml`, not taken from its page.
 
 On a model page, `{{< model-viewer JSON/Model.json view="..." >}}` renders one
 view of the model from its JSON description: `card`, `summary`, `flows`,
 `equations`, `variables`, `unit`, `streams`, `cc`, `gcc` or `references`
 (without `view`, a compact tabbed overview). Variables named in the text as
 inline code are linked to their definitions. See
-`1-EnergyTechnologies/CoolingTower/index.qmd` for a complete example.
+`1-EnergyTechnologies/PowerAndUtilities/CoolingTower/index.qmd` for a complete
+example.
 
 ## Building
 

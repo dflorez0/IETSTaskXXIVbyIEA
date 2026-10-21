@@ -16,7 +16,7 @@ It collects and documents the **ex-ante models** contributed by the Task partici
 ## How the database is organised {.unnumbered}
 
 * **Task XXIV** describes the Task, the rules for contributing, and how to use the database and add a model to it.
-* **Energy technologies**, **Decarbonisation technologies** and **Industrial processes** hold one page per model.
+* **Energy technologies**, **Decarbonisation technologies** and **Industrial processes** are divided into categories, such as *Power and utilities* or *Petrochemical*. Each category page lists the models of the category, and each documented model has its own page.
 
 Each model lives in its own folder, which contains its documentation page and its supplementary material: the OSMOSE (Lua) implementation, the JSON description, the Excel template, figures and background documents. Every model page links to these files.
 

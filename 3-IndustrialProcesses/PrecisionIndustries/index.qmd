@@ -1,0 +1,10 @@
+# Precision industries {.unnumbered}
+
+Small-scale, high-value manufacturing.
+
+| Model type | Model | Status |
+|:--|:--|:--|
+| Tannery | — | Work in progress |
+| Watchmaking | — | Work in progress |
+
+: {.striped}

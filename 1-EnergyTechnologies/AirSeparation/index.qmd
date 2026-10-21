@@ -1,0 +1,9 @@
+# Air separation {.unnumbered}
+
+Production of oxygen and nitrogen from air.
+
+| Model type | Model | Status |
+|:--|:--|:--|
+| Cryogenic, VPSA, adsorption | — | Work in progress |
+
+: {.striped}

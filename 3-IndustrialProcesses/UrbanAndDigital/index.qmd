@@ -1,0 +1,10 @@
+# Urban and digital {.unnumbered}
+
+Data centers and urban systems.
+
+| Model type | Model | Status |
+|:--|:--|:--|
+| Data centers | — | Work in progress |
+| Urban systems (CO~2~ network, water network) | — | Work in progress |
+
+: {.striped}

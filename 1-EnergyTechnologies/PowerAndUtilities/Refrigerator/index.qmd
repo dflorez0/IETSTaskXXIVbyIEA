@@ -1,0 +1,10 @@
+---
+aliases:
+  - /1-EnergyTechnologies/Refrigerator/index.html
+---
+
+# Refrigerator {.unnumbered}
+
+::: {.callout-note}
+Documentation for this model is not available yet.
+:::

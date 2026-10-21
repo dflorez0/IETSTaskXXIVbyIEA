@@ -1,3 +1,15 @@
 # Energy technologies {.unnumbered}
 
-Utility and energy conversion technology models.
+Utility and energy conversion technology models, by category.
+
+<!-- category-overview:start -->
+| Category | Documented | Work in progress |
+|:--|:--|--:|
+| [Thermal conversion](ThermalConversion/index.qmd) | — | 5 |
+| [Power and utilities](PowerAndUtilities/index.qmd) | [Cooling tower](PowerAndUtilities/CoolingTower/index.qmd) | 6 |
+| [Heat recovery and upgrade](HeatRecoveryAndUpgrade/index.qmd) | — | 1 |
+| [Mass and energy storage](MassAndEnergyStorage/index.qmd) | — | 4 |
+| [Renewables](Renewables/index.qmd) | — | 2 |
+| [Air separation](AirSeparation/index.qmd) | — | 1 |
+| [Energy systems and grids](EnergySystemsAndGrids/index.qmd) | — | 6 |
+<!-- category-overview:end -->

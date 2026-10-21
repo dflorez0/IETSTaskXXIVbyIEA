@@ -1,0 +1,18 @@
+# Synthetic fuels and biofuels {.unnumbered}
+
+Production of renewable and synthetic fuels.
+
+| Model type | Model | Status |
+|:--|:--|:--|
+| Hydrogen | — | Work in progress |
+| Biomethane | — | Work in progress |
+| Biogas | — | Work in progress |
+| Fischer-Tropsch (FT) | — | Work in progress |
+| Alcohol-to-Jet (ATJ) | — | Work in progress |
+| HEFA / hydrotreated vegetable oil | — | Work in progress |
+| Biodiesel | — | Work in progress |
+| Ethanol 1G and 2G | — | Work in progress |
+| Syngas fermentation | — | Work in progress |
+| CO~2~ hydrogenation | — | Work in progress |
+
+: {.striped}

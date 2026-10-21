@@ -1,0 +1,15 @@
+# Oxygenates and commodity chemicals {.unnumbered}
+
+Methanol and other bulk chemicals.
+
+| Model type | Model | Status |
+|:--|:--|:--|
+| Methanol (MeOH) | — | Work in progress |
+| Dimethyl ether (DME) | — | Work in progress |
+| Formaldehyde | — | Work in progress |
+| Formic acid | — | Work in progress |
+| Acetic acid | — | Work in progress |
+| Carbon monoxide (CO) | — | Work in progress |
+| Pulp and paper | — | Work in progress |
+
+: {.striped}

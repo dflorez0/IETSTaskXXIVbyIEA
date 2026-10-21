@@ -1,0 +1,15 @@
+# CO~2~ capture, use and sequestration {.unnumbered}
+
+Technologies that capture, transport, use and store CO~2~.
+
+| Model type | Model | Status |
+|:--|:--|:--|
+| CO~2~ capture (solvents) | [Amine-based carbon capture](CcsAmines/index.qmd) | Work in progress |
+| CO~2~ capture (membranes) | — | Work in progress |
+| CO~2~ capture (adsorption) | — | Work in progress |
+| CO~2~ capture (cryogenic CPU) | — | Work in progress |
+| CO~2~ mineralization | — | Work in progress |
+| CO~2~ transport | — | Work in progress |
+| CO~2~ injection | — | Work in progress |
+
+: {.striped}

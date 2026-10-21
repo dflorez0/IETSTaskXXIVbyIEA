@@ -1,0 +1,12 @@
+# Mass and energy storage {.unnumbered}
+
+Storage of electricity, heat and materials.
+
+| Model type | Model | Status |
+|:--|:--|:--|
+| Battery storage | — | Work in progress |
+| Thermal storage (water, phase change) | — | Work in progress |
+| Gas storage (liquefied, compressed) | — | Work in progress |
+| Liquid and solid storage | — | Work in progress |
+
+: {.striped}

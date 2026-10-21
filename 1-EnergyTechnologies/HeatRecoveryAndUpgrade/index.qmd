@@ -1,0 +1,9 @@
+# Heat recovery and upgrade {.unnumbered}
+
+Technologies that recover waste heat and raise it to a useful temperature.
+
+| Model type | Model | Status |
+|:--|:--|:--|
+| Heat pumping (HP, MVR, AHP, AHT) | [Heat pump](HeatPump/index.qmd) | Work in progress |
+
+: {.striped}

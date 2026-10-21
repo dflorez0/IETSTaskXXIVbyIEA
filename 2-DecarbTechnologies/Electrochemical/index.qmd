@@ -1,0 +1,10 @@
+# Electrochemical {.unnumbered}
+
+Electrolyzers and fuel cells.
+
+| Model type | Model | Status |
+|:--|:--|:--|
+| Electrolyzers | [High-temperature electrolysis](HighTElectrolysis/index.qmd), [low-temperature electrolysis](LowTElectrolysis/index.qmd) | Work in progress |
+| Fuel cells (alkaline, PEM, SOC) | — | Work in progress |
+
+: {.striped}

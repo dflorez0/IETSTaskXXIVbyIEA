@@ -1,0 +1,13 @@
+# Heavy industry {.unnumbered}
+
+Energy-intensive production of basic materials.
+
+| Model type | Model | Status |
+|:--|:--|:--|
+| Aluminium | — | Work in progress |
+| Cement | — | Work in progress |
+| Steel | — | Work in progress |
+| Glass | — | Work in progress |
+| Lime | — | Work in progress |
+
+: {.striped}

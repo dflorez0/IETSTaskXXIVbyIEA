@@ -1,5 +1,0 @@
-# Chemical sector {.unnumbered}
-
-Chemical sector process models:
-
-* [Methanol-to-olefins](MethanolToOlefins/index.qmd)
