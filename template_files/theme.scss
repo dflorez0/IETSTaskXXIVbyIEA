@@ -217,10 +217,17 @@ body.nav-fixed #quarto-sidebar,
    content column in the space right of the sidebar, which read as a much
    bigger gap than a small fixed margin ever does — and the three tracks
    reserved for the TOC (body-end / body-end-outset / page-end-inset)
-   shrink so it sits closer to the text.
+   shrink so it sits closer to the text. The body column takes all the
+   remaining width ([body-content-start] is the only flexible track), so on
+   wide screens the content fills the page and the TOC sits at its right
+   edge. The sidebar track is a fixed 180px, so the sidebar keeps its full
+   width (and its title one line) down to the breakpoint.
+
+   From 1600px, [page-end-inset] widens to 150px so the TOC entries do not
+   wrap; below that the space goes to the text instead.
 
    The breakpoint is raised from Bootstrap's usual 992px to 1150px: the
-   tracks' minimum widths now sum to just over 1000px, so below 1150px this
+   tracks' minimum widths now sum to about 1115px, so below 1150px this
    override would make the row wider than the viewport itself.
 
    The selector has to carry `body.docked` — a bare `.page-columns` loses
@@ -229,16 +236,34 @@ body.nav-fixed #quarto-sidebar,
   body.docked .page-columns {
     grid-template-columns:
       [screen-start] 0
-      [screen-start-inset page-start] minmax(120px, 180px)
+      [screen-start-inset page-start] 180px
       [page-start-inset] 60px
       [body-start-outset] 60px
       [body-start] 8em
-      [body-content-start] minmax(500px, calc(1000px - 3em))
+      [body-content-start] minmax(500px, 1fr)
       [body-content-end] 4.5em
       [body-end] 30px
       [body-end-outset] minmax(30px, 70px)
       [page-end-inset] 30px
-      [page-end] 5fr
+      [page-end] 0
+      [screen-end-inset] 1.5em
+      [screen-end];
+  }
+}
+@media (min-width: 1600px) {
+  body.docked .page-columns {
+    grid-template-columns:
+      [screen-start] 0
+      [screen-start-inset page-start] 180px
+      [page-start-inset] 60px
+      [body-start-outset] 60px
+      [body-start] 8em
+      [body-content-start] minmax(500px, 1fr)
+      [body-content-end] 4.5em
+      [body-end] 30px
+      [body-end-outset] 70px
+      [page-end-inset] 150px
+      [page-end] 0
       [screen-end-inset] 1.5em
       [screen-end];
   }
@@ -285,12 +310,30 @@ body.nav-fixed #quarto-sidebar,
       [page-start-inset] 30px
       [body-start-outset] 30px
       [body-start] 8em
-      [body-content-start] minmax(500px, calc(1000px - 3em))
+      [body-content-start] minmax(500px, 1fr)
       [body-content-end] 4.5em
       [body-end] 30px
       [body-end-outset] minmax(30px, 70px)
       [page-end-inset] 30px
-      [page-end] 5fr
+      [page-end] 0
+      [screen-end-inset] 1.5em
+      [screen-end];
+  }
+}
+@media (min-width: 1600px) {
+  body.docked.ipese-summary-hidden .page-columns {
+    grid-template-columns:
+      [screen-start] 1.5em
+      [screen-start-inset page-start] 60px
+      [page-start-inset] 30px
+      [body-start-outset] 30px
+      [body-start] 8em
+      [body-content-start] minmax(500px, 1fr)
+      [body-content-end] 4.5em
+      [body-end] 30px
+      [body-end-outset] 70px
+      [page-end-inset] 150px
+      [page-end] 0
       [screen-end-inset] 1.5em
       [screen-end];
   }
