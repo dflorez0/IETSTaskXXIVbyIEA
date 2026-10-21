@@ -92,6 +92,9 @@
 .mv-kv { width: 100%; border-collapse: collapse; font-size: .9rem; display: table !important; }
 .mv-kv th { width: 13rem; text-align: left; font-weight: 600; padding: .35rem .6rem; vertical-align: top; background: #f6f7f9; border-bottom: 1px solid #e6e8ec; }
 .mv-kv td { padding: .35rem .6rem; border-bottom: 1px solid #e6e8ec; text-align: left !important; }
+/* long links and e-mail addresses break rather than widen the page on phones */
+.mv-kv td, .mv-refs li { overflow-wrap: anywhere; }
+@media (max-width: 600px) { .mv-kv th { width: 38%; } }
 
 /* equations */
 .mv-eq { margin: .2rem 0 .9rem; padding: .1rem .75rem .45rem; border-left: 3px solid #e6e8ec; overflow-x: auto; }
@@ -104,7 +107,7 @@ a.mv-var code { border-bottom: 1px dotted currentColor; cursor: pointer; }
 a.mv-val:hover { color: #ff0000; }
 mjx-container a[href^="#mv-var-"] { color: inherit; text-decoration: none; }
 mjx-container a[href^="#mv-var-"]:hover { color: #ff0000; }
-.mv-card { position: fixed; z-index: 1100; max-width: 440px; background: #fff; border: 1px solid #d8dce3; border-radius: 6px;
+.mv-card { position: fixed; z-index: 1100; max-width: min(440px, calc(100vw - 16px)); background: #fff; border: 1px solid #d8dce3; border-radius: 6px;
           box-shadow: 0 6px 22px rgba(0,0,0,.14); padding: .55rem .75rem; font-size: .82rem; line-height: 1.4; pointer-events: none; }
 .mv-card[hidden] { display: none; }
 .mv-card-h { display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; margin-bottom: .2rem; }
@@ -1279,7 +1282,7 @@ document.addEventListener("DOMContentLoaded", function () {
       var r = entry.model.meta.references;
       if (blank(r)) { el.innerHTML = '<div class="mv-empty">No references in the metadata.</div>'; return; }
       var items = r.split(/;?\s*\n|;\s*(?=\[\d+\])/).map(function (s) { return s.trim().replace(/^\[\d+\]\s*/, "").replace(/;$/, ""); }).filter(Boolean);
-      el.innerHTML = "<ol>" + items.map(function (s) { return "<li>" + linkify(s) + "</li>"; }).join("") + "</ol>";
+      el.innerHTML = '<ol class="mv-refs">' + items.map(function (s) { return "<li>" + linkify(s) + "</li>"; }).join("") + "</ol>";
     },
 
     all: function (entry, el, view) {
