@@ -46,7 +46,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{carcass}$",
-            "reference": "Meat_plant.md",
+            "reference": "Meat plant case study, basis: 1 t/h of hot carcass; average carcass 90.5 kg, Proviande (2025)",
             "description": "Hot carcass weight processed, 11.05 pigs per t at the Swiss average carcass of 90.5 kg. Every flow and heat load is given per 1 t/h and scales with it; the reference plant, 700,000 pigs/y over 6,300 h/y, is 10.06 t/h"
         },
         {
@@ -60,7 +60,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\Delta T_{min}/2$",
-            "reference": "Meat_plant.md",
+            "reference": "Meat plant case study, convention: global Delta Tmin of 10 K",
             "description": "Minimum temperature difference contribution of every stream, for a global Delta Tmin of 10 K"
         },
         {
@@ -88,7 +88,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{ice\\_in}$",
-            "reference": "Assumed in Meat_plant.md",
+            "reference": "Meat plant case study, assumed: ice and water 5 % of the carcass",
             "description": "Ice and water mixed into the sausage batter, 5 % of the carcass mass"
         },
         {
@@ -144,7 +144,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{offal\\_out}$",
-            "reference": "Meat_plant.md",
+            "reference": "Meat plant case study, mass balance; dressing yield 78 % assumed; blood 3 % of live weight, COWI (2000), Table 2-2",
             "description": "Live weight minus carcass minus blood"
         },
         {
@@ -186,7 +186,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{carcass}$",
-            "reference": "Meat_plant.md",
+            "reference": "Meat plant case study, basis: 1 t/h of hot carcass",
             "description": "Hot carcass, chilled from 38 to 4 °C: the basis of the model (internal flow, not a connector)"
         },
         {
@@ -200,7 +200,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{boneless\\_meat}$",
-            "reference": "Meat_plant.md",
+            "reference": "Ramírez et al. (2006): boneless meat = carcass / 1.37",
             "description": "Boneless meat, the carcass divided by 1.37 (internal flow, not a connector)"
         },
         {
@@ -214,7 +214,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{trimmings}$",
-            "reference": "Meat_plant.md",
+            "reference": "Meat plant case study, assumed: trimmings 20 % of the carcass",
             "description": "Trimmings, 20 % of the carcass mass (internal flow, not a connector)"
         },
         {
@@ -228,7 +228,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{batter}$",
-            "reference": "Meat_plant.md",
+            "reference": "Meat plant case study, assumed: trimmings 20 % and ice 5 % of the carcass",
             "description": "Trimmings plus ice and water, heated from 4 to 74 °C (internal flow, not a connector)"
         },
         {
@@ -242,7 +242,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{hot\\_water}$",
-            "reference": "Meat_plant.md",
+            "reference": "Fritzson and Berntsson (2006a), Fig. 2, scaled to 1 t/h",
             "description": "Mains water heated to 82 °C for knife sterilisers and disinfection, discharged as wastewater. Utility medium, for information only: the utilities are not part of the process data"
         },
         {
@@ -256,7 +256,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{warm\\_water}$",
-            "reference": "Meat_plant.md",
+            "reference": "Fritzson and Berntsson (2006a), Fig. 2, scaled to 1 t/h",
             "description": "Mains water heated to 55 °C for cleaning, discharged as wastewater. Utility medium, for information only: the utilities are not part of the process data"
         },
         {
@@ -270,7 +270,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{tap\\_water}$",
-            "reference": "Meat_plant.md",
+            "reference": "Fritzson and Berntsson (2006a), Fig. 2, scaled to 1 t/h",
             "description": "Mains water heated to 40 °C for hand washing and personnel facilities, discharged as wastewater. Utility medium, for information only: the utilities are not part of the process data"
         },
         {
@@ -928,7 +928,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{pigs\\_in}$",
-            "reference": "Meat_plant.md",
+            "reference": "Proviande (2025); dressing yield assumed",
             "description": "Live pigs flow"
         },
         {
@@ -942,7 +942,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{ice\\_in}$",
-            "reference": "Meat_plant.md",
+            "reference": "Meat plant case study, assumed: ice and water 5 % of the carcass",
             "description": "Ice and water for the batter flow"
         },
         {
@@ -956,7 +956,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{cuts\\_out}$",
-            "reference": "Meat_plant.md",
+            "reference": "Ramírez et al. (2006)",
             "description": "Fresh cuts flow"
         },
         {
@@ -970,7 +970,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{sausages\\_out}$",
-            "reference": "Meat_plant.md",
+            "reference": "Meier (2007)",
             "description": "Cooked sausages flow"
         },
         {
@@ -984,7 +984,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{blood\\_out}$",
-            "reference": "Meat_plant.md",
+            "reference": "COWI (2000), Table 2-2",
             "description": "Blood flow"
         },
         {
@@ -998,7 +998,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{offal\\_out}$",
-            "reference": "Meat_plant.md",
+            "reference": "Meat plant case study, mass balance; dressing yield 78 % assumed; blood 3 % of live weight, COWI (2000), Table 2-2",
             "description": "Offal, intestines and bristles flow"
         },
         {
@@ -1012,7 +1012,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{bones\\_out}$",
-            "reference": "Meat_plant.md",
+            "reference": "Ramírez et al. (2006)",
             "description": "Bones, fat and rind flow"
         },
         {
@@ -1026,7 +1026,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{vapour\\_out}$",
-            "reference": "Meat_plant.md",
+            "reference": "Meier (2007)",
             "description": "Vapour from cooking flow"
         },
         {
@@ -1040,7 +1040,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot E_{slaughter}$",
-            "reference": "Meat_plant.md",
+            "reference": "Nunes et al. (2016); Karlis et al. (2024)",
             "description": "Slaughter line, electricity demand"
         },
         {
@@ -1054,7 +1054,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot E_{cutting}$",
-            "reference": "Meat_plant.md",
+            "reference": "Ramírez et al. (2006)",
             "description": "Cutting and deboning, electricity demand"
         },
         {
@@ -1068,7 +1068,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot E_{sausage}$",
-            "reference": "Meat_plant.md",
+            "reference": "Nunes et al. (2016); Ramírez et al. (2006)",
             "description": "Sausage line, electricity demand"
         },
         {
@@ -1082,7 +1082,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot E_{tot}$",
-            "reference": "Meat_plant.md",
+            "reference": "Nunes et al. (2016); Karlis et al. (2024); Ramírez et al. (2006)",
             "description": "Electricity consumed by the process itself; heat and refrigeration are supplied by the utilities"
         },
         {
@@ -1096,7 +1096,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C1}$",
-            "reference": "Meat_plant.md",
+            "reference": "Karlis et al. (2024), Fig. 3.38",
             "description": "Singeing oven, direct-fired, heat load"
         },
         {
@@ -1110,7 +1110,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C2}$",
-            "reference": "Meat_plant.md",
+            "reference": "Karlis et al. (2024), Fig. 3.39",
             "description": "Scalding tank, held at 60 °C, heat load"
         },
         {
@@ -1124,7 +1124,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C3}$",
-            "reference": "Meat_plant.md",
+            "reference": "Fritzson and Berntsson (2006a), Fig. 2",
             "description": "Hot water 82 °C (sterilisers, disinfection), heat load"
         },
         {
@@ -1138,7 +1138,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C4}$",
-            "reference": "Meat_plant.md",
+            "reference": "Fritzson and Berntsson (2006a), Fig. 2",
             "description": "Warm water 55 °C (cleaning), heat load"
         },
         {
@@ -1152,7 +1152,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C5}$",
-            "reference": "Meat_plant.md",
+            "reference": "Fritzson and Berntsson (2006a), Fig. 2",
             "description": "Tap water 40 °C (hand washing, personnel), heat load"
         },
         {
@@ -1166,7 +1166,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C6}$",
-            "reference": "Meat_plant.md",
+            "reference": "Meier (2007), Bell AG Basel pinch study",
             "description": "Sausage cooking, direct steam injection, heat load"
         },
         {
@@ -1180,7 +1180,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{H1}$",
-            "reference": "Meat_plant.md",
+            "reference": "Meier (2007), Bell AG Basel pinch study",
             "description": "Cooking-oven exhaust air, heat load"
         },
         {
@@ -1194,7 +1194,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{H2}$",
-            "reference": "Meat_plant.md",
+            "reference": "Meier (2007); cp of sausages 3.0 kJ/(kg K) assumed",
             "description": "Sausage shower cooling, heat load"
         },
         {
@@ -1208,7 +1208,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{H3}$",
-            "reference": "Meat_plant.md",
+            "reference": "COWI (2000), Table 2-12",
             "description": "Air compressors, heat recovery, heat load"
         },
         {
@@ -1222,7 +1222,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{H4}$",
-            "reference": "Meat_plant.md",
+            "reference": "Cp of blood 3.6 kJ/(kg K) assumed",
             "description": "Blood chilling, heat load"
         },
         {
@@ -1236,7 +1236,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{H5}$",
-            "reference": "Meat_plant.md",
+            "reference": "Grimsby Institute: 153 kJ/kg",
             "description": "Carcass chilling, heat load"
         },
         {
@@ -1250,7 +1250,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{H6}$",
-            "reference": "Meat_plant.md",
+            "reference": "Meier (2007); cp of sausages 3.0 kJ/(kg K) assumed",
             "description": "Sausage chilling, heat load"
         },
         {
@@ -1264,7 +1264,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{H7}$",
-            "reference": "Meat_plant.md",
+            "reference": "Cooling-system electricity times a seasonal cooling COP of 2.0 (Meier, 2007)",
             "description": "Chilled rooms (cutting, storage), air at 2 °C, heat load"
         },
         {
@@ -1278,7 +1278,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{H8}$",
-            "reference": "Meat_plant.md",
+            "reference": "Cooling-system electricity times a seasonal cooling COP of 2.0 (Meier, 2007); freezer share 3 %",
             "description": "Freezer rooms, air at -25 °C, heat load"
         }
     ],

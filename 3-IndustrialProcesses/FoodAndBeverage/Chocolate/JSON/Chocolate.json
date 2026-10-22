@@ -45,7 +45,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{choc}$",
-            "reference": "chocolate.md",
+            "reference": "PR1 case study, basis: 1 t/h of chocolate",
             "description": "Milk chocolate produced. Every flow and heat load is given per 1 t/h and scales with it; the category 1 reference plant, 1,000 t/y over 3,600 h/y, is 0.278 t/h"
         },
         {
@@ -59,7 +59,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\Delta T_{min}/2$",
-            "reference": "chocolate.md",
+            "reference": "PR1 case study, convention: global Delta Tmin of 10 K",
             "description": "Minimum temperature difference contribution of every stream, for a global Delta Tmin of 10 K"
         },
         {
@@ -129,7 +129,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{butter}$",
-            "reference": "chocolate.md",
+            "reference": "Ozdemir et al. (2026), recipe; PR1 case study, mass balance",
             "description": "Cocoa butter bought in: the 230 kg of the recipe minus the 48.7 kg pressed on site"
         },
         {
@@ -143,7 +143,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{chocolate}$",
-            "reference": "chocolate.md",
+            "reference": "PR1 case study, basis: 1 t/h of chocolate",
             "description": "Moulded milk chocolate, cooled to 5 to 7 °C"
         },
         {
@@ -185,7 +185,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{presscake}$",
-            "reference": "chocolate.md",
+            "reference": "Ozdemir et al. (2026), liquor fat 54 %; press-cake fat 11 % assumed (commercial grade)",
             "description": "Press cake with 11 % fat"
         },
         {
@@ -199,7 +199,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{roasted\\_beans}$",
-            "reference": "chocolate.md",
+            "reference": "CHOCOSUISSE (2025); bean moisture from Sandoval et al. (2019) and Beckett (2018)",
             "description": "Roasted beans with 2 % water, to cooling and winnowing (internal flow, not a connector)"
         },
         {
@@ -213,7 +213,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{nibs}$",
-            "reference": "chocolate.md",
+            "reference": "PR1 case study, mass balance; shell fraction 12 % assumed within the range of Rojo-Poveda et al. (2020)",
             "description": "Nibs ground to cocoa liquor, the roasted beans minus the shells (internal flow, not a connector)"
         },
         {
@@ -227,7 +227,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{liquor\\_recipe}$",
-            "reference": "chocolate.md",
+            "reference": "Ozdemir et al. (2026), recipe",
             "description": "Cocoa liquor to mixing, 12 % cocoa mass in the recipe (internal flow, not a connector)"
         },
         {
@@ -241,7 +241,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{liquor\\_press}$",
-            "reference": "chocolate.md",
+            "reference": "PR1 case study, mass balance",
             "description": "Remainder of the liquor, pressed into butter and cake (internal flow, not a connector)"
         },
         {
@@ -255,7 +255,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{butter\\_own}$",
-            "reference": "chocolate.md",
+            "reference": "Ozdemir et al. (2026), liquor fat 54 %; press-cake fat 11 % assumed (commercial grade)",
             "description": "Cocoa butter pressed on site, to mixing (internal flow, not a connector)"
         },
         {
@@ -269,7 +269,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{roast\\_air}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), Table 2 and supplementary Appendix 6",
             "description": "Air of the three roasting zones, heated from 20 °C to 145 to 160 °C. Utility medium, for information only: the utilities are not part of the process data"
         },
         {
@@ -283,7 +283,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{steam\\_drying}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6; steam tables",
             "description": "Steam at about 170 °C to the jacketed mixer. Utility medium, for information only: the utilities are not part of the process data"
         },
         {
@@ -297,7 +297,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{steam\\_debact}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6; steam tables",
             "description": "Steam at 160 to 180 °C to debacterization. Utility medium, for information only: the utilities are not part of the process data"
         },
         {
@@ -311,7 +311,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{cip\\_water}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Rinse water heated from 10 to 40 °C. Utility medium, for information only: the utilities are not part of the process data"
         },
         {
@@ -325,7 +325,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$e_{aircomp}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6: equal to the recovered compressor heat",
             "description": "Equal to the recovered compressor heat (H6)"
         },
         {
@@ -339,7 +339,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$e_{conche}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6: conche cooling minus conche heating",
             "description": "Conche cooling (H7 to H10) minus conche heating (C12 to C15)"
         },
         {
@@ -353,7 +353,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$e_{grinder}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6: heat removed by the grinding cooling water",
             "description": "Heat removed by the grinding cooling water"
         },
         {
@@ -367,7 +367,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$e_{other}$",
-            "reference": "chocolate.md",
+            "reference": "PR1 case study, Table 2",
             "description": "Refining, mixing, pressing, winnowing, pumps, packaging, ventilation and lighting"
         },
         {
@@ -2229,7 +2229,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{H11}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6; chilled water at 5/11 °C from Arpagaus and Bertsch (2020)",
             "description": "Production cooling, chilled-water level, inlet temperature"
         },
         {
@@ -2243,7 +2243,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{H11}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6; chilled water at 5/11 °C from Arpagaus and Bertsch (2020)",
             "description": "Production cooling, chilled-water level, outlet temperature"
         },
         {
@@ -2257,7 +2257,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$q_{H11}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6: refrigeration heat rejection × COP / (1 + COP), COP 3.76 from Arpagaus and Bertsch (2020)",
             "description": "Production cooling, chilled-water level, heat load per t of chocolate. Production cooling demand at the chilled-water level: refrigeration heat rejection of Appendix 6 (427.2 kWh/t) times COP/(1+COP), with a COP of 3.76 (Arpagaus and Bertsch, 2020)"
         },
         {
@@ -2271,7 +2271,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{beans}$",
-            "reference": "chocolate.md",
+            "reference": "Swiss cocoa grindings over chocolate sales, CHOCOSUISSE (2025)",
             "description": "Cocoa beans flow"
         },
         {
@@ -2285,7 +2285,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{sugar}$",
-            "reference": "chocolate.md",
+            "reference": "Ozdemir et al. (2026)",
             "description": "Sugar flow"
         },
         {
@@ -2299,7 +2299,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{milkpowder}$",
-            "reference": "chocolate.md",
+            "reference": "Ozdemir et al. (2026)",
             "description": "Whole milk powder flow"
         },
         {
@@ -2313,7 +2313,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{lecithin}$",
-            "reference": "chocolate.md",
+            "reference": "Ozdemir et al. (2026)",
             "description": "Lecithin flow"
         },
         {
@@ -2327,7 +2327,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{butter}$",
-            "reference": "chocolate.md",
+            "reference": "Ozdemir et al. (2026), recipe; PR1 case study, mass balance",
             "description": "Purchased cocoa butter flow"
         },
         {
@@ -2341,7 +2341,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{chocolate}$",
-            "reference": "chocolate.md",
+            "reference": "PR1 case study, basis: 1 t/h of chocolate",
             "description": "Milk chocolate flow"
         },
         {
@@ -2355,7 +2355,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{shells}$",
-            "reference": "chocolate.md",
+            "reference": "Rojo-Poveda et al. (2020), assumed within the reported range",
             "description": "Cocoa shells flow"
         },
         {
@@ -2369,7 +2369,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{vapour}$",
-            "reference": "chocolate.md",
+            "reference": "Sandoval et al. (2019); Beckett (2018)",
             "description": "Water vapour in the roaster exhaust flow"
         },
         {
@@ -2383,7 +2383,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{presscake}$",
-            "reference": "chocolate.md",
+            "reference": "Ozdemir et al. (2026), liquor fat 54 %; press-cake fat 11 % assumed (commercial grade)",
             "description": "Cocoa press cake flow"
         },
         {
@@ -2397,7 +2397,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot E_{aircomp}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6: equal to the recovered compressor heat",
             "description": "Air compressors, electricity demand"
         },
         {
@@ -2411,7 +2411,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot E_{conche}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6: conche cooling minus conche heating",
             "description": "Conche drives, electricity demand"
         },
         {
@@ -2425,7 +2425,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot E_{grinder}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6: heat removed by the grinding cooling water",
             "description": "Grinder drives, electricity demand"
         },
         {
@@ -2439,7 +2439,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot E_{other}$",
-            "reference": "chocolate.md",
+            "reference": "PR1 case study, Table 2",
             "description": "Other drives, fans, lighting and packaging, electricity demand"
         },
         {
@@ -2453,7 +2453,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot E_{tot}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6; PR1 case study, Table 2",
             "description": "Electricity consumed by the process itself; heat and refrigeration are supplied by the utilities"
         },
         {
@@ -2467,7 +2467,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C1}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Roasting air, zone 1, heat load"
         },
         {
@@ -2481,7 +2481,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C2}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Roasting air, zone 2, heat load"
         },
         {
@@ -2495,7 +2495,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C3}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Roasting air, zone 3, heat load"
         },
         {
@@ -2509,7 +2509,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C4}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Drying, steam-jacketed mixer, heat load"
         },
         {
@@ -2523,7 +2523,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C5}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Debacterization of beans, heat load"
         },
         {
@@ -2537,7 +2537,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C6}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "CIP caustic solution, heat load"
         },
         {
@@ -2551,7 +2551,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C7}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "CIP acid solution, heat load"
         },
         {
@@ -2565,7 +2565,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C8}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "CIP rinse water, heat load"
         },
         {
@@ -2579,7 +2579,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C9}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Tracing warm-water network, heat load"
         },
         {
@@ -2593,7 +2593,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C10}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Press 1, liquor feed, heat load"
         },
         {
@@ -2607,7 +2607,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C11}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Press 2, feed, heat load"
         },
         {
@@ -2621,7 +2621,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C12}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Conche line A, heating, heat load"
         },
         {
@@ -2635,7 +2635,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C13}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Conche line B, heating, heat load"
         },
         {
@@ -2649,7 +2649,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C14}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Conche line C, heating, heat load"
         },
         {
@@ -2663,7 +2663,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C15}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Conche line D, heating, heat load"
         },
         {
@@ -2677,7 +2677,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C16}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Tempering tank 1, heat load"
         },
         {
@@ -2691,7 +2691,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C17}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Tempering tank 2, heat load"
         },
         {
@@ -2705,7 +2705,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C18}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Tempering tank 3, heat load"
         },
         {
@@ -2719,7 +2719,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C19}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Tempering tank 4, heat load"
         },
         {
@@ -2733,7 +2733,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C20}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Tempering tank 5, heat load"
         },
         {
@@ -2747,7 +2747,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C21}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Tempering tank 6, heat load"
         },
         {
@@ -2761,7 +2761,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C22}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Tempering tank 7, heat load"
         },
         {
@@ -2775,7 +2775,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C23}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Tempering tank 8, heat load"
         },
         {
@@ -2789,7 +2789,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C24}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Tempering tank 9, heat load"
         },
         {
@@ -2803,7 +2803,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C25}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Moulding line A, step 1, heat load"
         },
         {
@@ -2817,7 +2817,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C26}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Moulding line A, step 2, heat load"
         },
         {
@@ -2831,7 +2831,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C27}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Moulding line A, step 3, heat load"
         },
         {
@@ -2845,7 +2845,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C28}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Moulding line A, step 4, heat load"
         },
         {
@@ -2859,7 +2859,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C29}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Moulding line A, step 5, heat load"
         },
         {
@@ -2873,7 +2873,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C30}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Moulding line A, step 6, heat load"
         },
         {
@@ -2887,7 +2887,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C31}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Moulding line B, step 1, heat load"
         },
         {
@@ -2901,7 +2901,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C32}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Moulding line B, step 2, heat load"
         },
         {
@@ -2915,7 +2915,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C33}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Moulding line B, step 3, heat load"
         },
         {
@@ -2929,7 +2929,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{C34}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Moulding line B, step 4, heat load"
         },
         {
@@ -2943,7 +2943,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{H1}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Roaster exhaust, zone 1, heat load"
         },
         {
@@ -2957,7 +2957,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{H2}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Roaster exhaust, zone 2, heat load"
         },
         {
@@ -2971,7 +2971,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{H3}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Roaster exhaust, zone 3, heat load"
         },
         {
@@ -2985,7 +2985,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{H4}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Press 1, cake cooling, heat load"
         },
         {
@@ -2999,7 +2999,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{H5}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Press 2, cake cooling, heat load"
         },
         {
@@ -3013,7 +3013,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{H6}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Air compressors, heat recovery, heat load"
         },
         {
@@ -3027,7 +3027,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{H7}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Conche line A, cooling, heat load"
         },
         {
@@ -3041,7 +3041,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{H8}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Conche line B, cooling, heat load"
         },
         {
@@ -3055,7 +3055,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{H9}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Conche line C, cooling, heat load"
         },
         {
@@ -3069,7 +3069,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{H10}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6",
             "description": "Conche line D, cooling, heat load"
         },
         {
@@ -3083,7 +3083,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{H11}$",
-            "reference": "chocolate.md",
+            "reference": "Bhadbhade et al. (2024), supplementary Appendix 6: refrigeration heat rejection × COP / (1 + COP), COP 3.76 from Arpagaus and Bertsch (2020)",
             "description": "Production cooling, chilled-water level, heat load"
         }
     ],
