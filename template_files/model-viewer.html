@@ -784,7 +784,7 @@ document.addEventListener("DOMContentLoaded", function () {
         '<td class="l mv-type-' + s.type + '">' + s.type + "</td>" +
         "<td>" + linked(entry, fmt(s.Tin, 1), s.src.Tin) + "</td><td>" + linked(entry, fmt(s.Tout, 1), s.src.Tout) + "</td>" +
         "<td>" + fmt(shift(s, s.Tin), 1) + "</td><td>" + fmt(shift(s, s.Tout), 1) + "</td>" +
-        "<td>" + linked(entry, fmt(s.dtc, 1), s.src.dtc) + "</td><td>" + (iso ? '<span class="mv-muted">phase change</span>' : nice(streamCP(s))) + "</td>" +
+        "<td>" + linked(entry, fmt(s.dtc, 1), s.src.dtc) + "</td><td>" + (iso ? '<span class="mv-muted" title="Constant temperature: the heat is exchanged at one temperature, so CP is infinite">isothermal</span>' : nice(streamCP(s))) + "</td>" +
         "<td>" + (s.type === "hot" ? "−" : "") + linked(entry, nice(s.kW), s.src.kW) + "</td>" +
         (hasH ? "<td>" + (isFinite(s.htc) ? nice(s.htc) : "-") + "</td>" : "") + (hasC ? '<td class="l">' + xesc(s.cascade) + "</td>" : "") + "</tr>";
     }).join("");
@@ -1042,17 +1042,28 @@ document.addEventListener("DOMContentLoaded", function () {
     var u = entry.model.units[entry.state.unit], f = entry.state.f;
     var list = u.streams.filter(function (s) { return isFinite(s.Tin) && isFinite(s.Tout) && s.kW > 0; })
                         .map(function (s) { return Object.assign({}, s, { kW: s.kW * f }); });
-    var res = list.length ? solve(list) : null;
-    var qh = list.filter(function (s) { return s.type === "hot"; }).reduce(function (a, s) { return a + s.kW; }, 0);
-    var qc = list.filter(function (s) { return s.type === "cold"; }).reduce(function (a, s) { return a + s.kW; }, 0);
-    return { u: u, f: f, list: list, res: res, qh: qh, qc: qc };
+    // Streams of another heat cascade (e.g. HC='LGWH' in OSMOSE) exchange heat only
+    // within it, so the key figures and the curves use the default cascade only.
+    var main = list.filter(function (s) { return !s.cascade || /^default$/i.test(s.cascade.trim()); });
+    var res = main.length ? solve(main) : null;
+    var qh = main.filter(function (s) { return s.type === "hot"; }).reduce(function (a, s) { return a + s.kW; }, 0);
+    var qc = main.filter(function (s) { return s.type === "cold"; }).reduce(function (a, s) { return a + s.kW; }, 0);
+    return { u: u, f: f, list: list, main: main, res: res, qh: qh, qc: qc };
+  }
+  function cascadeNote(c) {
+    var other = c.list.filter(function (s) { return c.main.indexOf(s) < 0; });
+    if (!other.length) return "";
+    var names = other.map(function (s) { return s.cascade; }).filter(function (x, i, a) { return a.indexOf(x) === i; });
+    return '<div class="mv-scaled">For the default heat cascade only: ' + other.length + " stream" + (other.length > 1 ? "s" : "") + " (" +
+      nice(other.reduce(function (a, s) { return a + s.kW; }, 0)) + " kW) belong" + (other.length > 1 ? "" : "s") + " to the separate heat cascade " +
+      names.map(xesc).join(", ") + ".</div>";
   }
   function scaledNote(entry) {
     return entry.state.f !== 1 ? '<div class="mv-scaled">Scaled by <i>f</i> = ' + nice(entry.state.f) + ".</div>" : "";
   }
   function statsHTML(c) {
     var temps = [];
-    c.list.forEach(function (s) { temps.push(s.Tin, s.Tout); });
+    c.main.forEach(function (s) { temps.push(s.Tin, s.Tout); });
     var res = c.res, recovered = res ? Math.max(0, c.qh - res.Qcu) : 0;
     return stat("Min. hot utility Q<sub>HU</sub>", res ? nice(res.Qhu) + " kW" : "-", C.hot, "Heat that must come from outside the unit") +
       stat("Min. cold utility Q<sub>CU</sub>", res ? nice(res.Qcu) + " kW" : "-", C.cold, "Heat that must be removed by a utility") +
@@ -1118,7 +1129,7 @@ document.addEventListener("DOMContentLoaded", function () {
       view.render = function (keepFocus) {
         var c = compute(entry);
         if (keepFocus && el.contains(keepFocus)) { el.querySelector(".mv-stats").innerHTML = statsHTML(c); return; }
-        el.innerHTML = controlsHTML(entry) + '<div class="mv-stats">' + statsHTML(c) + "</div>";
+        el.innerHTML = controlsHTML(entry) + '<div class="mv-stats">' + statsHTML(c) + "</div>" + cascadeNote(c);
         bindControls(entry, el);
       };
     },
@@ -1162,8 +1173,8 @@ document.addEventListener("DOMContentLoaded", function () {
             download(slug(compute(entry).u.name) + "_composite_curves.png", view.canvas.toDataURL("image/png"));
           });
         }
-        el.querySelector(".mv-note-slot").innerHTML = scaledNote(entry);
-        view.drawn = drawComposite(view.canvas, c.list, c.res);
+        el.querySelector(".mv-note-slot").innerHTML = scaledNote(entry) + cascadeNote(c);
+        view.drawn = drawComposite(view.canvas, c.main, c.res);
       };
     },
 
@@ -1181,7 +1192,7 @@ document.addEventListener("DOMContentLoaded", function () {
             download(slug(compute(entry).u.name) + "_grand_composite_curve.png", view.canvas.toDataURL("image/png"));
           });
         }
-        el.querySelector(".mv-note-slot").innerHTML = scaledNote(entry);
+        el.querySelector(".mv-note-slot").innerHTML = scaledNote(entry) + cascadeNote(c);
         view.drawn = drawGCC(view.canvas, c.res);
       };
     },
@@ -1224,7 +1235,8 @@ document.addEventListener("DOMContentLoaded", function () {
       el.innerHTML = '<p class="mv-legend">Each equation defines the calculated variable named in its tag. Hover a symbol for its definition; click it to go to the variables table.</p>' +
         calcs.map(function (v) {
           return '<div class="mv-eq" id="' + eqId(entry, v.name) + '"><div>' +
-            texD(displayTex(entry, v, true, 38, symTex(entry, v, true), v.name.replace(/_/g, "\\_"))) + "</div>" +
+            // the tag takes room on the line, so a long variable name leaves less for the equation
+            texD(displayTex(entry, v, true, Math.min(38, Math.max(24, 46 - v.name.length)), symTex(entry, v, true), v.name.replace(/_/g, "\\_"))) + "</div>" +
             '<div class="mv-eq-meta">' + varChip(entry, v.name) + " " + xesc(v.fullName || v.description) +
             (v.grade === "private" ? "" : " · " + valueText(v) + (unitText(v.unit) ? " " + unitText(v.unit) : "")) + "</div></div>";
         }).join("");

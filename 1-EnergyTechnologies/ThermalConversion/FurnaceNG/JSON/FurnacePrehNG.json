@@ -1,0 +1,1704 @@
+{
+    "header": {
+        "uid": "",
+        "name": "FurnacePrehNG",
+        "full_name": "Natural gas furnace",
+        "ET_model_type": "regular",
+        "authors_and_contributors": "Daniel Flórez-Orrego, EPFL IPESE research group",
+        "contact_info": "daniel.florezorrego@epfl.ch",
+        "creation_date": "",
+        "last_updated": "22.10.2026",
+        "status": "Maintained",
+        "version": "1.0",
+        "confidentiality": "Open",
+        "sharing_layer": "1",
+        "grade": "GRAY-BOX",
+        "reference_capacity": "1000 kW of useful heat (Furnace_natGas_LOAD)",
+        "TRL": "9",
+        "keywords": [
+            "Hot utility",
+            "Natural gas",
+            "Combustion",
+            "Furnace",
+            "Air preheating"
+        ],
+        "description": "Natural gas combustion furnace supplying high temperature heat, with air preheating, wall losses and hot gas escape.",
+        "DOI": "",
+        "main_related_publication": "",
+        "references": "[1] Adiabatic flame temperature of methane in air, https://www.thoughtco.com/flame-temperatures-table-607307",
+        "software": "OSMOSE",
+        "software_file": "",
+        "block_flow_diagram": "FurnaceNG/Figures/Furnace.svg",
+        "url": null,
+        "supplementary_material": "See SUPPL MATERIAL tab",
+        "hierarchy": "utility"
+    },
+    "variables": [
+        {
+            "var_name": "dtmin_radiation",
+            "type": "CONTEXT",
+            "full_name": "ΔTmin/2 of the radiant heat",
+            "user_grade": "MANDATORY",
+            "value": 2,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,rad}/2$",
+            "reference": "EPFL IPESE research group",
+            "description": "Minimum temperature difference contribution of the radiant heat"
+        },
+        {
+            "var_name": "dtmin_convection",
+            "type": "CONTEXT",
+            "full_name": "ΔTmin/2 of convective heat and air preheating",
+            "user_grade": "MANDATORY",
+            "value": 8,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,conv}/2$",
+            "reference": "EPFL IPESE research group",
+            "description": "Minimum temperature difference contribution of the convective heat and of the air preheating"
+        },
+        {
+            "var_name": "dtmin_2ph",
+            "type": "CONTEXT",
+            "full_name": "ΔTmin/2 of two-phase streams",
+            "user_grade": "MANDATORY",
+            "value": 2,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,2ph}/2$",
+            "reference": "EPFL IPESE research group",
+            "description": "Minimum temperature difference contribution of two-phase streams; used only by the stack streams, which are commented out in the Lua"
+        },
+        {
+            "var_name": "dtmin_0",
+            "type": "CONTEXT",
+            "full_name": "ΔTmin/2 of the losses",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,0}/2$",
+            "reference": "EPFL IPESE research group",
+            "description": "Minimum temperature difference contribution of the loss streams"
+        },
+        {
+            "var_name": "Tad",
+            "type": "LITERATURE",
+            "full_name": "Adiabatic flame temperature",
+            "user_grade": "MANDATORY",
+            "value": 1957,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{ad}$",
+            "reference": "Adiabatic flame temperature of methane in air, https://www.thoughtco.com/flame-temperatures-table-607307",
+            "description": "Adiabatic flame temperature of the fuel with stoichiometric air; depends on the fuel"
+        },
+        {
+            "var_name": "To",
+            "type": "CONTEXT",
+            "full_name": "Ambient and reference temperature",
+            "user_grade": "MANDATORY",
+            "value": 25,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{0}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Ambient temperature, also the reference temperature of the enthalpies"
+        },
+        {
+            "var_name": "Trad",
+            "type": "CONTEXT",
+            "full_name": "Radiant section temperature",
+            "user_grade": "MANDATORY",
+            "value": 1100,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{rad}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Temperature at which the radiant heat is delivered (convention)"
+        },
+        {
+            "var_name": "Troof",
+            "type": "CONTEXT",
+            "full_name": "Flue gas temperature after the convection section",
+            "user_grade": "MANDATORY",
+            "value": 101,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{roof}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Flue gas temperature at the end of the convection section"
+        },
+        {
+            "var_name": "Tstack",
+            "type": "CONTEXT",
+            "full_name": "Stack temperature",
+            "user_grade": "MANDATORY",
+            "value": 100,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{stack}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Flue gas temperature at the stack, above the water dew point at 1 bar"
+        },
+        {
+            "var_name": "Twall",
+            "type": "CONTEXT",
+            "full_name": "Wall temperature",
+            "user_grade": "MANDATORY",
+            "value": 60,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{wall}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Outer wall temperature (not used by the equations)"
+        },
+        {
+            "var_name": "Tloss",
+            "type": "CONTEXT",
+            "full_name": "Loss dissipation temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{loss}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Temperature at which the wall losses and the escaping hot gas dissipate their heat to the plant environment"
+        },
+        {
+            "var_name": "MWair",
+            "type": "LITERATURE",
+            "full_name": "Molar mass of air",
+            "user_grade": "MANDATORY",
+            "value": 29,
+            "physical_unit": "kg/kmol",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$MW_{air}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Molar mass of dry air (79 % N2, 21 % O2)"
+        },
+        {
+            "var_name": "MWfuel",
+            "type": "LITERATURE",
+            "full_name": "Molar mass of the fuel",
+            "user_grade": "MANDATORY",
+            "value": 16,
+            "physical_unit": "kg/kmol",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$MW_{fuel}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Molar mass of the fuel, taken as methane"
+        },
+        {
+            "var_name": "MWCO2",
+            "type": "LITERATURE",
+            "full_name": "Molar mass of CO2",
+            "user_grade": "MANDATORY",
+            "value": 44,
+            "physical_unit": "kg/kmol",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$MW_{CO_2}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Molar mass of CO2"
+        },
+        {
+            "var_name": "LHV",
+            "type": "LITERATURE",
+            "full_name": "Lower heating value of natural gas",
+            "user_grade": "MANDATORY",
+            "value": 50000,
+            "physical_unit": "kJ/kg",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$LHV$",
+            "reference": "EPFL IPESE research group",
+            "description": "Lower heating value of natural gas at 25 °C and 1 bar"
+        },
+        {
+            "var_name": "molratst",
+            "type": "LITERATURE",
+            "full_name": "Stoichiometric air-to-fuel molar ratio",
+            "user_grade": "MANDATORY",
+            "value": 9.52,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$n_{air,st}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Stoichiometric molar ratio of air to methane: CH4 + 2(O2 + 3.76 N2)"
+        },
+        {
+            "var_name": "a",
+            "type": "DECISION",
+            "full_name": "Excess air ratio",
+            "user_grade": "MANDATORY",
+            "value": 1.02,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$a$",
+            "reference": "EPFL IPESE research group",
+            "description": "Ratio of the actual to the stoichiometric air flow"
+        },
+        {
+            "var_name": "cpair",
+            "type": "LITERATURE",
+            "full_name": "Heat capacity of air",
+            "user_grade": "MANDATORY",
+            "value": 1.012,
+            "physical_unit": "kJ/kgK",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{p,air}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Specific heat capacity of air at 400 °C and 1 bar"
+        },
+        {
+            "var_name": "cpng",
+            "type": "LITERATURE",
+            "full_name": "Heat capacity of methane",
+            "user_grade": "MANDATORY",
+            "value": 2.304,
+            "physical_unit": "kJ/kgK",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{p,ng}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Specific heat capacity of methane at 530 °C and 1 bar (not used by the equations)"
+        },
+        {
+            "var_name": "Tprin",
+            "type": "DECISION",
+            "full_name": "Air preheating temperature",
+            "user_grade": "MANDATORY",
+            "value": 26,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{preh}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Combustion air preheating temperature, between To and Trad; preheating is only useful below the pinch of the process it serves"
+        },
+        {
+            "var_name": "Furnace_natGas_LOAD",
+            "type": "DECISION",
+            "full_name": "Useful heat load",
+            "user_grade": "MANDATORY",
+            "value": 1000,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{load}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Fuel power converted into useful heat at the reference size; the maximum capacity is 400 times this value"
+        },
+        {
+            "var_name": "walllossfactor",
+            "type": "CONTEXT",
+            "full_name": "Wall loss fraction",
+            "user_grade": "MANDATORY",
+            "value": 0.1,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$f_{wall}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Fraction of the fuel power lost through the walls; walllossfactor + hotgasescfactor < 1"
+        },
+        {
+            "var_name": "hotgasescfactor",
+            "type": "CONTEXT",
+            "full_name": "Hot gas escape fraction",
+            "user_grade": "MANDATORY",
+            "value": 0.1,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$f_{esc}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Fraction of the fuel power lost with the hot gas escaping the furnace"
+        },
+        {
+            "var_name": "inst2avgratio",
+            "type": "CONTEXT",
+            "full_name": "Installed to average power ratio",
+            "user_grade": "MANDATORY",
+            "value": 2.5,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{inst}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Ratio of installed to average power, inferred from the measured natural gas consumption"
+        },
+        {
+            "var_name": "Spec_heaterCost_installed",
+            "type": "LITERATURE",
+            "full_name": "Specific cost of the installed heater",
+            "user_grade": "MANDATORY",
+            "value": 200,
+            "physical_unit": "EUR/kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{heater,inst}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Investment cost per kW of installed heater"
+        },
+        {
+            "var_name": "n",
+            "type": "CONTEXT",
+            "full_name": "Lifetime",
+            "user_grade": "MANDATORY",
+            "value": 40,
+            "physical_unit": "year",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$n$",
+            "reference": "EPFL IPESE research group",
+            "description": "Lifetime of the furnace"
+        },
+        {
+            "var_name": "i",
+            "type": "CONTEXT",
+            "full_name": "Interest rate",
+            "user_grade": "MANDATORY",
+            "value": 0.06,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$i$",
+            "reference": "EPFL IPESE research group",
+            "description": "Interest rate"
+        },
+        {
+            "var_name": "CEPCI_2020",
+            "type": "LITERATURE",
+            "full_name": "CEPCI 2020",
+            "user_grade": "MANDATORY",
+            "value": 596.2,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$CEPCI_{2020}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Chemical Engineering Plant Cost Index of 2020"
+        },
+        {
+            "var_name": "v",
+            "type": "CALCULATED",
+            "full_name": "Stoichiometric air-to-fuel mass ratio",
+            "user_grade": "MANDATORY",
+            "value": 17.255,
+            "physical_unit": "kg/kg",
+            "formula": "molratst*MWair/MWfuel",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$v$",
+            "reference": "EPFL IPESE research group",
+            "description": "Mass of stoichiometric air per mass of fuel"
+        },
+        {
+            "var_name": "cpg",
+            "type": "CALCULATED",
+            "full_name": "Flue gas heat capacity flow, stoichiometric air (useful heat)",
+            "user_grade": "MANDATORY",
+            "value": 0.5175983436853,
+            "physical_unit": "kW/K",
+            "formula": "Furnace_natGas_LOAD/(Tad-To)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$CP_{load}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat capacity flow of the flue gas with stoichiometric air, useful heat share"
+        },
+        {
+            "var_name": "Tad_corr",
+            "type": "CALCULATED",
+            "full_name": "Flame temperature with excess air (useful heat)",
+            "user_grade": "MANDATORY",
+            "value": 1931.27542323261,
+            "physical_unit": "°C",
+            "formula": "To+(Furnace_natGas_LOAD/(cpg+(cpair*(a-1)*v*Furnace_natGas_LOAD/LHV)))",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{ad,load}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Adiabatic flame temperature corrected for the excess air, useful heat share"
+        },
+        {
+            "var_name": "cpg_corr",
+            "type": "CALCULATED",
+            "full_name": "Flue gas heat capacity flow with excess air (useful heat)",
+            "user_grade": "MANDATORY",
+            "value": 0.5245831676853,
+            "physical_unit": "kW/K",
+            "formula": "Furnace_natGas_LOAD/(Tad_corr-To)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$CP^{corr}_{load}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat capacity flow of the flue gas including the excess air, useful heat share"
+        },
+        {
+            "var_name": "Q_radiation",
+            "type": "CALCULATED",
+            "full_name": "Radiant heat (useful heat)",
+            "user_grade": "MANDATORY",
+            "value": 436.073094738302,
+            "physical_unit": "kW",
+            "formula": "(Furnace_natGas_LOAD*(Tad_corr-Trad)/(Tad_corr-To))",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q^{rad}_{load}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat released by the flue gas from the flame temperature down to Trad, useful heat share"
+        },
+        {
+            "var_name": "Q_convroof",
+            "type": "CALCULATED",
+            "full_name": "Convective heat, Trad to Troof (useful heat)",
+            "user_grade": "MANDATORY",
+            "value": 524.058584517615,
+            "physical_unit": "kW",
+            "formula": "(Furnace_natGas_LOAD*(Trad-Troof)/(Tad_corr-To))",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q^{conv}_{load}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat released by the flue gas from Trad to Troof, useful heat share"
+        },
+        {
+            "var_name": "Q_convrecov",
+            "type": "CALCULATED",
+            "full_name": "Recovered convective heat, Troof to Tstack (useful heat)",
+            "user_grade": "MANDATORY",
+            "value": 0.5245831676853,
+            "physical_unit": "kW",
+            "formula": "(Furnace_natGas_LOAD*(Troof-Tstack)/(Tad_corr-To))",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q^{rec}_{load}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat released by the flue gas from Troof to Tstack, useful heat share"
+        },
+        {
+            "var_name": "Q_preh",
+            "type": "CALCULATED",
+            "full_name": "Air preheating load (useful heat)",
+            "user_grade": "MANDATORY",
+            "value": 0.3492412,
+            "physical_unit": "kW",
+            "formula": "cpair*v*Furnace_natGas_LOAD/LHV*(Tprin-To)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q^{preh}_{load}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat to preheat the stoichiometric air from To to Tprin, useful heat share"
+        },
+        {
+            "var_name": "Q_stack",
+            "type": "CALCULATED",
+            "full_name": "Stack loss (useful heat)",
+            "user_grade": "MANDATORY",
+            "value": 39.3437375763975,
+            "physical_unit": "kW",
+            "formula": "cpg_corr*(Tstack-To)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q^{stack}_{load}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat left in the flue gas from Tstack down to To, useful heat share (no heat stream uses it)"
+        },
+        {
+            "var_name": "Q_radpreh",
+            "type": "CALCULATED",
+            "full_name": "Radiant heat with air preheating (useful heat)",
+            "user_grade": "MANDATORY",
+            "value": 436.422335938302,
+            "physical_unit": "kW",
+            "formula": "Q_preh+Q_radiation",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q^{rad+preh}_{load}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Radiant heat plus the air preheating load, which raises the heat available above Trad, useful heat share"
+        },
+        {
+            "var_name": "Furnace_natGas_WALL",
+            "type": "CALCULATED",
+            "full_name": "Wall loss",
+            "user_grade": "MANDATORY",
+            "value": 125,
+            "physical_unit": "kW",
+            "formula": "walllossfactor*Furnace_natGas_LOAD/(1-walllossfactor-hotgasescfactor)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{wall}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Fuel power lost through the furnace walls"
+        },
+        {
+            "var_name": "cpg_wl",
+            "type": "CALCULATED",
+            "full_name": "Flue gas heat capacity flow, stoichiometric air (wall loss)",
+            "user_grade": "MANDATORY",
+            "value": 0.0646997929606625,
+            "physical_unit": "kW/K",
+            "formula": "Furnace_natGas_WALL/(Tad-To)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$CP_{wl}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat capacity flow of the flue gas with stoichiometric air, wall loss share"
+        },
+        {
+            "var_name": "Tad_corr_wl",
+            "type": "CALCULATED",
+            "full_name": "Flame temperature with excess air (wall loss)",
+            "user_grade": "MANDATORY",
+            "value": 1931.27542323261,
+            "physical_unit": "°C",
+            "formula": "To+(Furnace_natGas_WALL/(cpg_wl+(cpair*(a-1)*v*Furnace_natGas_WALL/LHV)))",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{ad,wl}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Adiabatic flame temperature corrected for the excess air, wall loss share"
+        },
+        {
+            "var_name": "cpg_corr_wl",
+            "type": "CALCULATED",
+            "full_name": "Flue gas heat capacity flow with excess air (wall loss)",
+            "user_grade": "MANDATORY",
+            "value": 0.0655728959606625,
+            "physical_unit": "kW/K",
+            "formula": "Furnace_natGas_WALL/(Tad_corr_wl-To)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$CP^{corr}_{wl}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat capacity flow of the flue gas including the excess air, wall loss share"
+        },
+        {
+            "var_name": "Q_radiation_wl",
+            "type": "CALCULATED",
+            "full_name": "Radiant heat (wall loss)",
+            "user_grade": "MANDATORY",
+            "value": 54.5091368422878,
+            "physical_unit": "kW",
+            "formula": "(Furnace_natGas_WALL*(Tad_corr_wl-Trad)/(Tad_corr_wl-To))",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q^{rad}_{wl}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat released by the flue gas from the flame temperature down to Trad, wall loss share"
+        },
+        {
+            "var_name": "Q_convroof_wl",
+            "type": "CALCULATED",
+            "full_name": "Convective heat, Trad to Troof (wall loss)",
+            "user_grade": "MANDATORY",
+            "value": 65.5073230647019,
+            "physical_unit": "kW",
+            "formula": "(Furnace_natGas_WALL*(Trad-Troof)/(Tad_corr_wl-To))",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q^{conv}_{wl}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat released by the flue gas from Trad to Troof, wall loss share"
+        },
+        {
+            "var_name": "Q_convrecov_wl",
+            "type": "CALCULATED",
+            "full_name": "Recovered convective heat, Troof to Tstack (wall loss)",
+            "user_grade": "MANDATORY",
+            "value": 0.0655728959606625,
+            "physical_unit": "kW",
+            "formula": "(Furnace_natGas_WALL*(Troof-Tstack)/(Tad_corr_wl-To))",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q^{rec}_{wl}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat released by the flue gas from Troof to Tstack, wall loss share"
+        },
+        {
+            "var_name": "Q_preh_wl",
+            "type": "CALCULATED",
+            "full_name": "Air preheating load (wall loss)",
+            "user_grade": "MANDATORY",
+            "value": 0.04365515,
+            "physical_unit": "kW",
+            "formula": "cpair*v*Furnace_natGas_WALL/LHV*(Tprin-To)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q^{preh}_{wl}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat to preheat the stoichiometric air from To to Tprin, wall loss share"
+        },
+        {
+            "var_name": "Q_stack_wl",
+            "type": "CALCULATED",
+            "full_name": "Stack loss (wall loss)",
+            "user_grade": "MANDATORY",
+            "value": 4.91796719704969,
+            "physical_unit": "kW",
+            "formula": "cpg_corr_wl*(Tstack-To)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q^{stack}_{wl}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat left in the flue gas from Tstack down to To, wall loss share (no heat stream uses it)"
+        },
+        {
+            "var_name": "Q_radpreh_wl",
+            "type": "CALCULATED",
+            "full_name": "Radiant heat with air preheating (wall loss)",
+            "user_grade": "MANDATORY",
+            "value": 54.5527919922878,
+            "physical_unit": "kW",
+            "formula": "Q_preh_wl+Q_radiation_wl",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q^{rad+preh}_{wl}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Radiant heat plus the air preheating load, which raises the heat available above Trad, wall loss share"
+        },
+        {
+            "var_name": "Furnace_natGas_ESC",
+            "type": "CALCULATED",
+            "full_name": "Hot gas escape loss",
+            "user_grade": "MANDATORY",
+            "value": 125,
+            "physical_unit": "kW",
+            "formula": "hotgasescfactor*Furnace_natGas_LOAD/(1-walllossfactor-hotgasescfactor)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{esc}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Fuel power lost with the hot gas escaping the furnace"
+        },
+        {
+            "var_name": "cpg_ae",
+            "type": "CALCULATED",
+            "full_name": "Flue gas heat capacity flow, stoichiometric air (hot gas escape)",
+            "user_grade": "MANDATORY",
+            "value": 0.0646997929606625,
+            "physical_unit": "kW/K",
+            "formula": "Furnace_natGas_ESC/(Tad-To)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$CP_{esc}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat capacity flow of the flue gas with stoichiometric air, hot gas escape share"
+        },
+        {
+            "var_name": "Tad_corr_ae",
+            "type": "CALCULATED",
+            "full_name": "Flame temperature with excess air (hot gas escape)",
+            "user_grade": "MANDATORY",
+            "value": 1931.27542323261,
+            "physical_unit": "°C",
+            "formula": "To+(Furnace_natGas_ESC/(cpg_ae+(cpair*(a-1)*v*Furnace_natGas_ESC/LHV)))",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{ad,esc}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Adiabatic flame temperature corrected for the excess air, hot gas escape share"
+        },
+        {
+            "var_name": "cpg_corr_ae",
+            "type": "CALCULATED",
+            "full_name": "Flue gas heat capacity flow with excess air (hot gas escape)",
+            "user_grade": "MANDATORY",
+            "value": 0.0655728959606625,
+            "physical_unit": "kW/K",
+            "formula": "Furnace_natGas_ESC/(Tad_corr_ae-To)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$CP^{corr}_{esc}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat capacity flow of the flue gas including the excess air, hot gas escape share"
+        },
+        {
+            "var_name": "Q_radiation_ae",
+            "type": "CALCULATED",
+            "full_name": "Radiant heat (hot gas escape)",
+            "user_grade": "MANDATORY",
+            "value": 54.5091368422878,
+            "physical_unit": "kW",
+            "formula": "(Furnace_natGas_ESC*(Tad_corr_ae-Trad)/(Tad_corr_ae-To))",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q^{rad}_{esc}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat released by the flue gas from the flame temperature down to Trad, hot gas escape share"
+        },
+        {
+            "var_name": "Q_convroof_ae",
+            "type": "CALCULATED",
+            "full_name": "Convective heat, Trad to Troof (hot gas escape)",
+            "user_grade": "MANDATORY",
+            "value": 65.5073230647019,
+            "physical_unit": "kW",
+            "formula": "(Furnace_natGas_ESC*(Trad-Troof)/(Tad_corr_ae-To))",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q^{conv}_{esc}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat released by the flue gas from Trad to Troof, hot gas escape share"
+        },
+        {
+            "var_name": "Q_convrecov_ae",
+            "type": "CALCULATED",
+            "full_name": "Recovered convective heat, Troof to Tstack (hot gas escape)",
+            "user_grade": "MANDATORY",
+            "value": 0.0655728959606625,
+            "physical_unit": "kW",
+            "formula": "(Furnace_natGas_ESC*(Troof-Tstack)/(Tad_corr_ae-To))",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q^{rec}_{esc}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat released by the flue gas from Troof to Tstack, hot gas escape share"
+        },
+        {
+            "var_name": "Q_preh_ae",
+            "type": "CALCULATED",
+            "full_name": "Air preheating load (hot gas escape)",
+            "user_grade": "MANDATORY",
+            "value": 0.04365515,
+            "physical_unit": "kW",
+            "formula": "cpair*v*Furnace_natGas_ESC/LHV*(Tprin-To)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q^{preh}_{esc}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat to preheat the stoichiometric air from To to Tprin, hot gas escape share"
+        },
+        {
+            "var_name": "Q_stack_ae",
+            "type": "CALCULATED",
+            "full_name": "Stack loss (hot gas escape)",
+            "user_grade": "MANDATORY",
+            "value": 4.91796719704969,
+            "physical_unit": "kW",
+            "formula": "cpg_corr_ae*(Tstack-To)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q^{stack}_{esc}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat left in the flue gas from Tstack down to To, hot gas escape share (no heat stream uses it)"
+        },
+        {
+            "var_name": "Q_radpreh_ae",
+            "type": "CALCULATED",
+            "full_name": "Radiant heat with air preheating (hot gas escape)",
+            "user_grade": "MANDATORY",
+            "value": 54.5527919922878,
+            "physical_unit": "kW",
+            "formula": "Q_preh_ae+Q_radiation_ae",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q^{rad+preh}_{esc}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Radiant heat plus the air preheating load, which raises the heat available above Trad, hot gas escape share"
+        },
+        {
+            "var_name": "Q_total_ae",
+            "type": "CALCULATED",
+            "full_name": "Heat of the escaping hot gas",
+            "user_grade": "MANDATORY",
+            "value": 125.04365515,
+            "physical_unit": "kW",
+            "formula": "Q_preh_ae+Q_radiation_ae+Q_convroof_ae+Q_convrecov_ae+Q_stack_ae",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q^{esc}_{total}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Heat released by the escaping hot gas and its share of air preheating, dissipated at Tloss"
+        },
+        {
+            "var_name": "Q_demand",
+            "type": "CALCULATED",
+            "full_name": "Natural gas demand",
+            "user_grade": "MANDATORY",
+            "value": 1250,
+            "physical_unit": "kW",
+            "formula": "Furnace_natGas_LOAD+Furnace_natGas_WALL+Furnace_natGas_ESC",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{demand}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Fuel power (LHV) of the furnace: useful heat plus wall and hot gas escape losses"
+        },
+        {
+            "var_name": "TotalCO2Flow",
+            "type": "CALCULATED",
+            "full_name": "Total CO2 produced",
+            "user_grade": "MANDATORY",
+            "value": 247.5,
+            "physical_unit": "kg/h",
+            "formula": "Q_demand/LHV*3600*MWCO2/MWfuel",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{CO_2}$",
+            "reference": "EPFL IPESE research group",
+            "description": "CO2 produced by the combustion, one kmol per kmol of methane"
+        },
+        {
+            "var_name": "EmitCO2Flow",
+            "type": "CALCULATED",
+            "full_name": "CO2 emitted with the escaping gas",
+            "user_grade": "MANDATORY",
+            "value": 24.75,
+            "physical_unit": "kg/h",
+            "formula": "Furnace_natGas_ESC/LHV*3600*MWCO2/MWfuel",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{CO_2,emit}$",
+            "reference": "EPFL IPESE research group",
+            "description": "CO2 released to the environment with the escaping hot gas"
+        },
+        {
+            "var_name": "CapturableCO2Flow",
+            "type": "CALCULATED",
+            "full_name": "Capturable CO2 in the flue gas",
+            "user_grade": "MANDATORY",
+            "value": 222.75,
+            "physical_unit": "kg/h",
+            "formula": "(Q_demand-Furnace_natGas_ESC)/LHV*3600*MWCO2/MWfuel",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{CO_2,capt}$",
+            "reference": "EPFL IPESE research group",
+            "description": "CO2 leaving with the flue gas at the stack, available for capture"
+        },
+        {
+            "var_name": "Annuity",
+            "type": "CALCULATED",
+            "full_name": "Capital recovery factor",
+            "user_grade": "MANDATORY",
+            "value": 0.0664615359206755,
+            "physical_unit": "-",
+            "formula": "(i*(i+1)**n)/((i+1)**n-1)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\tau$",
+            "reference": "EPFL IPESE research group",
+            "description": "Annualisation factor of the investment over n years at the interest rate i"
+        },
+        {
+            "var_name": "Spec_heaterCost",
+            "type": "CALCULATED",
+            "full_name": "Specific cost of the heater",
+            "user_grade": "MANDATORY",
+            "value": 500,
+            "physical_unit": "EUR/kW",
+            "formula": "inst2avgratio*Spec_heaterCost_installed",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{heater}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Investment cost per kW of average fuel power"
+        },
+        {
+            "var_name": "Cinv2_NGFur",
+            "type": "CALCULATED",
+            "full_name": "Annualised investment cost",
+            "user_grade": "MANDATORY",
+            "value": 41538.4599504222,
+            "physical_unit": "EUR/year",
+            "formula": "Spec_heaterCost*Q_demand*(CEPCI_2020/CEPCI_2020)*Annuity",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$C^{inv}_{2}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Annualised investment cost of the furnace, proportional to the fuel power (Cinv2 of the unit)"
+        }
+    ],
+    "units": [
+        {
+            "unit_description": "This unit represents a natural gas furnace sized by a useful heat load of 1000 kW, of which 961 kW are delivered as radiant and convective heat above the stack temperature and 39 kW leave with the stack gas. With the wall and hot gas escape losses, the fuel demand is 1250 kW (LHV).",
+            "unit_info": {
+                "unit_name": "NG_Furnace",
+                "full_name": "Natural gas furnace",
+                "unit_type": "utility",
+                "minimum_capacity_multiplier": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 400,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes natural gas and releases CO2: the CO2 of the escaping hot gas is emitted, the CO2 of the flue gas leaves at the stack and can be captured.",
+            "connectors": [
+                {
+                    "name": "CH4",
+                    "full_name": "Natural gas",
+                    "scope": "GLOBAL",
+                    "type": "FUEL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 1250,
+                        "formula": "=Q_demand",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "CH4[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "Natural gas fuel power (LHV), taken as methane"
+                },
+                {
+                    "name": "EnvCO2Em",
+                    "full_name": "CO2 emitted",
+                    "scope": "GLOBAL",
+                    "type": "EMISSIONS",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 24.75,
+                        "formula": "=EmitCO2Flow",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "CO2[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "CO2 released to the environment with the escaping hot gas"
+                },
+                {
+                    "name": "CO2inFlueGas",
+                    "full_name": "CO2 in the flue gas",
+                    "scope": "GLOBAL",
+                    "type": "EMISSIONS",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 222.75,
+                        "formula": "=CapturableCO2Flow",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 100,
+                        "formula": "=Tstack",
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "CO2[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "CO2 leaving with the flue gas at the stack, available for capture"
+                }
+            ],
+            "heat_streams_description": "The useful heat is delivered as radiant heat at Trad and as convective heat from Trad to Tstack; the air preheating is a cold stream. The radiant and convective shares of the wall loss and the escaping hot gas are dissipated at Tloss in the separate heat cascade LGWH.",
+            "heat_streams": [
+                {
+                    "name": "radiationGas",
+                    "full_name": "Radiant heat",
+                    "description": "Radiant heat with the air preheating (Q_radpreh), delivered at Trad",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 1100,
+                        "formula": "=Trad",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 1100,
+                        "formula": "=Trad",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 436.422335938302,
+                        "formula": "=Q_radpreh",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 2,
+                        "formula": "=dtmin_radiation",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "rooftempGas",
+                    "full_name": "Convective heat",
+                    "description": "Flue gas cooling from Trad to Troof in the convection section",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 1100,
+                        "formula": "=Trad",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 101,
+                        "formula": "=Troof",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 524.058584517615,
+                        "formula": "=Q_convroof",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_convection",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "convrecGas",
+                    "full_name": "Convective recovery",
+                    "description": "Flue gas cooling from Troof to Tstack",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 101,
+                        "formula": "=Troof",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 100,
+                        "formula": "=Tstack",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0.5245831676853,
+                        "formula": "=Q_convrecov",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_convection",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "preheatLoad",
+                    "full_name": "Air preheating",
+                    "description": "Combustion air preheating from To to Tprin",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 25,
+                        "formula": "=To",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 26,
+                        "formula": "=Tprin",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0.3492412,
+                        "formula": "=Q_preh",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_convection",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "radiationGas_wl",
+                    "full_name": "Wall loss, radiant share",
+                    "description": "Radiant share of the wall loss, dissipated at Tloss",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 30,
+                        "formula": "=Tloss",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=Tloss",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 54.5527919922878,
+                        "formula": "=Q_radpreh_wl",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 0,
+                        "formula": "=dtmin_0",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "LGWH",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "rooftempGas_wl",
+                    "full_name": "Wall loss, convective share",
+                    "description": "Convective share of the wall loss, dissipated at Tloss",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 30,
+                        "formula": "=Tloss",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=Tloss",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 65.5073230647019,
+                        "formula": "=Q_convroof_wl",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 0,
+                        "formula": "=dtmin_0",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "LGWH",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "convrecGas_wl",
+                    "full_name": "Wall loss, convective recovery",
+                    "description": "Wall loss share of the flue gas cooling from Troof to Tstack",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 101,
+                        "formula": "=Troof",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 100,
+                        "formula": "=Tstack",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0.0655728959606625,
+                        "formula": "=Q_convrecov_wl",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_convection",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "preheatLoad_wl",
+                    "full_name": "Air preheating, wall loss share",
+                    "description": "Air preheating from To to Tprin, wall loss share",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 25,
+                        "formula": "=To",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 26,
+                        "formula": "=Tprin",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0.04365515,
+                        "formula": "=Q_preh_wl",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_convection",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "escHotGasloss",
+                    "full_name": "Hot gas escape",
+                    "description": "Heat of the escaping hot gas (Q_total_ae), dissipated at Tloss",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 30,
+                        "formula": "=Tloss",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=Tloss",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 125.04365515,
+                        "formula": "=Q_total_ae",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 0,
+                        "formula": "=dtmin_0",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "LGWH",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "preheatLoad_ae",
+                    "full_name": "Air preheating, hot gas escape share",
+                    "description": "Air preheating from To to Tprin, hot gas escape share",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 25,
+                        "formula": "=To",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 26,
+                        "formula": "=Tprin",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0.04365515,
+                        "formula": "=Q_preh_ae",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_convection",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                }
+            ],
+            "equipments_description": "One furnace asset, whose investment cost is proportional to the natural gas demand.",
+            "equipments": [
+                {
+                    "name": "NG_Furnace_investment",
+                    "full_name": "Investment of the natural gas furnace",
+                    "type": "Asset",
+                    "subtype": "",
+                    "reference": "",
+                    "reference_size": {
+                        "full_name": "Reference size of equipment",
+                        "value": 1250,
+                        "formula": "=Q_demand",
+                        "unit": "kW"
+                    },
+                    "lifetime": {
+                        "full_name": "Lifetime",
+                        "value": 40,
+                        "formula": "=n",
+                        "unit": "year"
+                    },
+                    "year": {
+                        "full_name": "Year of reference",
+                        "value": 2020,
+                        "formula": null,
+                        "unit": "year"
+                    },
+                    "CAPEX": {
+                        "full_name": "Total investment cost for ref. size",
+                        "value": 625000.0000000002,
+                        "formula": "=Cinv2_NGFur/Annuity",
+                        "unit": "EUR"
+                    },
+                    "impact": {
+                        "full_name": "Scope 3 environmental impact per unit of ref. size",
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kgCO2-eq"
+                    },
+                    "interest_rate": {
+                        "full_name": "Interest rate",
+                        "value": 0.06,
+                        "formula": "=i",
+                        "unit": "-"
+                    },
+                    "F_BM": {
+                        "full_name": "Bare module factor",
+                        "value": 1,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "capacity_exponent": {
+                        "full_name": "Capacity exponent",
+                        "value": 1,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "parameters": [
+                        {
+                            "parameter": "Annualised investment (Cinv2 of the Lua unit)",
+                            "value": 41538.4599504222,
+                            "formula": "=Cinv2_NGFur",
+                            "unit": "EUR/year"
+                        }
+                    ]
+                }
+            ],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        }
+    ],
+    "custom_constraints": [
+        {
+            "name": "",
+            "equation": "",
+            "type": ""
+        }
+    ]
+}

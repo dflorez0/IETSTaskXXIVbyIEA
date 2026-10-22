@@ -5,7 +5,7 @@ Technologies that convert fuels or electricity into high-temperature heat.
 | Model type | Model | Status |
 |:--|:--|:--|
 | Oxycombustion | — | Work in progress |
-| Conventional furnaces (G, S, L) | [Natural gas furnace](FurnaceNG/index.qmd) | Work in progress |
+| Conventional furnaces (G, S, L) | [Natural gas furnace](FurnaceNG/index.qmd) | Documented |
 | Electrical furnaces | — | Work in progress |
 | Plasma furnaces | — | Work in progress |
 | Methane pyrolysis | — | Work in progress |
