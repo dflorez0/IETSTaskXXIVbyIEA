@@ -7,6 +7,6 @@ Production and conditioning of syngas, biogas and synthetic methane.
 | Biogas purification | — | Work in progress |
 | Gasification (LP, HP, SC, for syngas) | — | Work in progress |
 | Reforming and rWGS | — | Work in progress |
-| Methanation | — | Work in progress |
+| Methanation | [Methanation](Methanation/index.qmd) | Documented |
 
 : {.striped}

@@ -76,7 +76,10 @@ website:
             contents:
               - 2-DecarbTechnologies/Electrochemical/HighTElectrolysis/index.qmd
               - 2-DecarbTechnologies/Electrochemical/LowTElectrolysis/index.qmd
-          - 2-DecarbTechnologies/GasUpgradingAndSyngas/index.qmd
+          - section: "Gas upgrading and syngas"
+            href: 2-DecarbTechnologies/GasUpgradingAndSyngas/index.qmd
+            contents:
+              - 2-DecarbTechnologies/GasUpgradingAndSyngas/Methanation/index.qmd
           - section: "CO₂ capture, use and sequestration"
             href: 2-DecarbTechnologies/CO2Capture/index.qmd
             contents:

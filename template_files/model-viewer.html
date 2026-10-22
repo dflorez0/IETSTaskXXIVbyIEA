@@ -55,6 +55,8 @@
 .mv-collapsed .mv-extra { display: none; }
 .mv-more { display: block; width: 100%; margin: .5rem 0 0; border: 1px solid #ff0000; background: #fff5f5; color: #d00000; border-radius: 4px; padding: .4rem .9rem; font-size: .85rem; font-weight: 600; cursor: pointer; }
 .mv-more:hover { background: #ff0000; color: #fff; }
+.mv-fig-var, .mv-fig-var * { color: #d00000 !important; cursor: pointer; text-decoration: underline dotted; }
+.mv-fig-var:hover, .mv-fig-var:hover * { color: #ff0000 !important; }
 .mv-scaled { font-size: .8rem; color: #b8860b; margin-bottom: .35rem; }
 .mv-tip { position: absolute; pointer-events: none; z-index: 5; background: rgba(33,33,33,.92); color: #fff; font-size: .75rem;
           line-height: 1.35; padding: .3rem .5rem; border-radius: 4px; white-space: nowrap; transform: translate(-50%, calc(-100% - 10px)); }
@@ -1459,7 +1461,67 @@ document.addEventListener("DOMContentLoaded", function () {
     clearTimeout(hideTimer);
     hideTimer = setTimeout(function () { if (shown) { shown.card.hidden = true; shown = null; } }, 80);
   }
-  var LINK_SEL = 'a.mv-var, .mv-val, mjx-container a[href^="#mv-var-"]';
+  var LINK_SEL = 'a.mv-var, .mv-val, .mv-fig-var, mjx-container a[href^="#mv-var-"]';
+  // An SVG figure carrying mv-src (its model's JSON) is placed inline, and its
+  // labels become variable links (hover card, click to the variables table): a
+  // label that is exactly a variable name is linked by itself, any other label
+  // only when mv-links="Label=var;Label=var1,var2" names it. A label that appears
+  // more than once takes the variables in order from left to right.
+  function linkFigures() {
+    var norm = function (t) { return String(t || "").replace(/\s+/g, "").toLowerCase(); };
+    var exact = function (t) { return String(t || "").replace(/\s+/g, ""); };
+    document.querySelectorAll("img[data-mv-src], img[data-mv-links]").forEach(function (img) {
+      var src = img.getAttribute("data-mv-src") || order[0], entry = models[src];
+      if (!entry || !window.fetch || !window.DOMParser || !/\.svg(\?|$)/i.test(img.getAttribute("src") || "")) return;
+      var map = {};
+      // exact variable names only (case-sensitive, at least 3 characters), so
+      // that a short or common word in a drawing never links by accident
+      var byName = {};
+      entry.model.vars.forEach(function (v) { if (v.name.length >= 3) byName[v.name] = [v.name]; });
+      (img.getAttribute("data-mv-links") || "").split(";").forEach(function (pair) {
+        var k = pair.split("=");
+        if (k.length === 2) map[norm(k[0])] = k[1].split(",").map(function (x) { return x.trim(); });
+      });
+
+      fetch(img.getAttribute("src")).then(function (r) { return r.ok ? r.text() : Promise.reject(r.status); }).then(function (txt) {
+        var root = new DOMParser().parseFromString(txt, "image/svg+xml").documentElement;
+        if (!root || root.nodeName.toLowerCase() !== "svg") return;
+        var svg = document.importNode(root, true);
+        svg.removeAttribute("width"); svg.removeAttribute("height");
+        svg.style.width = img.style.width || "100%"; svg.style.height = "auto"; svg.style.maxWidth = "100%";
+        svg.setAttribute("role", "img"); svg.setAttribute("aria-label", img.getAttribute("alt") || "");
+        if (img.getAttribute("class")) svg.setAttribute("class", img.getAttribute("class"));   // e.g. column-page
+        img.replaceWith(svg);
+        var labels = Array.prototype.filter.call(svg.querySelectorAll("foreignObject div"), function (d) { return !d.querySelector("div"); });
+        if (!labels.length) labels = Array.prototype.slice.call(svg.querySelectorAll("text"));
+        var groups = {};
+        labels.forEach(function (el) {
+          var k = norm(el.textContent), e = exact(el.textContent);
+          if (!map[k] && byName[e]) map[k] = byName[e];
+          if (map[k]) (groups[k] = groups[k] || []).push(el);
+        });
+        Object.keys(groups).forEach(function (k) {
+          groups[k].sort(function (a, b) { return a.getBoundingClientRect().left - b.getBoundingClientRect().left; })
+            .forEach(function (el, i) {
+              var name = map[k][Math.min(i, map[k].length - 1)];
+              if (!entry.model.varIndex[name]) return;
+              el.classList.add("mv-fig-var");
+              el.setAttribute("data-mv-src", src); el.setAttribute("data-mv-var", name);
+              el.setAttribute("tabindex", "0"); el.setAttribute("role", "link");
+              el.addEventListener("click", function (e) {
+                e.preventDefault(); e.stopPropagation();   // not the lightbox around the figure
+                var id = varId(entry, name);
+                reveal(id);
+                var dest = document.getElementById(id);
+                if (dest) { dest.scrollIntoView({ block: "center" }); dest.classList.remove("mv-flash"); void dest.offsetWidth; dest.classList.add("mv-flash"); }
+                if (history.replaceState) history.replaceState(null, "", "#" + id);
+              });
+            });
+        });
+      }).catch(function (e) { console.warn("model-viewer: figure not linked:", e); });
+    });
+  }
+
   function bindLinks() {
     document.addEventListener("mouseover", function (e) {
       var t = e.target.closest && e.target.closest(LINK_SEL);
@@ -1526,6 +1588,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   decorateProse();
   bindLinks();
+  linkFigures();
   if (location.hash && reveal(decodeURIComponent(location.hash.slice(1))))
     document.getElementById(decodeURIComponent(location.hash.slice(1))).scrollIntoView();
 

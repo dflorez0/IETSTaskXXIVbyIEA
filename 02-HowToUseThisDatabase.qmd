@@ -97,6 +97,14 @@ Without `view`, the shortcode renders a compact tabbed overview of the key figur
 
 When the text names a variable, write it as inline code with its exact name in the JSON — `` `Cool_Qmax` `` — and it becomes linked automatically.
 
+The labels of an SVG diagram can be linked too. Write the variable names in the diagram, next to the part they describe (for example `H2_input` under the hydrogen feed), and add `mv-src` with the JSON file to the figure:
+
+```markdown
+![Caption](Figures/Methanation.svg){#fig-methanation mv-src="JSON/Methanation.json"}
+```
+
+Every label that is exactly a variable name then links to that variable. Name only the parts whose variable is certain.
+
 The views also run data checks and list them where they apply: a stream declared *Hot* whose temperature rises, a heat stream without a ΔT~min~ contribution, a connector without a flow, or a calculated value that differs from what its formula gives with the stored values of its variables. They are a quick way to validate a JSON file.
 
 **5. Register the page** in `_quarto.yml`, under `website: sidebar: contents:`, in the contents of its category. A category with model pages is a section within its section:

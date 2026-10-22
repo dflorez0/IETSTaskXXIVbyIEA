@@ -10,7 +10,7 @@ Industrial process models, by sector.
 | [Nitrogen chemistry](NitrogenChemistry/index.qmd) | — | 6 |
 | [Precision industries](PrecisionIndustries/index.qmd) | — | 2 |
 | [Urban and digital](UrbanAndDigital/index.qmd) | — | 2 |
-| [Oxygenates and commodity chemicals](OxygenatesAndChemicals/index.qmd) | — | 7 |
+| [Oxygenates and commodity chemicals](OxygenatesAndChemicals/index.qmd) | [Methanol synthesis from co-electrolysis syngas](OxygenatesAndChemicals/Methanol/index.qmd) | 6 |
 | [Synthetic fuels and biofuels](SyntheticFuelsAndBiofuels/index.qmd) | — | 10 |
 | [Food and beverage](FoodAndBeverage/index.qmd) | — | 5 |
 | [Bio and waste](BioAndWaste/index.qmd) | — | 3 |

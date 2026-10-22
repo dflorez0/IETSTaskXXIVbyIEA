@@ -1,0 +1,1124 @@
+{
+    "header": {
+        "uid": "",
+        "name": "Methanator",
+        "full_name": "Methanation",
+        "ET_model_type": "regular",
+        "authors_and_contributors": "Daniel Flórez-Orrego, EPFL IPESE research group",
+        "contact_info": "daniel.florezorrego@epfl.ch",
+        "creation_date": "",
+        "last_updated": "22.10.2026",
+        "status": "Maintained",
+        "version": "1.0",
+        "confidentiality": "Open",
+        "sharing_layer": "1",
+        "grade": "GRAY-BOX",
+        "reference_capacity": "16 kg/h (1 kmol/h) of methane, 222 kW LHV (CH4_ouput)",
+        "TRL": "",
+        "keywords": [
+            "Methanation",
+            "Power-to-gas",
+            "Synthetic natural gas",
+            "CO2 utilization",
+            "Hydrogen"
+        ],
+        "description": "Catalytic methanation of CO2 with hydrogen at 30 bar, with the heat released in three cooling steps, and the compression of the CO2 feed.",
+        "DOI": "",
+        "main_related_publication": "https://doi.org/10.1016/j.jclepro.2019.118647",
+        "references": "[1] Baier, J., Schneider, G., Heel, A., A Cost Estimation for CO2 Reduction and Reuse by Methanation from Cement Industry Sources in Switzerland. Frontiers in Energy Research 6 (2018) 5, DOI: https://doi.org/10.3389/fenrg.2018.00005;\n[2] Flórez-Orrego, D., Sharma, S., de Oliveira Junior, S., Maréchal, F., Combined exergy analysis, energy integration and optimization of syngas and ammonia production plants: A cogeneration and syngas purification perspective. Journal of Cleaner Production 244 (2020) 118647, DOI: https://doi.org/10.1016/j.jclepro.2019.118647",
+        "software": "OSMOSE",
+        "software_file": "",
+        "block_flow_diagram": "Methanation/Figures/Methanation.svg",
+        "url": null,
+        "supplementary_material": "See SUPPL MATERIAL tab",
+        "hierarchy": "utility"
+    },
+    "variables": [
+        {
+            "var_name": "CO2_input",
+            "type": "CONTEXT",
+            "full_name": "CO2 feed",
+            "user_grade": "MANDATORY",
+            "value": 44,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{CO_2}$",
+            "reference": "",
+            "description": "CO2 fed to the reactor for 1 kmol/h of methane"
+        },
+        {
+            "var_name": "H2_input",
+            "type": "CONTEXT",
+            "full_name": "Hydrogen feed",
+            "user_grade": "MANDATORY",
+            "value": 8,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{H_2}$",
+            "reference": "",
+            "description": "Hydrogen fed to the reactor for 1 kmol/h of methane"
+        },
+        {
+            "var_name": "CH4_ouput",
+            "type": "CONTEXT",
+            "full_name": "Methane output",
+            "user_grade": "MANDATORY",
+            "value": 16,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{CH_4}$",
+            "reference": "",
+            "description": "Methane produced at the reference size, 1 kmol/h"
+        },
+        {
+            "var_name": "Water_output",
+            "type": "CONTEXT",
+            "full_name": "Water output",
+            "user_grade": "MANDATORY",
+            "value": 0.036,
+            "physical_unit": "m3/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot V_{H_2O}$",
+            "reference": "",
+            "description": "Water produced by the reaction, 0.036 m3/h (36 kg/h)"
+        },
+        {
+            "var_name": "LHV_CH4",
+            "type": "LITERATURE",
+            "full_name": "Lower heating value of methane",
+            "user_grade": "MANDATORY",
+            "value": 50000,
+            "physical_unit": "kJ/kg",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$LHV_{CH_4}$",
+            "reference": "",
+            "description": "Lower heating value of methane"
+        },
+        {
+            "var_name": "Tin_hot1",
+            "type": "MEASURED",
+            "full_name": "Cooling 1 inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 542,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{1}$",
+            "reference": "HYSYS model of the TREMP methanation process at 30 bar",
+            "description": "Gas temperature at the start of the first cooling step"
+        },
+        {
+            "var_name": "Q_hot1_spec",
+            "type": "MEASURED",
+            "full_name": "Cooling 1 heat per kg of methane",
+            "user_grade": "MANDATORY",
+            "value": 1.961,
+            "physical_unit": "kWh/kg",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{1}$",
+            "reference": "HYSYS model of the TREMP methanation process at 30 bar",
+            "description": "Heat released in the first cooling step per kg of methane"
+        },
+        {
+            "var_name": "Tout_hot1",
+            "type": "MEASURED",
+            "full_name": "Cooling 1 outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 300,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{1}$",
+            "reference": "HYSYS model of the TREMP methanation process at 30 bar",
+            "description": "Gas temperature at the end of the first cooling step"
+        },
+        {
+            "var_name": "Tin_hot2",
+            "type": "MEASURED",
+            "full_name": "Cooling 2 inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 411,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{2}$",
+            "reference": "HYSYS model of the TREMP methanation process at 30 bar",
+            "description": "Gas temperature at the start of the second cooling step"
+        },
+        {
+            "var_name": "Q_hot2_spec",
+            "type": "MEASURED",
+            "full_name": "Cooling 2 heat per kg of methane",
+            "user_grade": "MANDATORY",
+            "value": 0.799,
+            "physical_unit": "kWh/kg",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{2}$",
+            "reference": "HYSYS model of the TREMP methanation process at 30 bar",
+            "description": "Heat released in the second cooling step per kg of methane"
+        },
+        {
+            "var_name": "Tout_hot2",
+            "type": "MEASURED",
+            "full_name": "Cooling 2 outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 200,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{2}$",
+            "reference": "HYSYS model of the TREMP methanation process at 30 bar",
+            "description": "Gas temperature at the end of the second cooling step"
+        },
+        {
+            "var_name": "Tin_hot3",
+            "type": "MEASURED",
+            "full_name": "Cooling 3 inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 202,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{3}$",
+            "reference": "HYSYS model of the TREMP methanation process at 30 bar",
+            "description": "Gas temperature at the start of the third cooling step"
+        },
+        {
+            "var_name": "Q_hot3_spec",
+            "type": "MEASURED",
+            "full_name": "Cooling 3 heat per kg of methane",
+            "user_grade": "MANDATORY",
+            "value": 1.095,
+            "physical_unit": "kWh/kg",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{3}$",
+            "reference": "HYSYS model of the TREMP methanation process at 30 bar",
+            "description": "Heat released in the third cooling step per kg of methane"
+        },
+        {
+            "var_name": "Tout_hot3",
+            "type": "MEASURED",
+            "full_name": "Cooling 3 outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 40,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{3}$",
+            "reference": "HYSYS model of the TREMP methanation process at 30 bar",
+            "description": "Gas temperature at the end of the third cooling step"
+        },
+        {
+            "var_name": "dtmin_intercool",
+            "type": "CONTEXT",
+            "full_name": "ΔTmin/2 of the cooling steps",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min}/2$",
+            "reference": "",
+            "description": "Minimum temperature difference contribution of the three cooling steps"
+        },
+        {
+            "var_name": "i",
+            "type": "CONTEXT",
+            "full_name": "Interest rate",
+            "user_grade": "MANDATORY",
+            "value": 0.06,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$i$",
+            "reference": "",
+            "description": "Interest rate"
+        },
+        {
+            "var_name": "n",
+            "type": "CONTEXT",
+            "full_name": "Lifetime",
+            "user_grade": "MANDATORY",
+            "value": 40,
+            "physical_unit": "year",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$n$",
+            "reference": "",
+            "description": "Lifetime of the equipment"
+        },
+        {
+            "var_name": "Cinv2_meth_spec",
+            "type": "LITERATURE",
+            "full_name": "Specific cost of the methanation unit",
+            "user_grade": "MANDATORY",
+            "value": 300,
+            "physical_unit": "EUR/kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{meth}$",
+            "reference": "",
+            "description": "Investment cost per kW of methane (LHV) produced"
+        },
+        {
+            "var_name": "Cinv2_compr_spec",
+            "type": "LITERATURE",
+            "full_name": "Specific cost of the CO2 compressor",
+            "user_grade": "MANDATORY",
+            "value": 900,
+            "physical_unit": "EUR/kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{comp}$",
+            "reference": "Turton et al., bare module cost of centrifugal compressors, linearized between 450 and 3000 kW",
+            "description": "Investment cost per kW of compressor power"
+        },
+        {
+            "var_name": "spec_work_kwh",
+            "type": "MEASURED",
+            "full_name": "Specific compression work",
+            "user_grade": "MANDATORY",
+            "value": 0.07915,
+            "physical_unit": "kWh/kg",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$w_{comp}$",
+            "reference": "",
+            "description": "Electricity to compress 1 kg of CO2 from 1 to 30 bar in three stages"
+        },
+        {
+            "var_name": "spec_cool_kwh",
+            "type": "MEASURED",
+            "full_name": "Specific intercooling heat",
+            "user_grade": "MANDATORY",
+            "value": 0.08618,
+            "physical_unit": "kWh/kg",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{comp}$",
+            "reference": "",
+            "description": "Heat removed by the intercoolers per kg of CO2 compressed from 1 to 30 bar (not used: the intercooling is not given as a heat stream)"
+        },
+        {
+            "var_name": "Q_hot1",
+            "type": "CALCULATED",
+            "full_name": "Cooling 1 heat load",
+            "user_grade": "MANDATORY",
+            "value": 31.376,
+            "physical_unit": "kW",
+            "formula": "Q_hot1_spec*CH4_ouput",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{1}$",
+            "reference": "",
+            "description": "Heat released from 542 to 300 °C"
+        },
+        {
+            "var_name": "Q_hot2",
+            "type": "CALCULATED",
+            "full_name": "Cooling 2 heat load",
+            "user_grade": "MANDATORY",
+            "value": 12.784,
+            "physical_unit": "kW",
+            "formula": "Q_hot2_spec*CH4_ouput",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{2}$",
+            "reference": "",
+            "description": "Heat released from 411 to 200 °C"
+        },
+        {
+            "var_name": "Q_hot3",
+            "type": "CALCULATED",
+            "full_name": "Cooling 3 heat load",
+            "user_grade": "MANDATORY",
+            "value": 17.52,
+            "physical_unit": "kW",
+            "formula": "Q_hot3_spec*CH4_ouput",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{3}$",
+            "reference": "",
+            "description": "Heat released from 202 to 40 °C"
+        },
+        {
+            "var_name": "CH4_outputkW",
+            "type": "CALCULATED",
+            "full_name": "Methane output (LHV)",
+            "user_grade": "MANDATORY",
+            "value": 222.222222222222,
+            "physical_unit": "kW",
+            "formula": "CH4_ouput*LHV_CH4/3600",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot E_{CH_4}$",
+            "reference": "",
+            "description": "Methane produced, as power on a lower heating value basis"
+        },
+        {
+            "var_name": "Cinv2_meth",
+            "type": "CALCULATED",
+            "full_name": "Annualized investment of the methanation unit",
+            "user_grade": "MANDATORY",
+            "value": 4430.76906137837,
+            "physical_unit": "EUR/year",
+            "formula": "Cinv2_meth_spec*CH4_outputkW*(i*((1+i)**n)/((1+i)**n-1))",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$C^{inv}_{meth}$",
+            "reference": "",
+            "description": "Annualized investment cost of the methanation unit, over n years at the interest rate i"
+        },
+        {
+            "var_name": "Cinv2_compr",
+            "type": "CALCULATED",
+            "full_name": "Annualized investment of the CO2 compressor",
+            "user_grade": "MANDATORY",
+            "value": 4.73438751130932,
+            "physical_unit": "EUR/year",
+            "formula": "Cinv2_compr_spec*spec_work_kwh*1*(i*((1+i)**n)/((1+i)**n-1))",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$C^{inv}_{comp}$",
+            "reference": "",
+            "description": "Annualized investment cost of the CO2 compressor for 1 kg/h of CO2, over n years at the interest rate i"
+        }
+    ],
+    "units": [
+        {
+            "unit_description": "This unit converts 44 kg/h of CO2 and 8 kg/h of hydrogen into 16 kg/h (1 kmol/h) of methane, 222 kW on a lower heating value basis, and 36 kg/h of water, and releases 61.7 kW of heat between 542 and 40 °C.",
+            "unit_info": {
+                "unit_name": "MethanatorUtil",
+                "full_name": "Methanation unit",
+                "unit_type": "utility",
+                "minimum_capacity_multiplier": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 100000000,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes hydrogen and compressed CO2, and delivers methane and water. All streams are at the operating pressure of 30 bar; the methane and the water leave at the outlet temperature of the last cooling step.",
+            "connectors": [
+                {
+                    "name": "HYDROGEN",
+                    "full_name": "Hydrogen",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 8,
+                        "formula": "=H2_input",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "H2[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Hydrogen feed"
+                },
+                {
+                    "name": "CO2_COMPRESSED",
+                    "full_name": "Compressed CO2",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 44,
+                        "formula": "=CO2_input",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 40,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "CO2[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "CO2 at 30 bar, from the CO2 compressor"
+                },
+                {
+                    "name": "WATER",
+                    "full_name": "Water",
+                    "scope": "GLOBAL",
+                    "type": "WASTE",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 0.036,
+                        "formula": "=Water_output",
+                        "unit": "m3/h"
+                    },
+                    "temperature": {
+                        "value": 40,
+                        "formula": "=Tout_hot3",
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 0.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "H2O[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Water formed by the reaction and condensed as the gas is cooled"
+                },
+                {
+                    "name": "METHANE",
+                    "full_name": "Methane",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 222.222222222222,
+                        "formula": "=CH4_outputkW",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": 40,
+                        "formula": "=Tout_hot3",
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "CH4[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "Synthetic methane, as power on a lower heating value basis"
+                }
+            ],
+            "heat_streams_description": "The heat of reaction is released in three cooling steps.",
+            "heat_streams": [
+                {
+                    "name": "q_meth1",
+                    "full_name": "Cooling 1",
+                    "description": "Gas cooled from 542 to 300 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 542,
+                        "formula": "=Tin_hot1",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 300,
+                        "formula": "=Tout_hot1",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 31.376,
+                        "formula": "=Q_hot1",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin_intercool",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "q_meth2",
+                    "full_name": "Cooling 2",
+                    "description": "Gas cooled from 411 to 200 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 411,
+                        "formula": "=Tin_hot2",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 200,
+                        "formula": "=Tout_hot2",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 12.784,
+                        "formula": "=Q_hot2",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin_intercool",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "q_meth3",
+                    "full_name": "Cooling 3",
+                    "description": "Gas cooled from 202 to 40 °C, condensing most of the water",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 202,
+                        "formula": "=Tin_hot3",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 40,
+                        "formula": "=Tout_hot3",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 17.52,
+                        "formula": "=Q_hot3",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin_intercool",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                }
+            ],
+            "equipments_description": "One methanation unit, whose investment cost is proportional to the methane output.",
+            "equipments": [
+                {
+                    "name": "Methanation_investment",
+                    "full_name": "Investment of the methanation unit",
+                    "type": "Asset",
+                    "subtype": "",
+                    "reference": "",
+                    "reference_size": {
+                        "full_name": "Reference size of equipment",
+                        "value": 222.222222222222,
+                        "formula": "=CH4_outputkW",
+                        "unit": "kW"
+                    },
+                    "lifetime": {
+                        "full_name": "Lifetime",
+                        "value": 40,
+                        "formula": "=n",
+                        "unit": "year"
+                    },
+                    "year": {
+                        "full_name": "Year of reference",
+                        "value": null,
+                        "formula": null,
+                        "unit": "year"
+                    },
+                    "CAPEX": {
+                        "full_name": "Total investment cost for ref. size",
+                        "value": 66666.66666666672,
+                        "formula": "=Cinv2_meth_spec*CH4_outputkW",
+                        "unit": "EUR"
+                    },
+                    "impact": {
+                        "full_name": "Scope 3 environmental impact per unit of ref. size",
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kgCO2-eq"
+                    },
+                    "interest_rate": {
+                        "full_name": "Interest rate",
+                        "value": 0.06,
+                        "formula": "=i",
+                        "unit": "-"
+                    },
+                    "F_BM": {
+                        "full_name": "Bare module factor",
+                        "value": 1,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "capacity_exponent": {
+                        "full_name": "Capacity exponent",
+                        "value": 1,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "parameters": [
+                        {
+                            "parameter": "Annualized investment",
+                            "value": 4430.76906137837,
+                            "formula": "=Cinv2_meth",
+                            "unit": "EUR/year"
+                        }
+                    ]
+                }
+            ],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        },
+        {
+            "unit_description": "This unit compresses CO2 from 1 to 30 bar in three stages, for the methanation unit. Its reference size is 1 kg/h of CO2.",
+            "unit_info": {
+                "unit_name": "Compress_CO2",
+                "full_name": "CO2 compressor",
+                "unit_type": "utility",
+                "minimum_capacity_multiplier": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 1000000,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes CO2 at 1 bar and electricity, and delivers CO2 at 30 bar.",
+            "connectors": [
+                {
+                    "name": "ELECTRICITY",
+                    "full_name": "Electricity",
+                    "scope": "GLOBAL",
+                    "type": "ELECTRICITY",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 0.07915,
+                        "formula": "=spec_work_kwh",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Electricity of the compressor"
+                },
+                {
+                    "name": "CO2",
+                    "full_name": "CO2",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "CO2[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "CO2 at 1 bar"
+                },
+                {
+                    "name": "CO2_COMPRESSED",
+                    "full_name": "Compressed CO2",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 40,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "CO2[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "CO2 at 30 bar, to the methanation unit"
+                }
+            ],
+            "heat_streams_description": "The heat of the intercoolers is not given as a heat stream.",
+            "heat_streams": [],
+            "equipments_description": "One compressor, whose investment cost is proportional to its power.",
+            "equipments": [
+                {
+                    "name": "CO2_compressor_investment",
+                    "full_name": "Investment of the CO2 compressor",
+                    "type": "Asset",
+                    "subtype": "",
+                    "reference": "",
+                    "reference_size": {
+                        "full_name": "Reference size of equipment",
+                        "value": 0.07915,
+                        "formula": "=spec_work_kwh",
+                        "unit": "kW"
+                    },
+                    "lifetime": {
+                        "full_name": "Lifetime",
+                        "value": 40,
+                        "formula": "=n",
+                        "unit": "year"
+                    },
+                    "year": {
+                        "full_name": "Year of reference",
+                        "value": null,
+                        "formula": null,
+                        "unit": "year"
+                    },
+                    "CAPEX": {
+                        "full_name": "Total investment cost for ref. size",
+                        "value": 71.23500000000001,
+                        "formula": "=Cinv2_compr_spec*spec_work_kwh",
+                        "unit": "EUR"
+                    },
+                    "impact": {
+                        "full_name": "Scope 3 environmental impact per unit of ref. size",
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kgCO2-eq"
+                    },
+                    "interest_rate": {
+                        "full_name": "Interest rate",
+                        "value": 0.06,
+                        "formula": "=i",
+                        "unit": "-"
+                    },
+                    "F_BM": {
+                        "full_name": "Bare module factor",
+                        "value": 1,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "capacity_exponent": {
+                        "full_name": "Capacity exponent",
+                        "value": 1,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "parameters": [
+                        {
+                            "parameter": "Annualized investment",
+                            "value": 4.73438751130932,
+                            "formula": "=Cinv2_compr",
+                            "unit": "EUR/year"
+                        }
+                    ]
+                }
+            ],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        }
+    ],
+    "custom_constraints": [
+        {
+            "name": "",
+            "equation": "",
+            "type": ""
+        }
+    ]
+}
