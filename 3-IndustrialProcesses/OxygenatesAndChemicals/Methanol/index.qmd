@@ -4,7 +4,7 @@
 
 ## Description
 
-The methanol synthesis process converts a syngas with a hydrogen-to-carbon ratio of 2:1 into methanol in an isothermal catalytic reactor. The syngas is produced by the CO~2~/H~2~O co-electrolysis model COSOECOiken7300Am2scrat21MEOH, so the unit is the methanol production step of a power-to-methanol chain. The model converts 5,726.79 kg/h of syngas into 4,302.79 kg/h of methanol; roughly 997 co-electrolysis units feed one methanol unit. The methanol synthesis and distillation section follows the one assessed by [Domingos et al. (2022)](https://doi.org/10.1016/j.compchemeng.2022.107810), where it is fed with syngas from black liquor gasification in a kraft pulp mill.
+The methanol synthesis process converts a syngas with a hydrogen-to-carbon ratio of 2:1 into methanol in an isothermal catalytic reactor. The syngas is produced by the CO~2~/H~2~O co-electrolysis model, so the unit is the methanol production step of a power-to-methanol chain. The model converts 5,726.79 kg/h of syngas into 4,302.79 kg/h of methanol; roughly 997 co-electrolysis units feed one methanol unit. The methanol synthesis and distillation section follows the one assessed by [Domingos et al. (2022)](https://doi.org/10.1016/j.compchemeng.2022.107810), where it is fed with syngas from black liquor gasification in a kraft pulp mill.
 
 The unreacted gas is recycled to the reactor, and the purge is burned with pure oxygen in a flare, so the carbon it carries leaves as CO~2~ ready for capture. A distillation column separates the crude methanol into methanol, light gases and a bottoms stream of water and heavier alcohols, which goes to waste water treatment.
 

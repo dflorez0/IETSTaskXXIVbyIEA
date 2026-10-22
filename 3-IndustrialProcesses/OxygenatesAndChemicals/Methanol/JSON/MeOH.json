@@ -676,7 +676,7 @@
             "max_bound": null,
             "latex_syntax": "$F^{in}_{syngas}$",
             "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
-            "description": "2:1 (H/C) co-electrolysis syngas from COSOECOiken7300Am2scrat21MEOH_ET"
+            "description": "2:1 (H/C) co-electrolysis syngas from MeOHprodCOSOEC2to1FlareIsothermalv4"
         },
         {
             "var_name": "massflow_O2_flare",
@@ -965,7 +965,7 @@
                     },
                     "method": "-",
                     "reference_stream": "Yes",
-                    "description": "2:1 (H/C) co-electrolysis syngas from COSOECOiken7300Am2scrat21MEOH_ET"
+                    "description": "2:1 (H/C) co-electrolysis syngas from MeOHprodCOSOEC2to1FlareIsothermalv4_ET"
                 },
                 {
                     "name": "OXYGEN",
