@@ -20,7 +20,7 @@ project:
 
 website:
   title: "IETS Task XXIV"
-  favicon: template_files/iets-logo.png
+  favicon: template_files/favicon.png
 
   search: true
   page-navigation: true
