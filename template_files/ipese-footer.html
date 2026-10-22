@@ -1,54 +1,29 @@
 <!--
-  Three pieces of the bookdown gitbook layout that Quarto has no config
-  slot for:
+  Layout pieces that Quarto has no config slot for:
 
-  1. A pinned bottom bar on the sidebar, holding the search box and download
-     dropdown side by side. Quarto renders
-     search and download inline in the sidebar header instead, and has no
-     footer slot at all — both are moved here after the page loads, and the
-     bar itself is `position: sticky; bottom: 0` (see theme.scss) so it
-     stays put under a long, scrolling chapter list the way gitbook's fixed
-     `.book-header` / `.summary-footer` did.
+  0. The search box, moved from above the sidebar menu to right below it.
 
-  2. The sidebar toggle. gitbook put a .fa-align-justify button in the book
+  1. The sidebar toggle. gitbook put a .fa-align-justify button in the book
      header that toggled `.book.with-summary`; Quarto only collapses its
      sidebar below the lg breakpoint. The button below reinstates the
      desktop toggle, and remembers the choice across pages.
+
+  2. The bibliography at the foot of each page (see below).
 -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    // --- 1. Pinned bottom bar: search + download -----------------------
+    // --- 0. Search box right below the sidebar menu, not above it --------
     var sidebar = document.getElementById("quarto-sidebar");
-    var searchBox = sidebar && sidebar.querySelector(".sidebar-search");
-    var toolsMain = sidebar && sidebar.querySelector(".sidebar-tools-main");
-
-    if (sidebar) {
-      var bottom = document.createElement("div");
-      bottom.className = "ipese-sidebar-bottom";
-
-      if (searchBox || toolsMain) {
-        var row = document.createElement("div");
-        row.className = "ipese-sidebar-tools-row";
-        // The wrapper divs these came in (a header title slot and a
-        // standalone `.mt-2` block) are left empty once we move the real
-        // controls out; drop them rather than leave blank gaps behind.
-        if (searchBox) {
-          var searchWrap = searchBox.parentElement;
-          row.appendChild(searchBox);
-          if (searchWrap && searchWrap !== sidebar && !searchWrap.children.length) {
-            searchWrap.remove();
-          }
-        }
-        if (toolsMain) {
-          row.appendChild(toolsMain);
-        }
-        bottom.appendChild(row);
-      }
-
-      sidebar.appendChild(bottom);
+    var search = sidebar && sidebar.querySelector(".sidebar-search");
+    var menu = sidebar && sidebar.querySelector(".sidebar-menu-container");
+    if (search && menu) {
+      var wrap = search.parentElement;
+      search.classList.add("ipese-search-below");
+      menu.parentNode.insertBefore(search, menu.nextSibling);
+      if (wrap && wrap !== sidebar && !wrap.children.length) wrap.remove();
     }
 
-    // --- 2. Sidebar toggle -------------------------------------------
+    // --- 1. Sidebar toggle -------------------------------------------
     var KEY = "ipese-summary-hidden";
     var body = document.body;
 
@@ -76,7 +51,7 @@
       try { localStorage.setItem(KEY, hidden ? "1" : "0"); } catch (e) { /* ignore */ }
     });
 
-    // --- 3. Per-page bibliography ------------------------------------
+    // --- 2. Per-page bibliography ------------------------------------
     // bookdown::gitbook renders with split_bib: yes, so every page carries
     // the works it cites at its own foot. Quarto emits that same per-chapter
     // #refs list but hides it with an inline display:none, because it expects

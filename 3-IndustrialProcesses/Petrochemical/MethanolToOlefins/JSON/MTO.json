@@ -19,7 +19,7 @@
             "Olefins",
             "MTO",
             "Petrochemicals",
-            "Methanol valorisation"
+            "Methanol valorization"
         ],
         "description": "Light olefins (mainly ethylene and propylene) are produced from methanol, the products are separated by cryogenic distillation, and an olefin cracker improves the light olefin yield.",
         "DOI": "",
@@ -302,7 +302,7 @@
         {
             "var_name": "mto_c2_ti",
             "type": "MEASURED",
-            "full_name": "Methanol feed vaporisation, inlet temperature",
+            "full_name": "Methanol feed vaporization, inlet temperature",
             "user_grade": "MANDATORY",
             "value": 94,
             "physical_unit": "°C",
@@ -311,12 +311,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{in}_{c2}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block B12",
-            "description": "Methanol feed vaporisation, inlet temperature"
+            "description": "Methanol feed vaporization, inlet temperature"
         },
         {
             "var_name": "mto_c2_to",
             "type": "MEASURED",
-            "full_name": "Methanol feed vaporisation, outlet temperature",
+            "full_name": "Methanol feed vaporization, outlet temperature",
             "user_grade": "MANDATORY",
             "value": 94,
             "physical_unit": "°C",
@@ -325,12 +325,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{out}_{c2}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block B12",
-            "description": "Methanol feed vaporisation, outlet temperature"
+            "description": "Methanol feed vaporization, outlet temperature"
         },
         {
             "var_name": "mto_c2_ho",
             "type": "MEASURED",
-            "full_name": "Methanol feed vaporisation, heat load",
+            "full_name": "Methanol feed vaporization, heat load",
             "user_grade": "MANDATORY",
             "value": 3061,
             "physical_unit": "kW",
@@ -339,7 +339,7 @@
             "max_bound": null,
             "latex_syntax": "$H^{out}_{c2}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block B12",
-            "description": "Methanol feed vaporisation, heat load"
+            "description": "Methanol feed vaporization, heat load"
         },
         {
             "var_name": "mto_c3_ti",
@@ -876,7 +876,7 @@
         {
             "var_name": "mto_h5_ti",
             "type": "MEASURED",
-            "full_name": "Deethaniser feed chilling, inlet temperature",
+            "full_name": "Deethanizer feed chilling, inlet temperature",
             "user_grade": "MANDATORY",
             "value": 27.8,
             "physical_unit": "°C",
@@ -885,12 +885,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{in}_{h5}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block B21",
-            "description": "Deethaniser feed chilling, inlet temperature"
+            "description": "Deethanizer feed chilling, inlet temperature"
         },
         {
             "var_name": "mto_h5_to",
             "type": "MEASURED",
-            "full_name": "Deethaniser feed chilling, outlet temperature",
+            "full_name": "Deethanizer feed chilling, outlet temperature",
             "user_grade": "MANDATORY",
             "value": 10,
             "physical_unit": "°C",
@@ -899,12 +899,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{out}_{h5}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block B21",
-            "description": "Deethaniser feed chilling, outlet temperature"
+            "description": "Deethanizer feed chilling, outlet temperature"
         },
         {
             "var_name": "mto_h5_ho",
             "type": "MEASURED",
-            "full_name": "Deethaniser feed chilling, heat load",
+            "full_name": "Deethanizer feed chilling, heat load",
             "user_grade": "MANDATORY",
             "value": -196,
             "physical_unit": "kW",
@@ -913,12 +913,12 @@
             "max_bound": null,
             "latex_syntax": "$H^{out}_{h5}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block B21",
-            "description": "Deethaniser feed chilling, heat load"
+            "description": "Deethanizer feed chilling, heat load"
         },
         {
             "var_name": "mto_c7_ti",
             "type": "MEASURED",
-            "full_name": "Deethaniser reboiler, inlet temperature",
+            "full_name": "Deethanizer reboiler, inlet temperature",
             "user_grade": "MANDATORY",
             "value": 69,
             "physical_unit": "°C",
@@ -927,12 +927,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{in}_{c7}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block DEC2",
-            "description": "Deethaniser reboiler, inlet temperature"
+            "description": "Deethanizer reboiler, inlet temperature"
         },
         {
             "var_name": "mto_c7_to",
             "type": "MEASURED",
-            "full_name": "Deethaniser reboiler, outlet temperature",
+            "full_name": "Deethanizer reboiler, outlet temperature",
             "user_grade": "MANDATORY",
             "value": 69,
             "physical_unit": "°C",
@@ -941,12 +941,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{out}_{c7}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block DEC2",
-            "description": "Deethaniser reboiler, outlet temperature"
+            "description": "Deethanizer reboiler, outlet temperature"
         },
         {
             "var_name": "mto_c7_ho",
             "type": "MEASURED",
-            "full_name": "Deethaniser reboiler, heat load",
+            "full_name": "Deethanizer reboiler, heat load",
             "user_grade": "MANDATORY",
             "value": 699,
             "physical_unit": "kW",
@@ -955,12 +955,12 @@
             "max_bound": null,
             "latex_syntax": "$H^{out}_{c7}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block DEC2",
-            "description": "Deethaniser reboiler, heat load"
+            "description": "Deethanizer reboiler, heat load"
         },
         {
             "var_name": "mto_h6_ti",
             "type": "MEASURED",
-            "full_name": "Deethaniser condenser, inlet temperature",
+            "full_name": "Deethanizer condenser, inlet temperature",
             "user_grade": "MANDATORY",
             "value": -24,
             "physical_unit": "°C",
@@ -969,12 +969,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{in}_{h6}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block DEC2",
-            "description": "Deethaniser condenser, inlet temperature"
+            "description": "Deethanizer condenser, inlet temperature"
         },
         {
             "var_name": "mto_h6_to",
             "type": "MEASURED",
-            "full_name": "Deethaniser condenser, outlet temperature",
+            "full_name": "Deethanizer condenser, outlet temperature",
             "user_grade": "MANDATORY",
             "value": -24,
             "physical_unit": "°C",
@@ -983,12 +983,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{out}_{h6}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block DEC2",
-            "description": "Deethaniser condenser, outlet temperature"
+            "description": "Deethanizer condenser, outlet temperature"
         },
         {
             "var_name": "mto_h6_ho",
             "type": "MEASURED",
-            "full_name": "Deethaniser condenser, heat load",
+            "full_name": "Deethanizer condenser, heat load",
             "user_grade": "MANDATORY",
             "value": -581,
             "physical_unit": "kW",
@@ -997,12 +997,12 @@
             "max_bound": null,
             "latex_syntax": "$H^{out}_{h6}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block DEC2",
-            "description": "Deethaniser condenser, heat load"
+            "description": "Deethanizer condenser, heat load"
         },
         {
             "var_name": "mto_c8_ti",
             "type": "MEASURED",
-            "full_name": "Depropaniser reboiler, inlet temperature",
+            "full_name": "Depropanizer reboiler, inlet temperature",
             "user_grade": "MANDATORY",
             "value": 116,
             "physical_unit": "°C",
@@ -1011,12 +1011,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{in}_{c8}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block DEC3",
-            "description": "Depropaniser reboiler, inlet temperature"
+            "description": "Depropanizer reboiler, inlet temperature"
         },
         {
             "var_name": "mto_c8_to",
             "type": "MEASURED",
-            "full_name": "Depropaniser reboiler, outlet temperature",
+            "full_name": "Depropanizer reboiler, outlet temperature",
             "user_grade": "MANDATORY",
             "value": 116,
             "physical_unit": "°C",
@@ -1025,12 +1025,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{out}_{c8}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block DEC3",
-            "description": "Depropaniser reboiler, outlet temperature"
+            "description": "Depropanizer reboiler, outlet temperature"
         },
         {
             "var_name": "mto_c8_ho",
             "type": "MEASURED",
-            "full_name": "Depropaniser reboiler, heat load",
+            "full_name": "Depropanizer reboiler, heat load",
             "user_grade": "MANDATORY",
             "value": 517,
             "physical_unit": "kW",
@@ -1039,12 +1039,12 @@
             "max_bound": null,
             "latex_syntax": "$H^{out}_{c8}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block DEC3",
-            "description": "Depropaniser reboiler, heat load"
+            "description": "Depropanizer reboiler, heat load"
         },
         {
             "var_name": "mto_h7_ti",
             "type": "MEASURED",
-            "full_name": "Depropaniser condenser, inlet temperature",
+            "full_name": "Depropanizer condenser, inlet temperature",
             "user_grade": "MANDATORY",
             "value": 59,
             "physical_unit": "°C",
@@ -1053,12 +1053,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{in}_{h7}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block DEC3",
-            "description": "Depropaniser condenser, inlet temperature"
+            "description": "Depropanizer condenser, inlet temperature"
         },
         {
             "var_name": "mto_h7_to",
             "type": "MEASURED",
-            "full_name": "Depropaniser condenser, outlet temperature",
+            "full_name": "Depropanizer condenser, outlet temperature",
             "user_grade": "MANDATORY",
             "value": 59,
             "physical_unit": "°C",
@@ -1067,12 +1067,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{out}_{h7}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block DEC3",
-            "description": "Depropaniser condenser, outlet temperature"
+            "description": "Depropanizer condenser, outlet temperature"
         },
         {
             "var_name": "mto_h7_ho",
             "type": "MEASURED",
-            "full_name": "Depropaniser condenser, heat load",
+            "full_name": "Depropanizer condenser, heat load",
             "user_grade": "MANDATORY",
             "value": -499,
             "physical_unit": "kW",
@@ -1081,7 +1081,7 @@
             "max_bound": null,
             "latex_syntax": "$H^{out}_{h7}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block DEC3",
-            "description": "Depropaniser condenser, heat load"
+            "description": "Depropanizer condenser, heat load"
         },
         {
             "var_name": "mto_c9_ti",
@@ -1170,7 +1170,7 @@
         {
             "var_name": "e_mto_4",
             "type": "MEASURED",
-            "full_name": "Demethaniser feed booster compressor",
+            "full_name": "Demethanizer feed booster compressor",
             "user_grade": "MANDATORY",
             "value": 12.4,
             "physical_unit": "kW",
@@ -1179,12 +1179,12 @@
             "max_bound": null,
             "latex_syntax": "$E^{in}_{elec,\\,4}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block B38",
-            "description": "Demethaniser feed booster compressor, electricity"
+            "description": "Demethanizer feed booster compressor, electricity"
         },
         {
             "var_name": "mto_h9_ti_a",
             "type": "MEASURED",
-            "full_name": "Demethaniser feed cooling, dry gas, inlet temperature",
+            "full_name": "Demethanizer feed cooling, dry gas, inlet temperature",
             "user_grade": "MANDATORY",
             "value": -2,
             "physical_unit": "°C",
@@ -1193,12 +1193,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{in}_{h9,a}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block B64",
-            "description": "Demethaniser feed cooling, dry gas, inlet temperature"
+            "description": "Demethanizer feed cooling, dry gas, inlet temperature"
         },
         {
             "var_name": "mto_h9_to_a",
             "type": "MEASURED",
-            "full_name": "Demethaniser feed cooling, dry gas, outlet temperature",
+            "full_name": "Demethanizer feed cooling, dry gas, outlet temperature",
             "user_grade": "MANDATORY",
             "value": -9,
             "physical_unit": "°C",
@@ -1207,12 +1207,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{out}_{h9,a}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block B64",
-            "description": "Demethaniser feed cooling, dry gas, outlet temperature"
+            "description": "Demethanizer feed cooling, dry gas, outlet temperature"
         },
         {
             "var_name": "mto_h9_ho_a",
             "type": "MEASURED",
-            "full_name": "Demethaniser feed cooling, dry gas, heat load",
+            "full_name": "Demethanizer feed cooling, dry gas, heat load",
             "user_grade": "MANDATORY",
             "value": -9.59,
             "physical_unit": "kW",
@@ -1221,12 +1221,12 @@
             "max_bound": null,
             "latex_syntax": "$H^{out}_{h9,a}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block B64",
-            "description": "Demethaniser feed cooling, dry gas, heat load"
+            "description": "Demethanizer feed cooling, dry gas, heat load"
         },
         {
             "var_name": "mto_h9_ti_b",
             "type": "MEASURED",
-            "full_name": "Demethaniser feed partial condensation, inlet temperature",
+            "full_name": "Demethanizer feed partial condensation, inlet temperature",
             "user_grade": "MANDATORY",
             "value": -9,
             "physical_unit": "°C",
@@ -1235,12 +1235,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{in}_{h9,b}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block B19",
-            "description": "Demethaniser feed partial condensation, inlet temperature"
+            "description": "Demethanizer feed partial condensation, inlet temperature"
         },
         {
             "var_name": "mto_h9_to_b",
             "type": "MEASURED",
-            "full_name": "Demethaniser feed partial condensation, outlet temperature",
+            "full_name": "Demethanizer feed partial condensation, outlet temperature",
             "user_grade": "MANDATORY",
             "value": -20,
             "physical_unit": "°C",
@@ -1249,12 +1249,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{out}_{h9,b}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block B19",
-            "description": "Demethaniser feed partial condensation, outlet temperature"
+            "description": "Demethanizer feed partial condensation, outlet temperature"
         },
         {
             "var_name": "mto_h9_ho_b",
             "type": "MEASURED",
-            "full_name": "Demethaniser feed partial condensation, heat load",
+            "full_name": "Demethanizer feed partial condensation, heat load",
             "user_grade": "MANDATORY",
             "value": -88,
             "physical_unit": "kW",
@@ -1263,12 +1263,12 @@
             "max_bound": null,
             "latex_syntax": "$H^{out}_{h9,b}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block B19",
-            "description": "Demethaniser feed partial condensation, heat load"
+            "description": "Demethanizer feed partial condensation, heat load"
         },
         {
             "var_name": "mto_c10_ti",
             "type": "MEASURED",
-            "full_name": "Demethaniser reboiler, inlet temperature",
+            "full_name": "Demethanizer reboiler, inlet temperature",
             "user_grade": "MANDATORY",
             "value": -8.3,
             "physical_unit": "°C",
@@ -1277,12 +1277,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{in}_{c10}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block DEMETHAN",
-            "description": "Demethaniser reboiler, inlet temperature"
+            "description": "Demethanizer reboiler, inlet temperature"
         },
         {
             "var_name": "mto_c10_to",
             "type": "MEASURED",
-            "full_name": "Demethaniser reboiler, outlet temperature",
+            "full_name": "Demethanizer reboiler, outlet temperature",
             "user_grade": "MANDATORY",
             "value": -8.3,
             "physical_unit": "°C",
@@ -1291,12 +1291,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{out}_{c10}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block DEMETHAN",
-            "description": "Demethaniser reboiler, outlet temperature"
+            "description": "Demethanizer reboiler, outlet temperature"
         },
         {
             "var_name": "mto_c10_ho",
             "type": "MEASURED",
-            "full_name": "Demethaniser reboiler, heat load",
+            "full_name": "Demethanizer reboiler, heat load",
             "user_grade": "MANDATORY",
             "value": 114.1,
             "physical_unit": "kW",
@@ -1305,12 +1305,12 @@
             "max_bound": null,
             "latex_syntax": "$H^{out}_{c10}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block DEMETHAN",
-            "description": "Demethaniser reboiler, heat load"
+            "description": "Demethanizer reboiler, heat load"
         },
         {
             "var_name": "mto_h10_ti",
             "type": "MEASURED",
-            "full_name": "Demethaniser condenser, inlet temperature",
+            "full_name": "Demethanizer condenser, inlet temperature",
             "user_grade": "MANDATORY",
             "value": -104.1,
             "physical_unit": "°C",
@@ -1319,12 +1319,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{in}_{h10}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block DEMETHAN",
-            "description": "Demethaniser condenser, inlet temperature"
+            "description": "Demethanizer condenser, inlet temperature"
         },
         {
             "var_name": "mto_h10_to",
             "type": "MEASURED",
-            "full_name": "Demethaniser condenser, outlet temperature",
+            "full_name": "Demethanizer condenser, outlet temperature",
             "user_grade": "MANDATORY",
             "value": -104.1,
             "physical_unit": "°C",
@@ -1333,12 +1333,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{out}_{h10}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block DEMETHAN",
-            "description": "Demethaniser condenser, outlet temperature"
+            "description": "Demethanizer condenser, outlet temperature"
         },
         {
             "var_name": "mto_h10_ho",
             "type": "MEASURED",
-            "full_name": "Demethaniser condenser, heat load",
+            "full_name": "Demethanizer condenser, heat load",
             "user_grade": "MANDATORY",
             "value": -178,
             "physical_unit": "kW",
@@ -1347,7 +1347,7 @@
             "max_bound": null,
             "latex_syntax": "$H^{out}_{h10}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block DEMETHAN",
-            "description": "Demethaniser condenser, heat load"
+            "description": "Demethanizer condenser, heat load"
         },
         {
             "var_name": "mto_c11_ti",
@@ -1436,7 +1436,7 @@
         {
             "var_name": "mpreheat_lat_ti",
             "type": "MEASURED",
-            "full_name": "Olefin cracker feed vaporisation, inlet temperature",
+            "full_name": "Olefin cracker feed vaporization, inlet temperature",
             "user_grade": "MANDATORY",
             "value": 0.6,
             "physical_unit": "°C",
@@ -1445,12 +1445,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{in}_{preheat,lat}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block B10",
-            "description": "Olefin cracker feed vaporisation, inlet temperature"
+            "description": "Olefin cracker feed vaporization, inlet temperature"
         },
         {
             "var_name": "mpreheat_lat_to",
             "type": "MEASURED",
-            "full_name": "Olefin cracker feed vaporisation, outlet temperature",
+            "full_name": "Olefin cracker feed vaporization, outlet temperature",
             "user_grade": "MANDATORY",
             "value": 4.5,
             "physical_unit": "°C",
@@ -1459,12 +1459,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{out}_{preheat,lat}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block B10",
-            "description": "Olefin cracker feed vaporisation, outlet temperature"
+            "description": "Olefin cracker feed vaporization, outlet temperature"
         },
         {
             "var_name": "mpreheat_lat_ho",
             "type": "MEASURED",
-            "full_name": "Olefin cracker feed vaporisation, heat load",
+            "full_name": "Olefin cracker feed vaporization, heat load",
             "user_grade": "MANDATORY",
             "value": 23.4,
             "physical_unit": "kW",
@@ -1473,7 +1473,7 @@
             "max_bound": null,
             "latex_syntax": "$H^{out}_{preheat,lat}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block B10",
-            "description": "Olefin cracker feed vaporisation, heat load"
+            "description": "Olefin cracker feed vaporization, heat load"
         },
         {
             "var_name": "mpreheat_ti",
@@ -1954,7 +1954,7 @@
         {
             "var_name": "mto_c18_ti",
             "type": "MEASURED",
-            "full_name": "Demethaniser off-gas to combustion, heating to 25 C, inlet temperature",
+            "full_name": "Demethanizer off-gas to combustion, heating to 25 C, inlet temperature",
             "user_grade": "MANDATORY",
             "value": -104.1,
             "physical_unit": "°C",
@@ -1963,12 +1963,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{in}_{c18}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block B26",
-            "description": "Demethaniser off-gas to combustion, heating to 25 C, inlet temperature"
+            "description": "Demethanizer off-gas to combustion, heating to 25 C, inlet temperature"
         },
         {
             "var_name": "mto_c18_to",
             "type": "MEASURED",
-            "full_name": "Demethaniser off-gas to combustion, heating to 25 C, outlet temperature",
+            "full_name": "Demethanizer off-gas to combustion, heating to 25 C, outlet temperature",
             "user_grade": "MANDATORY",
             "value": 25,
             "physical_unit": "°C",
@@ -1977,12 +1977,12 @@
             "max_bound": null,
             "latex_syntax": "$T^{out}_{c18}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block B26",
-            "description": "Demethaniser off-gas to combustion, heating to 25 C, outlet temperature"
+            "description": "Demethanizer off-gas to combustion, heating to 25 C, outlet temperature"
         },
         {
             "var_name": "mto_c18_ho",
             "type": "MEASURED",
-            "full_name": "Demethaniser off-gas to combustion, heating to 25 C, heat load",
+            "full_name": "Demethanizer off-gas to combustion, heating to 25 C, heat load",
             "user_grade": "MANDATORY",
             "value": 15.56,
             "physical_unit": "kW",
@@ -1991,7 +1991,7 @@
             "max_bound": null,
             "latex_syntax": "$H^{out}_{c18}$",
             "reference": "Aspen Plus, NEW_Biofins_MainProcess_Final, block B26",
-            "description": "Demethaniser off-gas to combustion, heating to 25 C, heat load"
+            "description": "Demethanizer off-gas to combustion, heating to 25 C, heat load"
         },
         {
             "var_name": "e_mto_9",
@@ -2831,8 +2831,8 @@
                 },
                 {
                     "name": "qt_c111",
-                    "full_name": "Methanol feed vaporisation",
-                    "description": "Methanol feed vaporisation (Aspen Plus block B12)",
+                    "full_name": "Methanol feed vaporization",
+                    "description": "Methanol feed vaporization (Aspen Plus block B12)",
                     "type": "Cold",
                     "inlet_temperature": {
                         "value": 94,
@@ -3023,8 +3023,8 @@
                 },
                 {
                     "name": "qt_c116",
-                    "full_name": "Deethaniser reboiler",
-                    "description": "Deethaniser reboiler (Aspen Plus block DEC2)",
+                    "full_name": "Deethanizer reboiler",
+                    "description": "Deethanizer reboiler (Aspen Plus block DEC2)",
                     "type": "Cold",
                     "inlet_temperature": {
                         "value": 69,
@@ -3071,8 +3071,8 @@
                 },
                 {
                     "name": "qt_c117",
-                    "full_name": "Depropaniser reboiler",
-                    "description": "Depropaniser reboiler (Aspen Plus block DEC3)",
+                    "full_name": "Depropanizer reboiler",
+                    "description": "Depropanizer reboiler (Aspen Plus block DEC3)",
                     "type": "Cold",
                     "inlet_temperature": {
                         "value": 116,
@@ -3167,8 +3167,8 @@
                 },
                 {
                     "name": "qt_c119",
-                    "full_name": "Demethaniser reboiler",
-                    "description": "Demethaniser reboiler (Aspen Plus block DEMETHAN)",
+                    "full_name": "Demethanizer reboiler",
+                    "description": "Demethanizer reboiler (Aspen Plus block DEMETHAN)",
                     "type": "Cold",
                     "inlet_temperature": {
                         "value": -8.3,
@@ -3263,8 +3263,8 @@
                 },
                 {
                     "name": "qt_c121_a",
-                    "full_name": "Olefin cracker feed vaporisation",
-                    "description": "Olefin cracker feed vaporisation (Aspen Plus block B10)",
+                    "full_name": "Olefin cracker feed vaporization",
+                    "description": "Olefin cracker feed vaporization (Aspen Plus block B10)",
                     "type": "Cold",
                     "inlet_temperature": {
                         "value": 0.6,
@@ -3599,8 +3599,8 @@
                 },
                 {
                     "name": "qt_c127",
-                    "full_name": "Demethaniser off-gas to combustion, heating to 25 C",
-                    "description": "Demethaniser off-gas to combustion, heating to 25 C (Aspen Plus block B26)",
+                    "full_name": "Demethanizer off-gas to combustion, heating to 25 C",
+                    "description": "Demethanizer off-gas to combustion, heating to 25 C (Aspen Plus block B26)",
                     "type": "Cold",
                     "inlet_temperature": {
                         "value": -104.1,
@@ -4031,8 +4031,8 @@
                 },
                 {
                     "name": "qt_h114",
-                    "full_name": "Deethaniser feed chilling",
-                    "description": "Deethaniser feed chilling (Aspen Plus block B21)",
+                    "full_name": "Deethanizer feed chilling",
+                    "description": "Deethanizer feed chilling (Aspen Plus block B21)",
                     "type": "Hot",
                     "inlet_temperature": {
                         "value": 27.8,
@@ -4079,8 +4079,8 @@
                 },
                 {
                     "name": "qt_h115",
-                    "full_name": "Deethaniser condenser",
-                    "description": "Deethaniser condenser (Aspen Plus block DEC2)",
+                    "full_name": "Deethanizer condenser",
+                    "description": "Deethanizer condenser (Aspen Plus block DEC2)",
                     "type": "Hot",
                     "inlet_temperature": {
                         "value": -24,
@@ -4127,8 +4127,8 @@
                 },
                 {
                     "name": "qt_h116",
-                    "full_name": "Depropaniser condenser",
-                    "description": "Depropaniser condenser (Aspen Plus block DEC3)",
+                    "full_name": "Depropanizer condenser",
+                    "description": "Depropanizer condenser (Aspen Plus block DEC3)",
                     "type": "Hot",
                     "inlet_temperature": {
                         "value": 59,
@@ -4223,8 +4223,8 @@
                 },
                 {
                     "name": "qt_h118a",
-                    "full_name": "Demethaniser feed cooling, dry gas",
-                    "description": "Demethaniser feed cooling, dry gas (Aspen Plus block B64)",
+                    "full_name": "Demethanizer feed cooling, dry gas",
+                    "description": "Demethanizer feed cooling, dry gas (Aspen Plus block B64)",
                     "type": "Hot",
                     "inlet_temperature": {
                         "value": -2,
@@ -4271,8 +4271,8 @@
                 },
                 {
                     "name": "qt_h118b",
-                    "full_name": "Demethaniser feed partial condensation",
-                    "description": "Demethaniser feed partial condensation (Aspen Plus block B19)",
+                    "full_name": "Demethanizer feed partial condensation",
+                    "description": "Demethanizer feed partial condensation (Aspen Plus block B19)",
                     "type": "Hot",
                     "inlet_temperature": {
                         "value": -9,
@@ -4319,8 +4319,8 @@
                 },
                 {
                     "name": "qt_h119",
-                    "full_name": "Demethaniser condenser",
-                    "description": "Demethaniser condenser (Aspen Plus block DEMETHAN)",
+                    "full_name": "Demethanizer condenser",
+                    "description": "Demethanizer condenser (Aspen Plus block DEMETHAN)",
                     "type": "Hot",
                     "inlet_temperature": {
                         "value": -104.1,

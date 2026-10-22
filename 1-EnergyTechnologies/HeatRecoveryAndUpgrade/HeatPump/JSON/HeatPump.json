@@ -1,0 +1,561 @@
+{
+    "header": {
+        "uid": "",
+        "name": "HeatPump",
+        "full_name": "Heat pump",
+        "ET_model_type": "regular",
+        "authors_and_contributors": "Daniel Flórez-Orrego, EPFL IPESE research group",
+        "contact_info": "daniel.florezorrego@epfl.ch",
+        "creation_date": "",
+        "last_updated": "22.10.2026",
+        "status": "Maintained",
+        "version": "1.0",
+        "confidentiality": "Open",
+        "sharing_layer": "1",
+        "grade": "GRAY-BOX",
+        "reference_capacity": "3500 kW of condenser heat (Cond_Qmax)",
+        "TRL": "9",
+        "keywords": [
+            "Heat upgrade",
+            "Heat pump",
+            "Electricity",
+            "Waste heat recovery"
+        ],
+        "description": "Electrically driven heat pump that takes heat at the evaporator temperature and delivers it at the condenser temperature, with a COP from the Carnot COP and an exergy efficiency.",
+        "DOI": "",
+        "main_related_publication": "https://doi.org/10.1016/j.jclepro.2019.118647",
+        "references": "[1] Flórez-Orrego, D., Sharma, S., de Oliveira Junior, S., Maréchal, F., Combined exergy analysis, energy integration and optimization of syngas and ammonia production plants: A cogeneration and syngas purification perspective. Journal of Cleaner Production 244 (2020) 118647, DOI: https://doi.org/10.1016/j.jclepro.2019.118647",
+        "software": "OSMOSE",
+        "software_file": "",
+        "block_flow_diagram": "HeatPump/Figures/HeatPump.svg",
+        "url": null,
+        "supplementary_material": "See SUPPL MATERIAL tab",
+        "hierarchy": "utility"
+    },
+    "variables": [
+        {
+            "var_name": "Evap_Tin",
+            "type": "DECISION",
+            "full_name": "Evaporator inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 96,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{evap}$",
+            "reference": "",
+            "description": "Temperature at which the heat pump takes heat from the process (evaporation)"
+        },
+        {
+            "var_name": "Evap_Tout",
+            "type": "DECISION",
+            "full_name": "Evaporator outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 96,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{evap}$",
+            "reference": "",
+            "description": "Evaporator outlet temperature, equal to the inlet temperature (evaporation)"
+        },
+        {
+            "var_name": "Cond_Tin",
+            "type": "DECISION",
+            "full_name": "Condenser inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 110,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{cond}$",
+            "reference": "",
+            "description": "Temperature at which the heat pump delivers heat to the process (condensation)"
+        },
+        {
+            "var_name": "Cond_Tout",
+            "type": "DECISION",
+            "full_name": "Condenser outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 110,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{cond}$",
+            "reference": "",
+            "description": "Condenser outlet temperature, equal to the inlet temperature (condensation)"
+        },
+        {
+            "var_name": "Cond_Qmax",
+            "type": "DECISION",
+            "full_name": "Condenser heat load",
+            "user_grade": "MANDATORY",
+            "value": 3500,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{cond}$",
+            "reference": "",
+            "description": "Heat delivered at the condenser at the reference size"
+        },
+        {
+            "var_name": "exeff",
+            "type": "LITERATURE",
+            "full_name": "Exergy efficiency",
+            "user_grade": "MANDATORY",
+            "value": 0.5,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\eta_{ex}$",
+            "reference": "",
+            "description": "Ratio of the actual to the Carnot coefficient of performance"
+        },
+        {
+            "var_name": "dtmin_gas",
+            "type": "CONTEXT",
+            "full_name": "ΔTmin/2 of gases",
+            "user_grade": "MANDATORY",
+            "value": 8,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,gas}/2$",
+            "reference": "",
+            "description": "Minimum temperature difference contribution of gas streams (not used by the streams)"
+        },
+        {
+            "var_name": "dtmin_liq",
+            "type": "CONTEXT",
+            "full_name": "ΔTmin/2 of liquids",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,liq}/2$",
+            "reference": "",
+            "description": "Minimum temperature difference contribution of liquid streams (not used by the streams)"
+        },
+        {
+            "var_name": "dtmin_2ph",
+            "type": "CONTEXT",
+            "full_name": "ΔTmin/2 of two-phase streams",
+            "user_grade": "MANDATORY",
+            "value": 2,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,2ph}/2$",
+            "reference": "",
+            "description": "Minimum temperature difference contribution of the evaporator and the condenser"
+        },
+        {
+            "var_name": "n",
+            "type": "CONTEXT",
+            "full_name": "Lifetime",
+            "user_grade": "MANDATORY",
+            "value": 40,
+            "physical_unit": "year",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$n$",
+            "reference": "",
+            "description": "Lifetime of the heat pump"
+        },
+        {
+            "var_name": "i",
+            "type": "CONTEXT",
+            "full_name": "Interest rate",
+            "user_grade": "MANDATORY",
+            "value": 0.06,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$i$",
+            "reference": "",
+            "description": "Discount interest rate"
+        },
+        {
+            "var_name": "CEPCI_2020",
+            "type": "LITERATURE",
+            "full_name": "CEPCI 2020",
+            "user_grade": "MANDATORY",
+            "value": 596.2,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$CEPCI_{2020}$",
+            "reference": "",
+            "description": "Chemical Engineering Plant Cost Index of 2020"
+        },
+        {
+            "var_name": "CEPCI_2008",
+            "type": "LITERATURE",
+            "full_name": "CEPCI 2008",
+            "user_grade": "MANDATORY",
+            "value": 575.4,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$CEPCI_{2008}$",
+            "reference": "",
+            "description": "Chemical Engineering Plant Cost Index of 2008, the year of the cost data"
+        },
+        {
+            "var_name": "COPcarnot",
+            "type": "CALCULATED",
+            "full_name": "Carnot coefficient of performance",
+            "user_grade": "MANDATORY",
+            "value": 27.3571428571429,
+            "physical_unit": "-",
+            "formula": "(Cond_Tin+273)/(Cond_Tin-Evap_Tin)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$COP_{Carnot}$",
+            "reference": "",
+            "description": "Coefficient of performance of a reversible heat pump between the evaporator and condenser temperatures"
+        },
+        {
+            "var_name": "COP",
+            "type": "CALCULATED",
+            "full_name": "Coefficient of performance",
+            "user_grade": "MANDATORY",
+            "value": 13.6785714285714,
+            "physical_unit": "-",
+            "formula": "exeff*COPcarnot",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$COP$",
+            "reference": "",
+            "description": "Heat delivered at the condenser per unit of electricity"
+        },
+        {
+            "var_name": "W_heatpump",
+            "type": "CALCULATED",
+            "full_name": "Electricity consumption",
+            "user_grade": "MANDATORY",
+            "value": 255.874673629243,
+            "physical_unit": "kW",
+            "formula": "Cond_Qmax/COP",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$W_{HP}$",
+            "reference": "",
+            "description": "Electricity consumed by the compressor"
+        },
+        {
+            "var_name": "Evap_Qmax",
+            "type": "CALCULATED",
+            "full_name": "Evaporator heat load",
+            "user_grade": "MANDATORY",
+            "value": 3244.12532637076,
+            "physical_unit": "kW",
+            "formula": "Cond_Qmax*(COP-1)/COP",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{evap}$",
+            "reference": "",
+            "description": "Heat taken from the process at the evaporator"
+        },
+        {
+            "var_name": "Annuity",
+            "type": "CALCULATED",
+            "full_name": "Capital recovery factor",
+            "user_grade": "MANDATORY",
+            "value": 0.0664615359206755,
+            "physical_unit": "-",
+            "formula": "(i*(i+1)**n)/((i+1)**n-1)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\tau$",
+            "reference": "",
+            "description": "Annualization factor of the investment over n years at the interest rate i"
+        },
+        {
+            "var_name": "Cinv2_HP",
+            "type": "CALCULATED",
+            "full_name": "Annualized investment cost",
+            "user_grade": "MANDATORY",
+            "value": 72307.2403574941,
+            "physical_unit": "EUR/year",
+            "formula": "(300*Cond_Qmax)*(CEPCI_2020/CEPCI_2008)*Annuity",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$C^{inv}_{2}$",
+            "reference": "",
+            "description": "Annualized investment cost, 300 EUR per kW of condenser heat (750 EUR/kW below 500 kW) in 2008 euros, updated to 2020"
+        }
+    ],
+    "units": [
+        {
+            "unit_description": "This unit represents a heat pump that takes 3244 kW at 96 °C and delivers 3500 kW at 110 °C, for 256 kW of electricity (COP 13.7).",
+            "unit_info": {
+                "unit_name": "Heatpump",
+                "full_name": "Heat pump",
+                "unit_type": "utility",
+                "minimum_capacity_multiplier": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 1,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes electricity for its compressor.",
+            "connectors": [
+                {
+                    "name": "ELECTRICITY",
+                    "full_name": "Electricity",
+                    "scope": "GLOBAL",
+                    "type": "ELECTRICITY",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 255.874673629243,
+                        "formula": "=W_heatpump",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Electricity of the compressor"
+                }
+            ],
+            "heat_streams_description": "The evaporator is a cold stream at Evap_Tin and the condenser a hot stream at Cond_Tin, both at constant temperature.",
+            "heat_streams": [
+                {
+                    "name": "qt_evap",
+                    "full_name": "Evaporator",
+                    "description": "Heat taken from the process at Evap_Tin, where the working fluid evaporates",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 96,
+                        "formula": "=Evap_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 96,
+                        "formula": "=Evap_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 3244.12532637076,
+                        "formula": "=Evap_Qmax",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 2,
+                        "formula": "=dtmin_2ph",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_cond",
+                    "full_name": "Condenser",
+                    "description": "Heat delivered to the process at Cond_Tin, where the working fluid condenses",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 110,
+                        "formula": "=Cond_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 110,
+                        "formula": "=Cond_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 3500,
+                        "formula": "=Cond_Qmax",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 2,
+                        "formula": "=dtmin_2ph",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                }
+            ],
+            "equipments_description": "One heat pump asset, whose investment cost is proportional to the condenser heat load.",
+            "equipments": [
+                {
+                    "name": "HeatPump_investment",
+                    "full_name": "Investment of the heat pump",
+                    "type": "Asset",
+                    "subtype": "",
+                    "reference": "",
+                    "reference_size": {
+                        "full_name": "Reference size of equipment",
+                        "value": 3500,
+                        "formula": "=Cond_Qmax",
+                        "unit": "kW"
+                    },
+                    "lifetime": {
+                        "full_name": "Lifetime",
+                        "value": 40,
+                        "formula": "=n",
+                        "unit": "year"
+                    },
+                    "year": {
+                        "full_name": "Year of reference",
+                        "value": 2020,
+                        "formula": null,
+                        "unit": "year"
+                    },
+                    "CAPEX": {
+                        "full_name": "Total investment cost for ref. size",
+                        "value": 1087956.204379563,
+                        "formula": "=Cinv2_HP/Annuity",
+                        "unit": "EUR"
+                    },
+                    "impact": {
+                        "full_name": "Scope 3 environmental impact per unit of ref. size",
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kgCO2-eq"
+                    },
+                    "interest_rate": {
+                        "full_name": "Interest rate",
+                        "value": 0.06,
+                        "formula": "=i",
+                        "unit": "-"
+                    },
+                    "F_BM": {
+                        "full_name": "Bare module factor",
+                        "value": 1,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "capacity_exponent": {
+                        "full_name": "Capacity exponent",
+                        "value": 1,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "parameters": [
+                        {
+                            "parameter": "Annualized investment",
+                            "value": 72307.2403574941,
+                            "formula": "=Cinv2_HP",
+                            "unit": "EUR/year"
+                        }
+                    ]
+                }
+            ],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        }
+    ],
+    "custom_constraints": [
+        {
+            "name": "",
+            "equation": "",
+            "type": ""
+        }
+    ]
+}

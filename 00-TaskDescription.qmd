@@ -23,7 +23,7 @@ The challenge is therefore not merely to gather and share data, but to develop a
 
 ## Ex-ante models {.unnumbered}
 
-An **ex-ante model** is a mathematical representation of a physical industrial unit, technology or system in which material and energy transformations occur. Unlike an ex-post model, derived from measured operating data, an ex-ante model is built from first principles, design specifications and engineering correlations to predict the behaviour of a system before implementation or during early design. This predictive character makes ex-ante models essential for technology assessment, process synthesis and strategic planning in industrial decarbonization.
+An **ex-ante model** is a mathematical representation of a physical industrial unit, technology or system in which material and energy transformations occur. Unlike an ex-post model, derived from measured operating data, an ex-ante model is built from first principles, design specifications and engineering correlations to predict the behavior of a system before implementation or during early design. This predictive character makes ex-ante models essential for technology assessment, process synthesis and strategic planning in industrial decarbonization.
 
 For process integration, an ex-ante model is a bounded entity that exchanges mass, energy, heat and information with its surroundings through **connectors**: the interfaces between the model and the broader industrial ecosystem, the shared infrastructure (technosphere) and the natural environment (ecosphere). A model must therefore capture not only its internal transformations, but also the quality of its boundary flows (temperature, pressure, composition, temporal profile and impact).
 
@@ -39,7 +39,7 @@ For process integration, an ex-ante model is a bounded entity that exchanges mas
 
 ## Subtask 1 and activities {.unnumbered}
 
-The Task comprises a single subtask, led by EPFL: **Subtask 1 – Enabling a shared database of ex-ante models of industrial processes, decarbonization technologies and energy systems featuring sustainability metrics.** It is organised in the following activities:
+The Task comprises a single subtask, led by EPFL: **Subtask 1 – Enabling a shared database of ex-ante models of industrial processes, decarbonization technologies and energy systems featuring sustainability metrics.** It is organized in the following activities:
 
 | Activity | Scope |
 |:--|:--|

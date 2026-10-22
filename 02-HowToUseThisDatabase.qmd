@@ -2,7 +2,7 @@
 
 ## Browsing the models {.unnumbered}
 
-Models are grouped in three sections: **Energy technologies**, **Decarbonisation technologies** and **Industrial processes**, each divided into categories (for example *Power and utilities* or *Petrochemical*). Each category page lists its models and whether they are documented yet, and each model has one page. Its tables, equations and plots are generated from the model's JSON description, so they always match the data:
+Models are grouped in three sections: **Energy technologies**, **Decarbonization technologies** and **Industrial processes**, each divided into categories (for example *Power and utilities* or *Petrochemical*). Each category page lists its models and whether they are documented yet, and each model has one page. Its tables, equations and plots are generated from the model's JSON description, so they always match the data:
 
 * a **model card** with the metadata of the template (authors, version, status, confidentiality and sharing layer, grade, reference capacity, TRL, keywords, main publication);
 * a description of the technology or process and its block flow diagram;

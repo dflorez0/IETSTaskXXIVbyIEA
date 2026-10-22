@@ -19,7 +19,7 @@ Recirculation pumps and forced-draft fans consume electricity, and the evaporate
 
 ## Key figures
 
-Minimum utility requirements of the unit on its own, from its heat streams. The scale factor *f* multiplies every duty and flow on this page, as the optimisation does with the unit's size.
+Minimum utility requirements of the unit on its own, from its heat streams. The scale factor *f* multiplies every duty and flow on this page, as the optimization does with the unit's size.
 
 {{< model-viewer JSON/CoolingTower.json view="summary" >}}
 
@@ -31,13 +31,13 @@ Minimum utility requirements of the unit on its own, from its heat streams. The 
 
 Throughout this page, names written like `Cool_Qmax` are variables of the model: hover one for its definition, click it to go to its row in the [variables](#variables) table. The same holds for the symbols in the equations and for underlined values in the tables. The equations below are generated from the formulas of the model's JSON description, and each is tagged with the name of the variable it defines.
 
-**Thermal performance.** The tower is characterised by its `range`, the difference between the return temperature `Cool_Tout` and the supply temperature `Cool_Tin`, and by its `approach`, the difference between the supply temperature and the ambient wet-bulb temperature `Twetbulb`. Evaporative cooling cannot bring the water below the wet-bulb temperature, so the approach must always be positive. Smaller approaches require exponentially larger towers. Typical design values are a range of 5.5–8.3 K and an approach of 3.3–6.7 K, with an inlet water temperature below 33 °C.
+**Thermal performance.** The tower is characterized by its `range`, the difference between the return temperature `Cool_Tout` and the supply temperature `Cool_Tin`, and by its `approach`, the difference between the supply temperature and the ambient wet-bulb temperature `Twetbulb`. Evaporative cooling cannot bring the water below the wet-bulb temperature, so the approach must always be positive. Smaller approaches require exponentially larger towers. Typical design values are a range of 5.5–8.3 K and an approach of 3.3–6.7 K, with an inlet water temperature below 33 °C.
 
 **Wet-bulb temperature.** `Twetbulb` is computed from the dry-bulb temperature `Tdrybulb` and the relative humidity `RelatHum` with the empirical correlation of Stull (2011). The arctangents are evaluated in radians. The correlation is valid for 5–99 % relative humidity and −20 to 50 °C at sea-level pressure (except at combined low humidity and low temperature), with a mean absolute error below 0.3 °C.
 
 **Water flows and electricity.** The circulating water flow `water_flow` follows from the heat load `Cool_Qmax`, the specific heat capacity `cp_water` and the range. The make-up water `watermu_CT` is estimated with the usual rule of thumb of 0.085 % of the circulating flow per °F of range (the factor 1.8 converts K to °F). The electricity of pumps and fans, `E_ref_CT`, is proportional to the heat load through `Cool_Elec`.
 
-**Investment cost.** The tower investment cost `CTCost` (EUR, 2008) is a correlation in the circulating water flow, the range, the approach and the wet-bulb temperature. It is updated with the cost indices `CEPCI_2020` and `CEPCI_2008` and annualised with the capital recovery factor `Annuity`, over the lifetime `n` at the interest rate `i`, to give the annualised investment cost `Cinv2_CT`.
+**Investment cost.** The tower investment cost `CTCost` (EUR, 2008) is a correlation in the circulating water flow, the range, the approach and the wet-bulb temperature. It is updated with the cost indices `CEPCI_2020` and `CEPCI_2008` and annualized with the capital recovery factor `Annuity`, over the lifetime `n` at the interest rate `i`, to give the annualized investment cost `Cinv2_CT`.
 
 {{< model-viewer JSON/CoolingTower.json view="equations" >}}
 

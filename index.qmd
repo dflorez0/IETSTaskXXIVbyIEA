@@ -13,10 +13,10 @@ This is the **Database of IEA Task XXIV Process Integration for Industry Decarbo
 It collects and documents the **ex-ante models** contributed by the Task participants — industrial processes, decarbonization technologies and energy systems — described with a common template so that they can be combined in process integration and industrial symbiosis studies.
 
 
-## How the database is organised {.unnumbered}
+## How the database is organized {.unnumbered}
 
 * **Task XXIV** describes the Task, the rules for contributing, and how to use the database and add a model to it.
-* **Energy technologies**, **Decarbonisation technologies** and **Industrial processes** are divided into categories, such as *Power and utilities* or *Petrochemical*. Each category page lists the models of the category, and each documented model has its own page.
+* **Energy technologies**, **Decarbonization technologies** and **Industrial processes** are divided into categories, such as *Power and utilities* or *Petrochemical*. Each category page lists the models of the category, and each documented model has its own page.
 
 Each model lives in its own folder, which contains its documentation page and its supplementary material: the OSMOSE (Lua) implementation, the JSON description, the Excel template, figures and background documents. Every model page links to these files.
 

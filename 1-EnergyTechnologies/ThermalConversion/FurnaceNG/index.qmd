@@ -15,7 +15,7 @@ The model is sized by its useful heat load, 1,000 kW at the reference size, of w
 
 ## Key figures
 
-Minimum utility requirements of the unit on its own, from its heat streams. The scale factor *f* multiplies every duty and flow on this page, as the optimisation does with the unit's size.
+Minimum utility requirements of the unit on its own, from its heat streams. The scale factor *f* multiplies every duty and flow on this page, as the optimization does with the unit's size.
 
 {{< model-viewer JSON/FurnacePrehNG.json view="summary" >}}
 
@@ -35,17 +35,17 @@ Throughout this page, names written like `Q_demand` are variables of the model: 
 
 **Air preheating.** Preheating the stoichiometric air from `To` to `Tprin` takes `Q_preh`, which the flue gas returns above `Trad`, so it is added to the radiant heat (`Q_radpreh`). Preheating only pays when it is done below the pinch of the process the furnace serves. At the default `Tprin` of 26 °C, it is negligible.
 
-**Losses.** The same cooling curve is applied to the wall loss (variables ending in `_wl`) and to the hot gas escape (`_ae`). The radiant and convective shares of the wall loss, and the whole heat of the escaping gas (`Q_total_ae`), are released at the dissipation temperature `Tloss` into a separate heat cascade, LGWH, so they cannot heat the process.
+**Losses.** The same cooling curve is applied to the wall loss (variables ending in `_wl`) and to the hot gas escape (`_ae`). The radiant and convective shares of the wall loss, and the whole heat of the escaping gas (`Q_total_ae`), are released to the surroundings at `Tloss`. They are kept apart from the useful heat (listed as LGWH in the heat streams table), so they cannot heat the process.
 
 **CO~2~.** The natural gas is taken as methane, which gives one kmol of CO~2~ per kmol of fuel. `TotalCO2Flow` is the CO~2~ produced, `EmitCO2Flow` the share that leaves with the escaping gas, and `CapturableCO2Flow` the share that leaves at the stack.
 
-**Investment cost.** The specific cost of the heater, `Spec_heaterCost`, is the cost per installed kW `Spec_heaterCost_installed` times the ratio of installed to average power `inst2avgratio`. Applied to `Q_demand` and annualised with the capital recovery factor `Annuity` over the lifetime `n` at the interest rate `i`, it gives the annualised investment cost `Cinv2_NGFur`, in 2020 euros (the CEPCI ratio in the formula is 1).
+**Investment cost.** The specific cost of the heater, `Spec_heaterCost`, is the cost per installed kW `Spec_heaterCost_installed` times the ratio of installed to average power `inst2avgratio`. Applied to `Q_demand` and annualized with the capital recovery factor `Annuity` over the lifetime `n` at the interest rate `i`, it gives the annualized investment cost `Cinv2_NGFur`, in 2020 euros (the CEPCI ratio in the formula is 1).
 
 {{< model-viewer JSON/FurnacePrehNG.json view="equations" >}}
 
-### Modelling choices
+### Modeling choices
 
-**Heat streams.** The radiant heat is one isothermal stream at `Trad`; the convective heat and its recovery are two streams from `Trad` to `Troof` and from `Troof` to `Tstack`. The stack loss `Q_stack` (39 kW, and 4.9 kW for the wall loss share) is computed but not given as a heat stream, so the flue gas is not cooled below `Tstack`. The wall loss share of the recovery from `Troof` to `Tstack`, `convrecGas_wl`, is in the default heat cascade, while the other loss streams are in LGWH.
+**Heat streams.** The radiant heat is one isothermal stream at `Trad`; the convective heat and its recovery are two streams from `Trad` to `Troof` and from `Troof` to `Tstack`. The stack loss `Q_stack` (39 kW, and 4.9 kW for the wall loss share) is computed but not given as a heat stream, so the flue gas is not cooled below `Tstack`. The wall loss share of the recovery from `Troof` to `Tstack`, `convrecGas_wl`, is counted with the useful heat, while the other loss streams are kept apart.
 
 ## Variables
 
@@ -57,7 +57,7 @@ Throughout this page, names written like `Q_demand` are variables of the model: 
 
 ## Heat integration
 
-The furnace is a hot utility: in the default heat cascade, it delivers 961 kW, of which 436 kW at 1,100 °C, and needs 0.4 kW for the air preheating. The 245 kW of losses go to the LGWH cascade at 30 °C.
+The furnace is a hot utility: it delivers 961 kW of useful heat, of which 436 kW at 1,100 °C, and needs 0.4 kW for the air preheating. The 245 kW of losses are released to the surroundings at 30 °C and are not counted in the key figures and curves.
 
 ### Heat streams
 

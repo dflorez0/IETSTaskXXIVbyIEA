@@ -52,6 +52,9 @@
 .mv-tools p { margin: 0; text-align: left !important; }
 .mv-dl { border: 1px solid #ced4da; background: #fff; color: #444; border-radius: 4px; padding: .15rem .55rem; font-size: .78rem; cursor: pointer; white-space: nowrap; }
 .mv-dl:hover { border-color: #ff0000; color: #ff0000; }
+.mv-collapsed .mv-extra { display: none; }
+.mv-more { display: block; width: 100%; margin: .5rem 0 0; border: 1px solid #ff0000; background: #fff5f5; color: #d00000; border-radius: 4px; padding: .4rem .9rem; font-size: .85rem; font-weight: 600; cursor: pointer; }
+.mv-more:hover { background: #ff0000; color: #fff; }
 .mv-scaled { font-size: .8rem; color: #b8860b; margin-bottom: .35rem; }
 .mv-tip { position: absolute; pointer-events: none; z-index: 5; background: rgba(33,33,33,.92); color: #fff; font-size: .75rem;
           line-height: 1.35; padding: .3rem .5rem; border-radius: 4px; white-space: nowrap; transform: translate(-50%, calc(-100% - 10px)); }
@@ -1099,6 +1102,41 @@ document.addEventListener("DOMContentLoaded", function () {
     return '<div class="mv-source">Generated from <code>' + xesc(entry.src) + "</code>.</div>";
   }
 
+  // A long list (table rows, equations) shows its first rows and a button to
+  // show the rest; the choice survives re-renders (scale factor) of the view.
+  var LIST_LIMIT = 15, LIST_FIRST = 10;
+  function shorten(el, wrap, items, label, key) {
+    items = Array.prototype.slice.call(items);
+    if (items.length <= LIST_LIMIT) return;
+    var open = !!(el.mvOpen && el.mvOpen[key]);
+    items.slice(LIST_FIRST).forEach(function (r) { r.classList.add("mv-extra"); });
+    wrap.classList.toggle("mv-collapsed", !open);
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "mv-more";
+    function text() { b.textContent = wrap.classList.contains("mv-collapsed") ? "Show all " + items.length + " " + label : "Show fewer"; }
+    text();
+    b.addEventListener("click", function () {
+      var closed = wrap.classList.toggle("mv-collapsed");
+      (el.mvOpen = el.mvOpen || {})[key] = !closed;
+      text();
+      if (closed) b.scrollIntoView({ block: "nearest" });
+    });
+    wrap.parentNode.insertBefore(b, wrap.nextSibling);
+  }
+  // A link to a row or equation that is hidden opens its list first.
+  function reveal(id) {
+    var t = id && document.getElementById(id), w = t && t.closest(".mv-collapsed");
+    if (!w || !t.classList.contains("mv-extra")) return false;
+    var b = w.nextElementSibling;
+    if (b && b.classList.contains("mv-more")) b.click(); else w.classList.remove("mv-collapsed");
+    return true;
+  }
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (a) reveal(decodeURIComponent(a.getAttribute("href").slice(1)));
+  }, true);
+  window.addEventListener("hashchange", function () { reveal(decodeURIComponent(location.hash.slice(1))); });
+
   var VIEWS = {
     card: function (entry, el) {
       var m = entry.model.meta, rows = [];
@@ -1156,6 +1194,8 @@ document.addEventListener("DOMContentLoaded", function () {
           '<div class="mv-tools"><p>Hot streams in red, cold streams in blue. T* is the shifted temperature: hot streams are lowered and cold streams raised by their ΔT<sub>min</sub>/2 contribution. Underlined values come from a variable: hover for its definition.</p>' +
           '<button type="button" class="mv-dl">Download CSV</button></div>';
         el.querySelector(".mv-dl").addEventListener("click", function () { download(slug(c.u.name) + "_heat_streams.csv", t.csv, "text/csv"); });
+        var tb = el.querySelector("table.mv-table > tbody");
+        if (tb) shorten(el, tb.closest("div"), tb.children, "heat streams", "streams");
       };
     },
 
@@ -1226,20 +1266,25 @@ document.addEventListener("DOMContentLoaded", function () {
           h += '<div class="mv-warn"><b>Data checks</b><ul><li>Values marked ⚠ differ from what their formula gives with the stored values of its variables; the JSON may have been exported before a change.</li></ul></div>';
       }
       el.innerHTML = h + source(entry);
+      el.querySelectorAll("table.mv-table > tbody").forEach(function (tb, k) {
+        shorten(el, tb.closest("div"), tb.children, k === 0 && inputs.length ? "input variables" : "calculated variables", "vars" + k);
+      });
       typeset(el);
     },
 
     equations: function (entry, el) {
       var calcs = entry.model.vars.filter(function (v) { return v.isCalc; });
       if (!calcs.length) { el.innerHTML = '<div class="mv-empty">No calculated variables in ' + xesc(entry.src) + ".</div>"; return; }
-      el.innerHTML = '<p class="mv-legend">Each equation defines the calculated variable named in its tag. Hover a symbol for its definition; click it to go to the variables table.</p>' +
+      el.innerHTML = '<p class="mv-legend">Each equation defines the calculated variable named in its tag. Hover a symbol for its definition; click it to go to the variables table.</p><div class="mv-eqs">' +
         calcs.map(function (v) {
           return '<div class="mv-eq" id="' + eqId(entry, v.name) + '"><div>' +
             // the tag takes room on the line, so a long variable name leaves less for the equation
             texD(displayTex(entry, v, true, Math.min(38, Math.max(24, 46 - v.name.length)), symTex(entry, v, true), v.name.replace(/_/g, "\\_"))) + "</div>" +
             '<div class="mv-eq-meta">' + varChip(entry, v.name) + " " + xesc(v.fullName || v.description) +
             (v.grade === "private" ? "" : " · " + valueText(v) + (unitText(v.unit) ? " " + unitText(v.unit) : "")) + "</div></div>";
-        }).join("");
+        }).join("") + "</div>";
+      var eqs = el.querySelector(".mv-eqs");
+      shorten(el, eqs, eqs.children, "equations", "eqs");
       typeset(el);
     },
 
@@ -1481,6 +1526,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   decorateProse();
   bindLinks();
+  if (location.hash && reveal(decodeURIComponent(location.hash.slice(1))))
+    document.getElementById(decodeURIComponent(location.hash.slice(1))).scrollIntoView();
 
   function redrawPlots() { order.forEach(function (s) { models[s].views.forEach(function (v) { if (v.plot) v.render(); }); }); }
   // Text drawn on a canvas keeps the fallback font if the page font arrives later.

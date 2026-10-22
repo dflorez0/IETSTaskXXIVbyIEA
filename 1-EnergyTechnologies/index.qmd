@@ -7,7 +7,7 @@ Utility and energy conversion technology models, by category.
 |:--|:--|--:|
 | [Thermal conversion](ThermalConversion/index.qmd) | [Natural gas furnace](ThermalConversion/FurnaceNG/index.qmd) | 4 |
 | [Power and utilities](PowerAndUtilities/index.qmd) | [Cooling tower](PowerAndUtilities/CoolingTower/index.qmd) | 6 |
-| [Heat recovery and upgrade](HeatRecoveryAndUpgrade/index.qmd) | — | 1 |
+| [Heat recovery and upgrade](HeatRecoveryAndUpgrade/index.qmd) | [Heat pump](HeatRecoveryAndUpgrade/HeatPump/index.qmd) | 0 |
 | [Mass and energy storage](MassAndEnergyStorage/index.qmd) | — | 4 |
 | [Renewables](Renewables/index.qmd) | — | 2 |
 | [Air separation](AirSeparation/index.qmd) | — | 1 |

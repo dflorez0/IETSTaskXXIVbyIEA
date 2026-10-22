@@ -72,53 +72,6 @@ p.caption {
   text-transform: uppercase;
 }
 
-/* gitbook: the fixed `.book-header` (search/tools) and `.summary-footer`
-   (IPESE logo), both pinned to the bottom of `.book-summary` below the
-   scrolling chapter list. Quarto puts search and download inline in the
-   sidebar header instead, and has no footer slot at all — ipese-footer.html
-   moves both into `.ipese-sidebar-bottom` after the page loads; this makes
-   that bar sit at the bottom of the sidebar and stay there while the
-   chapter list scrolls underneath it.
-
-   Only where the sidebar is docked: below Bootstrap's lg breakpoint the
-   sidebar is a collapsed menu that Bootstrap hides with display: none, and
-   this rule (an id selector, so it wins) would keep it on screen. */
-@media (min-width: 992px) {
-  #quarto-sidebar {
-    display: flex;
-    flex-direction: column;
-  }
-}
-#quarto-sidebar .sidebar-menu-container {
-  flex: 1 1 auto;
-}
-.ipese-sidebar-bottom {
-  flex-shrink: 0;
-  position: sticky;
-  bottom: 0;
-  background: $sidebar-bg;
-  border-top: 1px solid $epfl-grey-lt;
-  padding: .75rem 0;
-}
-.ipese-sidebar-tools-row {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  padding: 0 1rem;
-}
-/* Bootstrap ships `#quarto-sidebar .sidebar-search { display: none }` and
-   expects Quarto's search JS to reveal it; reasserting `display` here would
-   fight that toggle, so only the sizing changes. */
-.ipese-sidebar-tools-row .sidebar-search {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-.ipese-sidebar-tools-row .sidebar-tools-main {
-  flex: 0 0 auto;
-  margin-left: 0;
-}
-
-
 /* ---- Content --------------------------------------------------------- */
 /* gitbook: navigation + header buttons hover red */
 .page-navigation a:hover,
@@ -372,4 +325,18 @@ blockquote > p:last-child  { text-align: right; }
 .ipese-refs-title + #refs {
   margin-top: .5rem;
   padding-top: .75rem;
+}
+
+/* The search box follows the sidebar menu (moved there by ipese-footer.html). */
+#quarto-sidebar .ipese-search-below {
+  margin: .25rem 0 1.5rem;
+}
+
+/* Subsections read as one level below the sections: smaller and in the
+   accent red, while sections keep their size and grey underline. */
+main.content h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #d00000;
+  margin-top: 1.6rem;
 }

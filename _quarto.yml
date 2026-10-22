@@ -68,7 +68,7 @@ website:
           - 1-EnergyTechnologies/AirSeparation/index.qmd
           - 1-EnergyTechnologies/EnergySystemsAndGrids/index.qmd
 
-      - section: "Decarbonisation technologies"
+      - section: "Decarbonization technologies"
         href: 2-DecarbTechnologies/index.qmd
         contents:
           - section: "Electrochemical"
@@ -106,6 +106,9 @@ shortcodes:
 # A page's leading "# Title" heading is its title (see h1-title.lua).
 filters:
   - template_files/h1-title.lua
+
+language:
+  search-text-placeholder: "Search"
 
 crossref:
   eq-prefix: "Eq."

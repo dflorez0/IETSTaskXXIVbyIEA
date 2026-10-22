@@ -1,4 +1,4 @@
-# Decarbonisation technologies {.unnumbered}
+# Decarbonization technologies {.unnumbered}
 
 Carbon capture, hydrogen and syngas technology models, by category.
 

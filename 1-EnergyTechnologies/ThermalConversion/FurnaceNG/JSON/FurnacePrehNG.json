@@ -45,7 +45,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\Delta T_{min,rad}/2$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Minimum temperature difference contribution of the radiant heat"
         },
         {
@@ -59,7 +59,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\Delta T_{min,conv}/2$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Minimum temperature difference contribution of the convective heat and of the air preheating"
         },
         {
@@ -73,8 +73,8 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\Delta T_{min,2ph}/2$",
-            "reference": "EPFL IPESE research group",
-            "description": "Minimum temperature difference contribution of two-phase streams; used only by the stack streams, which are commented out in the Lua"
+            "reference": "",
+            "description": "Minimum temperature difference contribution of two-phase streams; not used, as the stack heat is not given as a heat stream"
         },
         {
             "var_name": "dtmin_0",
@@ -87,7 +87,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\Delta T_{min,0}/2$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Minimum temperature difference contribution of the loss streams"
         },
         {
@@ -115,7 +115,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T_{0}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Ambient temperature, also the reference temperature of the enthalpies"
         },
         {
@@ -129,7 +129,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T_{rad}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Temperature at which the radiant heat is delivered (convention)"
         },
         {
@@ -143,7 +143,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T_{roof}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Flue gas temperature at the end of the convection section"
         },
         {
@@ -157,7 +157,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T_{stack}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Flue gas temperature at the stack, above the water dew point at 1 bar"
         },
         {
@@ -171,7 +171,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T_{wall}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Outer wall temperature (not used by the equations)"
         },
         {
@@ -185,7 +185,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T_{loss}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Temperature at which the wall losses and the escaping hot gas dissipate their heat to the plant environment"
         },
         {
@@ -199,7 +199,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$MW_{air}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Molar mass of dry air (79 % N2, 21 % O2)"
         },
         {
@@ -213,7 +213,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$MW_{fuel}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Molar mass of the fuel, taken as methane"
         },
         {
@@ -227,7 +227,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$MW_{CO_2}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Molar mass of CO2"
         },
         {
@@ -241,7 +241,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$LHV$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Lower heating value of natural gas at 25 °C and 1 bar"
         },
         {
@@ -255,7 +255,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$n_{air,st}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Stoichiometric molar ratio of air to methane: CH4 + 2(O2 + 3.76 N2)"
         },
         {
@@ -269,7 +269,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$a$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Ratio of the actual to the stoichiometric air flow"
         },
         {
@@ -283,7 +283,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$c_{p,air}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Specific heat capacity of air at 400 °C and 1 bar"
         },
         {
@@ -297,7 +297,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$c_{p,ng}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Specific heat capacity of methane at 530 °C and 1 bar (not used by the equations)"
         },
         {
@@ -311,7 +311,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T_{preh}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Combustion air preheating temperature, between To and Trad; preheating is only useful below the pinch of the process it serves"
         },
         {
@@ -325,7 +325,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{load}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Fuel power converted into useful heat at the reference size; the maximum capacity is 400 times this value"
         },
         {
@@ -339,7 +339,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$f_{wall}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Fraction of the fuel power lost through the walls; walllossfactor + hotgasescfactor < 1"
         },
         {
@@ -353,7 +353,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$f_{esc}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Fraction of the fuel power lost with the hot gas escaping the furnace"
         },
         {
@@ -367,7 +367,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$r_{inst}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Ratio of installed to average power, inferred from the measured natural gas consumption"
         },
         {
@@ -381,7 +381,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$c_{heater,inst}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Investment cost per kW of installed heater"
         },
         {
@@ -395,7 +395,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$n$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Lifetime of the furnace"
         },
         {
@@ -409,7 +409,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$i$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Interest rate"
         },
         {
@@ -423,7 +423,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$CEPCI_{2020}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Chemical Engineering Plant Cost Index of 2020"
         },
         {
@@ -437,7 +437,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$v$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Mass of stoichiometric air per mass of fuel"
         },
         {
@@ -451,7 +451,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$CP_{load}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat capacity flow of the flue gas with stoichiometric air, useful heat share"
         },
         {
@@ -465,7 +465,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T_{ad,load}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Adiabatic flame temperature corrected for the excess air, useful heat share"
         },
         {
@@ -479,7 +479,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$CP^{corr}_{load}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat capacity flow of the flue gas including the excess air, useful heat share"
         },
         {
@@ -493,7 +493,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q^{rad}_{load}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat released by the flue gas from the flame temperature down to Trad, useful heat share"
         },
         {
@@ -507,7 +507,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q^{conv}_{load}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat released by the flue gas from Trad to Troof, useful heat share"
         },
         {
@@ -521,7 +521,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q^{rec}_{load}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat released by the flue gas from Troof to Tstack, useful heat share"
         },
         {
@@ -535,7 +535,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q^{preh}_{load}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat to preheat the stoichiometric air from To to Tprin, useful heat share"
         },
         {
@@ -549,7 +549,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q^{stack}_{load}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat left in the flue gas from Tstack down to To, useful heat share (no heat stream uses it)"
         },
         {
@@ -563,7 +563,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q^{rad+preh}_{load}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Radiant heat plus the air preheating load, which raises the heat available above Trad, useful heat share"
         },
         {
@@ -577,7 +577,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{wall}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Fuel power lost through the furnace walls"
         },
         {
@@ -591,7 +591,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$CP_{wl}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat capacity flow of the flue gas with stoichiometric air, wall loss share"
         },
         {
@@ -605,7 +605,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T_{ad,wl}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Adiabatic flame temperature corrected for the excess air, wall loss share"
         },
         {
@@ -619,7 +619,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$CP^{corr}_{wl}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat capacity flow of the flue gas including the excess air, wall loss share"
         },
         {
@@ -633,7 +633,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q^{rad}_{wl}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat released by the flue gas from the flame temperature down to Trad, wall loss share"
         },
         {
@@ -647,7 +647,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q^{conv}_{wl}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat released by the flue gas from Trad to Troof, wall loss share"
         },
         {
@@ -661,7 +661,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q^{rec}_{wl}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat released by the flue gas from Troof to Tstack, wall loss share"
         },
         {
@@ -675,7 +675,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q^{preh}_{wl}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat to preheat the stoichiometric air from To to Tprin, wall loss share"
         },
         {
@@ -689,7 +689,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q^{stack}_{wl}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat left in the flue gas from Tstack down to To, wall loss share (no heat stream uses it)"
         },
         {
@@ -703,7 +703,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q^{rad+preh}_{wl}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Radiant heat plus the air preheating load, which raises the heat available above Trad, wall loss share"
         },
         {
@@ -717,7 +717,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{esc}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Fuel power lost with the hot gas escaping the furnace"
         },
         {
@@ -731,7 +731,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$CP_{esc}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat capacity flow of the flue gas with stoichiometric air, hot gas escape share"
         },
         {
@@ -745,7 +745,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T_{ad,esc}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Adiabatic flame temperature corrected for the excess air, hot gas escape share"
         },
         {
@@ -759,7 +759,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$CP^{corr}_{esc}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat capacity flow of the flue gas including the excess air, hot gas escape share"
         },
         {
@@ -773,7 +773,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q^{rad}_{esc}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat released by the flue gas from the flame temperature down to Trad, hot gas escape share"
         },
         {
@@ -787,7 +787,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q^{conv}_{esc}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat released by the flue gas from Trad to Troof, hot gas escape share"
         },
         {
@@ -801,7 +801,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q^{rec}_{esc}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat released by the flue gas from Troof to Tstack, hot gas escape share"
         },
         {
@@ -815,7 +815,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q^{preh}_{esc}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat to preheat the stoichiometric air from To to Tprin, hot gas escape share"
         },
         {
@@ -829,7 +829,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q^{stack}_{esc}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat left in the flue gas from Tstack down to To, hot gas escape share (no heat stream uses it)"
         },
         {
@@ -843,7 +843,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q^{rad+preh}_{esc}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Radiant heat plus the air preheating load, which raises the heat available above Trad, hot gas escape share"
         },
         {
@@ -857,7 +857,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q^{esc}_{total}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Heat released by the escaping hot gas and its share of air preheating, dissipated at Tloss"
         },
         {
@@ -871,7 +871,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$Q_{demand}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Fuel power (LHV) of the furnace: useful heat plus wall and hot gas escape losses"
         },
         {
@@ -885,7 +885,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{CO_2}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "CO2 produced by the combustion, one kmol per kmol of methane"
         },
         {
@@ -899,7 +899,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{CO_2,emit}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "CO2 released to the environment with the escaping hot gas"
         },
         {
@@ -913,7 +913,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{CO_2,capt}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "CO2 leaving with the flue gas at the stack, available for capture"
         },
         {
@@ -927,8 +927,8 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\tau$",
-            "reference": "EPFL IPESE research group",
-            "description": "Annualisation factor of the investment over n years at the interest rate i"
+            "reference": "",
+            "description": "Annualization factor of the investment over n years at the interest rate i"
         },
         {
             "var_name": "Spec_heaterCost",
@@ -941,13 +941,13 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$c_{heater}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "",
             "description": "Investment cost per kW of average fuel power"
         },
         {
             "var_name": "Cinv2_NGFur",
             "type": "CALCULATED",
-            "full_name": "Annualised investment cost",
+            "full_name": "Annualized investment cost",
             "user_grade": "MANDATORY",
             "value": 41538.4599504222,
             "physical_unit": "EUR/year",
@@ -955,8 +955,8 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$C^{inv}_{2}$",
-            "reference": "EPFL IPESE research group",
-            "description": "Annualised investment cost of the furnace, proportional to the fuel power (Cinv2 of the unit)"
+            "reference": "",
+            "description": "Annualized investment cost of the furnace, proportional to the fuel power"
         }
     ],
     "units": [
@@ -1130,7 +1130,7 @@
                     "description": "CO2 leaving with the flue gas at the stack, available for capture"
                 }
             ],
-            "heat_streams_description": "The useful heat is delivered as radiant heat at Trad and as convective heat from Trad to Tstack; the air preheating is a cold stream. The radiant and convective shares of the wall loss and the escaping hot gas are dissipated at Tloss in the separate heat cascade LGWH.",
+            "heat_streams_description": "The useful heat is delivered as radiant heat at Trad and as convective heat from Trad to Tstack; the air preheating is a cold stream. The radiant and convective shares of the wall loss and the escaping hot gas are released to the surroundings at Tloss and kept apart from the useful heat (heat cascade LGWH), so they cannot heat the process.",
             "heat_streams": [
                 {
                     "name": "radiationGas",
@@ -1671,7 +1671,7 @@
                     },
                     "parameters": [
                         {
-                            "parameter": "Annualised investment (Cinv2 of the Lua unit)",
+                            "parameter": "Annualized investment",
                             "value": 41538.4599504222,
                             "formula": "=Cinv2_NGFur",
                             "unit": "EUR/year"
