@@ -91,6 +91,7 @@ website:
           - section: "Heavy industry"
             href: 3-IndustrialProcesses/HeavyIndustry/index.qmd
             contents:
+              - 3-IndustrialProcesses/HeavyIndustry/Cement/index.qmd
               - 3-IndustrialProcesses/HeavyIndustry/Glass/index.qmd
           - section: "Petrochemical"
             href: 3-IndustrialProcesses/Petrochemical/index.qmd

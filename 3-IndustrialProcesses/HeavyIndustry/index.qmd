@@ -5,7 +5,7 @@ Energy-intensive production of basic materials.
 | Model type | Model | Status |
 |:--|:--|:--|
 | Aluminium | — | Work in progress |
-| Cement | — | Work in progress |
+| Cement | [Cement production](Cement/index.qmd) | Documented |
 | Steel | — | Work in progress |
 | Glass | [Float glass production](Glass/index.qmd) | Documented |
 | Lime | — | Work in progress |
