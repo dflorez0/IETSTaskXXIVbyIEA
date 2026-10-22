@@ -144,6 +144,10 @@ format:
     include-after-body:
       - template_files/ipese-footer.html
       - template_files/model-viewer.html
+    # Hypothesis annotations, so colleagues can comment on the pages while
+    # the database is being developed
+    comments:
+      hypothesis: true
     toc: true
     toc-depth: 3
     number-sections: false

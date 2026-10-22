@@ -5,12 +5,12 @@ Industrial process models, by sector.
 <!-- category-overview:start -->
 | Category | Documented | Work in progress |
 |:--|:--|--:|
-| [Heavy industry](HeavyIndustry/index.qmd) | — | 5 |
+| [Heavy industry](HeavyIndustry/index.qmd) | [Cement production](HeavyIndustry/Cement/index.qmd), [Float glass production](HeavyIndustry/Glass/index.qmd) | 3 |
 | [Petrochemical](Petrochemical/index.qmd) | [Methanol-to-olefins](Petrochemical/MethanolToOlefins/index.qmd) | 2 |
 | [Nitrogen chemistry](NitrogenChemistry/index.qmd) | — | 6 |
 | [Precision industries](PrecisionIndustries/index.qmd) | — | 2 |
 | [Urban and digital](UrbanAndDigital/index.qmd) | — | 2 |
-| [Oxygenates and commodity chemicals](OxygenatesAndChemicals/index.qmd) | [Methanol synthesis from co-electrolysis syngas](OxygenatesAndChemicals/Methanol/index.qmd) | 6 |
+| [Oxygenates and commodity chemicals](OxygenatesAndChemicals/index.qmd) | [Methanol synthesis from syngas](OxygenatesAndChemicals/Methanol/index.qmd) | 6 |
 | [Synthetic fuels and biofuels](SyntheticFuelsAndBiofuels/index.qmd) | — | 10 |
 | [Food and beverage](FoodAndBeverage/index.qmd) | — | 5 |
 | [Bio and waste](BioAndWaste/index.qmd) | — | 3 |

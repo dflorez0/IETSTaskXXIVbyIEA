@@ -105,6 +105,7 @@
 .mv-map-port { font-size: 11px; fill: #2c3e50; }
 .mv-map-amt { font-size: 10.5px; fill: #2c3e50; paint-order: stroke; stroke: #fafbfc; stroke-width: 4px; stroke-linejoin: round; }
 .mv-map-amt.is-sugg { fill: #b35f0a; }
+.mv-map-lbl { cursor: pointer; }
 .mv-map-bnd { font-size: 10.5px; fill: #5d6d7e; }
 .mv-map-bndrow { cursor: default; }
 .mv-map-bndrow.is-merged { cursor: pointer; }
@@ -2184,15 +2185,15 @@ document.addEventListener("DOMContentLoaded", function () {
         boxW = Math.max(boxW, Math.min(360, Math.max(170, n.li + n.lo + 46, n.title.length * 7.2 + 24)));
         n.h = HEAD + Math.max(n.ins.length, n.outs.length, 1) * ROW + 6;
       });
-      var arrowL = 34 + LANE * mL, arrowR = 34 + LANE * mR, bx0 = PAD + LB + arrowL, gapL = 22 + LANE * laneL, gapR = 22 + LANE * laneR;
+      var arrowL = 42 + LANE * mL, arrowR = 42 + LANE * mR, bx0 = PAD + LB + arrowL, gapL = 30 + LANE * laneL, gapR = 30 + LANE * laneR;
       var X = bx0 + gapL, W = X + boxW + gapR + arrowR + RB + PAD, y = PAD + 8;
       order.forEach(function (n) {
-        n.x = X; n.w = boxW; n.y = y + 10 + LANE * (nGap[n.key] || 0);
+        n.x = X; n.w = boxW; n.y = y + 22 + LANE * (nGap[n.key] || 0);
         var both = n.ins.length && n.outs.length, half = both ? (boxW - 30) / 2 : boxW - 20;
         var li = Math.min(n.li, half), lo = Math.min(n.lo, half), spare = Math.max(0, boxW - 30 - li - lo);
         n.ins.forEach(function (it, i) { it.px = n.x; it.py = n.y + HEAD + i * ROW + ROW / 2; it.lw = both ? li + (n.li > li ? spare : 0) : half; });
         n.outs.forEach(function (it, i) { it.px = n.x + n.w; it.py = n.y + HEAD + i * ROW + ROW / 2; it.lw = both ? lo + (n.lo > lo ? spare : 0) : half; });
-        y = n.y + n.h + 6;
+        y = n.y + n.h + 14;
       });
       var H = y + PAD + 4, frame = { x: bx0, y: PAD, w: X + boxW + gapR - bx0, h: y - PAD };
       var inGap = {}; routes.forEach(function (r) { (inGap[r.b.node] = inGap[r.b.node] || []).push(r); });
@@ -2232,23 +2233,25 @@ document.addEventListener("DOMContentLoaded", function () {
         else g.push('<text x="' + (kx + SB) + '" y="' + (ry + 4) + '" class="mv-map-bnd">' + chemSVGsafe(cut(bl(R), RB - 2 * SB)) + "</text>");
         out.push(g.join("") + "</g>");
       });
-      // suggestions (dashed), then the flows exchanged inside
+      // suggestions (dashed), then the flows exchanged inside; their labels after all of them, so no line crosses a label
+      var lbl = [];
       routes.forEach(function (r) {
         if (r.s !== undefined) {
           var q = sugg[r.s];
           out.push('<g class="mv-map-sugg" data-sugg="' + r.s + '"><path d="' + r.path + '" fill="none" stroke="transparent" stroke-width="12"/>' +
                    '<path d="' + r.path + '" fill="none" stroke="' + COL.sugg + '" stroke-width="1.8" stroke-dasharray="6 4" stroke-linejoin="round" marker-end="url(#mvArr-sugg)"/>' +
-                   '<text x="' + r.lx + '" y="' + r.ly + '" text-anchor="middle" class="mv-map-amt is-sugg">suggested: ' + chemSVGsafe(q.p.c.name) + " → " + chemSVGsafe(q.q.c.name) + "</text>" +
                    "<title>" + xesc("Suggested: " + q.p.c.name + " (" + q.p.who + ") → " + q.q.c.name + " (" + q.q.who + "); " + q.why + ". Click to connect.") + "</title></g>");
+          lbl.push('<g class="mv-map-lbl" data-sugg="' + r.s + '"><text x="' + r.lx + '" y="' + r.ly + '" text-anchor="middle" class="mv-map-amt is-sugg">suggested: ' + chemSVGsafe(q.p.c.name) + " → " + chemSVGsafe(q.q.c.name) + "</text></g>");
           return;
         }
         var l = r.l, col = COL[l.kind], factor = l.rule && l.rule.factor !== 1 ? " (× " + nice(l.rule.factor) + ")" : "";
         out.push('<g class="mv-map-link" data-link="' + links.indexOf(l) + '"><path d="' + r.path + '" fill="none" stroke="transparent" stroke-width="12"/>' +
                  '<path d="' + r.path + '" fill="none" stroke="' + col + '" stroke-width="' + (l.kind === "user" ? 2.2 : 1.8) + '" stroke-linejoin="round" marker-end="url(#mvArr-' + l.kind + ')"/>' +
-                 '<text x="' + r.lx + '" y="' + r.ly + '" text-anchor="middle" class="mv-map-amt">' + chemSVGsafe(l.from.c.name) + " · " + xesc(nice(l.amt) + " " + prettyUnit(l.unit) + factor) + "</text>" +
                  "<title>" + xesc(nice(l.amt) + " " + prettyUnit(l.unit) + " from " + l.from.who + " to " + l.to.who + " — " +
                    (l.kind === "user" ? "connected by you" : l.kind === "auto" ? "matched: " + (l.from.idn.basis || "") : "matched by name") + ". Click to disconnect.") + "</title></g>");
+        lbl.push('<g class="mv-map-lbl" data-link="' + links.indexOf(l) + '"><text x="' + r.lx + '" y="' + r.ly + '" text-anchor="middle" class="mv-map-amt">' + chemSVGsafe(l.from.c.name) + " · " + xesc(nice(l.amt) + " " + prettyUnit(l.unit) + factor) + "</text></g>");
       });
+      out.push(lbl.join(""));
       // boxes and ports last, so no line paints over them
       order.forEach(function (n) {
         out.push('<rect x="' + n.x + '" y="' + n.y + '" width="' + n.w + '" height="' + n.h + '" rx="6" fill="#fff" stroke="#2c3e50" stroke-width="1.3"/>' +
