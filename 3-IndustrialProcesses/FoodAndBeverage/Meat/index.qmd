@@ -82,9 +82,8 @@ Because the water networks start from mains water at 11 °C, they absorb the war
 |:--|:--|
 | [Meat_plant_ET.lua](Osmoses/Meat_plant_ET.lua) | OSMOSE (Lua) implementation of the model |
 | [Meat.json](JSON/Meat.json) | Model description in the Task XXIV JSON format |
-| [Meat_plant.md](Rmarkdowns/Meat_plant.md) | Process data of the integrated pork plant: material flows, electricity, heat streams and reference targets |
 | [meat_flowsheet.png](Figures/meat_flowsheet.png) | Block flow diagram of the integrated pork plant |
-| [Meat_Plant_Case_Study_rs_qt.docx](Documents/Meat_Plant_Case_Study_rs_qt.docx) | Case study of the integrated pork plant for students, with the process data for mass and heat integration |
+| [Meat_Plant_Case_Study_rs_qt.docx](Documents/Meat_Plant_Case_Study_rs_qt.docx) | Case study of the integrated pork plant, with the process data for mass and heat integration |
 
 ## References
 

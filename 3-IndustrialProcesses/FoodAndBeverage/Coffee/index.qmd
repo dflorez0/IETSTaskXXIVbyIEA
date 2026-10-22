@@ -84,10 +84,9 @@ The evaporator boils the extract at 55 °C while its own vapour condenses at 50 
 |:--|:--|
 | [Coffee_SD_ET.lua](Osmoses/Coffee_SD_ET.lua) | OSMOSE (Lua) implementation of the model |
 | [Coffee.json](JSON/Coffee.json) | Model description in the Task XXIV JSON format |
-| [Instant_Coffee_SD_moodle.md](Rmarkdowns/Instant_Coffee_SD_moodle.md) | Process data of the spray-dried route: material flows, electricity, heat streams and reference targets |
 | [coffee_SD_flowsheet.png](Figures/coffee_SD_flowsheet.png) | Block flow diagram of the spray-dried route |
 | [coffee_roaster_gas_loop_c1_c2_h1.png](Figures/coffee_roaster_gas_loop_c1_c2_h1.png) | Gas loop of the roaster, with the streams C1, C2 and H1 |
-| [Instant_Coffee_SD_Case_Study_rs_qt.docx](Documents/Instant_Coffee_SD_Case_Study_rs_qt.docx) | Case study of the spray-dried route for students, with the process data for mass and heat integration |
+| [Instant_Coffee_SD_Case_Study_rs_qt.docx](Documents/Instant_Coffee_SD_Case_Study_rs_qt.docx) | Case study of the spray-dried route, with the process data for mass and heat integration |
 
 ## References
 

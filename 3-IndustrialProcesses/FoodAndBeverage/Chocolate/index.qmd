@@ -84,9 +84,8 @@ All the heat demand is below 170 °C, and about half of it, the tracing network,
 |:--|:--|
 | [Chocolate_PR1_ET.lua](Osmoses/Chocolate_PR1_ET.lua) | OSMOSE (Lua) implementation of the model |
 | [Chocolate.json](JSON/Chocolate.json) | Model description in the Task XXIV JSON format |
-| [chocolate.md](Rmarkdowns/chocolate.md) | Process data of route PR1: material flows, electricity, heat streams and reference targets |
 | [ChocolatePR1.png](Figures/ChocolatePR1.png) | Block flow diagram of route PR1 |
-| [PR1casestudyChocolate.docx](Documents/PR1casestudyChocolate.docx) | Case study of route PR1 for students, with the process data for mass and heat integration |
+| [PR1casestudyChocolate.docx](Documents/PR1casestudyChocolate.docx) | Case study of route PR1, with the process data for mass and heat integration |
 
 ## References
 
