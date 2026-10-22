@@ -44,7 +44,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\Delta t_{min,\\,gas}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "Boztas, Oktay, IPESE EPFL group",
             "description": "Minimal temperature difference in a heat exchanger operating with gas"
         },
         {
@@ -58,7 +58,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\Delta t_{min,\\,liq}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "Boztas, Oktay, IPESE EPFL group",
             "description": "Minimal temperature difference in a heat exchanger operating with liquid"
         },
         {
@@ -72,7 +72,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\Delta t_{min,\\,2ph}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "Boztas, Oktay, IPESE EPFL group",
             "description": "Minimal temperature difference in a heat exchanger operating with two phase mixture"
         },
         {
@@ -2312,7 +2312,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$E^{in}_{elec}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "Boztas, Oktay, IPESE EPFL group",
             "description": "Electricity of all pumps and compressors"
         },
         {
@@ -2326,7 +2326,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$F^{in}_{O_2}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "Boztas, Oktay, IPESE EPFL group",
             "description": "Oxygen to the regenerator and to the combustor"
         },
         {
@@ -2340,7 +2340,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$F^{out}_{CO_2}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "Boztas, Oktay, IPESE EPFL group",
             "description": "CO2 from the regenerator, the combustor and the washing"
         },
         {
@@ -2354,7 +2354,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$F^{out}_{WW}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "Boztas, Oktay, IPESE EPFL group",
             "description": "Process waste water, flash water and flue gas condensate"
         }
     ],

@@ -45,7 +45,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\Delta t_{min,\\,gas}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "Ribeiro Domingos, Meire, IPESE EPFL group",
             "description": "Minimal temperature difference in a heat exchanger operating with gas"
         },
         {
@@ -59,7 +59,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\Delta t_{min,\\,liq}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "Ribeiro Domingos, Meire, IPESE EPFL group",
             "description": "Minimal temperature difference in a heat exchanger operating with liquid"
         },
         {
@@ -73,7 +73,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\Delta t_{min,\\,2ph}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "Ribeiro Domingos, Meire, IPESE EPFL group",
             "description": "Minimal temperature difference in a heat exchanger operating with two phase mixture"
         },
         {
@@ -759,7 +759,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$V^{out}_{H_2O}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "Ribeiro Domingos, Meire, IPESE EPFL group",
             "description": "Volumetric flow of the flue gas condensate, for a water density of 1000 kg/m3"
         },
         {
@@ -787,7 +787,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$e_{WWTP}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "Ribeiro Domingos, Meire, IPESE EPFL group",
             "description": "PLACEHOLDER: token value for the dummy waste water treatment, not a design. Replace it before drawing any conclusion about the cost or the electricity demand of treating the column bottoms"
         },
         {
@@ -801,7 +801,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$v_{H_2O}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "Ribeiro Domingos, Meire, IPESE EPFL group",
             "description": "Water density of 1000 kg/m3. PLACEHOLDER: the dummy treatment assumes a 1:1 water recovery, with no loss to sludge"
         },
         {
@@ -815,7 +815,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$i$",
-            "reference": "EPFL IPESE research group",
+            "reference": "Ribeiro Domingos, Meire, IPESE EPFL group",
             "description": "Interest rate"
         },
         {
@@ -829,7 +829,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$n$",
-            "reference": "EPFL IPESE research group",
+            "reference": "Ribeiro Domingos, Meire, IPESE EPFL group",
             "description": "Lifetime of the plant"
         },
         {
@@ -843,7 +843,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$f^{max}_{MeOH}$",
-            "reference": "EPFL IPESE research group",
+            "reference": "Ribeiro Domingos, Meire, IPESE EPFL group",
             "description": "Maximum capacity multiplier of the methanol synthesis unit"
         }
     ],
