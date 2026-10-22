@@ -1,0 +1,2455 @@
+{
+    "header": {
+        "uid": "",
+        "name": "Meat_plant",
+        "full_name": "Integrated pork plant: slaughtering, cutting and cooked sausages",
+        "ET_model_type": "regular",
+        "authors_and_contributors": "EPFL IPESE research group",
+        "contact_info": "",
+        "creation_date": "",
+        "last_updated": "22.10.2026",
+        "status": "Maintained",
+        "version": "1.0",
+        "confidentiality": "Open",
+        "sharing_layer": "1",
+        "grade": "GRAY-BOX",
+        "reference_capacity": "1 t/h of hot carcass, 11.05 pigs/h (carcass_prod)",
+        "TRL": "9",
+        "keywords": [
+            "Meat",
+            "Slaughterhouse",
+            "Sausages",
+            "Food and beverage",
+            "Refrigeration",
+            "Pinch analysis"
+        ],
+        "description": "Integrated pork plant: slaughtering, carcass chilling, cutting and deboning, and cooked-sausage production, with the hot, warm and tap water networks of the site and 14 thermal streams.",
+        "DOI": "",
+        "main_related_publication": "https://doi.org/10.1016/j.jfoodeng.2005.06.007",
+        "software": "OSMOSE",
+        "software_file": "",
+        "block_flow_diagram": "Meat/Figures/meat_flowsheet.png",
+        "url": null,
+        "supplementary_material": "See SUPPL MATERIAL tab",
+        "hierarchy": "process",
+        "references": "[1] COWI Consulting Engineers and Planners, Cleaner Production Assessment in Meat Processing. United Nations Environment Programme, Division of Technology, Industry and Economics (2000), https://wedocs.unep.org/handle/20.500.11822/9571;\n[2] Fritzson, A., Berntsson, T., Efficient energy use in a slaughter and meat processing plant: opportunities for process integration. Journal of Food Engineering 76 (2006) 594-604, DOI: https://doi.org/10.1016/j.jfoodeng.2005.06.007;\n[3] Fritzson, A., Berntsson, T., Energy efficiency in the slaughter and meat processing industry: opportunities for improvements in future energy markets. Journal of Food Engineering 77 (2006) 792-802, DOI: https://doi.org/10.1016/j.jfoodeng.2005.08.005;\n[4] Grimsby Institute, Sector focus: carcass chilling. Project on reducing the energy inputs into the refrigeration of food, https://www.grimsby.ac.uk/documents/defra/sectrep-meatchill.pdf;\n[5] Karlis, P., Presicce, F., Giner-Santonja, G., Brinkmann, T., Roudier, S., Best Available Techniques (BAT) Reference Document for the Slaughterhouses, Animal By-products and/or Edible Co-products Industries. JRC, EUR 31752 EN (2024), DOI: https://doi.org/10.2760/18199;\n[6] Meier, D., Pilotphase Pinch-Methodik 2006/07: Bell AG. Schlussbericht, Encontrol GmbH for the Swiss Federal Office of Energy (2007), https://pubdb.bfe.admin.ch/de/publication/download/2976;\n[7] Nunes, J., Dinho da Silva, P., Andrade, L.P., Domingues, L., Gaspar, P.D., Energy assessment of the Portuguese meat industry. Energy Efficiency 9 (2016) 1163-1178, DOI: https://doi.org/10.1007/s12053-015-9414-7;\n[8] Proviande, Der Fleischmarkt im Überblick 2025 (2025), https://www.proviande.ch;\n[9] Ramírez, C.A., Patel, M., Blok, K., How much energy to process one pound of meat? A comparison of energy use and specific energy consumption in the meat industry of four European countries. Energy 31 (2006) 2047-2063, DOI: https://doi.org/10.1016/j.energy.2005.08.007"
+    },
+    "variables": [
+        {
+            "var_name": "carcass_prod",
+            "type": "CONTEXT",
+            "full_name": "Carcass throughput",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "t/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{carcass}$",
+            "reference": "Meat_plant.md",
+            "description": "Hot carcass weight processed, 11.05 pigs per t at the Swiss average carcass of 90.5 kg. Every flow and heat load is given per 1 t/h and scales with it; the reference plant, 700,000 pigs/y over 6,300 h/y, is 10.06 t/h"
+        },
+        {
+            "var_name": "dtmin",
+            "type": "CONTEXT",
+            "full_name": "Delta Tmin/2",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min}/2$",
+            "reference": "Meat_plant.md",
+            "description": "Minimum temperature difference contribution of every stream, for a global Delta Tmin of 10 K"
+        },
+        {
+            "var_name": "pigs_in_r",
+            "type": "LITERATURE",
+            "full_name": "Live pigs per t of hot carcass",
+            "user_grade": "MANDATORY",
+            "value": 1282.1,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{pigs\\_in}$",
+            "reference": "Proviande (2025); dressing yield assumed",
+            "description": "Live pigs: carcass of 90.5 kg per pig and a dressing yield of 78 %"
+        },
+        {
+            "var_name": "ice_in_r",
+            "type": "LITERATURE",
+            "full_name": "Ice and water for the batter per t of hot carcass",
+            "user_grade": "MANDATORY",
+            "value": 50.0,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{ice\\_in}$",
+            "reference": "Assumed in Meat_plant.md",
+            "description": "Ice and water mixed into the sausage batter, 5 % of the carcass mass"
+        },
+        {
+            "var_name": "cuts_out_r",
+            "type": "LITERATURE",
+            "full_name": "Fresh cuts per t of hot carcass",
+            "user_grade": "MANDATORY",
+            "value": 529.9,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{cuts\\_out}$",
+            "reference": "Ramírez et al. (2006)",
+            "description": "Fresh cuts: the boneless meat minus the trimmings"
+        },
+        {
+            "var_name": "sausages_out_r",
+            "type": "LITERATURE",
+            "full_name": "Cooked sausages per t of hot carcass",
+            "user_grade": "MANDATORY",
+            "value": 235.0,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{sausages\\_out}$",
+            "reference": "Meier (2007)",
+            "description": "Cooked sausages of the cervelat type: the batter minus a 6 % cooking loss"
+        },
+        {
+            "var_name": "blood_out_r",
+            "type": "LITERATURE",
+            "full_name": "Blood per t of hot carcass",
+            "user_grade": "MANDATORY",
+            "value": 38.5,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{blood\\_out}$",
+            "reference": "COWI (2000), Table 2-2",
+            "description": "Blood collected and chilled, 3 % of the live weight"
+        },
+        {
+            "var_name": "offal_out_r",
+            "type": "LITERATURE",
+            "full_name": "Offal, intestines and bristles per t of hot carcass",
+            "user_grade": "MANDATORY",
+            "value": 243.6,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{offal\\_out}$",
+            "reference": "Meat_plant.md",
+            "description": "Live weight minus carcass minus blood"
+        },
+        {
+            "var_name": "bones_out_r",
+            "type": "LITERATURE",
+            "full_name": "Bones, fat and rind per t of hot carcass",
+            "user_grade": "MANDATORY",
+            "value": 270.1,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{bones\\_out}$",
+            "reference": "Ramírez et al. (2006)",
+            "description": "Carcass minus boneless meat"
+        },
+        {
+            "var_name": "vapour_out_r",
+            "type": "LITERATURE",
+            "full_name": "Vapour from cooking per t of hot carcass",
+            "user_grade": "MANDATORY",
+            "value": 15.0,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{vapour\\_out}$",
+            "reference": "Meier (2007)",
+            "description": "Water lost in cooking, 6 % of the batter"
+        },
+        {
+            "var_name": "carcass_r",
+            "type": "LITERATURE",
+            "full_name": "Hot carcass to chilling per t of hot carcass",
+            "user_grade": "MANDATORY",
+            "value": 1000.0,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{carcass}$",
+            "reference": "Meat_plant.md",
+            "description": "Hot carcass, chilled from 38 to 4 °C: the basis of the model (internal flow, not a connector)"
+        },
+        {
+            "var_name": "boneless_meat_r",
+            "type": "LITERATURE",
+            "full_name": "Boneless meat per t of hot carcass",
+            "user_grade": "MANDATORY",
+            "value": 729.9,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{boneless\\_meat}$",
+            "reference": "Meat_plant.md",
+            "description": "Boneless meat, the carcass divided by 1.37 (internal flow, not a connector)"
+        },
+        {
+            "var_name": "trimmings_r",
+            "type": "LITERATURE",
+            "full_name": "Trimmings to the sausage line per t of hot carcass",
+            "user_grade": "MANDATORY",
+            "value": 200.0,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{trimmings}$",
+            "reference": "Meat_plant.md",
+            "description": "Trimmings, 20 % of the carcass mass (internal flow, not a connector)"
+        },
+        {
+            "var_name": "batter_r",
+            "type": "LITERATURE",
+            "full_name": "Sausage batter per t of hot carcass",
+            "user_grade": "MANDATORY",
+            "value": 250.0,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{batter}$",
+            "reference": "Meat_plant.md",
+            "description": "Trimmings plus ice and water, heated from 4 to 74 °C (internal flow, not a connector)"
+        },
+        {
+            "var_name": "hot_water_r",
+            "type": "LITERATURE",
+            "full_name": "Hot water at 82 °C per t of hot carcass",
+            "user_grade": "MANDATORY",
+            "value": 497,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{hot\\_water}$",
+            "reference": "Meat_plant.md",
+            "description": "Mains water heated to 82 °C for knife sterilisers and disinfection, discharged as wastewater. Utility medium, for information only: the utilities are not part of the process data"
+        },
+        {
+            "var_name": "warm_water_r",
+            "type": "LITERATURE",
+            "full_name": "Warm water at 55 °C per t of hot carcass",
+            "user_grade": "MANDATORY",
+            "value": 2187,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{warm\\_water}$",
+            "reference": "Meat_plant.md",
+            "description": "Mains water heated to 55 °C for cleaning, discharged as wastewater. Utility medium, for information only: the utilities are not part of the process data"
+        },
+        {
+            "var_name": "tap_water_r",
+            "type": "LITERATURE",
+            "full_name": "Tap water at 40 °C per t of hot carcass",
+            "user_grade": "MANDATORY",
+            "value": 696,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{tap\\_water}$",
+            "reference": "Meat_plant.md",
+            "description": "Mains water heated to 40 °C for hand washing and personnel facilities, discharged as wastewater. Utility medium, for information only: the utilities are not part of the process data"
+        },
+        {
+            "var_name": "E_slaughter_r",
+            "type": "LITERATURE",
+            "full_name": "Slaughter line, specific electricity",
+            "user_grade": "MANDATORY",
+            "value": 49,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$e_{slaughter}$",
+            "reference": "Nunes et al. (2016); Karlis et al. (2024)",
+            "description": "Stunning, dehairing, polishing, conveyors and lighting: slaughterhouse electricity (149 kWh/t) minus the cooling systems (100 kWh/t)"
+        },
+        {
+            "var_name": "E_cutting_r",
+            "type": "LITERATURE",
+            "full_name": "Cutting and deboning, specific electricity",
+            "user_grade": "MANDATORY",
+            "value": 44,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$e_{cutting}$",
+            "reference": "Ramírez et al. (2006)",
+            "description": "60 kWh per t of boneless meat times 0.730 t of boneless meat per t of carcass"
+        },
+        {
+            "var_name": "E_sausage_r",
+            "type": "LITERATURE",
+            "full_name": "Sausage line, specific electricity",
+            "user_grade": "MANDATORY",
+            "value": 99,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$e_{sausage}$",
+            "reference": "Nunes et al. (2016); Ramírez et al. (2006)",
+            "description": "Cutting, mixing, filling, packing and lighting: 660 kWh per t of raw material times a 60 % non-cooling share times 0.25 t per t of carcass"
+        },
+        {
+            "var_name": "E_aircomp_r",
+            "type": "LITERATURE",
+            "full_name": "Air compressors, specific electricity",
+            "user_grade": "MANDATORY",
+            "value": 18,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$e_{aircomp}$",
+            "reference": "COWI (2000), Table 2-12",
+            "description": "Part of the rows above, about 5 % of the plant electricity; their recoverable heat is stream H3 (information only)"
+        },
+        {
+            "var_name": "c1_Tin",
+            "type": "LITERATURE",
+            "full_name": "C1 Singeing oven, direct-fired, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 900,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C1}$",
+            "reference": "Karlis et al. (2024), Fig. 3.38",
+            "description": "Singeing oven, direct-fired, inlet temperature"
+        },
+        {
+            "var_name": "c1_Tout",
+            "type": "LITERATURE",
+            "full_name": "C1 Singeing oven, direct-fired, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 1000,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C1}$",
+            "reference": "Karlis et al. (2024), Fig. 3.38",
+            "description": "Singeing oven, direct-fired, outlet temperature"
+        },
+        {
+            "var_name": "c1_q",
+            "type": "LITERATURE",
+            "full_name": "C1 Singeing oven, direct-fired, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 28.0,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{C1}$",
+            "reference": "Karlis et al. (2024), Fig. 3.38",
+            "description": "Singeing oven, direct-fired, heat load per t of hot carcass. Direct-fired duty at 900 to 1,000 °C: the burner and its flue gas belong to the utility system"
+        },
+        {
+            "var_name": "c2_Tin",
+            "type": "LITERATURE",
+            "full_name": "C2 Scalding tank, held at 60 °C, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 60,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C2}$",
+            "reference": "Karlis et al. (2024), Fig. 3.39",
+            "description": "Scalding tank, held at 60 °C, inlet temperature"
+        },
+        {
+            "var_name": "c2_Tout",
+            "type": "LITERATURE",
+            "full_name": "C2 Scalding tank, held at 60 °C, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 61,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C2}$",
+            "reference": "Karlis et al. (2024), Fig. 3.39",
+            "description": "Scalding tank, held at 60 °C, outlet temperature"
+        },
+        {
+            "var_name": "c2_q",
+            "type": "LITERATURE",
+            "full_name": "C2 Scalding tank, held at 60 °C, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 40.0,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{C2}$",
+            "reference": "Karlis et al. (2024), Fig. 3.39",
+            "description": "Scalding tank, held at 60 °C, heat load per t of hot carcass. Scalding in water at 58 to 65 °C for 3 to 6 min, followed by dehairing"
+        },
+        {
+            "var_name": "c3_Tin",
+            "type": "LITERATURE",
+            "full_name": "C3 Hot water 82 °C (sterilisers, disinfection), inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 11,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C3}$",
+            "reference": "Fritzson and Berntsson (2006a), Fig. 2",
+            "description": "Hot water 82 °C (sterilisers, disinfection), inlet temperature"
+        },
+        {
+            "var_name": "c3_Tout",
+            "type": "LITERATURE",
+            "full_name": "C3 Hot water 82 °C (sterilisers, disinfection), outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 82,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C3}$",
+            "reference": "Fritzson and Berntsson (2006a), Fig. 2",
+            "description": "Hot water 82 °C (sterilisers, disinfection), outlet temperature"
+        },
+        {
+            "var_name": "c3_q",
+            "type": "LITERATURE",
+            "full_name": "C3 Hot water 82 °C (sterilisers, disinfection), specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 40.98,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{C3}$",
+            "reference": "Fritzson and Berntsson (2006a), Fig. 2",
+            "description": "Hot water 82 °C (sterilisers, disinfection), heat load per t of hot carcass. Mains water heated from 11 °C"
+        },
+        {
+            "var_name": "c4_Tin",
+            "type": "LITERATURE",
+            "full_name": "C4 Warm water 55 °C (cleaning), inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 11,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C4}$",
+            "reference": "Fritzson and Berntsson (2006a), Fig. 2",
+            "description": "Warm water 55 °C (cleaning), inlet temperature"
+        },
+        {
+            "var_name": "c4_Tout",
+            "type": "LITERATURE",
+            "full_name": "C4 Warm water 55 °C (cleaning), outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 55,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C4}$",
+            "reference": "Fritzson and Berntsson (2006a), Fig. 2",
+            "description": "Warm water 55 °C (cleaning), outlet temperature"
+        },
+        {
+            "var_name": "c4_q",
+            "type": "LITERATURE",
+            "full_name": "C4 Warm water 55 °C (cleaning), specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 111.73,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{C4}$",
+            "reference": "Fritzson and Berntsson (2006a), Fig. 2",
+            "description": "Warm water 55 °C (cleaning), heat load per t of hot carcass. Mains water heated from 11 °C"
+        },
+        {
+            "var_name": "c5_Tin",
+            "type": "LITERATURE",
+            "full_name": "C5 Tap water 40 °C (hand washing, personnel), inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 11,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C5}$",
+            "reference": "Fritzson and Berntsson (2006a), Fig. 2",
+            "description": "Tap water 40 °C (hand washing, personnel), inlet temperature"
+        },
+        {
+            "var_name": "c5_Tout",
+            "type": "LITERATURE",
+            "full_name": "C5 Tap water 40 °C (hand washing, personnel), outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 40,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C5}$",
+            "reference": "Fritzson and Berntsson (2006a), Fig. 2",
+            "description": "Tap water 40 °C (hand washing, personnel), outlet temperature"
+        },
+        {
+            "var_name": "c5_q",
+            "type": "LITERATURE",
+            "full_name": "C5 Tap water 40 °C (hand washing, personnel), specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 23.43,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{C5}$",
+            "reference": "Fritzson and Berntsson (2006a), Fig. 2",
+            "description": "Tap water 40 °C (hand washing, personnel), heat load per t of hot carcass. Mains water heated from 11 °C"
+        },
+        {
+            "var_name": "c6_Tin",
+            "type": "LITERATURE",
+            "full_name": "C6 Sausage cooking, direct steam injection, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 112,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C6}$",
+            "reference": "Meier (2007), Bell AG Basel pinch study",
+            "description": "Sausage cooking, direct steam injection, inlet temperature"
+        },
+        {
+            "var_name": "c6_Tout",
+            "type": "LITERATURE",
+            "full_name": "C6 Sausage cooking, direct steam injection, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 113,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C6}$",
+            "reference": "Meier (2007), Bell AG Basel pinch study",
+            "description": "Sausage cooking, direct steam injection, outlet temperature"
+        },
+        {
+            "var_name": "c6_q",
+            "type": "LITERATURE",
+            "full_name": "C6 Sausage cooking, direct steam injection, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 63.86,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{C6}$",
+            "reference": "Meier (2007), Bell AG Basel pinch study",
+            "description": "Sausage cooking, direct steam injection, heat load per t of hot carcass. Cooking heat of 255 kWh per t of batter, to a core temperature of 74 °C"
+        },
+        {
+            "var_name": "h1_Tin",
+            "type": "LITERATURE",
+            "full_name": "H1 Cooking-oven exhaust air, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 70,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H1}$",
+            "reference": "Meier (2007), Bell AG Basel pinch study",
+            "description": "Cooking-oven exhaust air, inlet temperature"
+        },
+        {
+            "var_name": "h1_Tout",
+            "type": "LITERATURE",
+            "full_name": "H1 Cooking-oven exhaust air, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 35,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H1}$",
+            "reference": "Meier (2007), Bell AG Basel pinch study",
+            "description": "Cooking-oven exhaust air, outlet temperature"
+        },
+        {
+            "var_name": "h1_q",
+            "type": "LITERATURE",
+            "full_name": "H1 Cooking-oven exhaust air, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 20.21,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{H1}$",
+            "reference": "Meier (2007), Bell AG Basel pinch study",
+            "description": "Cooking-oven exhaust air, heat load per t of hot carcass. 81 kWh per t of batter"
+        },
+        {
+            "var_name": "h2_Tin",
+            "type": "LITERATURE",
+            "full_name": "H2 Sausage shower cooling, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 74,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H2}$",
+            "reference": "Meier (2007); cp of sausages 3.0 kJ/(kg K) assumed",
+            "description": "Sausage shower cooling, inlet temperature"
+        },
+        {
+            "var_name": "h2_Tout",
+            "type": "LITERATURE",
+            "full_name": "H2 Sausage shower cooling, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 45,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H2}$",
+            "reference": "Meier (2007); cp of sausages 3.0 kJ/(kg K) assumed",
+            "description": "Sausage shower cooling, outlet temperature"
+        },
+        {
+            "var_name": "h2_q",
+            "type": "LITERATURE",
+            "full_name": "H2 Sausage shower cooling, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 5.68,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{H2}$",
+            "reference": "Meier (2007); cp of sausages 3.0 kJ/(kg K) assumed",
+            "description": "Sausage shower cooling, heat load per t of hot carcass"
+        },
+        {
+            "var_name": "h3_Tin",
+            "type": "LITERATURE",
+            "full_name": "H3 Air compressors, heat recovery, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 70,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H3}$",
+            "reference": "COWI (2000), Table 2-12",
+            "description": "Air compressors, heat recovery, inlet temperature"
+        },
+        {
+            "var_name": "h3_Tout",
+            "type": "LITERATURE",
+            "full_name": "H3 Air compressors, heat recovery, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 25,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H3}$",
+            "reference": "COWI (2000), Table 2-12",
+            "description": "Air compressors, heat recovery, outlet temperature"
+        },
+        {
+            "var_name": "h3_q",
+            "type": "LITERATURE",
+            "full_name": "H3 Air compressors, heat recovery, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 17.89,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{H3}$",
+            "reference": "COWI (2000), Table 2-12",
+            "description": "Air compressors, heat recovery, heat load per t of hot carcass"
+        },
+        {
+            "var_name": "h4_Tin",
+            "type": "LITERATURE",
+            "full_name": "H4 Blood chilling, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 38,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H4}$",
+            "reference": "Cp of blood 3.6 kJ/(kg K) assumed",
+            "description": "Blood chilling, inlet temperature"
+        },
+        {
+            "var_name": "h4_Tout",
+            "type": "LITERATURE",
+            "full_name": "H4 Blood chilling, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H4}$",
+            "reference": "Cp of blood 3.6 kJ/(kg K) assumed",
+            "description": "Blood chilling, outlet temperature"
+        },
+        {
+            "var_name": "h4_q",
+            "type": "LITERATURE",
+            "full_name": "H4 Blood chilling, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 1.27,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{H4}$",
+            "reference": "Cp of blood 3.6 kJ/(kg K) assumed",
+            "description": "Blood chilling, heat load per t of hot carcass. Refrigeration demand at the product temperature"
+        },
+        {
+            "var_name": "h5_Tin",
+            "type": "LITERATURE",
+            "full_name": "H5 Carcass chilling, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 38,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H5}$",
+            "reference": "Grimsby Institute: 153 kJ/kg",
+            "description": "Carcass chilling, inlet temperature"
+        },
+        {
+            "var_name": "h5_Tout",
+            "type": "LITERATURE",
+            "full_name": "H5 Carcass chilling, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 4,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H5}$",
+            "reference": "Grimsby Institute: 153 kJ/kg",
+            "description": "Carcass chilling, outlet temperature"
+        },
+        {
+            "var_name": "h5_q",
+            "type": "LITERATURE",
+            "full_name": "H5 Carcass chilling, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 42.5,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{H5}$",
+            "reference": "Grimsby Institute: 153 kJ/kg",
+            "description": "Carcass chilling, heat load per t of hot carcass. Refrigeration demand at the product temperature; EU rules require pig meat to reach at most 7 °C before cutting or transport"
+        },
+        {
+            "var_name": "h6_Tin",
+            "type": "LITERATURE",
+            "full_name": "H6 Sausage chilling, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 45,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H6}$",
+            "reference": "Meier (2007); cp of sausages 3.0 kJ/(kg K) assumed",
+            "description": "Sausage chilling, inlet temperature"
+        },
+        {
+            "var_name": "h6_Tout",
+            "type": "LITERATURE",
+            "full_name": "H6 Sausage chilling, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 2,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H6}$",
+            "reference": "Meier (2007); cp of sausages 3.0 kJ/(kg K) assumed",
+            "description": "Sausage chilling, outlet temperature"
+        },
+        {
+            "var_name": "h6_q",
+            "type": "LITERATURE",
+            "full_name": "H6 Sausage chilling, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 8.42,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{H6}$",
+            "reference": "Meier (2007); cp of sausages 3.0 kJ/(kg K) assumed",
+            "description": "Sausage chilling, heat load per t of hot carcass. Refrigeration demand at the product temperature"
+        },
+        {
+            "var_name": "h7_Tin",
+            "type": "LITERATURE",
+            "full_name": "H7 Chilled rooms (cutting, storage), air at 2 °C, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 3,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H7}$",
+            "reference": "Cooling-system electricity times a seasonal cooling COP of 2.0 (Meier, 2007)",
+            "description": "Chilled rooms (cutting, storage), air at 2 °C, inlet temperature"
+        },
+        {
+            "var_name": "h7_Tout",
+            "type": "LITERATURE",
+            "full_name": "H7 Chilled rooms (cutting, storage), air at 2 °C, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 2,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H7}$",
+            "reference": "Cooling-system electricity times a seasonal cooling COP of 2.0 (Meier, 2007)",
+            "description": "Chilled rooms (cutting, storage), air at 2 °C, outlet temperature"
+        },
+        {
+            "var_name": "h7_q",
+            "type": "LITERATURE",
+            "full_name": "H7 Chilled rooms (cutting, storage), air at 2 °C, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 150.23,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{H7}$",
+            "reference": "Cooling-system electricity times a seasonal cooling COP of 2.0 (Meier, 2007)",
+            "description": "Chilled rooms (cutting, storage), air at 2 °C, heat load per t of hot carcass. Refrigeration demand at the room-air temperature: the remainder of the cold demand of 200 kWh/t"
+        },
+        {
+            "var_name": "h8_Tin",
+            "type": "LITERATURE",
+            "full_name": "H8 Freezer rooms, air at -25 °C, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": -24,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H8}$",
+            "reference": "Cooling-system electricity times a seasonal cooling COP of 2.0 (Meier, 2007); freezer share 3 %",
+            "description": "Freezer rooms, air at -25 °C, inlet temperature"
+        },
+        {
+            "var_name": "h8_Tout",
+            "type": "LITERATURE",
+            "full_name": "H8 Freezer rooms, air at -25 °C, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": -25,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H8}$",
+            "reference": "Cooling-system electricity times a seasonal cooling COP of 2.0 (Meier, 2007); freezer share 3 %",
+            "description": "Freezer rooms, air at -25 °C, outlet temperature"
+        },
+        {
+            "var_name": "h8_q",
+            "type": "LITERATURE",
+            "full_name": "H8 Freezer rooms, air at -25 °C, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 6.0,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{H8}$",
+            "reference": "Cooling-system electricity times a seasonal cooling COP of 2.0 (Meier, 2007); freezer share 3 %",
+            "description": "Freezer rooms, air at -25 °C, heat load per t of hot carcass. Refrigeration demand at the room-air temperature"
+        },
+        {
+            "var_name": "pigs_in",
+            "type": "CALCULATED",
+            "full_name": "Live pigs",
+            "user_grade": "MANDATORY",
+            "value": 1282.1,
+            "physical_unit": "kg/h",
+            "formula": "pigs_in_r*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{pigs\\_in}$",
+            "reference": "Meat_plant.md",
+            "description": "Live pigs flow"
+        },
+        {
+            "var_name": "ice_in",
+            "type": "CALCULATED",
+            "full_name": "Ice and water for the batter",
+            "user_grade": "MANDATORY",
+            "value": 50.0,
+            "physical_unit": "kg/h",
+            "formula": "ice_in_r*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{ice\\_in}$",
+            "reference": "Meat_plant.md",
+            "description": "Ice and water for the batter flow"
+        },
+        {
+            "var_name": "cuts_out",
+            "type": "CALCULATED",
+            "full_name": "Fresh cuts",
+            "user_grade": "MANDATORY",
+            "value": 529.9,
+            "physical_unit": "kg/h",
+            "formula": "cuts_out_r*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{cuts\\_out}$",
+            "reference": "Meat_plant.md",
+            "description": "Fresh cuts flow"
+        },
+        {
+            "var_name": "sausages_out",
+            "type": "CALCULATED",
+            "full_name": "Cooked sausages",
+            "user_grade": "MANDATORY",
+            "value": 235.0,
+            "physical_unit": "kg/h",
+            "formula": "sausages_out_r*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{sausages\\_out}$",
+            "reference": "Meat_plant.md",
+            "description": "Cooked sausages flow"
+        },
+        {
+            "var_name": "blood_out",
+            "type": "CALCULATED",
+            "full_name": "Blood",
+            "user_grade": "MANDATORY",
+            "value": 38.5,
+            "physical_unit": "kg/h",
+            "formula": "blood_out_r*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{blood\\_out}$",
+            "reference": "Meat_plant.md",
+            "description": "Blood flow"
+        },
+        {
+            "var_name": "offal_out",
+            "type": "CALCULATED",
+            "full_name": "Offal, intestines and bristles",
+            "user_grade": "MANDATORY",
+            "value": 243.6,
+            "physical_unit": "kg/h",
+            "formula": "offal_out_r*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{offal\\_out}$",
+            "reference": "Meat_plant.md",
+            "description": "Offal, intestines and bristles flow"
+        },
+        {
+            "var_name": "bones_out",
+            "type": "CALCULATED",
+            "full_name": "Bones, fat and rind",
+            "user_grade": "MANDATORY",
+            "value": 270.1,
+            "physical_unit": "kg/h",
+            "formula": "bones_out_r*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{bones\\_out}$",
+            "reference": "Meat_plant.md",
+            "description": "Bones, fat and rind flow"
+        },
+        {
+            "var_name": "vapour_out",
+            "type": "CALCULATED",
+            "full_name": "Vapour from cooking",
+            "user_grade": "MANDATORY",
+            "value": 15.0,
+            "physical_unit": "kg/h",
+            "formula": "vapour_out_r*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{vapour\\_out}$",
+            "reference": "Meat_plant.md",
+            "description": "Vapour from cooking flow"
+        },
+        {
+            "var_name": "E_slaughter",
+            "type": "CALCULATED",
+            "full_name": "Slaughter line, electricity",
+            "user_grade": "MANDATORY",
+            "value": 49,
+            "physical_unit": "kW",
+            "formula": "E_slaughter_r*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot E_{slaughter}$",
+            "reference": "Meat_plant.md",
+            "description": "Slaughter line, electricity demand"
+        },
+        {
+            "var_name": "E_cutting",
+            "type": "CALCULATED",
+            "full_name": "Cutting and deboning, electricity",
+            "user_grade": "MANDATORY",
+            "value": 44,
+            "physical_unit": "kW",
+            "formula": "E_cutting_r*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot E_{cutting}$",
+            "reference": "Meat_plant.md",
+            "description": "Cutting and deboning, electricity demand"
+        },
+        {
+            "var_name": "E_sausage",
+            "type": "CALCULATED",
+            "full_name": "Sausage line, electricity",
+            "user_grade": "MANDATORY",
+            "value": 99,
+            "physical_unit": "kW",
+            "formula": "E_sausage_r*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot E_{sausage}$",
+            "reference": "Meat_plant.md",
+            "description": "Sausage line, electricity demand"
+        },
+        {
+            "var_name": "E_total",
+            "type": "CALCULATED",
+            "full_name": "Total process electricity",
+            "user_grade": "MANDATORY",
+            "value": 192,
+            "physical_unit": "kW",
+            "formula": "E_slaughter+E_cutting+E_sausage",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot E_{tot}$",
+            "reference": "Meat_plant.md",
+            "description": "Electricity consumed by the process itself; heat and refrigeration are supplied by the utilities"
+        },
+        {
+            "var_name": "c1_Q",
+            "type": "CALCULATED",
+            "full_name": "C1 Singeing oven, direct-fired, heat load",
+            "user_grade": "MANDATORY",
+            "value": 28.0,
+            "physical_unit": "kW",
+            "formula": "c1_q*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{C1}$",
+            "reference": "Meat_plant.md",
+            "description": "Singeing oven, direct-fired, heat load"
+        },
+        {
+            "var_name": "c2_Q",
+            "type": "CALCULATED",
+            "full_name": "C2 Scalding tank, held at 60 °C, heat load",
+            "user_grade": "MANDATORY",
+            "value": 40.0,
+            "physical_unit": "kW",
+            "formula": "c2_q*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{C2}$",
+            "reference": "Meat_plant.md",
+            "description": "Scalding tank, held at 60 °C, heat load"
+        },
+        {
+            "var_name": "c3_Q",
+            "type": "CALCULATED",
+            "full_name": "C3 Hot water 82 °C (sterilisers, disinfection), heat load",
+            "user_grade": "MANDATORY",
+            "value": 40.98,
+            "physical_unit": "kW",
+            "formula": "c3_q*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{C3}$",
+            "reference": "Meat_plant.md",
+            "description": "Hot water 82 °C (sterilisers, disinfection), heat load"
+        },
+        {
+            "var_name": "c4_Q",
+            "type": "CALCULATED",
+            "full_name": "C4 Warm water 55 °C (cleaning), heat load",
+            "user_grade": "MANDATORY",
+            "value": 111.73,
+            "physical_unit": "kW",
+            "formula": "c4_q*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{C4}$",
+            "reference": "Meat_plant.md",
+            "description": "Warm water 55 °C (cleaning), heat load"
+        },
+        {
+            "var_name": "c5_Q",
+            "type": "CALCULATED",
+            "full_name": "C5 Tap water 40 °C (hand washing, personnel), heat load",
+            "user_grade": "MANDATORY",
+            "value": 23.43,
+            "physical_unit": "kW",
+            "formula": "c5_q*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{C5}$",
+            "reference": "Meat_plant.md",
+            "description": "Tap water 40 °C (hand washing, personnel), heat load"
+        },
+        {
+            "var_name": "c6_Q",
+            "type": "CALCULATED",
+            "full_name": "C6 Sausage cooking, direct steam injection, heat load",
+            "user_grade": "MANDATORY",
+            "value": 63.86,
+            "physical_unit": "kW",
+            "formula": "c6_q*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{C6}$",
+            "reference": "Meat_plant.md",
+            "description": "Sausage cooking, direct steam injection, heat load"
+        },
+        {
+            "var_name": "h1_Q",
+            "type": "CALCULATED",
+            "full_name": "H1 Cooking-oven exhaust air, heat load",
+            "user_grade": "MANDATORY",
+            "value": 20.21,
+            "physical_unit": "kW",
+            "formula": "h1_q*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{H1}$",
+            "reference": "Meat_plant.md",
+            "description": "Cooking-oven exhaust air, heat load"
+        },
+        {
+            "var_name": "h2_Q",
+            "type": "CALCULATED",
+            "full_name": "H2 Sausage shower cooling, heat load",
+            "user_grade": "MANDATORY",
+            "value": 5.68,
+            "physical_unit": "kW",
+            "formula": "h2_q*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{H2}$",
+            "reference": "Meat_plant.md",
+            "description": "Sausage shower cooling, heat load"
+        },
+        {
+            "var_name": "h3_Q",
+            "type": "CALCULATED",
+            "full_name": "H3 Air compressors, heat recovery, heat load",
+            "user_grade": "MANDATORY",
+            "value": 17.89,
+            "physical_unit": "kW",
+            "formula": "h3_q*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{H3}$",
+            "reference": "Meat_plant.md",
+            "description": "Air compressors, heat recovery, heat load"
+        },
+        {
+            "var_name": "h4_Q",
+            "type": "CALCULATED",
+            "full_name": "H4 Blood chilling, heat load",
+            "user_grade": "MANDATORY",
+            "value": 1.27,
+            "physical_unit": "kW",
+            "formula": "h4_q*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{H4}$",
+            "reference": "Meat_plant.md",
+            "description": "Blood chilling, heat load"
+        },
+        {
+            "var_name": "h5_Q",
+            "type": "CALCULATED",
+            "full_name": "H5 Carcass chilling, heat load",
+            "user_grade": "MANDATORY",
+            "value": 42.5,
+            "physical_unit": "kW",
+            "formula": "h5_q*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{H5}$",
+            "reference": "Meat_plant.md",
+            "description": "Carcass chilling, heat load"
+        },
+        {
+            "var_name": "h6_Q",
+            "type": "CALCULATED",
+            "full_name": "H6 Sausage chilling, heat load",
+            "user_grade": "MANDATORY",
+            "value": 8.42,
+            "physical_unit": "kW",
+            "formula": "h6_q*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{H6}$",
+            "reference": "Meat_plant.md",
+            "description": "Sausage chilling, heat load"
+        },
+        {
+            "var_name": "h7_Q",
+            "type": "CALCULATED",
+            "full_name": "H7 Chilled rooms (cutting, storage), air at 2 °C, heat load",
+            "user_grade": "MANDATORY",
+            "value": 150.23,
+            "physical_unit": "kW",
+            "formula": "h7_q*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{H7}$",
+            "reference": "Meat_plant.md",
+            "description": "Chilled rooms (cutting, storage), air at 2 °C, heat load"
+        },
+        {
+            "var_name": "h8_Q",
+            "type": "CALCULATED",
+            "full_name": "H8 Freezer rooms, air at -25 °C, heat load",
+            "user_grade": "MANDATORY",
+            "value": 6.0,
+            "physical_unit": "kW",
+            "formula": "h8_q*carcass_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{H8}$",
+            "reference": "Meat_plant.md",
+            "description": "Freezer rooms, air at -25 °C, heat load"
+        }
+    ],
+    "units": [
+        {
+            "unit_description": "This unit slaughters pigs and processes 1 t/h of hot carcass: stunning and bleeding, scalding and dehairing, singeing and dressing, carcass chilling, cutting and deboning in chilled rooms, and a cooked-sausage line (mixing and filling, cooking with direct steam, showering and chilling), with chilled and frozen storage. It includes the hot, warm and tap water networks of the site.",
+            "unit_info": {
+                "unit_name": "Meat_plant",
+                "full_name": "Integrated pork plant",
+                "unit_type": "process",
+                "minimum_capacity_multiplier": {
+                    "value": 1,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 1,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes live pigs, ice and water for the batter, and electricity, and delivers fresh cuts, cooked sausages, blood, offal, bones and fat, and the vapour of the cooking. The flows close at 1,332.1 kg/h in and out. The water networks are utility media and are not connectors.",
+            "connectors": [
+                {
+                    "name": "ELECTRICITY",
+                    "full_name": "Electricity",
+                    "scope": "GLOBAL",
+                    "type": "ELECTRICITY",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 192,
+                        "formula": "=E_total",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Electricity of the slaughter line, the cutting and deboning, and the sausage line"
+                },
+                {
+                    "name": "LIVE_PIGS",
+                    "full_name": "Live pigs",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 1282.1,
+                        "formula": "=pigs_in",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 38,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "Live pigs: carcass of 90.5 kg per pig and a dressing yield of 78 %"
+                },
+                {
+                    "name": "ICE_WATER",
+                    "full_name": "Ice and water for the batter",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 50.0,
+                        "formula": "=ice_in",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "H2O[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Ice and water mixed into the sausage batter, 5 % of the carcass mass"
+                },
+                {
+                    "name": "FRESH_CUTS",
+                    "full_name": "Fresh cuts",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 529.9,
+                        "formula": "=cuts_out",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 2,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Fresh cuts: the boneless meat minus the trimmings"
+                },
+                {
+                    "name": "SAUSAGES",
+                    "full_name": "Cooked sausages",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 235.0,
+                        "formula": "=sausages_out",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 2,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Cooked sausages of the cervelat type: the batter minus a 6 % cooking loss"
+                },
+                {
+                    "name": "BLOOD",
+                    "full_name": "Blood",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 38.5,
+                        "formula": "=blood_out",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 5,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": -1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Blood collected and chilled, 3 % of the live weight"
+                },
+                {
+                    "name": "OFFAL",
+                    "full_name": "Offal, intestines and bristles",
+                    "scope": "GLOBAL",
+                    "type": "WASTE",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 243.6,
+                        "formula": "=offal_out",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 38,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Live weight minus carcass minus blood"
+                },
+                {
+                    "name": "BONES_FAT",
+                    "full_name": "Bones, fat and rind",
+                    "scope": "GLOBAL",
+                    "type": "WASTE",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 270.1,
+                        "formula": "=bones_out",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 4,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Carcass minus boneless meat"
+                },
+                {
+                    "name": "COOKING_VAPOUR",
+                    "full_name": "Vapour from cooking",
+                    "scope": "GLOBAL",
+                    "type": "EMISSIONS",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 15.0,
+                        "formula": "=vapour_out",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 100,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "H2O[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Water lost in cooking, 6 % of the batter"
+                }
+            ],
+            "heat_streams_description": "6 cold and 8 hot streams, time-averaged over the operating hours; batch steps (cooking, cleaning) are given by their average load. The singeing oven (C1) is a direct-fired duty. Streams with a 1 K span are near-isothermal duties: the scalding tank, the steam injection and the room air. H4 to H8 are refrigeration demands at the product or room-air temperature.",
+            "heat_streams": [
+                {
+                    "name": "qt_c1_singeing",
+                    "full_name": "C1 Singeing oven, direct-fired",
+                    "description": "Singeing oven, direct-fired, from 900 to 1000 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 900,
+                        "formula": "=c1_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 1000,
+                        "formula": "=c1_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 28.0,
+                        "formula": "=c1_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_c2_scalding",
+                    "full_name": "C2 Scalding tank, held at 60 °C",
+                    "description": "Scalding tank, held at 60 °C, from 60 to 61 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 60,
+                        "formula": "=c2_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 61,
+                        "formula": "=c2_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 40.0,
+                        "formula": "=c2_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_c3_hot_water",
+                    "full_name": "C3 Hot water 82 °C (sterilisers, disinfection)",
+                    "description": "Hot water 82 °C (sterilisers, disinfection), from 11 to 82 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 11,
+                        "formula": "=c3_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 82,
+                        "formula": "=c3_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 40.98,
+                        "formula": "=c3_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_c4_warm_water",
+                    "full_name": "C4 Warm water 55 °C (cleaning)",
+                    "description": "Warm water 55 °C (cleaning), from 11 to 55 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 11,
+                        "formula": "=c4_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 55,
+                        "formula": "=c4_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 111.73,
+                        "formula": "=c4_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_c5_tap_water",
+                    "full_name": "C5 Tap water 40 °C (hand washing, personnel)",
+                    "description": "Tap water 40 °C (hand washing, personnel), from 11 to 40 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 11,
+                        "formula": "=c5_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 40,
+                        "formula": "=c5_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 23.43,
+                        "formula": "=c5_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_c6_cooking",
+                    "full_name": "C6 Sausage cooking, direct steam injection",
+                    "description": "Sausage cooking, direct steam injection, from 112 to 113 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 112,
+                        "formula": "=c6_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 113,
+                        "formula": "=c6_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 63.86,
+                        "formula": "=c6_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_h1_oven_exhaust",
+                    "full_name": "H1 Cooking-oven exhaust air",
+                    "description": "Cooking-oven exhaust air, from 70 to 35 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 70,
+                        "formula": "=h1_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 35,
+                        "formula": "=h1_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 20.21,
+                        "formula": "=h1_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_h2_sausage_shower",
+                    "full_name": "H2 Sausage shower cooling",
+                    "description": "Sausage shower cooling, from 74 to 45 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 74,
+                        "formula": "=h2_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 45,
+                        "formula": "=h2_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 5.68,
+                        "formula": "=h2_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_h3_aircomp",
+                    "full_name": "H3 Air compressors, heat recovery",
+                    "description": "Air compressors, heat recovery, from 70 to 25 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 70,
+                        "formula": "=h3_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 25,
+                        "formula": "=h3_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 17.89,
+                        "formula": "=h3_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_h4_blood_chilling",
+                    "full_name": "H4 Blood chilling",
+                    "description": "Blood chilling, from 38 to 5 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 38,
+                        "formula": "=h4_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 5,
+                        "formula": "=h4_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 1.27,
+                        "formula": "=h4_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_h5_carcass_chilling",
+                    "full_name": "H5 Carcass chilling",
+                    "description": "Carcass chilling, from 38 to 4 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 38,
+                        "formula": "=h5_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 4,
+                        "formula": "=h5_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 42.5,
+                        "formula": "=h5_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_h6_sausage_chilling",
+                    "full_name": "H6 Sausage chilling",
+                    "description": "Sausage chilling, from 45 to 2 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 45,
+                        "formula": "=h6_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 2,
+                        "formula": "=h6_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 8.42,
+                        "formula": "=h6_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_h7_chilled_rooms",
+                    "full_name": "H7 Chilled rooms (cutting, storage), air at 2 °C",
+                    "description": "Chilled rooms (cutting, storage), air at 2 °C, from 3 to 2 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 3,
+                        "formula": "=h7_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 2,
+                        "formula": "=h7_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 150.23,
+                        "formula": "=h7_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_h8_freezer_rooms",
+                    "full_name": "H8 Freezer rooms, air at -25 °C",
+                    "description": "Freezer rooms, air at -25 °C, from -24 to -25 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": -24,
+                        "formula": "=h8_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": -25,
+                        "formula": "=h8_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 6.0,
+                        "formula": "=h8_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                }
+            ],
+            "equipments_description": "No cost data.",
+            "equipments": [],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        }
+    ],
+    "custom_constraints": [
+        {
+            "name": "",
+            "equation": "",
+            "type": ""
+        }
+    ]
+}

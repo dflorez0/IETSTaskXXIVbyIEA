@@ -14,5 +14,8 @@ Food and drink production.
 | Distillery | — | Work in progress |
 | Dairy | — | Work in progress |
 | Sugar | — | Work in progress |
+| Chocolate | [Milk chocolate production](Chocolate/index.qmd) | Documented |
+| Coffee | [Instant coffee production](Coffee/index.qmd) | Documented |
+| Meat | [Integrated pork plant](Meat/index.qmd) | Documented |
 
 : {.striped}

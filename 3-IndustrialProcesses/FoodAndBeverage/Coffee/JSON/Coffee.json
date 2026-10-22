@@ -1,0 +1,2776 @@
+{
+    "header": {
+        "uid": "",
+        "name": "Coffee_SD",
+        "full_name": "Instant coffee, spray-dried route",
+        "ET_model_type": "regular",
+        "authors_and_contributors": "EPFL IPESE research group",
+        "contact_info": "",
+        "creation_date": "",
+        "last_updated": "22.10.2026",
+        "status": "Maintained",
+        "version": "1.0",
+        "confidentiality": "Open",
+        "sharing_layer": "1",
+        "grade": "GRAY-BOX",
+        "reference_capacity": "1 t/h of instant coffee (coffee_prod)",
+        "TRL": "9",
+        "keywords": [
+            "Coffee",
+            "Instant coffee",
+            "Spray drying",
+            "Food and beverage",
+            "Pinch analysis"
+        ],
+        "description": "Spray-dried instant coffee from green coffee beans: roasting with a catalytic afterburner, quench, cooling and grinding, extraction, clarification, vacuum evaporation and spray drying, with 16 thermal streams.",
+        "DOI": "",
+        "main_related_publication": "https://doi.org/10.66506/ed.52",
+        "software": "OSMOSE",
+        "software_file": "",
+        "block_flow_diagram": "Coffee/Figures/coffee_SD_flowsheet.png",
+        "url": null,
+        "supplementary_material": "See SUPPL MATERIAL tab",
+        "hierarchy": "process",
+        "references": "[1] Bassoli, D.G., Instant coffee production. In: Coffee: Production, Quality and Chemistry, Royal Society of Chemistry (2019) 292-308;\n[2] Chemat, A., et al., Valorization of coffee silverskin using extraction cycles and water as a solvent: design of process. Molecules 29(6) (2024) 1318, DOI: https://doi.org/10.3390/molecules29061318;\n[3] Gosalvitr, P., Cuéllar-Franca, R.M., Smith, R., Azapagic, A., An environmental and economic sustainability assessment of coffee production in the UK. Chemical Engineering Journal 465 (2023) 142793, DOI: https://doi.org/10.1016/j.cej.2023.142793;\n[4] Mitraki, R., Limpach, J., Salman, M., Flórez-Orrego, D., Maréchal, F., Léonard, G., Evaluation of energy transition pathways for the instant coffee industry. Energy Demand 1(2) (2026) 1-18, DOI: https://doi.org/10.66506/ed.52;\n[5] Okada, M., Rao, M.A., Lima, J.E., Torloni, M., Energy consumption and the potential for conservation in a spray-dried coffee plant. Journal of Food Science 45(3) (1980) 685-688, DOI: https://doi.org/10.1111/j.1365-2621.1980.tb04132.x;\n[6] Schwartzberg, H., Batch coffee roasting; roasting energy use; reducing that use. In: Yanniotis, S., et al. (eds.), Advances in Food Process Engineering Research and Applications, Springer (2013) 173-195;\n[7] Tinoco-Caicedo, D.L., Lozano-Medina, A., Blanco-Marigorta, A.M., Conventional and advanced exergy and exergoeconomic analysis of a spray drying system: a case study of an instant coffee factory in Ecuador. Energies 13(21) (2020) 5622, DOI: https://doi.org/10.3390/en13215622"
+    },
+    "variables": [
+        {
+            "var_name": "coffee_prod",
+            "type": "CONTEXT",
+            "full_name": "Instant coffee production",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "t/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{coffee}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Instant coffee produced. Every flow and heat load is given per 1 t/h and scales with it; the reference plant, 5,000 t/y over 8,000 h/y, is 0.625 t/h"
+        },
+        {
+            "var_name": "dtmin",
+            "type": "CONTEXT",
+            "full_name": "Delta Tmin/2",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min}/2$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Minimum temperature difference contribution of every stream, for a global Delta Tmin of 10 K"
+        },
+        {
+            "var_name": "beans_in_r",
+            "type": "LITERATURE",
+            "full_name": "Green coffee beans per t of instant coffee",
+            "user_grade": "MANDATORY",
+            "value": 2430.0,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{beans\\_in}$",
+            "reference": "Gosalvitr et al. (2023), Table 3",
+            "description": "Green coffee beans with 10 % moisture, 2.43 t per t of instant coffee for a medium roast"
+        },
+        {
+            "var_name": "quench_water_in_r",
+            "type": "LITERATURE",
+            "full_name": "Quench water per t of instant coffee",
+            "user_grade": "MANDATORY",
+            "value": 269.9,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{quench\\_water\\_in}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Water to quench the roasted beans: evaporated in the roaster plus the moisture left in the beans"
+        },
+        {
+            "var_name": "extraction_water_in_r",
+            "type": "LITERATURE",
+            "full_name": "Extraction water per t of instant coffee",
+            "user_grade": "MANDATORY",
+            "value": 7451.4,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{extraction\\_water\\_in}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Water to the extraction, which leaves with the extract and the spent grounds"
+        },
+        {
+            "var_name": "coffee_out_r",
+            "type": "LITERATURE",
+            "full_name": "Instant coffee per t of instant coffee",
+            "user_grade": "MANDATORY",
+            "value": 1000.0,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{coffee\\_out}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Spray-dried instant coffee with 3 % moisture"
+        },
+        {
+            "var_name": "silverskin_out_r",
+            "type": "LITERATURE",
+            "full_name": "Silverskin per t of instant coffee",
+            "user_grade": "MANDATORY",
+            "value": 18.2,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{silverskin\\_out}$",
+            "reference": "Chemat et al. (2024)",
+            "description": "Silverskin separated in the roaster cyclone, 7.5 kg per t of green beans"
+        },
+        {
+            "var_name": "offgas_out_r",
+            "type": "LITERATURE",
+            "full_name": "Roaster off-gas per t of instant coffee",
+            "user_grade": "MANDATORY",
+            "value": 620.2,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{offgas\\_out}$",
+            "reference": "Schwartzberg (2013)",
+            "description": "Water vapour, CO2 and volatiles from the beans: bean moisture, dry-matter loss and quench steam, after the catalytic afterburner"
+        },
+        {
+            "var_name": "flash_steam_out_r",
+            "type": "LITERATURE",
+            "full_name": "Flash steam per t of instant coffee",
+            "user_grade": "MANDATORY",
+            "value": 644.0,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{flash\\_steam\\_out}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Steam flashed at atmospheric pressure when the spent grounds are discharged"
+        },
+        {
+            "var_name": "grounds_out_r",
+            "type": "LITERATURE",
+            "full_name": "Spent grounds per t of instant coffee",
+            "user_grade": "MANDATORY",
+            "value": 4357.2,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{grounds\\_out}$",
+            "reference": "Okada et al. (1980)",
+            "description": "Spent grounds with 76 % moisture, 1,050.3 kg of dry matter per t of instant coffee"
+        },
+        {
+            "var_name": "condensate_out_r",
+            "type": "LITERATURE",
+            "full_name": "Evaporator condensate per t of instant coffee",
+            "user_grade": "MANDATORY",
+            "value": 2307.1,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{condensate\\_out}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Water evaporated from the extract and condensed"
+        },
+        {
+            "var_name": "dryer_vapour_out_r",
+            "type": "LITERATURE",
+            "full_name": "Water vapour in the dryer exhaust per t of instant coffee",
+            "user_grade": "MANDATORY",
+            "value": 1204.5,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{dryer\\_vapour\\_out}$",
+            "reference": "Tinoco-Caicedo et al. (2020)",
+            "description": "Water evaporated in the spray dryer: the concentrate minus the product"
+        },
+        {
+            "var_name": "roasted_beans_r",
+            "type": "LITERATURE",
+            "full_name": "Roasted beans per t of instant coffee",
+            "user_grade": "MANDATORY",
+            "value": 2061.5,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{roasted\\_beans}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Roasted beans with 2 % moisture, quenched to 120 °C and cooled to 30 °C (internal flow, not a connector)"
+        },
+        {
+            "var_name": "extract_r",
+            "type": "LITERATURE",
+            "full_name": "Extract per t of instant coffee",
+            "user_grade": "MANDATORY",
+            "value": 4511.6,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{extract}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Extract with 21.5 % solids, from 110 to 12 °C (internal flow, not a connector)"
+        },
+        {
+            "var_name": "concentrate_r",
+            "type": "LITERATURE",
+            "full_name": "Concentrate per t of instant coffee",
+            "user_grade": "MANDATORY",
+            "value": 2204.5,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{concentrate}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Concentrate with 44 % solids, from 55 to 12 °C (internal flow, not a connector)"
+        },
+        {
+            "var_name": "dryer_air_r",
+            "type": "LITERATURE",
+            "full_name": "Spray-dryer main air per t of instant coffee",
+            "user_grade": "MANDATORY",
+            "value": 41296,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{dryer\\_air}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Main air of the spray dryer, heated from 20 to 178 °C. Utility medium, for information only: the utilities are not part of the process data"
+        },
+        {
+            "var_name": "fluidbed_air_r",
+            "type": "LITERATURE",
+            "full_name": "Fluid-bed air per t of instant coffee",
+            "user_grade": "MANDATORY",
+            "value": 6768,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{fluidbed\\_air}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Dehumidified air of the fluid bed, heated from 15 to 96 °C. Utility medium, for information only: the utilities are not part of the process data"
+        },
+        {
+            "var_name": "exhaust_air_r",
+            "type": "LITERATURE",
+            "full_name": "Dryer exhaust air per t of instant coffee",
+            "user_grade": "MANDATORY",
+            "value": 50215,
+            "physical_unit": "kg/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{exhaust\\_air}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Exhaust air of the dryer with its water vapour, at 96 °C. Utility medium, for information only: the utilities are not part of the process data"
+        },
+        {
+            "var_name": "E_motors_r",
+            "type": "LITERATURE",
+            "full_name": "Electric motors, specific electricity",
+            "user_grade": "MANDATORY",
+            "value": 722,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$e_{motors}$",
+            "reference": "Okada et al. (1980)",
+            "description": "Roaster fans, grinders, pumps, vacuum pumps, dryer fans and conveyors: 621 kcal per kg of instant coffee, measured in a spray-dried coffee plant"
+        },
+        {
+            "var_name": "E_lighting_r",
+            "type": "LITERATURE",
+            "full_name": "Lighting, specific electricity",
+            "user_grade": "MANDATORY",
+            "value": 34,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$e_{lighting}$",
+            "reference": "Okada et al. (1980)",
+            "description": "29 kcal per kg of instant coffee, measured in the same plant"
+        },
+        {
+            "var_name": "E_grinding_r",
+            "type": "LITERATURE",
+            "full_name": "Grinding, specific electricity",
+            "user_grade": "MANDATORY",
+            "value": 33,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$e_{grinding}$",
+            "reference": "Gosalvitr et al. (2023)",
+            "description": "Part of the electric motors: 16 kWh per t of roasted coffee (information only, already counted in E_motors)"
+        },
+        {
+            "var_name": "c1_Tin",
+            "type": "LITERATURE",
+            "full_name": "C1 Roaster furnace, recirculated gas, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 200,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C1}$",
+            "reference": "Schwartzberg (2013)",
+            "description": "Roaster furnace, recirculated gas, inlet temperature"
+        },
+        {
+            "var_name": "c1_Tout",
+            "type": "LITERATURE",
+            "full_name": "C1 Roaster furnace, recirculated gas, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 455,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C1}$",
+            "reference": "Schwartzberg (2013)",
+            "description": "Roaster furnace, recirculated gas, outlet temperature"
+        },
+        {
+            "var_name": "c1_q",
+            "type": "LITERATURE",
+            "full_name": "C1 Roaster furnace, recirculated gas, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 797.18,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{C1}$",
+            "reference": "Schwartzberg (2013)",
+            "description": "Roaster furnace, recirculated gas, heat load per t of instant coffee. Direct-fired duty: the burner, its fuel and combustion air belong to the utility system. The 200 °C inlet is an assumed mean value"
+        },
+        {
+            "var_name": "c2_Tin",
+            "type": "LITERATURE",
+            "full_name": "C2 Catalytic afterburner, feed gas, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 200,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C2}$",
+            "reference": "Schwartzberg (2013)",
+            "description": "Catalytic afterburner, feed gas, inlet temperature"
+        },
+        {
+            "var_name": "c2_Tout",
+            "type": "LITERATURE",
+            "full_name": "C2 Catalytic afterburner, feed gas, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 400,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C2}$",
+            "reference": "Schwartzberg (2013)",
+            "description": "Catalytic afterburner, feed gas, outlet temperature"
+        },
+        {
+            "var_name": "c2_q",
+            "type": "LITERATURE",
+            "full_name": "C2 Catalytic afterburner, feed gas, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 296.99,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{C2}$",
+            "reference": "Schwartzberg (2013)",
+            "description": "Catalytic afterburner, feed gas, heat load per t of instant coffee. Direct-fired duty: the burner, its fuel and combustion air belong to the utility system"
+        },
+        {
+            "var_name": "c3_Tin",
+            "type": "LITERATURE",
+            "full_name": "C3 Extraction water, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 20,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C3}$",
+            "reference": "Okada et al. (1980)",
+            "description": "Extraction water, inlet temperature"
+        },
+        {
+            "var_name": "c3_Tout",
+            "type": "LITERATURE",
+            "full_name": "C3 Extraction water, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 180,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C3}$",
+            "reference": "Okada et al. (1980)",
+            "description": "Extraction water, outlet temperature"
+        },
+        {
+            "var_name": "c3_q",
+            "type": "LITERATURE",
+            "full_name": "C3 Extraction water, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 1390.93,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{C3}$",
+            "reference": "Okada et al. (1980)",
+            "description": "Extraction water, heat load per t of instant coffee"
+        },
+        {
+            "var_name": "c4_Tin",
+            "type": "LITERATURE",
+            "full_name": "C4 Clarified extract, preheating, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 12,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C4}$",
+            "reference": "Okada et al. (1980)",
+            "description": "Clarified extract, preheating, inlet temperature"
+        },
+        {
+            "var_name": "c4_Tout",
+            "type": "LITERATURE",
+            "full_name": "C4 Clarified extract, preheating, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 55,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C4}$",
+            "reference": "Okada et al. (1980)",
+            "description": "Clarified extract, preheating, outlet temperature"
+        },
+        {
+            "var_name": "c4_q",
+            "type": "LITERATURE",
+            "full_name": "C4 Clarified extract, preheating, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 193.05,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{C4}$",
+            "reference": "Okada et al. (1980)",
+            "description": "Clarified extract, preheating, heat load per t of instant coffee"
+        },
+        {
+            "var_name": "c5_Tin",
+            "type": "LITERATURE",
+            "full_name": "C5 Evaporator, boiling extract, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 55,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C5}$",
+            "reference": "Okada et al. (1980)",
+            "description": "Evaporator, boiling extract, inlet temperature"
+        },
+        {
+            "var_name": "c5_Tout",
+            "type": "LITERATURE",
+            "full_name": "C5 Evaporator, boiling extract, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 56,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C5}$",
+            "reference": "Okada et al. (1980)",
+            "description": "Evaporator, boiling extract, outlet temperature"
+        },
+        {
+            "var_name": "c5_q",
+            "type": "LITERATURE",
+            "full_name": "C5 Evaporator, boiling extract, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 1518.83,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{C5}$",
+            "reference": "Okada et al. (1980)",
+            "description": "Evaporator, boiling extract, heat load per t of instant coffee. Single-effect vacuum evaporation to 44 % solids"
+        },
+        {
+            "var_name": "c6_Tin",
+            "type": "LITERATURE",
+            "full_name": "C6 Concentrate preheating before atomisation, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 12,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C6}$",
+            "reference": "Tinoco-Caicedo et al. (2020)",
+            "description": "Concentrate preheating before atomisation, inlet temperature"
+        },
+        {
+            "var_name": "c6_Tout",
+            "type": "LITERATURE",
+            "full_name": "C6 Concentrate preheating before atomisation, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 39,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C6}$",
+            "reference": "Tinoco-Caicedo et al. (2020)",
+            "description": "Concentrate preheating before atomisation, outlet temperature"
+        },
+        {
+            "var_name": "c6_q",
+            "type": "LITERATURE",
+            "full_name": "C6 Concentrate preheating before atomisation, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 48.89,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{C6}$",
+            "reference": "Tinoco-Caicedo et al. (2020)",
+            "description": "Concentrate preheating before atomisation, heat load per t of instant coffee"
+        },
+        {
+            "var_name": "c7_Tin",
+            "type": "LITERATURE",
+            "full_name": "C7 Spray-dryer main air, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 20,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C7}$",
+            "reference": "Tinoco-Caicedo et al. (2020)",
+            "description": "Spray-dryer main air, inlet temperature"
+        },
+        {
+            "var_name": "c7_Tout",
+            "type": "LITERATURE",
+            "full_name": "C7 Spray-dryer main air, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 178,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C7}$",
+            "reference": "Tinoco-Caicedo et al. (2020)",
+            "description": "Spray-dryer main air, outlet temperature"
+        },
+        {
+            "var_name": "c7_q",
+            "type": "LITERATURE",
+            "full_name": "C7 Spray-dryer main air, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 1830.56,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{C7}$",
+            "reference": "Tinoco-Caicedo et al. (2020)",
+            "description": "Spray-dryer main air, heat load per t of instant coffee"
+        },
+        {
+            "var_name": "c8_Tin",
+            "type": "LITERATURE",
+            "full_name": "C8 Fluid-bed air (dehumidified), inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 15,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C8}$",
+            "reference": "Tinoco-Caicedo et al. (2020)",
+            "description": "Fluid-bed air (dehumidified), inlet temperature"
+        },
+        {
+            "var_name": "c8_Tout",
+            "type": "LITERATURE",
+            "full_name": "C8 Fluid-bed air (dehumidified), outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 96,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C8}$",
+            "reference": "Tinoco-Caicedo et al. (2020)",
+            "description": "Fluid-bed air (dehumidified), outlet temperature"
+        },
+        {
+            "var_name": "c8_q",
+            "type": "LITERATURE",
+            "full_name": "C8 Fluid-bed air (dehumidified), specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 153.79,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{C8}$",
+            "reference": "Tinoco-Caicedo et al. (2020)",
+            "description": "Fluid-bed air (dehumidified), heat load per t of instant coffee"
+        },
+        {
+            "var_name": "h1_Tin",
+            "type": "LITERATURE",
+            "full_name": "H1 Stack gas after catalytic afterburner, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 400,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H1}$",
+            "reference": "Schwartzberg (2013)",
+            "description": "Stack gas after catalytic afterburner, inlet temperature"
+        },
+        {
+            "var_name": "h1_Tout",
+            "type": "LITERATURE",
+            "full_name": "H1 Stack gas after catalytic afterburner, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 120,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H1}$",
+            "reference": "Schwartzberg (2013)",
+            "description": "Stack gas after catalytic afterburner, outlet temperature"
+        },
+        {
+            "var_name": "h1_q",
+            "type": "LITERATURE",
+            "full_name": "H1 Stack gas after catalytic afterburner, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 415.79,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{H1}$",
+            "reference": "Schwartzberg (2013)",
+            "description": "Stack gas after catalytic afterburner, heat load per t of instant coffee"
+        },
+        {
+            "var_name": "h2_Tin",
+            "type": "LITERATURE",
+            "full_name": "H2 Roasted-bean cooling with air, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 120,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H2}$",
+            "reference": "Assumed in Instant_Coffee_SD_moodle.md",
+            "description": "Roasted-bean cooling with air, inlet temperature"
+        },
+        {
+            "var_name": "h2_Tout",
+            "type": "LITERATURE",
+            "full_name": "H2 Roasted-bean cooling with air, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H2}$",
+            "reference": "Assumed in Instant_Coffee_SD_moodle.md",
+            "description": "Roasted-bean cooling with air, outlet temperature"
+        },
+        {
+            "var_name": "h2_q",
+            "type": "LITERATURE",
+            "full_name": "H2 Roasted-bean cooling with air, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 86.33,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{H2}$",
+            "reference": "Assumed in Instant_Coffee_SD_moodle.md",
+            "description": "Roasted-bean cooling with air, heat load per t of instant coffee"
+        },
+        {
+            "var_name": "h3_Tin",
+            "type": "LITERATURE",
+            "full_name": "H3 Extract cooling before clarification, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 110,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H3}$",
+            "reference": "Bassoli (2019); Tinoco-Caicedo et al. (2020)",
+            "description": "Extract cooling before clarification, inlet temperature"
+        },
+        {
+            "var_name": "h3_Tout",
+            "type": "LITERATURE",
+            "full_name": "H3 Extract cooling before clarification, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 12,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H3}$",
+            "reference": "Bassoli (2019); Tinoco-Caicedo et al. (2020)",
+            "description": "Extract cooling before clarification, outlet temperature"
+        },
+        {
+            "var_name": "h3_q",
+            "type": "LITERATURE",
+            "full_name": "H3 Extract cooling before clarification, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 439.97,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{H3}$",
+            "reference": "Bassoli (2019); Tinoco-Caicedo et al. (2020)",
+            "description": "Extract cooling before clarification, heat load per t of instant coffee. It ends below ambient temperature, so its last part needs refrigeration unless a cold stream absorbs it"
+        },
+        {
+            "var_name": "h4_Tin",
+            "type": "LITERATURE",
+            "full_name": "H4 Flash steam from spent-grounds discharge, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 100,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H4}$",
+            "reference": "Assumed in Instant_Coffee_SD_moodle.md",
+            "description": "Flash steam from spent-grounds discharge, inlet temperature"
+        },
+        {
+            "var_name": "h4_Tout",
+            "type": "LITERATURE",
+            "full_name": "H4 Flash steam from spent-grounds discharge, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 99,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H4}$",
+            "reference": "Assumed in Instant_Coffee_SD_moodle.md",
+            "description": "Flash steam from spent-grounds discharge, outlet temperature"
+        },
+        {
+            "var_name": "h4_q",
+            "type": "LITERATURE",
+            "full_name": "H4 Flash steam from spent-grounds discharge, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 403.77,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{H4}$",
+            "reference": "Assumed in Instant_Coffee_SD_moodle.md",
+            "description": "Flash steam from spent-grounds discharge, heat load per t of instant coffee"
+        },
+        {
+            "var_name": "h5_Tin",
+            "type": "LITERATURE",
+            "full_name": "H5 Spent grounds after flash, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 100,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H5}$",
+            "reference": "Assumed in Instant_Coffee_SD_moodle.md",
+            "description": "Spent grounds after flash, inlet temperature"
+        },
+        {
+            "var_name": "h5_Tout",
+            "type": "LITERATURE",
+            "full_name": "H5 Spent grounds after flash, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 40,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H5}$",
+            "reference": "Assumed in Instant_Coffee_SD_moodle.md",
+            "description": "Spent grounds after flash, outlet temperature"
+        },
+        {
+            "var_name": "h5_q",
+            "type": "LITERATURE",
+            "full_name": "H5 Spent grounds after flash, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 257.74,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{H5}$",
+            "reference": "Assumed in Instant_Coffee_SD_moodle.md",
+            "description": "Spent grounds after flash, heat load per t of instant coffee"
+        },
+        {
+            "var_name": "h6_Tin",
+            "type": "LITERATURE",
+            "full_name": "H6 Evaporator vapour, condensing, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 50,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H6}$",
+            "reference": "Assumed in Instant_Coffee_SD_moodle.md",
+            "description": "Evaporator vapour, condensing, inlet temperature"
+        },
+        {
+            "var_name": "h6_Tout",
+            "type": "LITERATURE",
+            "full_name": "H6 Evaporator vapour, condensing, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 49,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H6}$",
+            "reference": "Assumed in Instant_Coffee_SD_moodle.md",
+            "description": "Evaporator vapour, condensing, outlet temperature"
+        },
+        {
+            "var_name": "h6_q",
+            "type": "LITERATURE",
+            "full_name": "H6 Evaporator vapour, condensing, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 1526.52,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{H6}$",
+            "reference": "Assumed in Instant_Coffee_SD_moodle.md",
+            "description": "Evaporator vapour, condensing, heat load per t of instant coffee. The vapour condenses 5 K below the boiling extract"
+        },
+        {
+            "var_name": "h7_Tin",
+            "type": "LITERATURE",
+            "full_name": "H7 Concentrate cooling to storage, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 55,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H7}$",
+            "reference": "Tinoco-Caicedo et al. (2020)",
+            "description": "Concentrate cooling to storage, inlet temperature"
+        },
+        {
+            "var_name": "h7_Tout",
+            "type": "LITERATURE",
+            "full_name": "H7 Concentrate cooling to storage, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 12,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H7}$",
+            "reference": "Tinoco-Caicedo et al. (2020)",
+            "description": "Concentrate cooling to storage, outlet temperature"
+        },
+        {
+            "var_name": "h7_q",
+            "type": "LITERATURE",
+            "full_name": "H7 Concentrate cooling to storage, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 77.86,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{H7}$",
+            "reference": "Tinoco-Caicedo et al. (2020)",
+            "description": "Concentrate cooling to storage, heat load per t of instant coffee. It ends below ambient temperature, so its last part needs refrigeration unless a cold stream absorbs it"
+        },
+        {
+            "var_name": "h8_Tin",
+            "type": "LITERATURE",
+            "full_name": "H8 Spray-dryer exhaust air, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 96,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H8}$",
+            "reference": "Tinoco-Caicedo et al. (2020)",
+            "description": "Spray-dryer exhaust air, inlet temperature"
+        },
+        {
+            "var_name": "h8_Tout",
+            "type": "LITERATURE",
+            "full_name": "H8 Spray-dryer exhaust air, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 40,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H8}$",
+            "reference": "Tinoco-Caicedo et al. (2020)",
+            "description": "Spray-dryer exhaust air, outlet temperature"
+        },
+        {
+            "var_name": "h8_q",
+            "type": "LITERATURE",
+            "full_name": "H8 Spray-dryer exhaust air, specific heat load",
+            "user_grade": "MANDATORY",
+            "value": 820.18,
+            "physical_unit": "kWh/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{H8}$",
+            "reference": "Tinoco-Caicedo et al. (2020)",
+            "description": "Spray-dryer exhaust air, heat load per t of instant coffee"
+        },
+        {
+            "var_name": "beans_in",
+            "type": "CALCULATED",
+            "full_name": "Green coffee beans",
+            "user_grade": "MANDATORY",
+            "value": 2430.0,
+            "physical_unit": "kg/h",
+            "formula": "beans_in_r*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{beans\\_in}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Green coffee beans flow"
+        },
+        {
+            "var_name": "quench_water_in",
+            "type": "CALCULATED",
+            "full_name": "Quench water",
+            "user_grade": "MANDATORY",
+            "value": 269.9,
+            "physical_unit": "kg/h",
+            "formula": "quench_water_in_r*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{quench\\_water\\_in}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Quench water flow"
+        },
+        {
+            "var_name": "extraction_water_in",
+            "type": "CALCULATED",
+            "full_name": "Extraction water",
+            "user_grade": "MANDATORY",
+            "value": 7451.4,
+            "physical_unit": "kg/h",
+            "formula": "extraction_water_in_r*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{extraction\\_water\\_in}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Extraction water flow"
+        },
+        {
+            "var_name": "coffee_out",
+            "type": "CALCULATED",
+            "full_name": "Instant coffee",
+            "user_grade": "MANDATORY",
+            "value": 1000.0,
+            "physical_unit": "kg/h",
+            "formula": "coffee_out_r*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{coffee\\_out}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Instant coffee flow"
+        },
+        {
+            "var_name": "silverskin_out",
+            "type": "CALCULATED",
+            "full_name": "Silverskin",
+            "user_grade": "MANDATORY",
+            "value": 18.2,
+            "physical_unit": "kg/h",
+            "formula": "silverskin_out_r*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{silverskin\\_out}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Silverskin flow"
+        },
+        {
+            "var_name": "offgas_out",
+            "type": "CALCULATED",
+            "full_name": "Roaster off-gas",
+            "user_grade": "MANDATORY",
+            "value": 620.2,
+            "physical_unit": "kg/h",
+            "formula": "offgas_out_r*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{offgas\\_out}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Roaster off-gas flow"
+        },
+        {
+            "var_name": "flash_steam_out",
+            "type": "CALCULATED",
+            "full_name": "Flash steam",
+            "user_grade": "MANDATORY",
+            "value": 644.0,
+            "physical_unit": "kg/h",
+            "formula": "flash_steam_out_r*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{flash\\_steam\\_out}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Flash steam flow"
+        },
+        {
+            "var_name": "grounds_out",
+            "type": "CALCULATED",
+            "full_name": "Spent grounds",
+            "user_grade": "MANDATORY",
+            "value": 4357.2,
+            "physical_unit": "kg/h",
+            "formula": "grounds_out_r*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{grounds\\_out}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Spent grounds flow"
+        },
+        {
+            "var_name": "condensate_out",
+            "type": "CALCULATED",
+            "full_name": "Evaporator condensate",
+            "user_grade": "MANDATORY",
+            "value": 2307.1,
+            "physical_unit": "kg/h",
+            "formula": "condensate_out_r*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{condensate\\_out}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Evaporator condensate flow"
+        },
+        {
+            "var_name": "dryer_vapour_out",
+            "type": "CALCULATED",
+            "full_name": "Water vapour in the dryer exhaust",
+            "user_grade": "MANDATORY",
+            "value": 1204.5,
+            "physical_unit": "kg/h",
+            "formula": "dryer_vapour_out_r*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{dryer\\_vapour\\_out}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Water vapour in the dryer exhaust flow"
+        },
+        {
+            "var_name": "E_motors",
+            "type": "CALCULATED",
+            "full_name": "Electric motors, electricity",
+            "user_grade": "MANDATORY",
+            "value": 722,
+            "physical_unit": "kW",
+            "formula": "E_motors_r*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot E_{motors}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Electric motors, electricity demand"
+        },
+        {
+            "var_name": "E_lighting",
+            "type": "CALCULATED",
+            "full_name": "Lighting, electricity",
+            "user_grade": "MANDATORY",
+            "value": 34,
+            "physical_unit": "kW",
+            "formula": "E_lighting_r*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot E_{lighting}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Lighting, electricity demand"
+        },
+        {
+            "var_name": "E_total",
+            "type": "CALCULATED",
+            "full_name": "Total process electricity",
+            "user_grade": "MANDATORY",
+            "value": 756,
+            "physical_unit": "kW",
+            "formula": "E_motors+E_lighting",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot E_{tot}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Electricity consumed by the process itself; heat and refrigeration are supplied by the utilities"
+        },
+        {
+            "var_name": "c1_Q",
+            "type": "CALCULATED",
+            "full_name": "C1 Roaster furnace, recirculated gas, heat load",
+            "user_grade": "MANDATORY",
+            "value": 797.18,
+            "physical_unit": "kW",
+            "formula": "c1_q*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{C1}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Roaster furnace, recirculated gas, heat load"
+        },
+        {
+            "var_name": "c2_Q",
+            "type": "CALCULATED",
+            "full_name": "C2 Catalytic afterburner, feed gas, heat load",
+            "user_grade": "MANDATORY",
+            "value": 296.99,
+            "physical_unit": "kW",
+            "formula": "c2_q*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{C2}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Catalytic afterburner, feed gas, heat load"
+        },
+        {
+            "var_name": "c3_Q",
+            "type": "CALCULATED",
+            "full_name": "C3 Extraction water, heat load",
+            "user_grade": "MANDATORY",
+            "value": 1390.93,
+            "physical_unit": "kW",
+            "formula": "c3_q*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{C3}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Extraction water, heat load"
+        },
+        {
+            "var_name": "c4_Q",
+            "type": "CALCULATED",
+            "full_name": "C4 Clarified extract, preheating, heat load",
+            "user_grade": "MANDATORY",
+            "value": 193.05,
+            "physical_unit": "kW",
+            "formula": "c4_q*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{C4}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Clarified extract, preheating, heat load"
+        },
+        {
+            "var_name": "c5_Q",
+            "type": "CALCULATED",
+            "full_name": "C5 Evaporator, boiling extract, heat load",
+            "user_grade": "MANDATORY",
+            "value": 1518.83,
+            "physical_unit": "kW",
+            "formula": "c5_q*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{C5}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Evaporator, boiling extract, heat load"
+        },
+        {
+            "var_name": "c6_Q",
+            "type": "CALCULATED",
+            "full_name": "C6 Concentrate preheating before atomisation, heat load",
+            "user_grade": "MANDATORY",
+            "value": 48.89,
+            "physical_unit": "kW",
+            "formula": "c6_q*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{C6}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Concentrate preheating before atomisation, heat load"
+        },
+        {
+            "var_name": "c7_Q",
+            "type": "CALCULATED",
+            "full_name": "C7 Spray-dryer main air, heat load",
+            "user_grade": "MANDATORY",
+            "value": 1830.56,
+            "physical_unit": "kW",
+            "formula": "c7_q*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{C7}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Spray-dryer main air, heat load"
+        },
+        {
+            "var_name": "c8_Q",
+            "type": "CALCULATED",
+            "full_name": "C8 Fluid-bed air (dehumidified), heat load",
+            "user_grade": "MANDATORY",
+            "value": 153.79,
+            "physical_unit": "kW",
+            "formula": "c8_q*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{C8}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Fluid-bed air (dehumidified), heat load"
+        },
+        {
+            "var_name": "h1_Q",
+            "type": "CALCULATED",
+            "full_name": "H1 Stack gas after catalytic afterburner, heat load",
+            "user_grade": "MANDATORY",
+            "value": 415.79,
+            "physical_unit": "kW",
+            "formula": "h1_q*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{H1}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Stack gas after catalytic afterburner, heat load"
+        },
+        {
+            "var_name": "h2_Q",
+            "type": "CALCULATED",
+            "full_name": "H2 Roasted-bean cooling with air, heat load",
+            "user_grade": "MANDATORY",
+            "value": 86.33,
+            "physical_unit": "kW",
+            "formula": "h2_q*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{H2}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Roasted-bean cooling with air, heat load"
+        },
+        {
+            "var_name": "h3_Q",
+            "type": "CALCULATED",
+            "full_name": "H3 Extract cooling before clarification, heat load",
+            "user_grade": "MANDATORY",
+            "value": 439.97,
+            "physical_unit": "kW",
+            "formula": "h3_q*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{H3}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Extract cooling before clarification, heat load"
+        },
+        {
+            "var_name": "h4_Q",
+            "type": "CALCULATED",
+            "full_name": "H4 Flash steam from spent-grounds discharge, heat load",
+            "user_grade": "MANDATORY",
+            "value": 403.77,
+            "physical_unit": "kW",
+            "formula": "h4_q*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{H4}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Flash steam from spent-grounds discharge, heat load"
+        },
+        {
+            "var_name": "h5_Q",
+            "type": "CALCULATED",
+            "full_name": "H5 Spent grounds after flash, heat load",
+            "user_grade": "MANDATORY",
+            "value": 257.74,
+            "physical_unit": "kW",
+            "formula": "h5_q*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{H5}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Spent grounds after flash, heat load"
+        },
+        {
+            "var_name": "h6_Q",
+            "type": "CALCULATED",
+            "full_name": "H6 Evaporator vapour, condensing, heat load",
+            "user_grade": "MANDATORY",
+            "value": 1526.52,
+            "physical_unit": "kW",
+            "formula": "h6_q*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{H6}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Evaporator vapour, condensing, heat load"
+        },
+        {
+            "var_name": "h7_Q",
+            "type": "CALCULATED",
+            "full_name": "H7 Concentrate cooling to storage, heat load",
+            "user_grade": "MANDATORY",
+            "value": 77.86,
+            "physical_unit": "kW",
+            "formula": "h7_q*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{H7}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Concentrate cooling to storage, heat load"
+        },
+        {
+            "var_name": "h8_Q",
+            "type": "CALCULATED",
+            "full_name": "H8 Spray-dryer exhaust air, heat load",
+            "user_grade": "MANDATORY",
+            "value": 820.18,
+            "physical_unit": "kW",
+            "formula": "h8_q*coffee_prod",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{H8}$",
+            "reference": "Instant_Coffee_SD_moodle.md",
+            "description": "Spray-dryer exhaust air, heat load"
+        }
+    ],
+    "units": [
+        {
+            "unit_description": "This unit converts green coffee beans into 1 t/h of spray-dried instant coffee: roasting in batch drum roasters with gas recirculation and a catalytic afterburner, quench, cooling and grinding, extraction with water at 180 °C, cooling and clarification of the extract, single-effect vacuum evaporation, and spray drying with a fluid bed.",
+            "unit_info": {
+                "unit_name": "Coffee_SD",
+                "full_name": "Instant coffee plant, spray-dried route",
+                "unit_type": "process",
+                "minimum_capacity_multiplier": {
+                    "value": 1,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 1,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes green coffee beans, quench water, extraction water and electricity, and delivers instant coffee, silverskin, the roaster off-gas, flash steam, spent grounds, evaporator condensate and the water vapour of the dryer exhaust. The flows close at 10,151.3 kg/h in and out.",
+            "connectors": [
+                {
+                    "name": "ELECTRICITY",
+                    "full_name": "Electricity",
+                    "scope": "GLOBAL",
+                    "type": "ELECTRICITY",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 756,
+                        "formula": "=E_total",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Electricity of the motors (roaster fans, grinders, pumps, vacuum pumps, dryer fans, conveyors) and the lighting"
+                },
+                {
+                    "name": "GREEN_COFFEE",
+                    "full_name": "Green coffee beans",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 2430.0,
+                        "formula": "=beans_in",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 20,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Green coffee beans with 10 % moisture, 2.43 t per t of instant coffee for a medium roast"
+                },
+                {
+                    "name": "QUENCH_WATER",
+                    "full_name": "Quench water",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 269.9,
+                        "formula": "=quench_water_in",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 20,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": -1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "H2O[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Water to quench the roasted beans: evaporated in the roaster plus the moisture left in the beans"
+                },
+                {
+                    "name": "EXTRACTION_WATER",
+                    "full_name": "Extraction water",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 7451.4,
+                        "formula": "=extraction_water_in",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 20,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": -1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "H2O[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Water to the extraction, which leaves with the extract and the spent grounds"
+                },
+                {
+                    "name": "INSTANT_COFFEE",
+                    "full_name": "Instant coffee",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 1000.0,
+                        "formula": "=coffee_out",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "Spray-dried instant coffee with 3 % moisture"
+                },
+                {
+                    "name": "SILVERSKIN",
+                    "full_name": "Silverskin",
+                    "scope": "GLOBAL",
+                    "type": "WASTE",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 18.2,
+                        "formula": "=silverskin_out",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 200,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Silverskin separated in the roaster cyclone, 7.5 kg per t of green beans"
+                },
+                {
+                    "name": "ROASTER_OFFGAS",
+                    "full_name": "Roaster off-gas",
+                    "scope": "GLOBAL",
+                    "type": "EMISSIONS",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 620.2,
+                        "formula": "=offgas_out",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 400,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Water vapour, CO2 and volatiles from the beans: bean moisture, dry-matter loss and quench steam, after the catalytic afterburner"
+                },
+                {
+                    "name": "FLASH_STEAM",
+                    "full_name": "Flash steam",
+                    "scope": "GLOBAL",
+                    "type": "EMISSIONS",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 644.0,
+                        "formula": "=flash_steam_out",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 100,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "H2O[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Steam flashed at atmospheric pressure when the spent grounds are discharged"
+                },
+                {
+                    "name": "SPENT_GROUNDS",
+                    "full_name": "Spent grounds",
+                    "scope": "GLOBAL",
+                    "type": "WASTE",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 4357.2,
+                        "formula": "=grounds_out",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 40,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Spent grounds with 76 % moisture, 1,050.3 kg of dry matter per t of instant coffee"
+                },
+                {
+                    "name": "EVAP_CONDENSATE",
+                    "full_name": "Evaporator condensate",
+                    "scope": "GLOBAL",
+                    "type": "WASTE",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 2307.1,
+                        "formula": "=condensate_out",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 50,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": -1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "H2O[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Water evaporated from the extract and condensed"
+                },
+                {
+                    "name": "DRYER_VAPOUR",
+                    "full_name": "Water vapour in the dryer exhaust",
+                    "scope": "GLOBAL",
+                    "type": "EMISSIONS",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 1204.5,
+                        "formula": "=dryer_vapour_out",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 96,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "H2O[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Water evaporated in the spray dryer: the concentrate minus the product"
+                }
+            ],
+            "heat_streams_description": "8 cold and 8 hot streams, time-averaged over the operating hours; batch roasting and the extraction cycles are given by their average load. The roaster furnace (C1) and the afterburner (C2) are direct-fired duties, given as the heating of the process gas. Streams with a 1 K span are phase changes.",
+            "heat_streams": [
+                {
+                    "name": "qt_c1_roaster_gas",
+                    "full_name": "C1 Roaster furnace, recirculated gas",
+                    "description": "Roaster furnace, recirculated gas, from 200 to 455 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 200,
+                        "formula": "=c1_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 455,
+                        "formula": "=c1_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 797.18,
+                        "formula": "=c1_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_c2_afterburner",
+                    "full_name": "C2 Catalytic afterburner, feed gas",
+                    "description": "Catalytic afterburner, feed gas, from 200 to 400 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 200,
+                        "formula": "=c2_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 400,
+                        "formula": "=c2_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 296.99,
+                        "formula": "=c2_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_c3_extraction_water",
+                    "full_name": "C3 Extraction water",
+                    "description": "Extraction water, from 20 to 180 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 20,
+                        "formula": "=c3_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 180,
+                        "formula": "=c3_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 1390.93,
+                        "formula": "=c3_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_c4_extract_preheat",
+                    "full_name": "C4 Clarified extract, preheating",
+                    "description": "Clarified extract, preheating, from 12 to 55 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 12,
+                        "formula": "=c4_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 55,
+                        "formula": "=c4_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 193.05,
+                        "formula": "=c4_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_c5_evaporator",
+                    "full_name": "C5 Evaporator, boiling extract",
+                    "description": "Evaporator, boiling extract, from 55 to 56 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 55,
+                        "formula": "=c5_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 56,
+                        "formula": "=c5_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 1518.83,
+                        "formula": "=c5_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_c6_conc_preheat",
+                    "full_name": "C6 Concentrate preheating before atomisation",
+                    "description": "Concentrate preheating before atomisation, from 12 to 39 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 12,
+                        "formula": "=c6_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 39,
+                        "formula": "=c6_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 48.89,
+                        "formula": "=c6_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_c7_dryer_air",
+                    "full_name": "C7 Spray-dryer main air",
+                    "description": "Spray-dryer main air, from 20 to 178 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 20,
+                        "formula": "=c7_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 178,
+                        "formula": "=c7_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 1830.56,
+                        "formula": "=c7_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_c8_fluidbed_air",
+                    "full_name": "C8 Fluid-bed air (dehumidified)",
+                    "description": "Fluid-bed air (dehumidified), from 15 to 96 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 15,
+                        "formula": "=c8_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 96,
+                        "formula": "=c8_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 153.79,
+                        "formula": "=c8_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_h1_stack_gas",
+                    "full_name": "H1 Stack gas after catalytic afterburner",
+                    "description": "Stack gas after catalytic afterburner, from 400 to 120 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 400,
+                        "formula": "=h1_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 120,
+                        "formula": "=h1_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 415.79,
+                        "formula": "=h1_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_h2_bean_cooling",
+                    "full_name": "H2 Roasted-bean cooling with air",
+                    "description": "Roasted-bean cooling with air, from 120 to 30 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 120,
+                        "formula": "=h2_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=h2_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 86.33,
+                        "formula": "=h2_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_h3_extract_cooling",
+                    "full_name": "H3 Extract cooling before clarification",
+                    "description": "Extract cooling before clarification, from 110 to 12 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 110,
+                        "formula": "=h3_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 12,
+                        "formula": "=h3_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 439.97,
+                        "formula": "=h3_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_h4_flash_steam",
+                    "full_name": "H4 Flash steam from spent-grounds discharge",
+                    "description": "Flash steam from spent-grounds discharge, from 100 to 99 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 100,
+                        "formula": "=h4_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 99,
+                        "formula": "=h4_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 403.77,
+                        "formula": "=h4_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_h5_spent_grounds",
+                    "full_name": "H5 Spent grounds after flash",
+                    "description": "Spent grounds after flash, from 100 to 40 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 100,
+                        "formula": "=h5_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 40,
+                        "formula": "=h5_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 257.74,
+                        "formula": "=h5_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_h6_evap_vapour",
+                    "full_name": "H6 Evaporator vapour, condensing",
+                    "description": "Evaporator vapour, condensing, from 50 to 49 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 50,
+                        "formula": "=h6_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 49,
+                        "formula": "=h6_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 1526.52,
+                        "formula": "=h6_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_h7_conc_cooling",
+                    "full_name": "H7 Concentrate cooling to storage",
+                    "description": "Concentrate cooling to storage, from 55 to 12 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 55,
+                        "formula": "=h7_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 12,
+                        "formula": "=h7_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 77.86,
+                        "formula": "=h7_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_h8_dryer_exhaust",
+                    "full_name": "H8 Spray-dryer exhaust air",
+                    "description": "Spray-dryer exhaust air, from 96 to 40 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 96,
+                        "formula": "=h8_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 40,
+                        "formula": "=h8_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 820.18,
+                        "formula": "=h8_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                }
+            ],
+            "equipments_description": "No cost data.",
+            "equipments": [],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        }
+    ],
+    "custom_constraints": [
+        {
+            "name": "",
+            "equation": "",
+            "type": ""
+        }
+    ]
+}

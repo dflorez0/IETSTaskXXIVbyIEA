@@ -12,6 +12,6 @@ Industrial process models, by sector.
 | [Urban and digital](UrbanAndDigital/index.qmd) | — | 2 |
 | [Oxygenates and commodity chemicals](OxygenatesAndChemicals/index.qmd) | [Methanol synthesis from syngas](OxygenatesAndChemicals/Methanol/index.qmd) | 6 |
 | [Synthetic fuels and biofuels](SyntheticFuelsAndBiofuels/index.qmd) | — | 10 |
-| [Food and beverage](FoodAndBeverage/index.qmd) | — | 5 |
+| [Food and beverage](FoodAndBeverage/index.qmd) | [Milk chocolate production](FoodAndBeverage/Chocolate/index.qmd), [Instant coffee production](FoodAndBeverage/Coffee/index.qmd), [Integrated pork plant](FoodAndBeverage/Meat/index.qmd) | 5 |
 | [Bio and waste](BioAndWaste/index.qmd) | — | 3 |
 <!-- category-overview:end -->
