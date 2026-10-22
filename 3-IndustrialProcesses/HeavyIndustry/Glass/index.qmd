@@ -1,0 +1,92 @@
+# Float glass production {.unnumbered}
+
+{{< model-viewer JSON/Glass.json view="card" >}}
+
+## Description
+
+Flat glass is made by the float process. A batch of silica sand, soda ash, dolomite, limestone and minor additives is mixed with cullet (recycled glass), preheated and melted at about 1600 °C. The molten glass is refined, floated on a bath of molten tin to form a flat ribbon, and cooled slowly in an annealing lehr. Melting is by far the largest energy demand, and the decomposition of the carbonates in the batch releases process CO~2~ whatever the fuel.
+
+The model represents a typical European plant producing 800 t/day (33,333 kg/h) of float glass, as assessed by [Salman et al. (2025)](https://doi.org/10.1016/j.compchemeng.2025.109329). It gives the heat demand of the batch and the cullet, and the heat released by the glass as it is formed and cooled. The melting furnace itself, with its fuel, efficiency and flue gas, is not part of this model: in the study it is a choice between separate furnace models (natural gas air-blown, oxy-fuel, hybrid, hydrogen and all-electric) and carbon capture options.
+
+The model has four units: cullet melting, batch melting, the float line, and the cooling air of the annealing lehr, which carries recovered heat to the preheating of the batch.
+
+## Key figures
+
+Minimum utility requirements of the unit on its own, from its heat streams. The scale factor *f* multiplies every duty and flow on this page, as the optimization does with the unit's size. Choose the unit to show with the selector.
+
+{{< model-viewer JSON/Glass.json view="summary" >}}
+
+### Flows
+
+{{< model-viewer JSON/Glass.json view="flows" >}}
+
+## Model
+
+Throughout this page, names written like `float_product` are variables of the model: hover one for its definition, click it to go to its row in the [variables](#variables) table. The same holds for the symbols in the equations and for underlined values in the tables. The equations below are generated from the formulas of the model's JSON description, and each is tagged with the name of the variable it defines.
+
+### Process
+
+**Batch and cullet.** Every material flow is a ratio per tonne of glass times the production, `float_product`: for instance 0.65 t of sand (`Sand_in_r`), 0.20 t of soda ash (`Soda_in_r`) and 0.17 t of dolomite (`Dolomite_in_r`). The cullet is 0.10 t of internal cullet (`Cullet_int_in_r`), recycled from the plant itself, and 0.16 t of external cullet (`Cullet_ext_in_r`). The plant also takes nitrogen and hydrogen, `Nitrogen_in` and `Hydrogen_in`, for the protective atmosphere of the tin bath, and water, `Water_in`; it delivers waste water, `wastewater_out`, and solid waste, `solid_waste_out`.
+
+**Process CO~2~.** The carbonates decompose in the furnace and release `CO2emissions`, from stoichiometric factors of 44/106 kg of CO~2~ per kg of soda ash, 88/184.4 per kg of dolomite and 44/100 per kg of limestone. This gives 6,058 kg/h, or 0.18 t of CO~2~ per tonne of glass, which leaves in the furnace flue gas.
+
+**Preheating and melting.** The batch and the cullet are melted in two units, `glass_melting_solids` and `glass_melting_cullet`. Both are first preheated from 25 to 200 °C (`prep_heating`, `cullet_q`) with recovered heat, and then heated from 200 to 1600 °C (`melting_q`, `cullet_melting_q`). The heat is the sensible heat of each material, its mass flow times its heat capacity (`tot_mass_with_cp` for the batch, `Cullet_int_cp` for the cullet).
+
+**Float line.** The unit `glass_float` takes the molten glass and delivers the float glass. It needs the endothermic heat of the batch reactions between 1300 and 1600 °C, `heat_rx`, and the reheating of the glass from 500 to 600 °C for annealing, `annealing_q`. The latent heat of the glass, `latent_heat`, is taken up at the melting temperature and released at the solidification temperature, `solid_temp`. The glass ribbon releases `forming_q` as it cools from 1600 to 600 °C in the tin bath, and `finishing_q` from 600 to 350 °C in the annealing lehr. The forming and finishing take `Electricity_in`, 7.4 MW.
+
+**Lehr cooling air.** The unit `air_twin` represents the air that cools the glass in the lehr. Per kW, it takes heat from the glass between 25 and 200 °C and gives it back to the heat recovery cascade, where it can preheat the batch and the cullet. Its size is chosen by the optimization.
+
+**Investment cost.** The float line costs `Cinv2_glass_float` for the 500 t/day reference plant, `ref_size`. It is scaled to `float_product` with an exponent of 0.6, updated from 2018 to 2024 with the CEPCI, and annualized over `Number_year_ws` years at `Interest_rate_ws`, to give `Cinv2_float`. Only 65 % of the plant cost is kept, because the other 35 % is the furnace heating, which the furnace models cover.
+
+{{< model-viewer JSON/Glass.json view="equations" >}}
+
+### Modelling choices
+
+**Plant size.** The production, `float_product`, is set to the 800 t/day plant of the study. In the Lua file it is left for the user to set. The flows and heat loads follow it, and the investment cost scales with it.
+
+**Heat cascades.** Only the melting, the batch reactions, the latent heat and the annealing reheat are in the default heat cascade. The other streams exchange heat only within their own cascade: the preheating of the batch and the cullet and the heat given back by the lehr air in `HREC`; the cooling of the glass in the lehr and the air that takes this heat in `Forming`; and the cooling of the glass ribbon in the tin bath in `Liqbath`. The key figures and the curves on this page show the default cascade only.
+
+**Temperature differences.** The melting, reaction, latent heat and tin bath streams use a minimum temperature difference contribution, `dtmin`, of 150 °C, typical of radiative heat transfer in the furnace. This also applies to the preheating of the batch and the cullet, so heat for preheating must be available up to 350 °C. The finishing and lehr air streams use 5 °C.
+
+**Melting heat only.** The melting heat is the theoretical heat taken up by the materials. The efficiency of the furnace, its wall losses, its fuel and its flue gas are in the furnace models. The cooling of the flue gas is given in the Lua file but disabled.
+
+**Known issues.** The mass balance of the glass is not closed. Soda ash is not counted in the molten glass from the batch, `melted_glass_solids`, or in the batch heat demand, `tot_mass_with_cp`, although its CO~2~ is counted. The two melting units therefore give 32,300 kg/h of molten glass for 33,333 kg/h of float glass. The latent heat, `latent_heat`, is divided by 3600 and is only 1.2 kW. The ratios of natural gas and fuel oil, `NG_in_r` and `Fuel_oil_in_r`, are placeholders, and no unit uses them or the oxygen flow, `Oxygen_in`.
+
+**Boundary.** The furnace, its fuel and oxidant, the carbon capture and the waste heat recovery cycles are separate models. The final cooling of the glass from 350 °C to ambient, `glass_cooling`, is left to the open air and is not recovered.
+
+## Variables
+
+{{< model-viewer JSON/Glass.json view="variables" >}}
+
+## Units and connectors
+
+{{< model-viewer JSON/Glass.json view="unit" >}}
+
+## Heat integration
+
+On their own, the units need only heating in the default cascade: 9,925 kW for the batch and 2,359 kW for the cullet, from 200 to 1600 °C, and 2,961 kW for the batch reactions and the annealing reheat of the float line. Together this is 15.2 MW of theoretical heat at furnace temperatures. Preheating the batch and the cullet to 200 °C takes another 1,536 kW in the `HREC` cascade.
+
+The float line releases 13,458 kW in the tin bath, between 1600 and 600 °C, and 3,365 kW in the lehr, between 600 and 350 °C. No stream of this model takes up the tin bath heat, so it has to be removed by a utility connected to the `Liqbath` cascade. The lehr heat is taken by the cooling air and given back below 200 °C. Because the preheating streams use `dtmin`, the air can cover only the first 20 °C or so of the preheating; the rest has to come from other heat sources of the `HREC` cascade, such as the flue gas of the furnace models.
+
+### Heat streams
+
+{{< model-viewer JSON/Glass.json view="streams" >}}
+
+### Composite curves
+
+{{< model-viewer JSON/Glass.json view="cc" >}}
+
+### Grand composite curve
+
+{{< model-viewer JSON/Glass.json view="gcc" >}}
+
+## Supplementary material
+
+| File | Content |
+|:--|:--|
+| [GLASS_ET.lua](Osmoses/GLASS_ET.lua) | OSMOSE (Lua) implementation of the model |
+| [Glass.json](JSON/Glass.json) | Model description in the Task XXIV JSON format |
+
+## References
+
+{{< model-viewer JSON/Glass.json view="references" >}}

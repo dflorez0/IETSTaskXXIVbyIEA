@@ -1,0 +1,3356 @@
+{
+    "header": {
+        "uid": "",
+        "name": "GLASS_float",
+        "full_name": "Float glass production",
+        "ET_model_type": "regular",
+        "authors_and_contributors": "Muhammad Salman, University of Liège",
+        "contact_info": "salman3692@yahoo.com",
+        "creation_date": "",
+        "last_updated": "22.10.2026",
+        "status": "Maintained",
+        "version": "1.0",
+        "confidentiality": "Open",
+        "sharing_layer": "1",
+        "grade": "GRAY-BOX",
+        "reference_capacity": "33333.33 kg/h (800 t/day) of float glass (float_product)",
+        "TRL": "9",
+        "keywords": [
+            "Glass",
+            "Flat glass",
+            "Float glass",
+            "Cullet",
+            "Heavy industry"
+        ],
+        "description": "Flat glass production by the float process: the raw material batch and the cullet are preheated and melted, and the molten glass is formed in a tin bath, annealed and cooled. The furnace heat is supplied by separate furnace models.",
+        "DOI": "",
+        "main_related_publication": "https://doi.org/10.1016/j.compchemeng.2025.109329",
+        "references": "[1] Salman, M., Flórez-Orrego, D., Coppitters, D., Mitraki, R., Maréchal, F., Léonard, G., Decarbonising the glass industry: A comprehensive techno-economic assessment of low-emission pathways. Computers and Chemical Engineering 203 (2025) 109329, DOI: https://doi.org/10.1016/j.compchemeng.2025.109329;\n[2] Flat glass manufacturers expand into developing areas, https://blog.marketresearch.com/flat-glass-manufacturers-expand-into-developing-areas;\n[3] The Engineering ToolBox, Specific heat of common substances, https://www.engineeringtoolbox.com/specific-heat-capacity-d_391.html;\n[4] The Engineering ToolBox, Specific heat of solids, https://www.engineeringtoolbox.com/specific-heat-solids-d_154.html;\n[5] U.S. Geological Survey, Open-File Report 88-441, https://pubs.usgs.gov/of/1988/0441/report.pdf;\n[6] The Open Fuels & Energy Science Journal 8 (2015) 356, https://benthamopen.com/contents/pdf/TOEFJ/TOEFJ-8-356.pdf",
+        "software": "OSMOSE",
+        "software_file": "",
+        "block_flow_diagram": "",
+        "url": null,
+        "supplementary_material": "See SUPPL MATERIAL tab",
+        "hierarchy": "process"
+    },
+    "variables": [
+        {
+            "var_name": "float_product",
+            "type": "CONTEXT",
+            "full_name": "Float glass production",
+            "user_grade": "MANDATORY",
+            "value": 33333.33,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{glass}$",
+            "reference": "Salman et al. (2025), Table 1",
+            "description": "Float glass produced by a typical European plant of 800 t/day. The Lua file leaves it to be set by the user"
+        },
+        {
+            "var_name": "Sand_in_r",
+            "type": "LITERATURE",
+            "full_name": "Sand per tonne of glass",
+            "user_grade": "MANDATORY",
+            "value": 0.65,
+            "physical_unit": "t/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{sand}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Silica sand per tonne of float glass"
+        },
+        {
+            "var_name": "Soda_in_r",
+            "type": "LITERATURE",
+            "full_name": "Soda ash per tonne of glass",
+            "user_grade": "MANDATORY",
+            "value": 0.2,
+            "physical_unit": "t/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{soda}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Soda ash (Na2CO3) per tonne of float glass"
+        },
+        {
+            "var_name": "Dolomite_in_r",
+            "type": "LITERATURE",
+            "full_name": "Dolomite per tonne of glass",
+            "user_grade": "MANDATORY",
+            "value": 0.17,
+            "physical_unit": "t/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{dol}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Dolomite (CaMg(CO3)2) per tonne of float glass"
+        },
+        {
+            "var_name": "Cullet_int_in_r",
+            "type": "LITERATURE",
+            "full_name": "Internal cullet per tonne of glass",
+            "user_grade": "MANDATORY",
+            "value": 0.1,
+            "physical_unit": "t/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{cul,int}$",
+            "reference": "GLASS_ET.lua, personal communication (14/02/2022)",
+            "description": "Internal cullet (recycled plant glass) per tonne of float glass"
+        },
+        {
+            "var_name": "Cullet_ext_in_r",
+            "type": "LITERATURE",
+            "full_name": "External cullet per tonne of glass",
+            "user_grade": "MANDATORY",
+            "value": 0.16,
+            "physical_unit": "t/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{cul,ext}$",
+            "reference": "GLASS_ET.lua, personal communication (14/02/2022)",
+            "description": "External cullet (recycled post-consumer glass) per tonne of float glass"
+        },
+        {
+            "var_name": "Limestone_in_r",
+            "type": "LITERATURE",
+            "full_name": "Limestone per tonne of glass",
+            "user_grade": "MANDATORY",
+            "value": 0.04,
+            "physical_unit": "t/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{lime}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Limestone (CaCO3) per tonne of float glass"
+        },
+        {
+            "var_name": "NaSO4_in_r",
+            "type": "LITERATURE",
+            "full_name": "Sodium sulfate per tonne of glass",
+            "user_grade": "MANDATORY",
+            "value": 0.01,
+            "physical_unit": "t/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{Na_2SO_4}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Sodium sulfate (refining agent) per tonne of float glass"
+        },
+        {
+            "var_name": "Feldspar_in_r",
+            "type": "LITERATURE",
+            "full_name": "Feldspar per tonne of glass",
+            "user_grade": "MANDATORY",
+            "value": 0.00438,
+            "physical_unit": "t/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{feld}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Feldspar per tonne of float glass"
+        },
+        {
+            "var_name": "Oxygen_in_r",
+            "type": "LITERATURE",
+            "full_name": "Oxygen per tonne of glass",
+            "user_grade": "MANDATORY",
+            "value": 0.01,
+            "physical_unit": "t/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{O_2}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Oxygen per tonne of float glass (not used by any unit)"
+        },
+        {
+            "var_name": "Nitrogen_in_r",
+            "type": "LITERATURE",
+            "full_name": "Nitrogen per tonne of glass",
+            "user_grade": "MANDATORY",
+            "value": 0.09,
+            "physical_unit": "t/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{N_2}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Nitrogen for the protective atmosphere of the tin bath, per tonne of float glass"
+        },
+        {
+            "var_name": "Hydrogen_in_r",
+            "type": "LITERATURE",
+            "full_name": "Hydrogen per tonne of glass",
+            "user_grade": "MANDATORY",
+            "value": 0.000367,
+            "physical_unit": "t/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{H_2}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Hydrogen for the protective atmosphere of the tin bath, per tonne of float glass"
+        },
+        {
+            "var_name": "NaCl_in_r",
+            "type": "LITERATURE",
+            "full_name": "Sodium chloride per tonne of glass",
+            "user_grade": "MANDATORY",
+            "value": 5.4e-05,
+            "physical_unit": "t/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{NaCl}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Sodium chloride per tonne of float glass"
+        },
+        {
+            "var_name": "Slag_in_r",
+            "type": "LITERATURE",
+            "full_name": "Slag per tonne of glass",
+            "user_grade": "MANDATORY",
+            "value": 0.02,
+            "physical_unit": "t/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{slag}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Slag per tonne of float glass"
+        },
+        {
+            "var_name": "Coal_in_r",
+            "type": "LITERATURE",
+            "full_name": "Coal per tonne of glass",
+            "user_grade": "MANDATORY",
+            "value": 7.53e-05,
+            "physical_unit": "t/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{coal}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Coal (reducing agent) per tonne of float glass"
+        },
+        {
+            "var_name": "Water_in_r",
+            "type": "LITERATURE",
+            "full_name": "Water per tonne of glass",
+            "user_grade": "MANDATORY",
+            "value": 1.44,
+            "physical_unit": "t/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{H_2O}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Water per tonne of float glass"
+        },
+        {
+            "var_name": "NG_in_r",
+            "type": "LITERATURE",
+            "full_name": "Natural gas per tonne of glass",
+            "user_grade": "MANDATORY",
+            "value": 25,
+            "physical_unit": "t/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{NG}$",
+            "reference": "GLASS_ET.lua",
+            "description": "PLACEHOLDER marked 'to fix' in the Lua file; not used by any unit. The furnace fuel is supplied by the separate furnace models"
+        },
+        {
+            "var_name": "Fuel_oil_in_r",
+            "type": "LITERATURE",
+            "full_name": "Fuel oil per tonne of glass",
+            "user_grade": "MANDATORY",
+            "value": 25,
+            "physical_unit": "t/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{oil}$",
+            "reference": "GLASS_ET.lua",
+            "description": "PLACEHOLDER marked 'to fix' in the Lua file; not used by any unit"
+        },
+        {
+            "var_name": "Electricity_in_r",
+            "type": "LITERATURE",
+            "full_name": "Electricity per kg of glass",
+            "user_grade": "MANDATORY",
+            "value": 0.222,
+            "physical_unit": "kWh/kg",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$e_{glass}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Electricity of the forming and finishing per kg of float glass"
+        },
+        {
+            "var_name": "wastewater_r",
+            "type": "LITERATURE",
+            "full_name": "Waste water per tonne of glass",
+            "user_grade": "MANDATORY",
+            "value": 0.77,
+            "physical_unit": "t/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{WW}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Waste water per tonne of float glass"
+        },
+        {
+            "var_name": "solid_waste_r",
+            "type": "LITERATURE",
+            "full_name": "Solid waste per tonne of glass",
+            "user_grade": "MANDATORY",
+            "value": 0.0037,
+            "physical_unit": "t/t",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{SW}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Solid waste per tonne of float glass"
+        },
+        {
+            "var_name": "Sand_cp",
+            "type": "LITERATURE",
+            "full_name": "Heat capacity of sand",
+            "user_grade": "MANDATORY",
+            "value": 0.83,
+            "physical_unit": "J/gC",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{p,sand}$",
+            "reference": "https://www.engineeringtoolbox.com/specific-heat-capacity-d_391.html",
+            "description": "Specific heat capacity of silica sand"
+        },
+        {
+            "var_name": "Soda_cp",
+            "type": "LITERATURE",
+            "full_name": "Heat capacity of soda ash",
+            "user_grade": "MANDATORY",
+            "value": 1.06,
+            "physical_unit": "J/gC",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{p,soda}$",
+            "reference": "https://en.wikipedia.org/wiki/Sodium_carbonate",
+            "description": "Specific heat capacity of soda ash (not used: soda ash is left out of the batch heat demand in the Lua file)"
+        },
+        {
+            "var_name": "Dolomite_cp",
+            "type": "LITERATURE",
+            "full_name": "Heat capacity of dolomite",
+            "user_grade": "MANDATORY",
+            "value": 0.92,
+            "physical_unit": "J/gC",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{p,dol}$",
+            "reference": "https://www.engineeringtoolbox.com/specific-heat-solids-d_154.html",
+            "description": "Specific heat capacity of dolomite"
+        },
+        {
+            "var_name": "Cullet_int_cp",
+            "type": "LITERATURE",
+            "full_name": "Heat capacity of internal cullet",
+            "user_grade": "MANDATORY",
+            "value": 0.7,
+            "physical_unit": "J/gC",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{p,cul}$",
+            "reference": "https://www.engineeringtoolbox.com/specific-heat-capacity-d_391.html",
+            "description": "Specific heat capacity of the cullet, used for both internal and external cullet"
+        },
+        {
+            "var_name": "Cullet_ext_cp",
+            "type": "LITERATURE",
+            "full_name": "Heat capacity of external cullet",
+            "user_grade": "MANDATORY",
+            "value": 0.7,
+            "physical_unit": "J/gC",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{p,cul,ext}$",
+            "reference": "https://www.engineeringtoolbox.com/specific-heat-capacity-d_391.html",
+            "description": "Specific heat capacity of the external cullet (not used: the Lua file uses Cullet_int_cp for all cullet)"
+        },
+        {
+            "var_name": "Limestone_cp",
+            "type": "LITERATURE",
+            "full_name": "Heat capacity of limestone",
+            "user_grade": "MANDATORY",
+            "value": 0.909,
+            "physical_unit": "J/gC",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{p,lime}$",
+            "reference": "https://www.engineeringtoolbox.com/specific-heat-capacity-d_391.html",
+            "description": "Specific heat capacity of limestone"
+        },
+        {
+            "var_name": "NaSO4_cp",
+            "type": "LITERATURE",
+            "full_name": "Heat capacity of sodium sulfate",
+            "user_grade": "MANDATORY",
+            "value": 0.902,
+            "physical_unit": "J/gC",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{p,Na_2SO_4}$",
+            "reference": "https://www.engineeringtoolbox.com/specific-heat-capacity-d_391.html",
+            "description": "Specific heat capacity of sodium sulfate"
+        },
+        {
+            "var_name": "Feldspar_cp",
+            "type": "LITERATURE",
+            "full_name": "Heat capacity of feldspar",
+            "user_grade": "MANDATORY",
+            "value": 0.75,
+            "physical_unit": "J/gC",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{p,feld}$",
+            "reference": "https://pubs.usgs.gov/of/1988/0441/report.pdf",
+            "description": "Specific heat capacity of feldspar"
+        },
+        {
+            "var_name": "Oxygen_cp",
+            "type": "LITERATURE",
+            "full_name": "Heat capacity of oxygen",
+            "user_grade": "MANDATORY",
+            "value": 0.918,
+            "physical_unit": "J/gC",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{p,O_2}$",
+            "reference": "https://www.engineeringtoolbox.com/specific-heat-capacity-d_391.html",
+            "description": "Specific heat capacity of oxygen (not used)"
+        },
+        {
+            "var_name": "Nitrogen_cp",
+            "type": "LITERATURE",
+            "full_name": "Heat capacity of nitrogen",
+            "user_grade": "MANDATORY",
+            "value": 1.04,
+            "physical_unit": "J/gC",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{p,N_2}$",
+            "reference": "https://www.engineeringtoolbox.com/specific-heat-capacity-d_391.html",
+            "description": "Specific heat capacity of nitrogen (not used)"
+        },
+        {
+            "var_name": "Hydrogen_cp",
+            "type": "LITERATURE",
+            "full_name": "Heat capacity of hydrogen",
+            "user_grade": "MANDATORY",
+            "value": 14.304,
+            "physical_unit": "J/gC",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{p,H_2}$",
+            "reference": "https://www.engineeringtoolbox.com/specific-heat-capacity-d_391.html",
+            "description": "Specific heat capacity of hydrogen (not used)"
+        },
+        {
+            "var_name": "NaCl_cp",
+            "type": "LITERATURE",
+            "full_name": "Heat capacity of sodium chloride",
+            "user_grade": "MANDATORY",
+            "value": 0.88,
+            "physical_unit": "J/gC",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{p,NaCl}$",
+            "reference": "https://www.engineeringtoolbox.com/specific-heat-capacity-d_391.html",
+            "description": "Specific heat capacity of sodium chloride"
+        },
+        {
+            "var_name": "Slag_cp",
+            "type": "LITERATURE",
+            "full_name": "Heat capacity of slag",
+            "user_grade": "MANDATORY",
+            "value": 1.05,
+            "physical_unit": "J/gC",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{p,slag}$",
+            "reference": "https://benthamopen.com/contents/pdf/TOEFJ/TOEFJ-8-356.pdf",
+            "description": "Specific heat capacity of slag"
+        },
+        {
+            "var_name": "Coal_cp",
+            "type": "LITERATURE",
+            "full_name": "Heat capacity of coal",
+            "user_grade": "MANDATORY",
+            "value": 1.02,
+            "physical_unit": "J/gC",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{p,coal}$",
+            "reference": "https://www.engineeringtoolbox.com/specific-heat-capacity-d_391.html",
+            "description": "Specific heat capacity of coal (not used)"
+        },
+        {
+            "var_name": "Water_cp",
+            "type": "LITERATURE",
+            "full_name": "Heat capacity of water",
+            "user_grade": "MANDATORY",
+            "value": 4.18,
+            "physical_unit": "J/gC",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{p,H_2O}$",
+            "reference": "https://www.engineeringtoolbox.com/specific-heat-capacity-d_391.html",
+            "description": "Specific heat capacity of water (not used)"
+        },
+        {
+            "var_name": "CO2_cp",
+            "type": "LITERATURE",
+            "full_name": "Heat capacity of CO2",
+            "user_grade": "MANDATORY",
+            "value": 1.014,
+            "physical_unit": "J/gC",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{p,CO_2}$",
+            "reference": "https://www.engineeringtoolbox.com/specific-heat-capacity-d_391.html",
+            "description": "Specific heat capacity of CO2"
+        },
+        {
+            "var_name": "glass_cp",
+            "type": "LITERATURE",
+            "full_name": "Heat capacity of glass",
+            "user_grade": "MANDATORY",
+            "value": 1.5,
+            "physical_unit": "J/gC",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{p,glass}$",
+            "reference": "https://www.engineeringtoolbox.com/specific-heat-capacity-d_391.html",
+            "description": "Specific heat capacity of the glass ribbon"
+        },
+        {
+            "var_name": "material_in_temp",
+            "type": "CONTEXT",
+            "full_name": "Batch inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 25,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{batch}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Ambient temperature of the raw material batch"
+        },
+        {
+            "var_name": "cullet_in_temp",
+            "type": "CONTEXT",
+            "full_name": "Cullet inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 25,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{cullet}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Inlet temperature of the cullet"
+        },
+        {
+            "var_name": "prep_temp",
+            "type": "CONTEXT",
+            "full_name": "Preheating temperature",
+            "user_grade": "MANDATORY",
+            "value": 200,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{prep}$",
+            "reference": "Salman et al. (2025)",
+            "description": "Temperature to which the batch and the cullet are preheated with waste heat"
+        },
+        {
+            "var_name": "melting_temp",
+            "type": "CONTEXT",
+            "full_name": "Melting temperature",
+            "user_grade": "MANDATORY",
+            "value": 1600,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{melt}$",
+            "reference": "Salman et al. (2025)",
+            "description": "Temperature of the melting zone of the furnace"
+        },
+        {
+            "var_name": "solid_temp",
+            "type": "CONTEXT",
+            "full_name": "Solidification temperature",
+            "user_grade": "MANDATORY",
+            "value": 1350,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{solid}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Temperature at which the latent heat of solidification is released"
+        },
+        {
+            "var_name": "hotgases_temp",
+            "type": "CONTEXT",
+            "full_name": "Flue gas temperature at the furnace exit",
+            "user_grade": "MANDATORY",
+            "value": 1100,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{fg}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Flue gas temperature at the furnace exit (for the disabled flue gas cooling stream)"
+        },
+        {
+            "var_name": "T_stack_furnace",
+            "type": "CONTEXT",
+            "full_name": "Minimum stack temperature",
+            "user_grade": "MANDATORY",
+            "value": 230,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{stack}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Minimum stack temperature, set by the dew point (for the disabled flue gas cooling stream)"
+        },
+        {
+            "var_name": "forming_temp",
+            "type": "CONTEXT",
+            "full_name": "Tin bath exit temperature",
+            "user_grade": "MANDATORY",
+            "value": 600,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{form}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Temperature of the glass ribbon at the end of the forming zone (tin bath exit)"
+        },
+        {
+            "var_name": "finishing_temp",
+            "type": "CONTEXT",
+            "full_name": "Annealing lehr exit temperature",
+            "user_grade": "MANDATORY",
+            "value": 350,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{fin}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Temperature of the glass at the end of the finishing and annealing zone"
+        },
+        {
+            "var_name": "T_ambient",
+            "type": "CONTEXT",
+            "full_name": "Ambient temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{amb}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Ambient temperature"
+        },
+        {
+            "var_name": "melting_sl",
+            "type": "LITERATURE",
+            "full_name": "Specific latent heat of glass",
+            "user_grade": "MANDATORY",
+            "value": 0.136,
+            "physical_unit": "kWh",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$l_{glass}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Specific latent heat of solidification of the glass. The Lua file divides it by 3600 in latent_heat, which makes the latent heat very small"
+        },
+        {
+            "var_name": "heat_rx_r",
+            "type": "LITERATURE",
+            "full_name": "Specific heat of the batch reactions",
+            "user_grade": "MANDATORY",
+            "value": 0.05,
+            "physical_unit": "kWh/kg",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{rx}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Endothermic heat of the batch reactions per kg of glass (originally 0.101 kWh/kg)"
+        },
+        {
+            "var_name": "cullet_int_rec",
+            "type": "CONTEXT",
+            "full_name": "Internal cullet recovery fraction",
+            "user_grade": "MANDATORY",
+            "value": 0.1,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$x_{cul}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Fraction of the glass recovered as internal cullet (not used)"
+        },
+        {
+            "var_name": "dtmin",
+            "type": "CONTEXT",
+            "full_name": "Delta Tmin of the furnace streams",
+            "user_grade": "MANDATORY",
+            "value": 150,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Minimum temperature difference contribution of the melting, forming and reaction streams"
+        },
+        {
+            "var_name": "dtmin_finishing",
+            "type": "CONTEXT",
+            "full_name": "Delta Tmin of the finishing streams",
+            "user_grade": "MANDATORY",
+            "value": 10,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,fin}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Minimum temperature difference contribution of the finishing streams (not used: the Lua streams give 5 °C directly)"
+        },
+        {
+            "var_name": "Number_year_ws",
+            "type": "CONTEXT",
+            "full_name": "Lifetime",
+            "user_grade": "MANDATORY",
+            "value": 40,
+            "physical_unit": "year",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$n$",
+            "reference": "GLASS_ET.lua",
+            "description": "Expected investment lifetime"
+        },
+        {
+            "var_name": "Interest_rate_ws",
+            "type": "CONTEXT",
+            "full_name": "Interest rate",
+            "user_grade": "MANDATORY",
+            "value": 0.06,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$i$",
+            "reference": "GLASS_ET.lua",
+            "description": "Discount interest rate"
+        },
+        {
+            "var_name": "year2hour",
+            "type": "CONTEXT",
+            "full_name": "Hours per year",
+            "user_grade": "MANDATORY",
+            "value": 8760,
+            "physical_unit": "h/y",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$t_{year}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Year-to-hour conversion"
+        },
+        {
+            "var_name": "Cinv2_glass_float",
+            "type": "LITERATURE",
+            "full_name": "Investment of the reference float glass plant",
+            "user_grade": "MANDATORY",
+            "value": 162430000,
+            "physical_unit": "EUR",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$C_{ref}$",
+            "reference": "https://blog.marketresearch.com/flat-glass-manufacturers-expand-into-developing-areas",
+            "description": "Investment of a 500 t/day float glass plant, 175 MUSD converted to EUR"
+        },
+        {
+            "var_name": "ref_size",
+            "type": "LITERATURE",
+            "full_name": "Reference plant size",
+            "user_grade": "MANDATORY",
+            "value": 20833.33,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{ref}$",
+            "reference": "https://blog.marketresearch.com/flat-glass-manufacturers-expand-into-developing-areas",
+            "description": "Size of the reference plant, 500 t/day"
+        },
+        {
+            "var_name": "CEPCI_2020",
+            "type": "CONTEXT",
+            "full_name": "CEPCI 2020",
+            "user_grade": "MANDATORY",
+            "value": 596.2,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$CEPCI_{2020}$",
+            "reference": "GLASS_ET.lua",
+            "description": "CEPCI index 2020 (not used)"
+        },
+        {
+            "var_name": "CEPCI_2008",
+            "type": "CONTEXT",
+            "full_name": "CEPCI 2008",
+            "user_grade": "MANDATORY",
+            "value": 575.4,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$CEPCI_{2008}$",
+            "reference": "GLASS_ET.lua",
+            "description": "CEPCI index 2008 (not used)"
+        },
+        {
+            "var_name": "CEPCI_2024",
+            "type": "CONTEXT",
+            "full_name": "CEPCI 2024",
+            "user_grade": "MANDATORY",
+            "value": 795.4,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$CEPCI_{2024}$",
+            "reference": "GLASS_ET.lua",
+            "description": "CEPCI index 2024"
+        },
+        {
+            "var_name": "CEPCI_2018",
+            "type": "CONTEXT",
+            "full_name": "CEPCI 2018",
+            "user_grade": "MANDATORY",
+            "value": 603.1,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$CEPCI_{2018}$",
+            "reference": "GLASS_ET.lua",
+            "description": "CEPCI index 2018"
+        },
+        {
+            "var_name": "Sand_in",
+            "type": "CALCULATED",
+            "full_name": "Sand feed",
+            "user_grade": "MANDATORY",
+            "value": 21666.664500000003,
+            "physical_unit": "kg/h",
+            "formula": "Sand_in_r*float_product",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{Sand}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Sand fed to the plant"
+        },
+        {
+            "var_name": "Soda_in",
+            "type": "CALCULATED",
+            "full_name": "Soda ash feed",
+            "user_grade": "MANDATORY",
+            "value": 6666.666000000001,
+            "physical_unit": "kg/h",
+            "formula": "Soda_in_r*float_product",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{Soda}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Soda ash fed to the plant"
+        },
+        {
+            "var_name": "Dolomite_in",
+            "type": "CALCULATED",
+            "full_name": "Dolomite feed",
+            "user_grade": "MANDATORY",
+            "value": 5666.6661,
+            "physical_unit": "kg/h",
+            "formula": "Dolomite_in_r*float_product",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{Dolomite}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Dolomite fed to the plant"
+        },
+        {
+            "var_name": "Cullet_int_in",
+            "type": "CALCULATED",
+            "full_name": "Internal cullet feed",
+            "user_grade": "MANDATORY",
+            "value": 3333.3330000000005,
+            "physical_unit": "kg/h",
+            "formula": "Cullet_int_in_r*float_product",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{Cullet\\_int}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Internal cullet fed to the plant"
+        },
+        {
+            "var_name": "Cullet_ext_in",
+            "type": "CALCULATED",
+            "full_name": "External cullet feed",
+            "user_grade": "MANDATORY",
+            "value": 5333.3328,
+            "physical_unit": "kg/h",
+            "formula": "Cullet_ext_in_r*float_product",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{Cullet\\_ext}$",
+            "reference": "GLASS_ET.lua",
+            "description": "External cullet fed to the plant"
+        },
+        {
+            "var_name": "Limestone_in",
+            "type": "CALCULATED",
+            "full_name": "Limestone feed",
+            "user_grade": "MANDATORY",
+            "value": 1333.3332,
+            "physical_unit": "kg/h",
+            "formula": "Limestone_in_r*float_product",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{Limestone}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Limestone fed to the plant"
+        },
+        {
+            "var_name": "NaSO4_in",
+            "type": "CALCULATED",
+            "full_name": "Sodium sulfate feed",
+            "user_grade": "MANDATORY",
+            "value": 333.3333,
+            "physical_unit": "kg/h",
+            "formula": "NaSO4_in_r*float_product",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{NaSO4}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Sodium sulfate fed to the plant"
+        },
+        {
+            "var_name": "Feldspar_in",
+            "type": "CALCULATED",
+            "full_name": "Feldspar feed",
+            "user_grade": "MANDATORY",
+            "value": 145.9999854,
+            "physical_unit": "kg/h",
+            "formula": "Feldspar_in_r*float_product",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{Feldspar}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Feldspar fed to the plant"
+        },
+        {
+            "var_name": "Oxygen_in",
+            "type": "CALCULATED",
+            "full_name": "Oxygen feed",
+            "user_grade": "MANDATORY",
+            "value": 333.3333,
+            "physical_unit": "kg/h",
+            "formula": "Oxygen_in_r*float_product",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{Oxygen}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Oxygen fed to the plant (not used by any unit)"
+        },
+        {
+            "var_name": "Nitrogen_in",
+            "type": "CALCULATED",
+            "full_name": "Nitrogen feed",
+            "user_grade": "MANDATORY",
+            "value": 2999.9997,
+            "physical_unit": "kg/h",
+            "formula": "Nitrogen_in_r*float_product",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{Nitrogen}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Nitrogen fed to the plant"
+        },
+        {
+            "var_name": "Hydrogen_in",
+            "type": "CALCULATED",
+            "full_name": "Hydrogen feed",
+            "user_grade": "MANDATORY",
+            "value": 12.23333211,
+            "physical_unit": "kg/h",
+            "formula": "Hydrogen_in_r*float_product",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{Hydrogen}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Hydrogen fed to the plant"
+        },
+        {
+            "var_name": "NaCl_in",
+            "type": "CALCULATED",
+            "full_name": "Sodium chloride feed",
+            "user_grade": "MANDATORY",
+            "value": 1.79999982,
+            "physical_unit": "kg/h",
+            "formula": "NaCl_in_r*float_product",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{NaCl}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Sodium chloride fed to the plant"
+        },
+        {
+            "var_name": "Slag_in",
+            "type": "CALCULATED",
+            "full_name": "Slag feed",
+            "user_grade": "MANDATORY",
+            "value": 666.6666,
+            "physical_unit": "kg/h",
+            "formula": "Slag_in_r*float_product",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{Slag}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Slag fed to the plant"
+        },
+        {
+            "var_name": "Coal_in",
+            "type": "CALCULATED",
+            "full_name": "Coal feed",
+            "user_grade": "MANDATORY",
+            "value": 2.5099997490000003,
+            "physical_unit": "kg/h",
+            "formula": "Coal_in_r*float_product",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{Coal}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Coal fed to the plant"
+        },
+        {
+            "var_name": "Water_in",
+            "type": "CALCULATED",
+            "full_name": "Water feed",
+            "user_grade": "MANDATORY",
+            "value": 47999.9952,
+            "physical_unit": "kg/h",
+            "formula": "Water_in_r*float_product",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{Water}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Water fed to the plant"
+        },
+        {
+            "var_name": "NG_in",
+            "type": "CALCULATED",
+            "full_name": "Natural gas feed",
+            "user_grade": "MANDATORY",
+            "value": 833333.25,
+            "physical_unit": "kg/h",
+            "formula": "NG_in_r*float_product",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{NG}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Natural gas fed to the plant (not used by any unit)"
+        },
+        {
+            "var_name": "Fuel_oil_in",
+            "type": "CALCULATED",
+            "full_name": "Fuel oil feed",
+            "user_grade": "MANDATORY",
+            "value": 833333.25,
+            "physical_unit": "kg/h",
+            "formula": "Fuel_oil_in_r*float_product",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{Fuel\\_oil}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Fuel oil fed to the plant (not used by any unit)"
+        },
+        {
+            "var_name": "Electricity_in",
+            "type": "CALCULATED",
+            "full_name": "Electricity demand",
+            "user_grade": "MANDATORY",
+            "value": 7399.9992600000005,
+            "physical_unit": "kW",
+            "formula": "Electricity_in_r*float_product",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot E_{glass}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Electricity of the forming and finishing"
+        },
+        {
+            "var_name": "wastewater_out",
+            "type": "CALCULATED",
+            "full_name": "Waste water",
+            "user_grade": "MANDATORY",
+            "value": 25666.6641,
+            "physical_unit": "kg/h",
+            "formula": "wastewater_r*float_product",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{WW}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Waste water of the plant"
+        },
+        {
+            "var_name": "solid_waste_out",
+            "type": "CALCULATED",
+            "full_name": "Solid waste",
+            "user_grade": "MANDATORY",
+            "value": 123.33332100000001,
+            "physical_unit": "kg/h",
+            "formula": "solid_waste_r*float_product",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{SW}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Solid waste of the plant"
+        },
+        {
+            "var_name": "CO2emissions",
+            "type": "CALCULATED",
+            "full_name": "Process CO2 emissions",
+            "user_grade": "MANDATORY",
+            "value": 6058.227746542136,
+            "physical_unit": "kg/h",
+            "formula": "Soda_in*44/106+Dolomite_in*88/184.4+Limestone_in*44/100",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{CO_2}$",
+            "reference": "Salman et al. (2025)",
+            "description": "CO2 released by the decomposition of the carbonates: 44/106 kg/kg of soda ash, 88/184.4 kg/kg of dolomite and 44/100 kg/kg of limestone"
+        },
+        {
+            "var_name": "melted_glass_cullet",
+            "type": "CALCULATED",
+            "full_name": "Melted glass from cullet",
+            "user_grade": "MANDATORY",
+            "value": 8666.6658,
+            "physical_unit": "kg/h",
+            "formula": "Cullet_int_in+Cullet_ext_in",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{melt,cul}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Molten glass from the internal and external cullet"
+        },
+        {
+            "var_name": "melted_glass_solids",
+            "type": "CALCULATED",
+            "full_name": "Melted glass from the batch",
+            "user_grade": "MANDATORY",
+            "value": 23632.902617677868,
+            "physical_unit": "kg/h",
+            "formula": "Sand_in+Dolomite_in+Limestone_in+NaSO4_in+Feldspar_in+NaCl_in+Slag_in-CO2emissions-solid_waste_out",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{melt,batch}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Molten glass from the raw material batch, after the CO2 and the solid waste are removed. As in the Lua file, the soda ash is not counted"
+        },
+        {
+            "var_name": "glass_product",
+            "type": "CALCULATED",
+            "full_name": "Total melted glass",
+            "user_grade": "MANDATORY",
+            "value": 32299.568417677867,
+            "physical_unit": "kg/h",
+            "formula": "melted_glass_cullet+melted_glass_solids",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{melt}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Molten glass from the cullet and the batch"
+        },
+        {
+            "var_name": "tot_mass",
+            "type": "CALCULATED",
+            "full_name": "Total batch mass",
+            "user_grade": "MANDATORY",
+            "value": 38481.12948522,
+            "physical_unit": "kg/h",
+            "formula": "Sand_in+Dolomite_in+Limestone_in+NaSO4_in+Feldspar_in+NaCl_in+Slag_in+Cullet_ext_in+Cullet_int_in",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{batch}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Total mass of the solid raw materials and the cullet (debug check in the Lua file)"
+        },
+        {
+            "var_name": "tot_mass_with_cp",
+            "type": "CALCULATED",
+            "full_name": "Heat capacity flow of the batch",
+            "user_grade": "MANDATORY",
+            "value": 25520.414781291605,
+            "physical_unit": "kJ/hC",
+            "formula": "Sand_in*Sand_cp+Dolomite_in*Dolomite_cp+Limestone_in*Limestone_cp+NaSO4_in*NaSO4_cp+Feldspar_in*Feldspar_cp+NaCl_in*NaCl_cp+Slag_in*Slag_cp",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m c_{p,batch}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Sum of mass flow times heat capacity of the solid raw materials, without the cullet and the soda ash"
+        },
+        {
+            "var_name": "prep_heating",
+            "type": "CALCULATED",
+            "full_name": "Batch preheating heat",
+            "user_grade": "MANDATORY",
+            "value": 1240.5757185350087,
+            "physical_unit": "kW",
+            "formula": "tot_mass_with_cp*(prep_temp-material_in_temp)/3600",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{prep}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Heat to preheat the batch from 25 to 200 °C"
+        },
+        {
+            "var_name": "melting_q",
+            "type": "CALCULATED",
+            "full_name": "Batch melting heat",
+            "user_grade": "MANDATORY",
+            "value": 9924.60574828007,
+            "physical_unit": "kW",
+            "formula": "tot_mass_with_cp*(melting_temp-prep_temp)/3600",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{melt}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Heat to bring the batch from 200 to 1600 °C"
+        },
+        {
+            "var_name": "hot_gases_cooling_q",
+            "type": "CALCULATED",
+            "full_name": "Flue gas sensible heat",
+            "user_grade": "MANDATORY",
+            "value": 1484.5687092901505,
+            "physical_unit": "kW",
+            "formula": "CO2emissions*CO2_cp*(hotgases_temp-T_stack_furnace)/3600",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{fg}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Sensible heat of the process CO2 between the furnace exit and the stack (for future use with oxy-combustion and CCS; not used)"
+        },
+        {
+            "var_name": "cullet_q",
+            "type": "CALCULATED",
+            "full_name": "Cullet preheating heat",
+            "user_grade": "MANDATORY",
+            "value": 294.9073779166667,
+            "physical_unit": "kW",
+            "formula": "(Cullet_int_in+Cullet_ext_in)*Cullet_int_cp*(prep_temp-material_in_temp)/3600",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{prep,cul}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Heat to preheat the cullet from 25 to 200 °C"
+        },
+        {
+            "var_name": "cullet_melting_q",
+            "type": "CALCULATED",
+            "full_name": "Cullet melting heat",
+            "user_grade": "MANDATORY",
+            "value": 2359.2590233333335,
+            "physical_unit": "kW",
+            "formula": "(Cullet_int_in+Cullet_ext_in)*Cullet_int_cp*(melting_temp-prep_temp)/3600",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{melt,cul}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Heat to bring the cullet from 200 to 1600 °C"
+        },
+        {
+            "var_name": "latent_heat",
+            "type": "CALCULATED",
+            "full_name": "Latent heat of the glass",
+            "user_grade": "MANDATORY",
+            "value": 1.220205918001164,
+            "physical_unit": "kW",
+            "formula": "glass_product*melting_sl/3600",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{lat}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Latent heat of melting and solidification of the glass"
+        },
+        {
+            "var_name": "heat_rx",
+            "type": "CALCULATED",
+            "full_name": "Heat of the batch reactions",
+            "user_grade": "MANDATORY",
+            "value": 1614.9784208838935,
+            "physical_unit": "kW",
+            "formula": "glass_product*heat_rx_r",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{rx}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Endothermic heat of the batch reactions between 1300 and 1600 °C"
+        },
+        {
+            "var_name": "annealing_q",
+            "type": "CALCULATED",
+            "full_name": "Annealing reheat",
+            "user_grade": "MANDATORY",
+            "value": 1345.8153507365778,
+            "physical_unit": "kW",
+            "formula": "glass_product*glass_cp*(600-500)/3600",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{anneal}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Heat to reheat the glass in the annealing zone, from 500 to 600 °C"
+        },
+        {
+            "var_name": "forming_q",
+            "type": "CALCULATED",
+            "full_name": "Tin bath cooling heat",
+            "user_grade": "MANDATORY",
+            "value": 13458.15350736578,
+            "physical_unit": "kW",
+            "formula": "glass_product*glass_cp*(melting_temp-forming_temp)/3600",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{form}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Heat released by the glass ribbon from 1600 to 600 °C in the tin bath"
+        },
+        {
+            "var_name": "finishing_q",
+            "type": "CALCULATED",
+            "full_name": "Annealing lehr cooling heat",
+            "user_grade": "MANDATORY",
+            "value": 3364.538376841445,
+            "physical_unit": "kW",
+            "formula": "glass_product*glass_cp*(forming_temp-finishing_temp)/3600",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{fin}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Heat released by the glass from 600 to 350 °C in the annealing lehr"
+        },
+        {
+            "var_name": "glass_cooling",
+            "type": "CALCULATED",
+            "full_name": "Final glass cooling heat",
+            "user_grade": "MANDATORY",
+            "value": 4306.609122357049,
+            "physical_unit": "kW",
+            "formula": "glass_product*glass_cp*(finishing_temp-T_ambient)/3600",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{cool}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Heat released by the glass from 350 to 30 °C in open air, hard to recover (not used)"
+        },
+        {
+            "var_name": "Annuity",
+            "type": "CALCULATED",
+            "full_name": "Annualization factor",
+            "user_grade": "MANDATORY",
+            "value": 0.0664615359206755,
+            "physical_unit": "-",
+            "formula": "(Interest_rate_ws*(Interest_rate_ws+1)**Number_year_ws)/((Interest_rate_ws+1)**Number_year_ws-1)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$a$",
+            "reference": "GLASS_ET.lua",
+            "description": "Annualization factor over Number_year_ws years at Interest_rate_ws"
+        },
+        {
+            "var_name": "Cinv2_float",
+            "type": "CALCULATED",
+            "full_name": "Annualized investment of the float line",
+            "user_grade": "MANDATORY",
+            "value": 12269256.275385527,
+            "physical_unit": "EUR/year",
+            "formula": "Cinv2_glass_float*Annuity*((float_product/ref_size)**0.6)*(CEPCI_2024/CEPCI_2018)*0.65",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$C^{inv}_{float}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Annualized investment of the float glass plant, scaled from the reference plant with an exponent of 0.6 and the CEPCI, times 0.65 because 35 % of the plant cost is the furnace heating, which the furnace models cover"
+        }
+    ],
+    "units": [
+        {
+            "unit_description": "This unit preheats and melts the internal and external cullet, 8,667 kg/h of recycled glass, from 25 to 1600 °C.",
+            "unit_info": {
+                "unit_name": "glass_melting_cullet",
+                "full_name": "Cullet melting",
+                "unit_type": "utility",
+                "minimum_capacity_multiplier": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 1,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes the internal and external cullet and delivers molten glass to the float line.",
+            "connectors": [
+                {
+                    "name": "CULLET_INT",
+                    "full_name": "Internal cullet",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 3333.3330000000005,
+                        "formula": "=Cullet_int_in",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Recycled glass from the plant itself"
+                },
+                {
+                    "name": "CULLET_EXT",
+                    "full_name": "External cullet",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 5333.3328,
+                        "formula": "=Cullet_ext_in",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Recycled post-consumer glass"
+                },
+                {
+                    "name": "MELTED_GLASS",
+                    "full_name": "Melted glass",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 8666.6658,
+                        "formula": "=melted_glass_cullet",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": -1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "Molten glass from the cullet, to the float line"
+                }
+            ],
+            "heat_streams_description": "The cullet is preheated to 200 °C with recovered heat (HREC heat cascade) and then melted.",
+            "heat_streams": [
+                {
+                    "name": "cullet_heating",
+                    "full_name": "Cullet preheating",
+                    "description": "Cullet preheated from 25 to 200 °C with recovered heat",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 25,
+                        "formula": "=cullet_in_temp",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 200,
+                        "formula": "=prep_temp",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 294.9073779166667,
+                        "formula": "=cullet_q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 150,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "HREC",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "melting_heat_cullet",
+                    "full_name": "Cullet melting",
+                    "description": "Cullet heated from 200 to 1600 °C and melted",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 200,
+                        "formula": "=prep_temp",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 1600,
+                        "formula": "=melting_temp",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 2359.2590233333335,
+                        "formula": "=cullet_melting_q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 150,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                }
+            ],
+            "equipments_description": "",
+            "equipments": [],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        },
+        {
+            "unit_description": "This unit preheats and melts the raw material batch (sand, soda ash, dolomite, limestone, sodium sulfate, feldspar, sodium chloride, slag and coal) and releases the CO2 of the carbonate decomposition. It also takes the nitrogen, hydrogen and water of the plant and delivers its waste water and solid waste.",
+            "unit_info": {
+                "unit_name": "glass_melting_solids",
+                "full_name": "Batch melting",
+                "unit_type": "utility",
+                "minimum_capacity_multiplier": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 1000000000,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes the raw materials, nitrogen, hydrogen and water, and delivers molten glass, process CO2, waste water and solid waste.",
+            "connectors": [
+                {
+                    "name": "SAND",
+                    "full_name": "Sand",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 21666.664500000003,
+                        "formula": "=Sand_in",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "SiO2[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Silica sand"
+                },
+                {
+                    "name": "SODA",
+                    "full_name": "Soda ash",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 6666.666000000001,
+                        "formula": "=Soda_in",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "Na2CO3[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Soda ash"
+                },
+                {
+                    "name": "DOLOMITE",
+                    "full_name": "Dolomite",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 5666.6661,
+                        "formula": "=Dolomite_in",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "CaMg(CO3)2[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Dolomite"
+                },
+                {
+                    "name": "LIMESTONE",
+                    "full_name": "Limestone",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 1333.3332,
+                        "formula": "=Limestone_in",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "CaCO3[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Limestone"
+                },
+                {
+                    "name": "NASO4",
+                    "full_name": "Sodium sulfate",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 333.3333,
+                        "formula": "=NaSO4_in",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "Na2SO4[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Sodium sulfate, refining agent"
+                },
+                {
+                    "name": "FELDSPAR",
+                    "full_name": "Feldspar",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 145.9999854,
+                        "formula": "=Feldspar_in",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Feldspar"
+                },
+                {
+                    "name": "NITROGEN",
+                    "full_name": "Nitrogen",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 2999.9997,
+                        "formula": "=Nitrogen_in",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "N2[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Nitrogen for the protective atmosphere of the tin bath"
+                },
+                {
+                    "name": "HYDROGEN",
+                    "full_name": "Hydrogen",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 12.23333211,
+                        "formula": "=Hydrogen_in",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "H2[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Hydrogen for the protective atmosphere of the tin bath"
+                },
+                {
+                    "name": "NACL",
+                    "full_name": "Sodium chloride",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 1.79999982,
+                        "formula": "=NaCl_in",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "NaCl[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Sodium chloride"
+                },
+                {
+                    "name": "SLAG",
+                    "full_name": "Slag",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 666.6666,
+                        "formula": "=Slag_in",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Slag"
+                },
+                {
+                    "name": "COAL",
+                    "full_name": "Coal",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 2.5099997490000003,
+                        "formula": "=Coal_in",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Coal, reducing agent"
+                },
+                {
+                    "name": "WATER",
+                    "full_name": "Water",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 47999.9952,
+                        "formula": "=Water_in",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": -1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "H2O[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Process water"
+                },
+                {
+                    "name": "WASTEWATER",
+                    "full_name": "Waste water",
+                    "scope": "GLOBAL",
+                    "type": "WASTE",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 25666.6641,
+                        "formula": "=wastewater_out",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": -1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Waste water of the plant"
+                },
+                {
+                    "name": "SOLID_WASTE",
+                    "full_name": "Solid waste",
+                    "scope": "GLOBAL",
+                    "type": "WASTE",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 123.33332100000001,
+                        "formula": "=solid_waste_out",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Solid waste of the plant"
+                },
+                {
+                    "name": "FLUE_GAS",
+                    "full_name": "Process CO2",
+                    "scope": "GLOBAL",
+                    "type": "EMISSIONS",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 6058.227746542136,
+                        "formula": "=CO2emissions",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "CO2[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "CO2 from the decomposition of the carbonates, in the furnace flue gas"
+                },
+                {
+                    "name": "MELTED_GLASS",
+                    "full_name": "Melted glass",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 23632.902617677868,
+                        "formula": "=melted_glass_solids",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": -1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "Molten glass from the batch, to the float line"
+                }
+            ],
+            "heat_streams_description": "The batch is preheated to 200 °C with recovered heat (HREC heat cascade) and then melted. The flue gas cooling stream of the Lua file is disabled, so the furnace heat is supplied by the separate furnace models.",
+            "heat_streams": [
+                {
+                    "name": "prep_heating",
+                    "full_name": "Batch preheating",
+                    "description": "Batch preheated from 25 to 200 °C with recovered heat",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 25,
+                        "formula": "=material_in_temp",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 200,
+                        "formula": "=prep_temp",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 1240.5757185350087,
+                        "formula": "=prep_heating",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 150,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "HREC",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "melting_heat",
+                    "full_name": "Batch melting",
+                    "description": "Batch heated from 200 to 1600 °C and melted",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 200,
+                        "formula": "=prep_temp",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 1600,
+                        "formula": "=melting_temp",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 9924.60574828007,
+                        "formula": "=melting_q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 150,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                }
+            ],
+            "equipments_description": "",
+            "equipments": [],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        },
+        {
+            "unit_description": "This unit forms, anneals and cools the molten glass into 33,333 kg/h (800 t/day) of float glass: refining, forming in the tin bath, annealing in the lehr and cooling.",
+            "unit_info": {
+                "unit_name": "glass_float",
+                "full_name": "Float line",
+                "unit_type": "process",
+                "minimum_capacity_multiplier": {
+                    "value": 1,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 1,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes the molten glass and electricity, and delivers the float glass.",
+            "connectors": [
+                {
+                    "name": "ELECTRICITY",
+                    "full_name": "Electricity",
+                    "scope": "GLOBAL",
+                    "type": "ELECTRICITY",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 7399.9992600000005,
+                        "formula": "=Electricity_in",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Electricity of the forming and finishing"
+                },
+                {
+                    "name": "MELTED_GLASS",
+                    "full_name": "Melted glass",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 33333.33,
+                        "formula": "=float_product",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": -1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Molten glass from the cullet and batch melting units"
+                },
+                {
+                    "name": "FLOAT_GLASS_PRODUCT",
+                    "full_name": "Float glass",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 33333.33,
+                        "formula": "=float_product",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "Float glass product"
+                }
+            ],
+            "heat_streams_description": "The latent heat is taken up at the melting temperature and released at the solidification temperature. The tin bath cooling belongs to the Liqbath heat cascade and the lehr cooling to the Forming heat cascade, so they exchange heat only within them. The final cooling from 350 °C to ambient is not given as a heat stream.",
+            "heat_streams": [
+                {
+                    "name": "latent_q1",
+                    "full_name": "Latent heat of melting",
+                    "description": "Latent heat taken up by the glass at 1600 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 1600,
+                        "formula": "=melting_temp",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 1600,
+                        "formula": "=melting_temp",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 1.220205918001164,
+                        "formula": "=latent_heat",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 150,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "latent_q2",
+                    "full_name": "Latent heat of solidification",
+                    "description": "Latent heat released by the glass at 1350 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 1350,
+                        "formula": "=solid_temp",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 1350,
+                        "formula": "=solid_temp",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 1.220205918001164,
+                        "formula": "=latent_heat",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 150,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "forming_cooling",
+                    "full_name": "Tin bath cooling",
+                    "description": "Glass ribbon cooled from 1600 to 600 °C in the tin bath",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 1600,
+                        "formula": "=melting_temp",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 600,
+                        "formula": "=forming_temp",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 13458.15350736578,
+                        "formula": "=forming_q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 150,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "Liqbath",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "finishing_cooling",
+                    "full_name": "Annealing lehr cooling",
+                    "description": "Glass cooled from 600 to 350 °C in the annealing lehr",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 600,
+                        "formula": "=forming_temp",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 350,
+                        "formula": "=finishing_temp",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 3364.538376841445,
+                        "formula": "=finishing_q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "Forming",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "reaction_q",
+                    "full_name": "Batch reactions",
+                    "description": "Endothermic batch reactions between 1300 and 1600 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 1300,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 1600,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 1614.9784208838935,
+                        "formula": "=heat_rx",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 150,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "annealing_q",
+                    "full_name": "Annealing reheat",
+                    "description": "Glass reheated from 500 to 600 °C for annealing",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 500,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 600,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 1345.8153507365778,
+                        "formula": "=annealing_q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 150,
+                        "formula": "=dtmin",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                }
+            ],
+            "equipments_description": "The float line (forming, annealing, cooling and finishing) is one asset. Its cost excludes the 35 % of the plant cost for the furnace heating, covered by the furnace models.",
+            "equipments": [
+                {
+                    "name": "Float_line_investment",
+                    "full_name": "Investment of the float line",
+                    "type": "Asset",
+                    "subtype": "",
+                    "reference": "https://blog.marketresearch.com/flat-glass-manufacturers-expand-into-developing-areas",
+                    "reference_size": {
+                        "full_name": "Reference size of equipment",
+                        "value": 33333.33,
+                        "formula": "=float_product",
+                        "unit": "kg/h"
+                    },
+                    "lifetime": {
+                        "full_name": "Lifetime",
+                        "value": 40,
+                        "formula": "=Number_year_ws",
+                        "unit": "year"
+                    },
+                    "year": {
+                        "full_name": "Year of reference",
+                        "value": 2024,
+                        "formula": null,
+                        "unit": "year"
+                    },
+                    "CAPEX": {
+                        "full_name": "Total investment cost for ref. size",
+                        "value": 184606872.31227058,
+                        "formula": "=Cinv2_float/Annuity",
+                        "unit": "EUR"
+                    },
+                    "impact": {
+                        "full_name": "Scope 3 environmental impact per unit of ref. size",
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kgCO2-eq"
+                    },
+                    "interest_rate": {
+                        "full_name": "Interest rate",
+                        "value": 0.06,
+                        "formula": "=Interest_rate_ws",
+                        "unit": "-"
+                    },
+                    "F_BM": {
+                        "full_name": "Bare module factor",
+                        "value": 1,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "capacity_exponent": {
+                        "full_name": "Capacity exponent",
+                        "value": 0.6,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "parameters": [
+                        {
+                            "parameter": "Annualised investment (Cinv2 of the Lua unit)",
+                            "value": 12269256.275385527,
+                            "formula": "=Cinv2_float",
+                            "unit": "EUR/year"
+                        }
+                    ]
+                }
+            ],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        },
+        {
+            "unit_description": "This unit is the cooling air of the annealing lehr, per 1 kW: the air takes heat from the glass between 25 and 200 °C and gives it back to the heat recovery cascade, where it can preheat the batch and the cullet. The air mass is about twice the glass mass.",
+            "unit_info": {
+                "unit_name": "air_twin",
+                "full_name": "Lehr cooling air",
+                "unit_type": "utility",
+                "minimum_capacity_multiplier": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 100000,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit has no material connectors: it moves heat from the Forming heat cascade to the HREC heat cascade.",
+            "connectors": [],
+            "heat_streams_description": "One stream takes heat in the Forming heat cascade and the other releases it in the HREC heat cascade.",
+            "heat_streams": [
+                {
+                    "name": "glass_cooling_twin",
+                    "full_name": "Air heated by the glass",
+                    "description": "Air heated from 25 to 200 °C by the glass in the lehr",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 25,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 200,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "Forming",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "glass_cooling_HREC",
+                    "full_name": "Air heat recovery",
+                    "description": "Air cooled from 200 to 25 °C, releasing its heat for recovery",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 200,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 25,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "HREC",
+                    "reference_stream": "No"
+                }
+            ],
+            "equipments_description": "",
+            "equipments": [],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        }
+    ],
+    "custom_constraints": [
+        {
+            "name": "",
+            "equation": "",
+            "type": ""
+        }
+    ]
+}
