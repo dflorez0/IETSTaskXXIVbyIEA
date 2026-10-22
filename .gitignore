@@ -12,6 +12,8 @@ __pycache__/
 Thumbs.db
 desktop.ini
 ~$*
+# draw.io's automatic backups (.$name.bkp), not Aspen's .bkp files
+.$*.bkp
 
 **/*.quarto_ipynb
 
