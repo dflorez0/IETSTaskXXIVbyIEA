@@ -93,7 +93,10 @@ website:
           - 3-IndustrialProcesses/NitrogenChemistry/index.qmd
           - 3-IndustrialProcesses/PrecisionIndustries/index.qmd
           - 3-IndustrialProcesses/UrbanAndDigital/index.qmd
-          - 3-IndustrialProcesses/OxygenatesAndChemicals/index.qmd
+          - section: "Oxygenates and commodity chemicals"
+            href: 3-IndustrialProcesses/OxygenatesAndChemicals/index.qmd
+            contents:
+              - 3-IndustrialProcesses/OxygenatesAndChemicals/Methanol/index.qmd
           - 3-IndustrialProcesses/SyntheticFuelsAndBiofuels/index.qmd
           - 3-IndustrialProcesses/FoodAndBeverage/index.qmd
           - 3-IndustrialProcesses/BioAndWaste/index.qmd

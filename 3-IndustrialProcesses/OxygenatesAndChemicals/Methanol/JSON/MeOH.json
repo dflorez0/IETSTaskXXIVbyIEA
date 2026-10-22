@@ -1,0 +1,2108 @@
+{
+    "header": {
+        "uid": "",
+        "name": "MeOHprodCOSOEC21",
+        "full_name": "Methanol synthesis from 2:1 co-electrolysis syngas",
+        "ET_model_type": "regular",
+        "authors_and_contributors": "Daniel Flórez-Orrego, Meire Ribeiro Domingos, EPFL IPESE research group",
+        "contact_info": "daniel.florezorrego@epfl.ch, meire.ribeirodomingos@epfl.ch",
+        "creation_date": "",
+        "last_updated": "22.10.2026",
+        "status": "Maintained",
+        "version": "1.0",
+        "confidentiality": "Open",
+        "sharing_layer": "4",
+        "grade": "WHITE-BOX",
+        "reference_capacity": "5726.79 kg/h of 2:1 syngas (massflow_syngas_in)",
+        "TRL": "9",
+        "keywords": [
+            "Methanol",
+            "Syngas",
+            "Co-electrolysis",
+            "Power-to-X",
+            "Oxy-combustion"
+        ],
+        "description": "Methanol is synthesised from the 2:1 (H/C) syngas of a CO2/H2O co-electrolysis (CO-SOEC) unit in an isothermal reactor, the purge is burned in an oxy-fired flare, and a distillation column separates methanol from heavies and water.",
+        "DOI": "",
+        "main_related_publication": "https://doi.org/10.1016/j.compchemeng.2022.107810",
+        "references": "[1] Ribeiro Domingos, M.E.G., Flórez-Orrego, D., Teles dos Santos, M., de Oliveira Jr., S., Maréchal, F., Techno-economic and environmental analysis of methanol and dimethyl ether production from syngas in a kraft pulp process. Computers and Chemical Engineering 163 (2022) 107810, DOI: https://doi.org/10.1016/j.compchemeng.2022.107810",
+        "software": "Aspen Plus, OSMOSE",
+        "software_file": "",
+        "block_flow_diagram": "Methanol/Figures/MeOH.svg",
+        "url": null,
+        "supplementary_material": "See SUPPL MATERIAL tab",
+        "hierarchy": "process"
+    },
+    "variables": [
+        {
+            "var_name": "dtmin_gas",
+            "type": "CONTEXT",
+            "full_name": "Delta Tmin for gas phase",
+            "user_grade": "MANDATORY",
+            "value": 8,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta t_{min,\\,gas}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Minimal temperature difference in a heat exchanger operating with gas"
+        },
+        {
+            "var_name": "dtmin_liq",
+            "type": "CONTEXT",
+            "full_name": "Delta Tmin for liquid phase",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta t_{min,\\,liq}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Minimal temperature difference in a heat exchanger operating with liquid"
+        },
+        {
+            "var_name": "dtmin_2ph",
+            "type": "CONTEXT",
+            "full_name": "Delta Tmin for 2 phases fluid",
+            "user_grade": "MANDATORY",
+            "value": 2,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta t_{min,\\,2ph}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Minimal temperature difference in a heat exchanger operating with two phase mixture"
+        },
+        {
+            "var_name": "hxmeoh1_Tin",
+            "type": "MEASURED",
+            "full_name": "Syngas feed preheating (feed/effluent exchanger, cold side), inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 72,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{hx1}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Syngas feed preheating (feed/effluent exchanger, cold side), inlet temperature"
+        },
+        {
+            "var_name": "hxmeoh1_Tout",
+            "type": "MEASURED",
+            "full_name": "Syngas feed preheating (feed/effluent exchanger, cold side), outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 175,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{hx1}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Syngas feed preheating (feed/effluent exchanger, cold side), outlet temperature"
+        },
+        {
+            "var_name": "hxmeoh1_Q",
+            "type": "MEASURED",
+            "full_name": "Syngas feed preheating (feed/effluent exchanger, cold side), heat load",
+            "user_grade": "MANDATORY",
+            "value": 831.606,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$H^{out}_{hx1}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Syngas feed preheating (feed/effluent exchanger, cold side), heat load"
+        },
+        {
+            "var_name": "hxmeoh2_Tin",
+            "type": "MEASURED",
+            "full_name": "Reactor effluent cooling (feed/effluent exchanger, hot side), inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 210,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{hx2}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Reactor effluent cooling (feed/effluent exchanger, hot side), inlet temperature"
+        },
+        {
+            "var_name": "hxmeoh2_Tout",
+            "type": "MEASURED",
+            "full_name": "Reactor effluent cooling (feed/effluent exchanger, hot side), outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 154,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{hx2}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Reactor effluent cooling (feed/effluent exchanger, hot side), outlet temperature"
+        },
+        {
+            "var_name": "hxmeoh2_Q",
+            "type": "MEASURED",
+            "full_name": "Reactor effluent cooling (feed/effluent exchanger, hot side), heat load",
+            "user_grade": "MANDATORY",
+            "value": -831.606,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$H^{out}_{hx2}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Reactor effluent cooling (feed/effluent exchanger, hot side), heat load"
+        },
+        {
+            "var_name": "meohrxpreh_Tin",
+            "type": "MEASURED",
+            "full_name": "Reactor feed preheating to 210 C, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 175,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{rxpreh}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Reactor feed preheating to 210 C, inlet temperature"
+        },
+        {
+            "var_name": "meohrxpreh_Tout",
+            "type": "MEASURED",
+            "full_name": "Reactor feed preheating to 210 C, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 210,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{rxpreh}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Reactor feed preheating to 210 C, outlet temperature"
+        },
+        {
+            "var_name": "meohrxpreh_Q",
+            "type": "MEASURED",
+            "full_name": "Reactor feed preheating to 210 C, heat load",
+            "user_grade": "MANDATORY",
+            "value": 284.524,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$H^{out}_{rxpreh}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Reactor feed preheating to 210 C, heat load"
+        },
+        {
+            "var_name": "meohreactor_Tin",
+            "type": "MEASURED",
+            "full_name": "Isothermal methanol synthesis reactor heat release, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 210,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{rx}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Isothermal methanol synthesis reactor heat release, inlet temperature"
+        },
+        {
+            "var_name": "meohreactor_Tout",
+            "type": "MEASURED",
+            "full_name": "Isothermal methanol synthesis reactor heat release, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 210,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{rx}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Isothermal methanol synthesis reactor heat release, outlet temperature"
+        },
+        {
+            "var_name": "meohreactor_Q",
+            "type": "MEASURED",
+            "full_name": "Isothermal methanol synthesis reactor heat release, heat load",
+            "user_grade": "MANDATORY",
+            "value": -3341.06,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$H^{out}_{rx}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Isothermal methanol synthesis reactor heat release, heat load"
+        },
+        {
+            "var_name": "cooltoflash1_Tin",
+            "type": "MEASURED",
+            "full_name": "Reactor effluent cooling to the flash separator, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 135,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{fl1}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Reactor effluent cooling to the flash separator, inlet temperature"
+        },
+        {
+            "var_name": "cooltoflash1_Tout",
+            "type": "MEASURED",
+            "full_name": "Reactor effluent cooling to the flash separator, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{fl1}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Reactor effluent cooling to the flash separator, outlet temperature"
+        },
+        {
+            "var_name": "cooltoflash1_Q",
+            "type": "MEASURED",
+            "full_name": "Reactor effluent cooling to the flash separator, heat load",
+            "user_grade": "MANDATORY",
+            "value": -2116.04,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$H^{out}_{fl1}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Reactor effluent cooling to the flash separator, heat load"
+        },
+        {
+            "var_name": "cooltoflash2_Tin",
+            "type": "MEASURED",
+            "full_name": "Second flash separator heat duty, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{fl2}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Second flash separator heat duty, inlet temperature"
+        },
+        {
+            "var_name": "cooltoflash2_Tout",
+            "type": "MEASURED",
+            "full_name": "Second flash separator heat duty, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{fl2}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Second flash separator heat duty, outlet temperature"
+        },
+        {
+            "var_name": "cooltoflash2_Q",
+            "type": "MEASURED",
+            "full_name": "Second flash separator heat duty, heat load",
+            "user_grade": "MANDATORY",
+            "value": 12.9,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$H^{out}_{fl2}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Second flash separator heat duty, heat load"
+        },
+        {
+            "var_name": "fluecool1_Tin",
+            "type": "MEASURED",
+            "full_name": "Oxy-fired purge flare, isothermal radiative section, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 1000,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{fg1}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Oxy-fired purge flare, isothermal radiative section, inlet temperature"
+        },
+        {
+            "var_name": "fluecool1_Tout",
+            "type": "MEASURED",
+            "full_name": "Oxy-fired purge flare, isothermal radiative section, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 1000,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{fg1}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Oxy-fired purge flare, isothermal radiative section, outlet temperature"
+        },
+        {
+            "var_name": "fluecool1_Q",
+            "type": "MEASURED",
+            "full_name": "Oxy-fired purge flare, isothermal radiative section, heat load",
+            "user_grade": "MANDATORY",
+            "value": -2749.211,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$H^{out}_{fg1}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Oxy-fired purge flare, isothermal radiative section, heat load"
+        },
+        {
+            "var_name": "fluecool2_Tin",
+            "type": "MEASURED",
+            "full_name": "Flare flue gas convective cooling, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 1000,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{fg2}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Flare flue gas convective cooling, inlet temperature"
+        },
+        {
+            "var_name": "fluecool2_Tout",
+            "type": "MEASURED",
+            "full_name": "Flare flue gas convective cooling, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 150,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{fg2}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Flare flue gas convective cooling, outlet temperature"
+        },
+        {
+            "var_name": "fluecool2_Q",
+            "type": "MEASURED",
+            "full_name": "Flare flue gas convective cooling, heat load",
+            "user_grade": "MANDATORY",
+            "value": -663.459,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$H^{out}_{fg2}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Flare flue gas convective cooling, heat load"
+        },
+        {
+            "var_name": "fluecool3_Tin",
+            "type": "MEASURED",
+            "full_name": "Flare flue gas cooling to the condensation onset, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 150,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{fg3}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Flare flue gas cooling to the condensation onset, inlet temperature"
+        },
+        {
+            "var_name": "fluecool3_Tout",
+            "type": "MEASURED",
+            "full_name": "Flare flue gas cooling to the condensation onset, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 94,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{fg3}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Flare flue gas cooling to the condensation onset, outlet temperature"
+        },
+        {
+            "var_name": "fluecool3_Q",
+            "type": "MEASURED",
+            "full_name": "Flare flue gas cooling to the condensation onset, heat load",
+            "user_grade": "MANDATORY",
+            "value": -37.475,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$H^{out}_{fg3}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Flare flue gas cooling to the condensation onset, heat load"
+        },
+        {
+            "var_name": "fluecool4_Tin",
+            "type": "MEASURED",
+            "full_name": "Flare flue gas water condensation, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 94,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{fg4}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Flare flue gas water condensation, inlet temperature"
+        },
+        {
+            "var_name": "fluecool4_Tout",
+            "type": "MEASURED",
+            "full_name": "Flare flue gas water condensation, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{fg4}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Flare flue gas water condensation, outlet temperature"
+        },
+        {
+            "var_name": "fluecool4_Q",
+            "type": "MEASURED",
+            "full_name": "Flare flue gas water condensation, heat load",
+            "user_grade": "MANDATORY",
+            "value": -676.526,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$H^{out}_{fg4}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Flare flue gas water condensation, heat load"
+        },
+        {
+            "var_name": "reboilerheat_Tin",
+            "type": "MEASURED",
+            "full_name": "Methanol distillation column reboiler, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 100,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{reb}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Methanol distillation column reboiler, inlet temperature"
+        },
+        {
+            "var_name": "reboilerheat_Tout",
+            "type": "MEASURED",
+            "full_name": "Methanol distillation column reboiler, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 100,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{reb}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Methanol distillation column reboiler, outlet temperature"
+        },
+        {
+            "var_name": "reboilerheat_Q",
+            "type": "MEASURED",
+            "full_name": "Methanol distillation column reboiler, heat load",
+            "user_grade": "MANDATORY",
+            "value": 2900,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$H^{out}_{reb}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Methanol distillation column reboiler, heat load"
+        },
+        {
+            "var_name": "condheat_Tin",
+            "type": "MEASURED",
+            "full_name": "Methanol distillation column condenser, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 13,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{cond}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Methanol distillation column condenser, inlet temperature"
+        },
+        {
+            "var_name": "condheat_Tout",
+            "type": "MEASURED",
+            "full_name": "Methanol distillation column condenser, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 13,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{cond}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Methanol distillation column condenser, outlet temperature"
+        },
+        {
+            "var_name": "condheat_Q",
+            "type": "MEASURED",
+            "full_name": "Methanol distillation column condenser, heat load",
+            "user_grade": "MANDATORY",
+            "value": -2918,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$H^{out}_{cond}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Methanol distillation column condenser, heat load"
+        },
+        {
+            "var_name": "meohcool_Tin",
+            "type": "MEASURED",
+            "full_name": "Methanol product warming to ambient, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 13,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{MeOH}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Methanol product warming to ambient, inlet temperature"
+        },
+        {
+            "var_name": "meohcool_Tout",
+            "type": "MEASURED",
+            "full_name": "Methanol product warming to ambient, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 25,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{MeOH}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Methanol product warming to ambient, outlet temperature"
+        },
+        {
+            "var_name": "meohcool_Q",
+            "type": "MEASURED",
+            "full_name": "Methanol product warming to ambient, heat load",
+            "user_grade": "MANDATORY",
+            "value": 49.38,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$H^{out}_{MeOH}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Methanol product warming to ambient, heat load"
+        },
+        {
+            "var_name": "heavycool_Tin",
+            "type": "MEASURED",
+            "full_name": "Heavies bottoms cooling to ambient, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 100,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{hvy}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Heavies bottoms cooling to ambient, inlet temperature"
+        },
+        {
+            "var_name": "heavycool_Tout",
+            "type": "MEASURED",
+            "full_name": "Heavies bottoms cooling to ambient, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 25,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{hvy}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Heavies bottoms cooling to ambient, outlet temperature"
+        },
+        {
+            "var_name": "heavycool_Q",
+            "type": "MEASURED",
+            "full_name": "Heavies bottoms cooling to ambient, heat load",
+            "user_grade": "MANDATORY",
+            "value": -61.73,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$H^{out}_{hvy}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Heavies bottoms cooling to ambient, heat load"
+        },
+        {
+            "var_name": "massflow_syngas_in",
+            "type": "MEASURED",
+            "full_name": "Syngas feed",
+            "user_grade": "MANDATORY",
+            "value": 5726.79,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$F^{in}_{syngas}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "2:1 (H/C) co-electrolysis syngas from COSOECOiken7300Am2scrat21MEOH_ET"
+        },
+        {
+            "var_name": "massflow_O2_flare",
+            "type": "MEASURED",
+            "full_name": "Oxygen to the purge flare",
+            "user_grade": "MANDATORY",
+            "value": 832.3812,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$F^{in}_{O_2}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Pure O2 for the oxy-fired combustion of the synthesis loop purge"
+        },
+        {
+            "var_name": "massflow_MeOH_out",
+            "type": "MEASURED",
+            "full_name": "Methanol product",
+            "user_grade": "MANDATORY",
+            "value": 4302.79,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$F^{out}_{MeOH}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Methanol product from the distillation column"
+        },
+        {
+            "var_name": "massflow_wastewater_out",
+            "type": "MEASURED",
+            "full_name": "Column bottoms",
+            "user_grade": "MANDATORY",
+            "value": 651.5136,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$F^{out}_{WW}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Column bottoms: water carrying heavies (higher alcohols), which needs treatment"
+        },
+        {
+            "var_name": "massflow_CO2_out",
+            "type": "MEASURED",
+            "full_name": "CO2 from the flare",
+            "user_grade": "MANDATORY",
+            "value": 697.9824,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$F^{out}_{CO_2}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Pure CO2 recovered from the flare gas after condensing the water"
+        },
+        {
+            "var_name": "massflow_H2O_out",
+            "type": "MEASURED",
+            "full_name": "Flue gas condensate",
+            "user_grade": "MANDATORY",
+            "value": 906.606,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$F^{out}_{H_2O}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21",
+            "description": "Clean condensate from the flare flue gas, sent to treatment"
+        },
+        {
+            "var_name": "volflow_H2O_out",
+            "type": "CALCULATED",
+            "full_name": "Flue gas condensate, volumetric flow",
+            "user_grade": "MANDATORY",
+            "value": 0.906606,
+            "physical_unit": "m3/h",
+            "formula": "massflow_H2O_out / 1000",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$V^{out}_{H_2O}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Volumetric flow of the flue gas condensate, for a water density of 1000 kg/m3"
+        },
+        {
+            "var_name": "E_comprecycl",
+            "type": "MEASURED",
+            "full_name": "Recycle compressor electricity",
+            "user_grade": "MANDATORY",
+            "value": 303.836,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$E^{in}_{elec}$",
+            "reference": "Aspen Plus, MeOHprodCOSOEC2to1FlareIsothermalv4.xlsx, tab MeOHprodCOSOEC21 (WNET)",
+            "description": "Electricity of the synthesis loop recycle compressor"
+        },
+        {
+            "var_name": "spec_work_WWTP",
+            "type": "CONTEXT",
+            "full_name": "Specific electricity of the waste water treatment",
+            "user_grade": "MANDATORY",
+            "value": 1e-05,
+            "physical_unit": "kWh/kg",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$e_{WWTP}$",
+            "reference": "EPFL IPESE research group",
+            "description": "PLACEHOLDER: token value for the dummy waste water treatment, not a design. Replace it before drawing any conclusion about the cost or the electricity demand of treating the column bottoms"
+        },
+        {
+            "var_name": "m3_per_kg_H2O",
+            "type": "LITERATURE",
+            "full_name": "Specific volume of water",
+            "user_grade": "MANDATORY",
+            "value": 0.001,
+            "physical_unit": "m3/kg",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$v_{H_2O}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Water density of 1000 kg/m3. PLACEHOLDER: the dummy treatment assumes a 1:1 water recovery, with no loss to sludge"
+        },
+        {
+            "var_name": "i",
+            "type": "CONTEXT",
+            "full_name": "Interest rate",
+            "user_grade": "MANDATORY",
+            "value": 0.06,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$i$",
+            "reference": "EPFL IPESE research group",
+            "description": "Interest rate"
+        },
+        {
+            "var_name": "n",
+            "type": "CONTEXT",
+            "full_name": "Lifetime",
+            "user_grade": "MANDATORY",
+            "value": 25,
+            "physical_unit": "year",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$n$",
+            "reference": "EPFL IPESE research group",
+            "description": "Lifetime of the plant"
+        },
+        {
+            "var_name": "Mult_MeOHprod",
+            "type": "CONTEXT",
+            "full_name": "Maximum number of methanol units",
+            "user_grade": "MANDATORY",
+            "value": 10,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$f^{max}_{MeOH}$",
+            "reference": "EPFL IPESE research group",
+            "description": "Maximum capacity multiplier of the methanol synthesis unit"
+        }
+    ],
+    "units": [
+        {
+            "unit_description": "This unit represents the conversion of 5726.79 kg/h of 2:1 (H/C) co-electrolysis syngas into 4302.79 kg/h of methanol: isothermal synthesis reactor at 210 °C with recycle compressor, flash separation, oxy-fired flare burning the purge with an isothermal radiative section, and a distillation column separating methanol from heavies and water. Roughly 997 COSOEC units feed one methanol unit.",
+            "unit_info": {
+                "unit_name": "MeOHprodCOSOEC21",
+                "full_name": "Methanol synthesis from 2:1 co-electrolysis syngas",
+                "unit_type": "process",
+                "minimum_capacity_multiplier": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 10,
+                    "formula": "=Mult_MeOHprod",
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes syngas, oxygen and electricity, and delivers methanol, pure CO2, flue gas condensate and the column bottoms, which go to the waste water treatment unit.",
+            "connectors": [
+                {
+                    "name": "ELECTRICITY",
+                    "full_name": "Electricity",
+                    "scope": "GLOBAL",
+                    "type": "ELECTRICITY",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 303.836,
+                        "formula": "=E_comprecycl",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Electricity for the synthesis loop recycle compressor"
+                },
+                {
+                    "name": "SYNGAS",
+                    "full_name": "Syngas",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 5726.79,
+                        "formula": "=massflow_syngas_in",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "2:1 (H/C) co-electrolysis syngas from COSOECOiken7300Am2scrat21MEOH_ET"
+                },
+                {
+                    "name": "OXYGEN",
+                    "full_name": "Oxygen",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 832.3812,
+                        "formula": "=massflow_O2_flare",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "O2[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Oxygen for the purge flare"
+                },
+                {
+                    "name": "METHANOL",
+                    "full_name": "Methanol",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 4302.79,
+                        "formula": "=massflow_MeOH_out",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 25.0,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": -1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "CH3OH[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Methanol product"
+                },
+                {
+                    "name": "CO2",
+                    "full_name": "CO2",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 697.9824,
+                        "formula": "=massflow_CO2_out",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "CO2[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Pure CO2 recovered from the flare gas"
+                },
+                {
+                    "name": "WATER",
+                    "full_name": "Flue gas condensate",
+                    "scope": "GLOBAL",
+                    "type": "WASTE",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 0.906606,
+                        "formula": "=volflow_H2O_out",
+                        "unit": "m3/h"
+                    },
+                    "temperature": {
+                        "value": 30.0,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": -1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "H2O[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Clean condensate from the flare flue gas, to the water grid"
+                },
+                {
+                    "name": "WASTEWATER",
+                    "full_name": "Waste water",
+                    "scope": "GLOBAL",
+                    "type": "WASTE",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 651.5136,
+                        "formula": "=massflow_wastewater_out",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 25.0,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": -1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Column bottoms: water carrying higher alcohols, sent to the waste water treatment unit"
+                }
+            ],
+            "heat_streams_description": "The heat streams are the heaters, coolers, reactor, flare and distillation column duties of the Aspen Plus model, for the 5726.79 kg/h syngas feed. The flue gas of the flare is split in segments at the condensation onset.",
+            "heat_streams": [
+                {
+                    "name": "hxmeoh1",
+                    "full_name": "Syngas feed preheating (feed/effluent exchanger, cold side)",
+                    "description": "Syngas feed preheating (feed/effluent exchanger, cold side)",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 72,
+                        "formula": "=hxmeoh1_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 175,
+                        "formula": "=hxmeoh1_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 831.606,
+                        "formula": "=hxmeoh1_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "hxmeoh2",
+                    "full_name": "Reactor effluent cooling (feed/effluent exchanger, hot side)",
+                    "description": "Reactor effluent cooling (feed/effluent exchanger, hot side)",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 210,
+                        "formula": "=hxmeoh2_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 154,
+                        "formula": "=hxmeoh2_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": -831.606,
+                        "formula": "=hxmeoh2_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "meohrxpreh",
+                    "full_name": "Reactor feed preheating to 210 C",
+                    "description": "Reactor feed preheating to 210 C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 175,
+                        "formula": "=meohrxpreh_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 210,
+                        "formula": "=meohrxpreh_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 284.524,
+                        "formula": "=meohrxpreh_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "meohreactor",
+                    "full_name": "Isothermal methanol synthesis reactor heat release",
+                    "description": "Isothermal methanol synthesis reactor heat release",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 210,
+                        "formula": "=meohreactor_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 210,
+                        "formula": "=meohreactor_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": -3341.06,
+                        "formula": "=meohreactor_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "cooltoflash1",
+                    "full_name": "Reactor effluent cooling to the flash separator",
+                    "description": "Reactor effluent cooling to the flash separator",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 135,
+                        "formula": "=cooltoflash1_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=cooltoflash1_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": -2116.04,
+                        "formula": "=cooltoflash1_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 2,
+                        "formula": "=dtmin_2ph",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "cooltoflash2",
+                    "full_name": "Second flash separator heat duty",
+                    "description": "Second flash separator heat duty",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 30,
+                        "formula": "=cooltoflash2_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=cooltoflash2_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 12.9,
+                        "formula": "=cooltoflash2_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 2,
+                        "formula": "=dtmin_2ph",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "fluecool1",
+                    "full_name": "Oxy-fired purge flare, isothermal radiative section",
+                    "description": "Oxy-fired purge flare, isothermal radiative section",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 1000,
+                        "formula": "=fluecool1_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 1000,
+                        "formula": "=fluecool1_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": -2749.211,
+                        "formula": "=fluecool1_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "fluecool2",
+                    "full_name": "Flare flue gas convective cooling",
+                    "description": "Flare flue gas convective cooling",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 1000,
+                        "formula": "=fluecool2_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 150,
+                        "formula": "=fluecool2_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": -663.459,
+                        "formula": "=fluecool2_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "fluecool3",
+                    "full_name": "Flare flue gas cooling to the condensation onset",
+                    "description": "Flare flue gas cooling to the condensation onset",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 150,
+                        "formula": "=fluecool3_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 94,
+                        "formula": "=fluecool3_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": -37.475,
+                        "formula": "=fluecool3_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "fluecool4",
+                    "full_name": "Flare flue gas water condensation",
+                    "description": "Flare flue gas water condensation",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 94,
+                        "formula": "=fluecool4_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=fluecool4_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": -676.526,
+                        "formula": "=fluecool4_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 2,
+                        "formula": "=dtmin_2ph",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "reboilerheat",
+                    "full_name": "Methanol distillation column reboiler",
+                    "description": "Methanol distillation column reboiler",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 100,
+                        "formula": "=reboilerheat_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 100,
+                        "formula": "=reboilerheat_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 2900,
+                        "formula": "=reboilerheat_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 2,
+                        "formula": "=dtmin_2ph",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "condheat",
+                    "full_name": "Methanol distillation column condenser",
+                    "description": "Methanol distillation column condenser",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 13,
+                        "formula": "=condheat_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 13,
+                        "formula": "=condheat_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": -2918,
+                        "formula": "=condheat_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 2,
+                        "formula": "=dtmin_2ph",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "meohcool",
+                    "full_name": "Methanol product warming to ambient",
+                    "description": "Methanol product warming to ambient",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 13,
+                        "formula": "=meohcool_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 25,
+                        "formula": "=meohcool_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 49.38,
+                        "formula": "=meohcool_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin_liq",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "heavycool",
+                    "full_name": "Heavies bottoms cooling to ambient",
+                    "description": "Heavies bottoms cooling to ambient",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 100,
+                        "formula": "=heavycool_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 25,
+                        "formula": "=heavycool_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": -61.73,
+                        "formula": "=heavycool_Q",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin_liq",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                }
+            ],
+            "equipments_description": "No capital cost correlation is available for this unit yet; the investment cost is left at zero.",
+            "equipments": [],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        },
+        {
+            "unit_description": "PLACEHOLDER: dummy waste water treatment of the column bottoms, per kg/h treated. It discharges the treated bottoms as water to the grid. The specific electricity and the 1:1 water recovery are token values, not a design: the unit currently treats water essentially for free and loses nothing to sludge. Replace both before using the results.",
+            "unit_info": {
+                "unit_name": "WWTP_dummy_MeOHprod",
+                "full_name": "Waste water treatment (placeholder)",
+                "unit_type": "utility",
+                "minimum_capacity_multiplier": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 1000000,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes the column bottoms and electricity, and delivers treated water. Flows are given per 1 kg/h of bottoms treated.",
+            "connectors": [
+                {
+                    "name": "WASTEWATER",
+                    "full_name": "Waste water",
+                    "scope": "GLOBAL",
+                    "type": "WASTE",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "Untreated column bottoms from the methanol unit"
+                },
+                {
+                    "name": "ELECTRICITY",
+                    "full_name": "Electricity",
+                    "scope": "GLOBAL",
+                    "type": "ELECTRICITY",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 1e-05,
+                        "formula": "=spec_work_WWTP",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Electricity of the treatment (placeholder value)"
+                },
+                {
+                    "name": "WATER",
+                    "full_name": "Treated water",
+                    "scope": "GLOBAL",
+                    "type": "WASTE",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 0.001,
+                        "formula": "=m3_per_kg_H2O",
+                        "unit": "m3/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": -1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "H2O[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Treated water to the water grid (placeholder 1:1 recovery)"
+                }
+            ],
+            "heat_streams_description": "",
+            "heat_streams": [],
+            "equipments_description": "",
+            "equipments": [],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        }
+    ],
+    "custom_constraints": [
+        {
+            "name": "",
+            "equation": "",
+            "type": ""
+        }
+    ]
+}

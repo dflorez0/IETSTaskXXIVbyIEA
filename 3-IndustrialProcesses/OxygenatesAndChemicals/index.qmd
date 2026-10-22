@@ -4,7 +4,7 @@ Methanol and other bulk chemicals.
 
 | Model type | Model | Status |
 |:--|:--|:--|
-| Methanol (MeOH) | — | Work in progress |
+| Methanol (MeOH) | [Methanol synthesis from co-electrolysis syngas](Methanol/index.qmd) | Documented |
 | Dimethyl ether (DME) | — | Work in progress |
 | Formaldehyde | — | Work in progress |
 | Formic acid | — | Work in progress |
