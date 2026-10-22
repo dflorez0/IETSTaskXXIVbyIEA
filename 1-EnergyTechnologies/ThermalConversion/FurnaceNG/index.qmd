@@ -27,7 +27,7 @@ Minimum utility requirements of the unit on its own, from its heat streams. The 
 
 Throughout this page, names written like `Q_demand` are variables of the model: hover one for its definition, click it to go to its row in the [variables](#variables) table. The same holds for the symbols in the equations and for underlined values in the tables. The equations below are generated from the formulas of the model's JSON description, and each is tagged with the name of the variable it defines. @fig-furnace shows the furnace and where its heat goes.
 
-![Natural gas furnace: air preheating, radiant and convection sections, useful heat, waste heat recovery and losses. Click to enlarge.](Figures/Furnace.svg){#fig-furnace .lightbox width=70%}
+![Natural gas furnace: air preheating, radiant and convection sections, useful heat, waste heat recovery and losses. Click to enlarge.](Figures/Furnace.svg){#fig-furnace .lightbox width=80% mv-src="JSON/FurnacePrehNG.json"}
 
 **Fuel demand and losses.** The useful heat load `Furnace_natGas_LOAD` is a fraction 1 − `walllossfactor` − `hotgasescfactor` of the fuel power. The wall loss `Furnace_natGas_WALL` and the hot gas escape loss `Furnace_natGas_ESC` follow from it, and the natural gas demand `Q_demand` (LHV) is the sum of the three: 1,250 kW for 1,000 kW of useful heat with 10 % of each loss.
 
@@ -35,7 +35,7 @@ Throughout this page, names written like `Q_demand` are variables of the model: 
 
 **Air preheating.** Preheating the stoichiometric air from `To` to `Tprin` takes `Q_preh`, which the flue gas returns above `Trad`, so it is added to the radiant heat (`Q_radpreh`). Preheating only pays when it is done below the pinch of the process the furnace serves. At the default `Tprin` of 26 °C, it is negligible.
 
-**Losses.** The same cooling curve is applied to the wall loss (variables ending in `_wl`) and to the hot gas escape (`_ae`). The radiant and convective shares of the wall loss, and the whole heat of the escaping gas (`Q_total_ae`), are released to the surroundings at `Tloss`. They are kept apart from the useful heat (listed as LGWH in the heat streams table), so they cannot heat the process.
+**Losses.** The same cooling curve is applied to the wall loss (variables ending in `_wl`) and to the hot gas escape (`_ae`). The radiant and convective shares of the wall loss, and the whole heat of the escaping gas (`Q_total_ae`), are released at the dissipation temperature `Tloss` (30 °C). In the OSMOSE model these losses are kept in a separate heat cascade, so that they cannot heat the process; in this description they are part of the default heat cascade, like the other heat streams.
 
 **CO~2~.** The natural gas is taken as methane, which gives one kmol of CO~2~ per kmol of fuel. `TotalCO2Flow` is the CO~2~ produced, `EmitCO2Flow` the share that leaves with the escaping gas, and `CapturableCO2Flow` the share that leaves at the stack.
 
@@ -45,7 +45,7 @@ Throughout this page, names written like `Q_demand` are variables of the model: 
 
 ### Modeling choices
 
-**Heat streams.** The radiant heat is one isothermal stream at `Trad`; the convective heat and its recovery are two streams from `Trad` to `Troof` and from `Troof` to `Tstack`. The stack loss `Q_stack` (39 kW, and 4.9 kW for the wall loss share) is computed but not given as a heat stream, so the flue gas is not cooled below `Tstack`. The wall loss share of the recovery from `Troof` to `Tstack`, `convrecGas_wl`, is counted with the useful heat, while the other loss streams are kept apart.
+**Heat streams.** The radiant heat is one isothermal stream at `Trad`; the convective heat and its recovery are two streams from `Trad` to `Troof` and from `Troof` to `Tstack`. The stack loss `Q_stack` (39 kW, and 4.9 kW for the wall loss share) is computed but not given as a heat stream, so the flue gas is not cooled below `Tstack`.
 
 ## Variables
 
@@ -57,7 +57,7 @@ Throughout this page, names written like `Q_demand` are variables of the model: 
 
 ## Heat integration
 
-The furnace is a hot utility: it delivers 961 kW of useful heat, of which 436 kW at 1,100 °C, and needs 0.4 kW for the air preheating. The 245 kW of losses are released to the surroundings at 30 °C and are not counted in the key figures and curves.
+The furnace is a hot utility: it delivers 961 kW of useful heat, of which 436 kW at 1,100 °C, and needs 0.4 kW for the air preheating. Its losses add 245 kW released at 30 °C, which the key figures count as cold utility: 1,206 kW in total.
 
 ### Heat streams
 

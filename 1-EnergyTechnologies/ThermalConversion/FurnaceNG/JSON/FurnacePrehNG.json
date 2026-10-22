@@ -1130,7 +1130,7 @@
                     "description": "CO2 leaving with the flue gas at the stack, available for capture"
                 }
             ],
-            "heat_streams_description": "The useful heat is delivered as radiant heat at Trad and as convective heat from Trad to Tstack; the air preheating is a cold stream. The radiant and convective shares of the wall loss and the escaping hot gas are released to the surroundings at Tloss and kept apart from the useful heat (heat cascade LGWH), so they cannot heat the process.",
+            "heat_streams_description": "The useful heat is delivered as radiant heat at Trad and as convective heat from Trad to Tstack; the air preheating is a cold stream. The radiant and convective shares of the wall loss and the escaping hot gas are released at Tloss.",
             "heat_streams": [
                 {
                     "name": "radiationGas",
@@ -1369,7 +1369,7 @@
                         "formula": null,
                         "unit": "kW/m2K"
                     },
-                    "heat_cascade": "LGWH",
+                    "heat_cascade": "DEFAULT",
                     "reference_stream": "No"
                 },
                 {
@@ -1417,7 +1417,7 @@
                         "formula": null,
                         "unit": "kW/m2K"
                     },
-                    "heat_cascade": "LGWH",
+                    "heat_cascade": "DEFAULT",
                     "reference_stream": "No"
                 },
                 {
@@ -1561,7 +1561,7 @@
                         "formula": null,
                         "unit": "kW/m2K"
                     },
-                    "heat_cascade": "LGWH",
+                    "heat_cascade": "DEFAULT",
                     "reference_stream": "No"
                 },
                 {

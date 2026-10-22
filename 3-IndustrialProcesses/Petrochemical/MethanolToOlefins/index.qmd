@@ -25,9 +25,9 @@ Minimum utility requirements of the unit on its own, from its heat streams.
 
 ## Model
 
-Throughout this page, names written like `meoh_input` are variables of the model: hover one for its definition, click it to go to its row in the [variables](#variables) table. @fig-mto shows the process, with the condenser and reboiler temperature of each column.
+Throughout this page, names written like `meoh_input` are variables of the model: hover one for its definition, click it to go to its row in the [variables](#variables) table. @fig-mto shows the process; the variable names on it are linked the same way.
 
-![Process flow diagram of the MTO unit. Click to enlarge.](Figures/MTO.svg){#fig-mto .lightbox width=100%}
+![Process flow diagram of the MTO unit. Click to enlarge.](Figures/MTO.svg){#fig-mto .lightbox width=100% mv-src="JSON/MTO.json"}
 
 ### Process
 

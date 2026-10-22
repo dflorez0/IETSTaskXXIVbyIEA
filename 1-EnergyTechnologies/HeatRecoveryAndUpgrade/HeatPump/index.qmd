@@ -27,7 +27,7 @@ Minimum utility requirements of the unit on its own, from its heat streams. The 
 
 Throughout this page, names written like `Cond_Qmax` are variables of the model: hover one for its definition, click it to go to its row in the [variables](#variables) table. The same holds for the symbols in the equations and for underlined values in the tables. The equations below are generated from the formulas of the model's JSON description, and each is tagged with the name of the variable it defines. @fig-heatpump shows the cycle.
 
-![Heat pump cycle: evaporator, compressor, condenser and expansion valve. Click to enlarge.](Figures/HeatPump.svg){#fig-heatpump .lightbox width=40%}
+![Heat pump cycle: evaporator, compressor, condenser and expansion valve. Click to enlarge.](Figures/HeatPump.svg){#fig-heatpump .lightbox width=40% mv-src="JSON/HeatPump.json"}
 
 **Performance.** The Carnot coefficient of performance `COPcarnot` is the condenser temperature `Cond_Tin`, in kelvin, divided by the temperature lift from the evaporator temperature `Evap_Tin`. The actual `COP` is the Carnot COP times the exergy efficiency `exeff`. For a lift of 14 K, from 96 °C to 110 °C, and an exergy efficiency of 0.5, the COP is 13.7.
 
@@ -72,6 +72,7 @@ The evaporator is a cold stream at 96 °C and the condenser a hot stream at 110 
 | [Heatpump_ET.lua](Osmoses/Heatpump_ET.lua) | OSMOSE (Lua) implementation of the model |
 | [HeatPump.json](JSON/HeatPump.json) | Model description in the Task XXIV JSON format |
 | [HeatPump.svg](Figures/HeatPump.svg) | Diagram of the heat pump cycle |
+| [HeatPump.drawio](Figures/HeatPump.drawio) | Editable diagram |
 
 ## References
 

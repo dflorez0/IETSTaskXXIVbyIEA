@@ -2,9 +2,12 @@ project:
   type: website
   output-dir: _book
 
-  # The overview table of each section page is computed from its category
-  # pages before every render (see the script).
-  pre-render: python3 SupportCode/category_overview.py
+  # Before every render: the overview table of each section page is computed
+  # from its category pages, and the list of models of the system integration
+  # page from the model pages (see the scripts).
+  pre-render:
+    - python3 SupportCode/category_overview.py
+    - python3 SupportCode/integration_models.py
 
   # Only the pages below are rendered. Model folders also hold supplementary
   # material (.lua, .json, .xlsm, deprecated model files, ...) that Quarto
@@ -14,6 +17,7 @@ project:
     - 00-TaskDescription.qmd
     - 01-ParticipationRules.qmd
     - 02-HowToUseThisDatabase.qmd
+    - integration.qmd
     - "*/index.qmd"
     - "*/*/index.qmd"
     - "*/*/*/index.qmd"
@@ -111,6 +115,8 @@ website:
           - 3-IndustrialProcesses/SyntheticFuelsAndBiofuels/index.qmd
           - 3-IndustrialProcesses/FoodAndBeverage/index.qmd
           - 3-IndustrialProcesses/BioAndWaste/index.qmd
+
+      - integration.qmd
 
 # {{< model-viewer JSON/Model.json >}} on a model page renders that model's
 # key figures, block flow diagram and composite curves (HTML only).
