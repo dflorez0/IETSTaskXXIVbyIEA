@@ -22,7 +22,11 @@ Minimum utility requirements of the unit on its own, from its heat streams. The 
 
 ## Model
 
-Throughout this page, names written like `float_product` are variables of the model: hover one for its definition, click it to go to its row in the [variables](#variables) table. The same holds for the symbols in the equations and for underlined values in the tables. The equations below are generated from the formulas of the model's JSON description, and each is tagged with the name of the variable it defines.
+Throughout this page, names written like `float_product` are variables of the model: hover one for its definition, click it to go to its row in the [variables](#variables) table. The same holds for the symbols in the equations and for underlined values in the tables. The equations below are generated from the formulas of the model's JSON description, and each is tagged with the name of the variable it defines. @fig-glass-pfd shows the process, with the heat cascade of each heat release, and @fig-glass-superstructure the options for energy resources, melting, carbon capture and waste heat recovery that the study combines with it.
+
+![Process flow diagram of flat glass production by the float process. Click to enlarge.](Figures/Flat_glass_PFD.svg){#fig-glass-pfd .lightbox width=100%}
+
+![Superstructure of flat glass production assessed by Salman et al. (2025): energy resources, melting furnaces, carbon capture and waste heat recovery options. Click to enlarge.](Figures/Flat_glass_diagrams-Superstructure.svg){#fig-glass-superstructure .lightbox width=100%}
 
 ### Process
 
@@ -86,6 +90,10 @@ The float line releases 13,458 kW in the tin bath, between 1600 and 600 °C, and
 |:--|:--|
 | [GLASS_ET.lua](Osmoses/GLASS_ET.lua) | OSMOSE (Lua) implementation of the model |
 | [Glass.json](JSON/Glass.json) | Model description in the Task XXIV JSON format |
+| [Flat_glass_PFD.svg](Figures/Flat_glass_PFD.svg) | Process flow diagram |
+| [FlatGlassPFD.png](Figures/FlatGlassPFD.png) | Process flow diagram, high-resolution image |
+| [Flat_glass_diagrams-Superstructure.svg](Figures/Flat_glass_diagrams-Superstructure.svg) | Superstructure of the decarbonisation options |
+| [Flat_glass_diagrams.drawio](Figures/Flat_glass_diagrams.drawio) | Editable diagrams: the superstructure and the process flow diagram |
 
 ## References
 
