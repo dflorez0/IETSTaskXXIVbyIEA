@@ -26,7 +26,7 @@ The database first incorporates **published models**, which have already cleared
 
 Every model is documented with the same **software-agnostic template** (deliverable D1), editable as a spreadsheet or a JSON file. It accommodates black-, grey- and white-box models, from linear programming to metaheuristic optimization and from sequential-modular to equation-oriented structures, provided that they give consistent overall mass and energy balances whatever their internal level of detail.
 
-The template is a class-attribute tree with six primary entities:
+The template is a class-attribute tree (@fig-template-tree) with six primary entities:
 
 | Entity | Content |
 |:--|:--|
@@ -45,6 +45,8 @@ The template is a class-attribute tree with six primary entities:
 * **Connectors** specify the boundary flows (mass, electricity, emissions, information) with their direction and quality attributes (composition, temperature, pressure, vapour fraction, phase). External connectors reference unique identifiers of a **global connectors database**, so that models can be linked to each other and to the infrastructure; internal connectors describe exchanges between the units of one model.
 * **Heat streams** document heating and cooling demands — waste heat recovery, reactions, phase changes and dissipative devices — with temperature levels, enthalpy flows, heat capacity, mass flow, ΔT~min~ contribution and heat transfer coefficient. They are what the composite curves of each model page are built from.
 * **Equipment** entries link to investment cost databases, and **operating costs** give the fixed and variable components.
+
+![The ex-ante model template as a class-attribute tree: the entities, the objects of each unit and their attributes.](<0-TaskXXIVDescription/TREE MODEL CLASS IETS 12.2025-ONTOLOGY 12.2025.svg>){#fig-template-tree .lightbox width=100%}
 
 ## Confidentiality: the layered disclosure framework {.unnumbered}
 
