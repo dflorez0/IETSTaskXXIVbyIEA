@@ -1,0 +1,534 @@
+{
+    "header": {
+        "uid": "",
+        "name": "WT",
+        "full_name": "Wind turbine",
+        "ET_model_type": "regular",
+        "authors_and_contributors": "EPFL IPESE research group",
+        "contact_info": "",
+        "creation_date": "",
+        "last_updated": "22.10.2026",
+        "status": "Maintained",
+        "version": "1.0",
+        "confidentiality": "Open",
+        "sharing_layer": "1",
+        "grade": "GRAY-BOX",
+        "reference_capacity": "1 turbine (N_WT), 1,303 kW at 6 m/s measured wind speed (P_WT)",
+        "TRL": "9",
+        "keywords": [
+            "Wind power",
+            "Wind turbine",
+            "Renewable electricity",
+            "Electricity"
+        ],
+        "description": "Onshore wind turbine converting the kinetic power of the wind into electricity, with the wind speed corrected to the hub height and a cut-in, rated and cut-off power curve.",
+        "DOI": "",
+        "main_related_publication": "https://doi.org/10.1016/j.enconman.2021.115166",
+        "references": "[1] Du, W., Aziz, M., Flexible operation strategy of an integrated renewable multi-generation system for electricity, hydrogen, ammonia, and heating. Energy Conversion and Management 253 (2022) 115166, DOI: https://doi.org/10.1016/j.enconman.2021.115166;\n[2] Stehly, T., Beiter, P., Duffy, P., 2019 Cost of Wind Energy Review. NREL/TP-5000-78471, National Renewable Energy Laboratory (2020), https://www.nrel.gov/docs/fy21osti/78471.pdf;\n[3] Axpo, Wind power, https://www.axpo.com/se/se/energy-knowledge/wind-power.html",
+        "software": "OSMOSE",
+        "software_file": "",
+        "block_flow_diagram": "",
+        "url": null,
+        "supplementary_material": "See SUPPL MATERIAL tab",
+        "hierarchy": "utility"
+    },
+    "variables": [
+        {
+            "var_name": "add_WindTurbine_ET",
+            "type": "CONTEXT",
+            "full_name": "Wind turbine flag",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$add_{WT}$",
+            "reference": "WindTurbine_ET.lua",
+            "description": "1 adds the wind turbine unit to the problem"
+        },
+        {
+            "var_name": "N_WT",
+            "type": "CONTEXT",
+            "full_name": "Number of wind turbines",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$N_{WT}$",
+            "reference": "WindTurbine_ET.lua",
+            "description": "Number of wind turbines"
+        },
+        {
+            "var_name": "V_mea",
+            "type": "CONTEXT",
+            "full_name": "Measured wind speed",
+            "user_grade": "MANDATORY",
+            "value": 6,
+            "physical_unit": "m/s",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$V_{mea}$",
+            "reference": "WindTurbine_ET.lua",
+            "description": "Wind speed measured at the measurement height. In OSMOSE it can be read for each period from a weather file"
+        },
+        {
+            "var_name": "T_ext",
+            "type": "CONTEXT",
+            "full_name": "Ambient temperature",
+            "user_grade": "MANDATORY",
+            "value": 25,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{ext}$",
+            "reference": "WindTurbine_ET.lua",
+            "description": "Ambient temperature, which sets the air density"
+        },
+        {
+            "var_name": "d_rotor",
+            "type": "LITERATURE",
+            "full_name": "Rotor diameter",
+            "user_grade": "MANDATORY",
+            "value": 82,
+            "physical_unit": "m",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$d_{rotor}$",
+            "reference": "Du and Aziz (2022)",
+            "description": "Diameter of the rotor"
+        },
+        {
+            "var_name": "z_rotor",
+            "type": "LITERATURE",
+            "full_name": "Hub height",
+            "user_grade": "MANDATORY",
+            "value": 71.5,
+            "physical_unit": "m",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$z_{rotor}$",
+            "reference": "Du and Aziz (2022)",
+            "description": "Height of the rotor hub"
+        },
+        {
+            "var_name": "z_mea",
+            "type": "CONTEXT",
+            "full_name": "Measurement height",
+            "user_grade": "MANDATORY",
+            "value": 10,
+            "physical_unit": "m",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$z_{mea}$",
+            "reference": "Du and Aziz (2022)",
+            "description": "Height at which the wind speed is measured"
+        },
+        {
+            "var_name": "eta_mec",
+            "type": "LITERATURE",
+            "full_name": "Mechanical efficiency",
+            "user_grade": "MANDATORY",
+            "value": 0.9,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\eta_{mec}$",
+            "reference": "Du and Aziz (2022)",
+            "description": "Mechanical efficiency of the drive train"
+        },
+        {
+            "var_name": "shear_exp",
+            "type": "LITERATURE",
+            "full_name": "Wind shear exponent",
+            "user_grade": "MANDATORY",
+            "value": 0.25,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha$",
+            "reference": "Du and Aziz (2022)",
+            "description": "Exponent of the power law of the wind speed with height"
+        },
+        {
+            "var_name": "co_power",
+            "type": "LITERATURE",
+            "full_name": "Power coefficient",
+            "user_grade": "MANDATORY",
+            "value": 0.49,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$C_{p}$",
+            "reference": "Du and Aziz (2022)",
+            "description": "Fraction of the wind power the rotor extracts"
+        },
+        {
+            "var_name": "cost_capex_WT",
+            "type": "LITERATURE",
+            "full_name": "Specific investment cost",
+            "user_grade": "MANDATORY",
+            "value": 1436,
+            "physical_unit": "USD/kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{inv}$",
+            "reference": "NREL, 2019 Cost of Wind Energy Review, Table ES1 (https://www.nrel.gov/docs/fy21osti/78471.pdf)",
+            "description": "Investment cost per kW of rated power of a land-based wind turbine"
+        },
+        {
+            "var_name": "cost_opex_WT",
+            "type": "LITERATURE",
+            "full_name": "Specific operating cost",
+            "user_grade": "MANDATORY",
+            "value": 43,
+            "physical_unit": "USD/kW/y",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{op}$",
+            "reference": "NREL, 2019 Cost of Wind Energy Review, Table ES1 (https://www.nrel.gov/docs/fy21osti/78471.pdf)",
+            "description": "Operating cost per kW of rated power and year (not used: the operating cost is disabled in the Lua file)"
+        },
+        {
+            "var_name": "i",
+            "type": "CONTEXT",
+            "full_name": "Interest rate",
+            "user_grade": "MANDATORY",
+            "value": 0.08,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$i$",
+            "reference": "WindTurbine_ET.lua",
+            "description": "Interest rate"
+        },
+        {
+            "var_name": "n",
+            "type": "CONTEXT",
+            "full_name": "Lifetime",
+            "user_grade": "MANDATORY",
+            "value": 20,
+            "physical_unit": "year",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$n$",
+            "reference": "WindTurbine_ET.lua",
+            "description": "Lifetime of the wind turbine"
+        },
+        {
+            "var_name": "pi",
+            "type": "CONTEXT",
+            "full_name": "Pi",
+            "user_grade": "MANDATORY",
+            "value": 3.141592,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\pi$",
+            "reference": "WindTurbine_ET.lua",
+            "description": "The number pi"
+        },
+        {
+            "var_name": "ro_air",
+            "type": "CALCULATED",
+            "full_name": "Air density",
+            "user_grade": "MANDATORY",
+            "value": 1.1845814187489518,
+            "physical_unit": "kg/m3",
+            "formula": "1.293*273.15/(T_ext+273.15)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\rho_{air}$",
+            "reference": "Du and Aziz (2022)",
+            "description": "Density of the air at the ambient temperature, from 1.293 kg/m3 at 0 °C"
+        },
+        {
+            "var_name": "A_rotor",
+            "type": "CALCULATED",
+            "full_name": "Swept area",
+            "user_grade": "MANDATORY",
+            "value": 5281.016152,
+            "physical_unit": "m2",
+            "formula": "0.25*pi*d_rotor**2",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$A_{rotor}$",
+            "reference": "Du and Aziz (2022)",
+            "description": "Area swept by the rotor"
+        },
+        {
+            "var_name": "V_real",
+            "type": "CALCULATED",
+            "full_name": "Wind speed at hub height",
+            "user_grade": "MANDATORY",
+            "value": 9.811327233930726,
+            "physical_unit": "m/s",
+            "formula": "V_mea*(z_rotor/z_mea)**shear_exp",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$V_{hub}$",
+            "reference": "Du and Aziz (2022)",
+            "description": "Wind speed at the hub height, from the measured speed with the power law of the wind shear"
+        },
+        {
+            "var_name": "E_wind",
+            "type": "CALCULATED",
+            "full_name": "Wind power",
+            "user_grade": "MANDATORY",
+            "value": 2954.1714635739586,
+            "physical_unit": "kW",
+            "formula": "(0.5*N_WT*ro_air*A_rotor*V_real**3)/1000",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot E_{wind}$",
+            "reference": "Du and Aziz (2022)",
+            "description": "Kinetic power of the wind through the swept area"
+        },
+        {
+            "var_name": "P_WT_rated",
+            "type": "CALCULATED",
+            "full_name": "Rated power",
+            "user_grade": "MANDATORY",
+            "value": 5405.0056753872595,
+            "physical_unit": "kW",
+            "formula": "(0.5*N_WT*ro_air*A_rotor*12**3)/1000",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$P_{rated}$",
+            "reference": "WindTurbine_ET.lua",
+            "description": "Wind power through the swept area at the rated wind speed of 12 m/s. As in the Lua file, it does not include the power coefficient and the mechanical efficiency"
+        },
+        {
+            "var_name": "efficiency",
+            "type": "CALCULATED",
+            "full_name": "Turbine efficiency",
+            "user_grade": "MANDATORY",
+            "value": 0.441,
+            "physical_unit": "-",
+            "formula": "eta_mec*co_power",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\eta_{WT}$",
+            "reference": "Du and Aziz (2022)",
+            "description": "Fraction of the wind power converted into electricity"
+        },
+        {
+            "var_name": "P_WT",
+            "type": "CALCULATED",
+            "full_name": "Electricity production",
+            "user_grade": "MANDATORY",
+            "value": 1302.789615436116,
+            "physical_unit": "kW",
+            "formula": "(0.5*N_WT*ro_air*A_rotor*eta_mec*co_power*V_real**3)/1000",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$P_{WT}$",
+            "reference": "Du and Aziz (2022)",
+            "description": "Electric power of the turbine. Between the cut-in speed of 3 m/s and the rated speed of 12 m/s it follows the cube of the hub wind speed, as here; between 12 and 25 m/s it stays at its value at 12 m/s; below 3 m/s and above the cut-off speed of 25 m/s it is 0. The Lua file writes this power curve as a conditional"
+        },
+        {
+            "var_name": "Annuity_fact",
+            "type": "CALCULATED",
+            "full_name": "Annualization factor",
+            "user_grade": "MANDATORY",
+            "value": 0.10185220882315059,
+            "physical_unit": "-",
+            "formula": "(i*(i+1)**n)/((i+1)**n-1)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$a$",
+            "reference": "WindTurbine_ET.lua",
+            "description": "Annualization factor over n years at the interest rate i"
+        },
+        {
+            "var_name": "Cinv2",
+            "type": "CALCULATED",
+            "full_name": "Annualized investment",
+            "user_grade": "MANDATORY",
+            "value": 790534.897038435,
+            "physical_unit": "USD/year",
+            "formula": "cost_capex_WT*P_WT_rated*Annuity_fact",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$C^{inv}_{WT}$",
+            "reference": "WindTurbine_ET.lua",
+            "description": "Annualized investment cost of the wind turbine (not used: the unit's Cinv2 is 0 in the Lua file)"
+        }
+    ],
+    "units": [
+        {
+            "unit_description": "This unit is an onshore wind turbine with a rotor of 82 m at a hub height of 71.5 m. A wind of 6 m/s measured at 10 m is 9.81 m/s at the hub, and the turbine produces 1,303 kW of electricity, 44.1 % of the 2,954 kW of wind power through its rotor.",
+            "unit_info": {
+                "unit_name": "WTmodel",
+                "full_name": "Wind turbine",
+                "unit_type": "utility",
+                "minimum_capacity_multiplier": {
+                    "value": 1,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 1,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit delivers electricity. Its size is fixed: the number of turbines is set by N_WT.",
+            "connectors": [
+                {
+                    "name": "ELECTRICITY",
+                    "full_name": "Electricity",
+                    "scope": "GLOBAL",
+                    "type": "ELECTRICITY",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 1302.789615436116,
+                        "formula": "=P_WT",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "Electricity produced by the turbine, to the grid"
+                }
+            ],
+            "heat_streams_description": "The unit has no heat streams.",
+            "heat_streams": [],
+            "equipments_description": "The wind turbine. Its investment cost is calculated, but the Lua unit does not use it (Cinv2 = 0).",
+            "equipments": [
+                {
+                    "name": "WT_investment",
+                    "full_name": "Investment of the wind turbine",
+                    "type": "Asset",
+                    "subtype": "",
+                    "reference": "NREL, 2019 Cost of Wind Energy Review, Table ES1 (https://www.nrel.gov/docs/fy21osti/78471.pdf)",
+                    "reference_size": {
+                        "full_name": "Reference size of equipment",
+                        "value": 5405.0056753872595,
+                        "formula": "=P_WT_rated",
+                        "unit": "kW"
+                    },
+                    "lifetime": {
+                        "full_name": "Lifetime",
+                        "value": 20,
+                        "formula": "=n",
+                        "unit": "year"
+                    },
+                    "year": {
+                        "full_name": "Year of reference",
+                        "value": 2019,
+                        "formula": null,
+                        "unit": "year"
+                    },
+                    "CAPEX": {
+                        "full_name": "Total investment cost for ref. size",
+                        "value": 7761588.1498561045,
+                        "formula": "=cost_capex_WT*P_WT_rated",
+                        "unit": "USD"
+                    },
+                    "impact": {
+                        "full_name": "Scope 3 environmental impact per unit of ref. size",
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kgCO2-eq"
+                    },
+                    "interest_rate": {
+                        "full_name": "Interest rate",
+                        "value": 0.08,
+                        "formula": "=i",
+                        "unit": "-"
+                    },
+                    "F_BM": {
+                        "full_name": "Bare module factor",
+                        "value": 1,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "capacity_exponent": {
+                        "full_name": "Capacity exponent",
+                        "value": 1,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "parameters": [
+                        {
+                            "parameter": "Annualized investment",
+                            "value": 790534.897038435,
+                            "formula": "=Cinv2",
+                            "unit": "USD/year"
+                        }
+                    ]
+                }
+            ],
+            "operating_cost_description": "The operating cost of the Lua file, cost_opex_WT, is disabled.",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        }
+    ],
+    "custom_constraints": [
+        {
+            "name": "",
+            "equation": "",
+            "type": ""
+        }
+    ]
+}

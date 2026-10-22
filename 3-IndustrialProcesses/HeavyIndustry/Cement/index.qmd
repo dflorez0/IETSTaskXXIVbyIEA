@@ -10,6 +10,8 @@ The model represents a cement plant with a dry short kiln. The raw meal is groun
 
 The model has 19 units, from five OSMOSE files: the raw mill, the four units of the kiln train, a feed unit and a mill unit for each of the six cements, the clay calciner and the air separation unit. The fuel of the kiln is not part of this model: the heat it needs is the hot utility of the kiln train.
 
+The model is the base plant of the decarbonisation study of Salman et al. (manuscript for Applied Energy), which assesses 32 configurations of a representative Belgian plant producing 5,000 t/day of clinker: fuel switching (coal, natural gas, biomass, biomethane, refuse-derived fuel and hydrogen), partial and full electrification with plasma heating, four CO~2~ capture routes (MEA absorption, MEA with heat pumps, oxy-fuel capture with a CO~2~ purification unit, and calcium looping) and waste heat recovery (@fig-cement-superstructure). In the study, the reference plant burns coal and needs 3.48 GJ of fuel and 0.4 GJ of electricity per tonne of clinker, with direct emissions of 0.8 t of CO~2~ per tonne of clinker.
+
 ## Key figures
 
 Minimum utility requirements of the unit on its own, from its heat streams. The scale factor *f* multiplies every duty and flow on this page, as the optimization does with the unit's size. Choose the unit to show with the selector.
@@ -22,7 +24,9 @@ Minimum utility requirements of the unit on its own, from its heat streams. The 
 
 ## Model
 
-Throughout this page, names written like `KILNCC_CLINKER_MASSF` are variables of the model: hover one for its definition, click it to go to its row in the [variables](#variables) table. The same holds for the symbols in the equations and for underlined values in the tables. The equations below are generated from the formulas of the model's JSON description, and each is tagged with the name of the variable it defines.
+Throughout this page, names written like `KILNCC_CLINKER_MASSF` are variables of the model: hover one for its definition, click it to go to its row in the [variables](#variables) table. The same holds for the symbols in the equations and for underlined values in the tables. The equations below are generated from the formulas of the model's JSON description, and each is tagged with the name of the variable it defines. @fig-cement-superstructure shows the main clinker production process and the options of the study that can be combined with it.
+
+![Superstructure of clinker production assessed by Salman et al.: energy resources, kiln configurations, carbon capture routes and waste heat recovery options. Click to enlarge.](Figures/CementSuperstructure.jpg){#fig-cement-superstructure .lightbox width=100%}
 
 ### Process
 
@@ -48,6 +52,8 @@ Throughout this page, names written like `KILNCC_CLINKER_MASSF` are variables of
 
 ### Modelling choices
 
+**Plant size.** The values are those of the Lua files. With all six cements, the kiln produces 245,000 kg/h of clinker, more than the 5,000 t/day (208,333 kg/h) reference plant of the study; to model that plant, reduce `MILL_CEM_MASSF` or the cement flags. The Lua file describes the pre-heater as four-stage, where the study's reference plant has five stages.
+
 **Reference sizes.** Each unit has its own reference size, and the optimization scales each one with its size factor. The reference sizes are not consistent with each other: the raw mill produces 792,000 kg/h of raw meal for the 362,600 kg/h the kiln needs, and each cement mill grinds 450,000 kg/h of cement where the kiln is sized for 62,500 kg/h of each. The clinker ratios of the kiln and of the mills also differ for some cements, for instance 0.67 and 0.70 kg per kg for CEM II/B-W.
 
 **Global parameters.** Some parameters of the Lua files are set by the cement cluster they belong to, and are not defined in them. They are given here as placeholders: `annual_cap_cement` is 1, so the investments are in EUR per year; there are no plasma torches (`CEM_addPlasma`) and no CO~2~ capture (`add_CCSCement`, `add_CPU`, `add_CaL`), so the air separation unit is not used. Two conditional formulas of the Lua files, for `CAPEX_adjustment` and `add_ASU`, are written as equivalent arithmetic. The electricity costs of the Lua files are not included, since they need an electricity price that is not defined and the units do not use them.
@@ -68,7 +74,7 @@ Throughout this page, names written like `KILNCC_CLINKER_MASSF` are variables of
 
 ## Heat integration
 
-The kiln train needs heat at kiln temperatures. On their own, the pre-heater needs 134 MW, the pre-calciner 132 MW and the kiln 39 MW, while the clinker cooler needs only 9.7 MW: the air it heats takes most of the clinker heat. Together, the four units of the kiln train need 184 MW, or 2.7 GJ per tonne of clinker, which the fuel of the kiln has to supply; they need no cold utility. The 16 MW of clinker heat between 300 and 65 °C are available for heat recovery in the `HREC` cascade.
+The kiln train needs heat at kiln temperatures. On their own, the pre-heater needs 134 MW, the pre-calciner 132 MW and the kiln 39 MW, while the clinker cooler needs only 9.7 MW: the air it heats takes most of the clinker heat. Together, the four units of the kiln train need 184 MW, or 2.7 GJ per tonne of clinker, which the fuel of the kiln has to supply; they need no cold utility. This is the heat taken up by the materials; with the efficiency of the combustion and the losses of the kiln, the reference plant of the study needs 3.48 GJ of fuel per tonne of clinker. The 16 MW of clinker heat between 300 and 65 °C are available for heat recovery in the `HREC` cascade.
 
 The raw mill needs 23 MW of heat below 100 °C to dry and heat the raw meal, which waste heat can supply, for instance the kiln exhaust gas. The clay calciner needs 24 MW at 800 °C for 100,000 kg/h of clay and can release 4 MW. The air separation unit needs 26 MW of low pressure steam at its reference size.
 
@@ -94,6 +100,7 @@ The raw mill needs 23 MW of heat below 100 °C to dry and heat the raw meal, whi
 | [CM_SP_CLAY_CALCINATION_Optim.lua](Osmoses/CM_SP_CLAY_CALCINATION_Optim.lua) | OSMOSE (Lua) implementation of the clay calciner |
 | [CM_SP_AIR_SEPARATION_Optim.lua](Osmoses/CM_SP_AIR_SEPARATION_Optim.lua) | OSMOSE (Lua) implementation of the air separation unit |
 | [Cement.json](JSON/Cement.json) | Model description in the Task XXIV JSON format |
+| [CementSuperstructure.jpg](Figures/CementSuperstructure.jpg) | Superstructure of the decarbonisation options of clinker production |
 
 ## References
 

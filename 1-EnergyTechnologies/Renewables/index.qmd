@@ -4,7 +4,7 @@ Renewable electricity and heat generation.
 
 | Model type | Model | Status |
 |:--|:--|:--|
-| PV panels, solar concentrators | — | Work in progress |
-| Wind turbines | — | Work in progress |
+| PV panels, solar concentrators | [Photovoltaic panels](PVpanels/index.qmd) | Documented |
+| Wind turbines | [Wind turbine](WindTurbine/index.qmd) | Documented |
 
 : {.striped}

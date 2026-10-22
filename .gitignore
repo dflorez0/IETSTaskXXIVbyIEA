@@ -16,3 +16,6 @@ desktop.ini
 **/*.quarto_ipynb
 
 /.luarc.json
+
+# Unpublished manuscript: keep out of the repository until the paper is published
+/3-IndustrialProcesses/HeavyIndustry/Cement/Documents/

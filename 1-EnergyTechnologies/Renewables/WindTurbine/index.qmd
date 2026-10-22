@@ -1,0 +1,60 @@
+# Wind turbine {.unnumbered}
+
+{{< model-viewer JSON/WindTurbine.json view="card" >}}
+
+## Description
+
+A wind turbine converts the kinetic energy of the wind into electricity. The power of the wind through the rotor grows with the air density, the swept area and the cube of the wind speed, so a small increase of the wind speed gives a large increase of the power. The rotor can extract at most 59 % of it (the Betz limit), and modern turbines reach about 45 to 50 %. The wind is faster higher above the ground, which is why turbines are tall and why a wind speed measured near the ground has to be corrected to the hub height.
+
+A turbine starts producing at a cut-in wind speed of about 3 m/s. Its output grows with the wind until the rated speed, 12 to 15 m/s, where it reaches its rated power, and it stays there until the cut-off speed of about 25 m/s, above which the turbine stops to protect itself.
+
+The model gives the electricity produced by an onshore wind turbine with an 82 m rotor at a hub height of 71.5 m, for a wind speed measured at 10 m, as in the multi-generation system of [Du and Aziz (2022)](https://doi.org/10.1016/j.enconman.2021.115166). At a measured wind speed of 6 m/s, it produces 1,303 kW.
+
+## Key figures
+
+The unit has no heat streams: it only delivers electricity.
+
+{{< model-viewer JSON/WindTurbine.json view="flows" >}}
+
+## Model
+
+Throughout this page, names written like `P_WT` are variables of the model: hover one for its definition, click it to go to its row in the [variables](#variables) table. The same holds for the symbols in the equations and for underlined values in the tables. The equations below are generated from the formulas of the model's JSON description, and each is tagged with the name of the variable it defines.
+
+**Wind at the hub.** The wind speed measured at the height `z_mea`, `V_mea`, is corrected to the hub height `z_rotor` with the power law of the wind shear, of exponent `shear_exp`, to give `V_real`. A wind of 6 m/s at 10 m is 9.81 m/s at 71.5 m.
+
+**Wind power.** The air density, `ro_air`, is corrected for the ambient temperature `T_ext`. The power of the wind through the swept area `A_rotor` of `N_WT` turbines is `E_wind`, 2,954 kW here.
+
+**Electricity production.** The turbine converts the fraction `efficiency` of the wind power into electricity: the power coefficient of the rotor, `co_power`, times the mechanical efficiency of the drive train, `eta_mec`, or 44.1 %. Its output, `P_WT`, follows the power curve of the turbine: zero below the cut-in speed of 3 m/s, proportional to the cube of the hub wind speed up to the rated speed of 12 m/s, constant at its value at 12 m/s up to the cut-off speed of 25 m/s, and zero above. At 9.81 m/s, the turbine is in the cubic part of the curve and produces 1,303 kW.
+
+**Investment cost.** The turbine costs `cost_capex_WT` per kW of rated power, `P_WT_rated`, annualized with `Annuity_fact` over the lifetime `n` at the interest rate `i`, to give `Cinv2`.
+
+{{< model-viewer JSON/WindTurbine.json view="equations" >}}
+
+### Using the model
+
+The wind speed `V_mea` and the ambient temperature `T_ext` change with time; the values here are one operating point. The power curve is a conditional in the Lua file, and the JSON gives the formula of the part of the curve the reference wind speed falls in, between 3 and 12 m/s at the hub. For other wind speeds, apply the cut-in, rated and cut-off limits. The size of the unit is fixed at 1; to model a wind farm, change the number of turbines, `N_WT`.
+
+### Modelling choices
+
+**Rated power.** The rated power, `P_WT_rated`, is the wind power through the rotor at 12 m/s, 5,405 kW. As in the Lua file, it does not include the power coefficient and the mechanical efficiency, so it is about 2.3 times the electric power of the turbine at 12 m/s, 2,384 kW. The investment cost, which is calculated from it, is overestimated by the same factor.
+
+**Costs.** The investment cost is calculated but not used: the unit's investment cost is 0 in the Lua file, and its operating cost, `cost_opex_WT`, is disabled. The costs are in USD, from the NREL 2019 Cost of Wind Energy Review.
+
+## Variables
+
+{{< model-viewer JSON/WindTurbine.json view="variables" >}}
+
+## Unit and connectors
+
+{{< model-viewer JSON/WindTurbine.json view="unit" >}}
+
+## Supplementary material
+
+| File | Content |
+|:--|:--|
+| [WindTurbine_ET.lua](Osmoses/WindTurbine_ET.lua) | OSMOSE (Lua) implementation of the model |
+| [WindTurbine.json](JSON/WindTurbine.json) | Model description in the Task XXIV JSON format |
+
+## References
+
+{{< model-viewer JSON/WindTurbine.json view="references" >}}

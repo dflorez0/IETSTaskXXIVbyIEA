@@ -64,7 +64,11 @@ website:
             contents:
               - 1-EnergyTechnologies/HeatRecoveryAndUpgrade/HeatPump/index.qmd
           - 1-EnergyTechnologies/MassAndEnergyStorage/index.qmd
-          - 1-EnergyTechnologies/Renewables/index.qmd
+          - section: "Renewables"
+            href: 1-EnergyTechnologies/Renewables/index.qmd
+            contents:
+              - 1-EnergyTechnologies/Renewables/PVpanels/index.qmd
+              - 1-EnergyTechnologies/Renewables/WindTurbine/index.qmd
           - 1-EnergyTechnologies/AirSeparation/index.qmd
           - 1-EnergyTechnologies/EnergySystemsAndGrids/index.qmd
 

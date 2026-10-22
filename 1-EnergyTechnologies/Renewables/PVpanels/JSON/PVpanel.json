@@ -1,0 +1,492 @@
+{
+    "header": {
+        "uid": "",
+        "name": "PV",
+        "full_name": "Photovoltaic panels",
+        "ET_model_type": "regular",
+        "authors_and_contributors": "Raluca Suciu, based on the model of Araz Ashouri, EPFL IPESE research group",
+        "contact_info": "",
+        "creation_date": "",
+        "last_updated": "22.10.2026",
+        "status": "Maintained",
+        "version": "1.0",
+        "confidentiality": "Open",
+        "sharing_layer": "1",
+        "grade": "GRAY-BOX",
+        "reference_capacity": "4,000 m2 of panels (size_real), 59.1 kW at 100 W/m2 (E_default)",
+        "TRL": "9",
+        "keywords": [
+            "Photovoltaics",
+            "Solar energy",
+            "Renewable electricity",
+            "Electricity"
+        ],
+        "description": "Photovoltaic panels converting the global irradiance into electricity, with an efficiency that decreases with the panel temperature.",
+        "DOI": "",
+        "main_related_publication": "",
+        "references": "[1] Ashouri, A., Simultaneous design and control of energy systems. Doctoral dissertation, ETH Zurich (2014);\n[2] Suciu, R.A., Fifth generation district energy systems for low carbon cities. Doctoral dissertation, EPFL (2019);\n[3] Wallerand, A.S., Integration of solar energy with industrial processes. Doctoral dissertation no. 8635, EPFL (2018)",
+        "software": "OSMOSE",
+        "software_file": "",
+        "block_flow_diagram": "PVpanels/Figures/PVpanel.svg",
+        "url": null,
+        "supplementary_material": "See SUPPL MATERIAL tab",
+        "hierarchy": "utility"
+    },
+    "variables": [
+        {
+            "var_name": "add_PVpanel2_ETraluca",
+            "type": "CONTEXT",
+            "full_name": "PV panel flag",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$add_{PV}$",
+            "reference": "PVpanel2_ETraluca.lua",
+            "description": "1 adds the PV unit to the problem"
+        },
+        {
+            "var_name": "PV_capacity",
+            "type": "CONTEXT",
+            "full_name": "PV capacity factor",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$f_{PV}$",
+            "reference": "PVpanel2_ETraluca.lua",
+            "description": "Factor to scale the solar electricity available (not used: it belongs to a disabled version of the unit)"
+        },
+        {
+            "var_name": "T_ext",
+            "type": "CONTEXT",
+            "full_name": "Ambient temperature",
+            "user_grade": "MANDATORY",
+            "value": 14.4,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{ext}$",
+            "reference": "PVpanel2_ETraluca.lua",
+            "description": "Ambient temperature. In OSMOSE it is read for each period from a weather file; the R Markdown example uses 10 °C"
+        },
+        {
+            "var_name": "GI",
+            "type": "CONTEXT",
+            "full_name": "Global irradiance",
+            "user_grade": "MANDATORY",
+            "value": 100,
+            "physical_unit": "W/m2",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$G_{I}$",
+            "reference": "PVpanel2_ETraluca.lua",
+            "description": "Global horizontal irradiance on the panels. In OSMOSE it is read for each period from a weather file"
+        },
+        {
+            "var_name": "size_ref",
+            "type": "CONTEXT",
+            "full_name": "Installation area",
+            "user_grade": "MANDATORY",
+            "value": 16000,
+            "physical_unit": "m2",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$A_{ref}$",
+            "reference": "PVpanel2_ETraluca.lua",
+            "description": "Area available for the installation, for instance the roof area. The R Markdown example uses 11,689.7 m2"
+        },
+        {
+            "var_name": "area_factor",
+            "type": "CONTEXT",
+            "full_name": "Effective area factor",
+            "user_grade": "MANDATORY",
+            "value": 0.25,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$f_{A}$",
+            "reference": "PVpanel2_ETraluca.lua",
+            "description": "Fraction of the installation area effectively covered by panels, accounting for obstacles and spacing"
+        },
+        {
+            "var_name": "T_ref",
+            "type": "LITERATURE",
+            "full_name": "Reference temperature",
+            "user_grade": "MANDATORY",
+            "value": 298,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{ref}$",
+            "reference": "Ashouri (2014)",
+            "description": "Reference temperature of the panel efficiency"
+        },
+        {
+            "var_name": "U_glass",
+            "type": "LITERATURE",
+            "full_name": "Thermal transmission coefficient",
+            "user_grade": "MANDATORY",
+            "value": 29.1,
+            "physical_unit": "W/m2/K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$U_{glass}$",
+            "reference": "Ashouri (2014)",
+            "description": "Thermal transmission coefficient of the panel, given by the manufacturer"
+        },
+        {
+            "var_name": "f_glass",
+            "type": "LITERATURE",
+            "full_name": "Glass transmittance",
+            "user_grade": "MANDATORY",
+            "value": 0.9,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$f_{glass}$",
+            "reference": "Ashouri (2014)",
+            "description": "Fraction of the solar irradiation passing through the PV glass"
+        },
+        {
+            "var_name": "efficiency_ref",
+            "type": "LITERATURE",
+            "full_name": "Reference efficiency",
+            "user_grade": "MANDATORY",
+            "value": 0.14,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\eta_{ref}$",
+            "reference": "Ashouri (2014)",
+            "description": "Efficiency of the panel at the reference temperature"
+        },
+        {
+            "var_name": "efficiency_var",
+            "type": "LITERATURE",
+            "full_name": "Temperature coefficient of efficiency",
+            "user_grade": "MANDATORY",
+            "value": 0.001,
+            "physical_unit": "1/K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\beta$",
+            "reference": "Ashouri (2014)",
+            "description": "Decrease of the efficiency per kelvin above the reference temperature, given by the manufacturer"
+        },
+        {
+            "var_name": "param_electricity",
+            "type": "CONTEXT",
+            "full_name": "W to kW conversion",
+            "user_grade": "MANDATORY",
+            "value": 1000,
+            "physical_unit": "W/kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{W}$",
+            "reference": "PVpanel2_ETraluca.lua",
+            "description": "Conversion from W to kW"
+        },
+        {
+            "var_name": "costinv",
+            "type": "LITERATURE",
+            "full_name": "Specific investment cost",
+            "user_grade": "MANDATORY",
+            "value": 150,
+            "physical_unit": "CHF/m2",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{inv}$",
+            "reference": "PVpanel2_ETraluca.lua",
+            "description": "Investment cost per m2 of panel. The Lua file notes it was initially 300 CHF/m2, the value of the R Markdown example"
+        },
+        {
+            "var_name": "i",
+            "type": "CONTEXT",
+            "full_name": "Interest rate",
+            "user_grade": "MANDATORY",
+            "value": 0.08,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$i$",
+            "reference": "PVpanel2_ETraluca.lua",
+            "description": "Interest rate. The R Markdown example uses 0.06"
+        },
+        {
+            "var_name": "n",
+            "type": "CONTEXT",
+            "full_name": "Lifetime",
+            "user_grade": "MANDATORY",
+            "value": 20,
+            "physical_unit": "year",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$n$",
+            "reference": "PVpanel2_ETraluca.lua",
+            "description": "Lifetime of the PV panels. The R Markdown example uses 25 years"
+        },
+        {
+            "var_name": "T_panel",
+            "type": "CALCULATED",
+            "full_name": "Panel temperature",
+            "user_grade": "MANDATORY",
+            "value": 290.13465517241383,
+            "physical_unit": "K",
+            "formula": "(U_glass*(T_ext+273.15))/(U_glass-efficiency_var*GI)+GI*(f_glass-efficiency_ref-efficiency_var*T_ref)/(U_glass-efficiency_var*GI)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{panel}$",
+            "reference": "Ashouri (2014)",
+            "description": "Temperature of the panel, from its energy balance: the absorbed irradiance not converted to electricity is lost to the ambient air"
+        },
+        {
+            "var_name": "size_real",
+            "type": "CALCULATED",
+            "full_name": "Panel area",
+            "user_grade": "MANDATORY",
+            "value": 4000.0,
+            "physical_unit": "m2",
+            "formula": "size_ref*area_factor",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$A_{PV}$",
+            "reference": "PVpanel2_ETraluca.lua",
+            "description": "Area effectively covered by PV panels"
+        },
+        {
+            "var_name": "efficiency",
+            "type": "CALCULATED",
+            "full_name": "Panel efficiency",
+            "user_grade": "MANDATORY",
+            "value": 0.14786534482758618,
+            "physical_unit": "-",
+            "formula": "efficiency_ref-efficiency_var*(T_panel-T_ref)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\eta_{PV}$",
+            "reference": "Ashouri (2014)",
+            "description": "Electrical efficiency of the panel at its operating temperature"
+        },
+        {
+            "var_name": "E_default",
+            "type": "CALCULATED",
+            "full_name": "Electricity production",
+            "user_grade": "MANDATORY",
+            "value": 59.146137931034474,
+            "physical_unit": "kW",
+            "formula": "GI*size_real*efficiency/param_electricity",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot E_{PV}$",
+            "reference": "Ashouri (2014)",
+            "description": "Electric power produced by the panels"
+        },
+        {
+            "var_name": "Annuity",
+            "type": "CALCULATED",
+            "full_name": "Annualization factor",
+            "user_grade": "MANDATORY",
+            "value": 0.10185220882315059,
+            "physical_unit": "-",
+            "formula": "(i*(1+i)**n)/((1+i)**n-1)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$a$",
+            "reference": "PVpanel2_ETraluca.lua",
+            "description": "Annualization factor over n years at the interest rate i"
+        },
+        {
+            "var_name": "Cinv2",
+            "type": "CALCULATED",
+            "full_name": "Annualized investment",
+            "user_grade": "MANDATORY",
+            "value": 61111.32529389035,
+            "physical_unit": "CHF/year",
+            "formula": "costinv*Annuity*size_real",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$C^{inv}_{PV}$",
+            "reference": "PVpanel2_ETraluca.lua",
+            "description": "Annualized investment cost of the PV panels"
+        }
+    ],
+    "units": [
+        {
+            "unit_description": "This unit is a PV installation of 4,000 m2 of panels. At the reference conditions, an irradiance of 100 W/m2 and an ambient temperature of 14.4 °C, the panels run at 17.0 °C with an efficiency of 14.8 % and produce 59.1 kW of electricity.",
+            "unit_info": {
+                "unit_name": "PV",
+                "full_name": "Photovoltaic panels",
+                "unit_type": "utility",
+                "minimum_capacity_multiplier": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 1,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit delivers electricity. Its size is the electricity it produces.",
+            "connectors": [
+                {
+                    "name": "ELECTRICITY",
+                    "full_name": "Electricity",
+                    "scope": "GLOBAL",
+                    "type": "ELECTRICITY",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 59.146137931034474,
+                        "formula": "=E_default",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "Electricity produced by the panels, to the grid"
+                }
+            ],
+            "heat_streams_description": "The unit has no heat streams.",
+            "heat_streams": [],
+            "equipments_description": "The PV panels, whose investment cost is proportional to their area.",
+            "equipments": [
+                {
+                    "name": "PV_investment",
+                    "full_name": "Investment of the PV panels",
+                    "type": "Asset",
+                    "subtype": "",
+                    "reference": "",
+                    "reference_size": {
+                        "full_name": "Reference size of equipment",
+                        "value": 4000.0,
+                        "formula": "=size_real",
+                        "unit": "m2"
+                    },
+                    "lifetime": {
+                        "full_name": "Lifetime",
+                        "value": 20,
+                        "formula": "=n",
+                        "unit": "year"
+                    },
+                    "year": {
+                        "full_name": "Year of reference",
+                        "value": null,
+                        "formula": null,
+                        "unit": "year"
+                    },
+                    "CAPEX": {
+                        "full_name": "Total investment cost for ref. size",
+                        "value": 600000.0,
+                        "formula": "=costinv*size_real",
+                        "unit": "CHF"
+                    },
+                    "impact": {
+                        "full_name": "Scope 3 environmental impact per unit of ref. size",
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kgCO2-eq"
+                    },
+                    "interest_rate": {
+                        "full_name": "Interest rate",
+                        "value": 0.08,
+                        "formula": "=i",
+                        "unit": "-"
+                    },
+                    "F_BM": {
+                        "full_name": "Bare module factor",
+                        "value": 1,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "capacity_exponent": {
+                        "full_name": "Capacity exponent",
+                        "value": 1,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "parameters": [
+                        {
+                            "parameter": "Annualized investment",
+                            "value": 61111.32529389035,
+                            "formula": "=Cinv2",
+                            "unit": "CHF/year"
+                        }
+                    ]
+                }
+            ],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        }
+    ],
+    "custom_constraints": [
+        {
+            "name": "",
+            "equation": "",
+            "type": ""
+        }
+    ]
+}
