@@ -1,4 +1,4 @@
-# Methanol synthesis from co-electrolysis syngas {.unnumbered}
+# Methanol {.unnumbered}
 
 {{< model-viewer JSON/MeOH.json view="card" >}}
 
