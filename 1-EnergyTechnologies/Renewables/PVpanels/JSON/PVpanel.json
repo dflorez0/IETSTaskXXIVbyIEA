@@ -73,7 +73,7 @@
             "max_bound": null,
             "latex_syntax": "$T_{ext}$",
             "reference": "PVpanel2_ETraluca.lua",
-            "description": "Ambient temperature. In OSMOSE it is read for each period from a weather file; the R Markdown example uses 10 °C"
+            "description": "Ambient temperature. In OSMOSE it is read for each period from a weather file"
         },
         {
             "var_name": "GI",
@@ -101,7 +101,7 @@
             "max_bound": null,
             "latex_syntax": "$A_{ref}$",
             "reference": "PVpanel2_ETraluca.lua",
-            "description": "Area available for the installation, for instance the roof area. The R Markdown example uses 11,689.7 m2"
+            "description": "Area available for the installation, for instance the roof area"
         },
         {
             "var_name": "area_factor",
@@ -213,7 +213,7 @@
             "max_bound": null,
             "latex_syntax": "$c_{inv}$",
             "reference": "PVpanel2_ETraluca.lua",
-            "description": "Investment cost per m2 of panel. The Lua file notes it was initially 300 CHF/m2, the value of the R Markdown example"
+            "description": "Investment cost per m2 of panel. The Lua file notes it was initially 300 CHF/m2"
         },
         {
             "var_name": "i",
@@ -227,7 +227,7 @@
             "max_bound": null,
             "latex_syntax": "$i$",
             "reference": "PVpanel2_ETraluca.lua",
-            "description": "Interest rate. The R Markdown example uses 0.06"
+            "description": "Interest rate"
         },
         {
             "var_name": "n",
@@ -241,7 +241,7 @@
             "max_bound": null,
             "latex_syntax": "$n$",
             "reference": "PVpanel2_ETraluca.lua",
-            "description": "Lifetime of the PV panels. The R Markdown example uses 25 years"
+            "description": "Lifetime of the PV panels"
         },
         {
             "var_name": "T_panel",

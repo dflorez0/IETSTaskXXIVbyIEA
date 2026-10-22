@@ -36,7 +36,7 @@ The irradiance `GI` and the ambient temperature `T_ext` change with time: in OSM
 
 ### Modelling choices
 
-The values are those of the Lua file. The R Markdown description of the model uses an example with other values: an ambient temperature of 10 °C, an installation area of 11,689.7 m², 300 CHF/m² for the panels, an interest rate of 6 %, a lifetime of 25 years and a size factor of up to 100. The costs are in CHF. The panels have no operating cost.
+The values are those of the Lua file. The costs are in CHF. The panels have no operating cost.
 
 ## Variables
 
@@ -51,7 +51,6 @@ The values are those of the Lua file. The R Markdown description of the model us
 | File | Content |
 |:--|:--|
 | [PVpanel2_ETraluca.lua](Osmoses/PVpanel2_ETraluca.lua) | OSMOSE (Lua) implementation of the model |
-| [PVpanel.Rmd](Rmarkdowns/PVpanel.Rmd) | Description of the model in R Markdown, with its ROSMOSE implementation |
 | [PVpanel.json](JSON/PVpanel.json) | Model description in the Task XXIV JSON format |
 | [PVpanel.svg](Figures/PVpanel.svg) | Structure of a photovoltaic panel |
 | [Ashouri 2014.pdf](Documents/Ashouri%202014.pdf) | Doctoral thesis of Ashouri (2014), from which the model is taken |
