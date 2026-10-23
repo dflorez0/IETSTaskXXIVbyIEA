@@ -401,6 +401,40 @@ blockquote > p:last-child  { text-align: right; }
   .report-viewer-phone { display: block; }
 }
 
+/* ---- Funding (00-TaskDescription.qmd) ---------------------------------- */
+/* The SFOE logo as on the report: the federal logo, then the department and
+   the office, set in Arial as in the federal design. */
+.funding-note {
+  display: grid;
+  grid-template-columns: minmax(0, 260px) 1fr;
+  gap: .75rem 1.5rem;
+  align-items: center;
+  margin: 1rem 0 2rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid $epfl-grey-lt;
+  border-radius: 4px;
+}
+.funding-note .funding-logo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.funding-note .funding-office {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: .8rem;
+  line-height: 1.35;
+}
+.funding-note .funding-office strong { font-size: .9rem; }
+.funding-note .funding-text {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+@media (max-width: 575.98px) {
+  .funding-note { grid-template-columns: 1fr; }
+  .funding-note .funding-logo { max-width: 240px; }
+}
+
 /* Subsections read as one level below the sections: smaller and in the
    accent red, while sections keep their size and grey underline. */
 main.content h3 {

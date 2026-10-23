@@ -3,15 +3,28 @@
 **Process Integration for Industry Decarbonization** is Task XXIV of the IEA Technology Collaboration Programme on Industrial Energy-Related Technologies and Systems (IETS TCP).
 
 | | |
-|:--|:--|
+|:------|:------------------|
 | **Duration** | 1 January 2025 – 31 December 2027 |
 | **Approval** | IETS Executive Committee, 20 November 2024 |
 | **Task managers** | Daniel Flórez-Orrego and François Maréchal, École Polytechnique Fédérale de Lausanne (EPFL) |
 | **EPFL team** | Oktay Boztas, Meire Ellen Ribeiro Domingos, Pullah Bhatnagar, Dareen Dardor, Vibhu Baibhav |
-| **Coordination funded by** | Swiss Federal Office of Energy (SFOE) |
+| **Participants** | Researchers from ten participating countries and three observer countries, listed [below](#task-participants) |
+| **Coordination funded by** | Swiss Federal Office of Energy (SFOE), contract SI/502966-01 |
+| **SFOE project coordinator** | Elena-Lavinia Niederhaeuser |
 | **Task page** | <https://iea-industry.org/tasks/process-integration-for-industry-decarbonization/> |
+| **Database** | <https://dflorez0.github.io/IETSTaskXXIVbyIEA/> |
+| **Videos** | [Task XXIV playlist on YouTube](https://www.youtube.com/playlist?list=PLpiTZx5_rPlCT_1Pb3Zh1TYdmAYYGTFZP) |
+| **LinkedIn** | [IETS Task XXIV group](https://www.linkedin.com/groups/16699007/) |
 
 : Task XXIV at a glance {.striped}
+
+```{=html}
+<div class="funding-note">
+  <img class="funding-logo" src="template_files/swiss-confederation-logo.svg" alt="Swiss Confederation" width="624" height="153">
+  <p class="funding-office">Federal Department of the Environment, Transport, Energy and Communications DETEC<br><strong>Swiss Federal Office of Energy SFOE</strong></p>
+  <p class="funding-text">The coordination of Task XXIV is funded by the Swiss Federal Office of Energy (SFOE), contract SI/502966-01. SFOE project coordinator: Elena-Lavinia Niederhaeuser.</p>
+</div>
+```
 
 ## Context and motivation {.unnumbered}
 
@@ -68,6 +81,10 @@ This database is the documentation side of that effort: each ex-ante model contr
 | D7 | Dissemination to SFOE, IETS workshops, EFCE and ECOS events, and continuing education | Recurring |
 
 : Deliverables of Task XXIV {.striped}
+
+## PinchSmall {.unnumbered}
+
+PinchSmall is a mandate of the Swiss Federal Office of Energy (SFOE), coordinated at SFOE by Frédéric Maurer, to develop the reference pinch analysis tool of the Swiss Confederation. PinchSmall will be able to fetch models from this database, and thus offer an alternative way of performing process integration (PI) analyses with them. It also embeds a Pinch Bot, an AI assistant that draws on the structured information and the ontology of the ex-ante model template of Task XXIV to support engineers in preliminary feasibility assessments, policymakers with science-based recommendations, and continuing education.
 
 ## Task participants {.unnumbered}
 
