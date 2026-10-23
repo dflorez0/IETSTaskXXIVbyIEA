@@ -170,9 +170,9 @@ Check your own problem-table or composite-curve calculation against these target
 
 | Data | Source |
 |:---|:---|
-| Stream temperatures, heat loads and flows of the brewery | Maréchal et al. (2013), Table 27.5 and Figs 27.3 to 27.7; same plant as the IPESE DWSIM/ROSMOSE brewery model (Bhatnagar et al.) |
+| Stream temperatures, heat loads and flows of the brewery | Maréchal et al. (2013), Table 27.5 and Figs 27.3 to 27.7; same plant as the brewery model simulated in DWSIM by Bhatnagar, Flórez-Orrego and Boztas (Bhatnagar et al., manuscript) |
 | Normalisation to 1 t/h of beer | Source values divided by 68.7 t/h of beer (19.08 kg/s) |
-| Operating time 8,760 h/y | IPESE ROSMOSE brewery model (the source uses 8,180 h/y) |
+| Operating time 8,760 h/y | Brewery model of Bhatnagar et al. (manuscript); the source uses 8,180 h/y |
 | Pasteurisation heated from 15 to 70 °C and cooled from 70 to 5 °C | Source text; the source stream table heats to 80 °C. The source mCp is kept |
 | Whirlpool make-up water 15 to 80 °C, load recomputed (1.389 kg/s × 4.186 kJ/kgK × 65 K) | Mass balance; the source load (857.9 kW from 52 °C) is not consistent with its own flow. The recomputed load reproduces the source wort temperature of 102.5 °C |
 | Soda-bath make-up water 4.388 kg/s | Soda-bath outflow (4.770 kg/s) minus soda; consistent with the source load of 1,287.1 kW |
@@ -194,5 +194,5 @@ Check your own problem-table or composite-curve calculation against these target
 
 Studies of utility integration in breweries (cogeneration, heat pumps, refrigeration), useful once you have your targets:
 
-- Bhatnagar P., Flórez-Orrego D., Boztas O., Ribeiro Domingos M., Margni M., Maréchal F. *Decarbonizing breweries and distilleries through integrated process and energy system optimization*. Manuscript, EPFL IPESE. Brewery model: <https://gitlab.epfl.ch/ipese/pinchsmall/brewerycasestudy>
+- Bhatnagar P., Flórez-Orrego D., Boztas O., Ribeiro Domingos M., Margni M., Maréchal F. *Decarbonizing breweries and distilleries through integrated process and energy system optimization*. Manuscript, EPFL IPESE.
 - Dumbliauskaite M., Becker H., Maréchal F. (2010). Utility optimisation in a brewery process based on energy integration methodology. *Proceedings of ECOS 2010*, Lausanne, Switzerland.

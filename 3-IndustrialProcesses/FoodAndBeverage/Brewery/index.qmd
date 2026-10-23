@@ -8,7 +8,7 @@ The brewery converts malt, corn and water into bottled beer. The malt and the co
 
 Breweries need heat below 110 °C, for mashing, wort boiling, pasteurisation, cleaning and bottle washing, and a large refrigeration demand for wort cooling, fermentation, maturation and chillage.
 
-The models give the material flows, the electricity and the heat streams of the process per 1 t/h of beer, from the process integration study of a brewery by [Maréchal et al. (2013)](https://doi.org/10.1533/9780857097255.5.820) and sector benchmarks for the electricity of breweries. The utilities that supply the heat, the refrigeration and the cooling are not part of the models. This page documents the base variant, V0, and then the digestion of the spent grains.
+The models give the material flows, the electricity and the heat streams of the process per 1 t/h of beer, after the brewery model simulated in DWSIM by Bhatnagar, Flórez-Orrego and Boztas (Bhatnagar, Flórez-Orrego et al., manuscript) and the process integration study of the same brewery by [Maréchal et al. (2013)](https://doi.org/10.1533/9780857097255.5.820), with sector benchmarks for the electricity of breweries. The utilities that supply the heat, the refrigeration and the cooling are not part of the models. This page documents the base variant, V0, and then the digestion of the spent grains.
 
 | Variant | Use of the spent grains | Heat streams | Min. hot utility | Min. cold utility |
 |:--|:--|--:|--:|--:|

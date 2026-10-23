@@ -8,7 +8,7 @@ The plant receives fresh milk and produces cream and cheese. The milk is pasteur
 
 Dairies need heat mostly below 100 °C, for pasteurisation, evaporation and cleaning, and refrigeration to keep the milk and the products cold. The evaporator dominates the heat balance and sets the pinch.
 
-The models give the material flows, the electricity and the heat streams of the process per 1 t/h of fresh milk, from the dairy model of [Dardor et al. (2024)](https://doi.org/10.1016/j.energy.2024.132182) and the energy use of European dairies reported by [Ramírez et al. (2006)](https://doi.org/10.1016/j.energy.2005.10.014). The utilities that supply the heat, the refrigeration and the cooling are not part of the models. This page documents the base variant, V0, and then the other variants.
+The models give the material flows, the electricity and the heat streams of the process per 1 t/h of fresh milk. The stream data come from the DWSIM dairy model of Bhatnagar, Flórez-Orrego, Boztas and Dardor and from [Dardor, Flórez-Orrego et al. (2024)](https://doi.org/10.1016/j.energy.2024.132182), and the process electricity from the energy use of European dairies reported by [Ramírez et al. (2006)](https://doi.org/10.1016/j.energy.2005.10.014). The utilities that supply the heat, the refrigeration and the cooling are not part of the models. This page documents the base variant, V0, and then the other variants.
 
 | Variant | Use of the whey | Heat streams | Min. hot utility | Min. cold utility |
 |:--|:--|--:|--:|--:|
@@ -51,7 +51,7 @@ Throughout this page, names written like `CAPACITY` are variables of the model: 
 
 **Reference flow.** Every flow and heat load is given per 1 t/h of fresh milk and scales with `CAPACITY`, so a heat load in kW is also a specific energy in kWh per tonne of milk. The reference plant processes 28.8 t/h of fresh milk, about 28 m³/h, over 8,760 hours per year. The material flows close at 1,187.3 kg/h in and out.
 
-**Heat streams.** The stream temperatures, heat loads and mass flows are those of the IPESE dairy model, simulated in DWSIM and implemented in ROSMOSE (Dardor et al., 2024), divided by the 28.8 t/h of milk of the reference plant. The evaporator is described effect by effect. Streams that change phase at constant temperature have a span of 0.1 K, and very small mixing streams of the source model are lumped together.
+**Heat streams.** The stream temperatures, heat loads and mass flows come from the DWSIM dairy model of Bhatnagar, Flórez-Orrego, Boztas and Dardor and from Dardor, Flórez-Orrego et al. (2024), divided by the 28.8 t/h of milk of the reference plant. The evaporator is described effect by effect. Streams that change phase at constant temperature have a span of 0.1 K, and very small mixing streams of the source model are lumped together.
 
 **Temperature differences.** Each stream has its own minimum temperature difference contribution: 5 K for liquid streams and 2 K for the boiling and condensing streams of the evaporator, where the vapour of an effect condenses only 4 to 5 K above the next one.
 

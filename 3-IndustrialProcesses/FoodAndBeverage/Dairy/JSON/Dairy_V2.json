@@ -27,7 +27,7 @@
         "description": "Cheese dairy whose whey is evaporated, blended and carbonated into a whey soft drink. 30 thermal streams per 1 t/h of fresh milk.",
         "DOI": "",
         "main_related_publication": "https://doi.org/10.1016/j.energy.2024.132182",
-        "references": "[1] Dardor, D., Flórez-Orrego, D., Terrier, C., Ribeiro Domingos, M.E., Platteau, C., da Silva, J.C., Lopez, M., Maréchal, F., ROSMOSE: A web-based decision support tool for the design and optimization of industrial and urban energy systems. Energy 304 (2024) 132182, DOI: https://doi.org/10.1016/j.energy.2024.132182;\n[2] Flórez-Orrego, D., Heringer, R., Davi, P., et al., Dairy process model, IETS Task XXIV gray-box data set (DWSIM, ROSMOSE). EPFL IPESE (2025), https://gitlab.epfl.ch/ipese/pinchsmall/dairycasestudy;\n[3] Ramírez, C.A., Patel, M., Blok, K., From fluid milk to milk powder: energy use and energy efficiency in the European dairy industry. Energy 31(12) (2006) 1984-2004, DOI: https://doi.org/10.1016/j.energy.2005.10.014",
+        "references": "[1] Dardor, D., Flórez-Orrego, D., Terrier, C., Ribeiro Domingos, M.E., Platteau, C., da Silva, J.C., Lopez, M., Maréchal, F., ROSMOSE: A web-based decision support tool for the design and optimization of industrial and urban energy systems. Energy 304 (2024) 132182, DOI: https://doi.org/10.1016/j.energy.2024.132182;\n[2] Ramírez, C.A., Patel, M., Blok, K., From fluid milk to milk powder: energy use and energy efficiency in the European dairy industry. Energy 31(12) (2006) 1984-2004, DOI: https://doi.org/10.1016/j.energy.2005.10.014",
         "software": "OSMOSE",
         "software_file": "Dairy_V2_ET.lua",
         "block_flow_diagram": "Dairy/Figures/dairyrivella_V2_flowsheet.png",
@@ -61,7 +61,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{C1}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of cold stream C1 (pasteurisation)"
         },
         {
@@ -75,7 +75,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{C1}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of cold stream C1 (pasteurisation)"
         },
         {
@@ -89,7 +89,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{C1}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
         },
         {
@@ -103,7 +103,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{C1}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
         },
         {
@@ -145,7 +145,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{H1}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of hot stream H1 (pasteurisation)"
         },
         {
@@ -159,7 +159,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{H1}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of hot stream H1 (pasteurisation)"
         },
         {
@@ -173,7 +173,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{H1}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
         },
         {
@@ -187,7 +187,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{H1}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
@@ -229,7 +229,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{H2}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of hot stream H2 (pasteurisation)"
         },
         {
@@ -243,7 +243,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{H2}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of hot stream H2 (pasteurisation)"
         },
         {
@@ -257,7 +257,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{H2}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
         },
         {
@@ -271,7 +271,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{H2}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
@@ -313,7 +313,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{C2}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of cold stream C2 (evaporation)"
         },
         {
@@ -327,7 +327,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{C2}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of cold stream C2 (evaporation)"
         },
         {
@@ -341,7 +341,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{C2}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
         },
         {
@@ -355,7 +355,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{C2}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
         },
         {
@@ -397,7 +397,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{C3}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of cold stream C3 (evaporation)"
         },
         {
@@ -411,7 +411,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{C3}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of cold stream C3 (evaporation)"
         },
         {
@@ -425,7 +425,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{C3}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
         },
         {
@@ -439,7 +439,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{C3}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
         },
         {
@@ -481,7 +481,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{C4}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of cold stream C4 (evaporation)"
         },
         {
@@ -495,7 +495,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{C4}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of cold stream C4 (evaporation)"
         },
         {
@@ -509,7 +509,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{C4}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
         },
         {
@@ -523,7 +523,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{C4}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
         },
         {
@@ -565,7 +565,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{C5}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of cold stream C5 (evaporation)"
         },
         {
@@ -579,7 +579,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{C5}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of cold stream C5 (evaporation)"
         },
         {
@@ -593,7 +593,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{C5}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
         },
         {
@@ -607,7 +607,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{C5}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
         },
         {
@@ -649,7 +649,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{H3}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of hot stream H3 (evaporation)"
         },
         {
@@ -663,7 +663,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{H3}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of hot stream H3 (evaporation)"
         },
         {
@@ -677,7 +677,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{H3}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
         },
         {
@@ -691,7 +691,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{H3}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
@@ -733,7 +733,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{H4}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of hot stream H4 (evaporation)"
         },
         {
@@ -747,7 +747,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{H4}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of hot stream H4 (evaporation)"
         },
         {
@@ -761,7 +761,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{H4}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
         },
         {
@@ -775,7 +775,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{H4}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
@@ -817,7 +817,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{H5}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of hot stream H5 (evaporation)"
         },
         {
@@ -831,7 +831,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{H5}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of hot stream H5 (evaporation)"
         },
         {
@@ -845,7 +845,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{H5}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
         },
         {
@@ -859,7 +859,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{H5}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
@@ -901,7 +901,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{H6}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of hot stream H6 (evaporation)"
         },
         {
@@ -915,7 +915,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{H6}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of hot stream H6 (evaporation)"
         },
         {
@@ -929,7 +929,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{H6}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
         },
         {
@@ -943,7 +943,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{H6}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
@@ -985,7 +985,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{H7}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of hot stream H7 (evaporation)"
         },
         {
@@ -999,7 +999,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{H7}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of hot stream H7 (evaporation)"
         },
         {
@@ -1013,7 +1013,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{H7}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
         },
         {
@@ -1027,7 +1027,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{H7}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
@@ -1069,7 +1069,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{C6}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of cold stream C6 (cheese making)"
         },
         {
@@ -1083,7 +1083,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{C6}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of cold stream C6 (cheese making)"
         },
         {
@@ -1097,7 +1097,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{C6}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
         },
         {
@@ -1111,7 +1111,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{C6}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
         },
         {
@@ -1153,7 +1153,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{C7}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of cold stream C7 (cheese making)"
         },
         {
@@ -1167,7 +1167,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{C7}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of cold stream C7 (cheese making)"
         },
         {
@@ -1181,7 +1181,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{C7}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
         },
         {
@@ -1195,7 +1195,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{C7}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
         },
         {
@@ -1237,7 +1237,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{H8}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of hot stream H8 (cheese making)"
         },
         {
@@ -1251,7 +1251,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{H8}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of hot stream H8 (cheese making)"
         },
         {
@@ -1265,7 +1265,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{H8}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
         },
         {
@@ -1279,7 +1279,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{H8}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
@@ -1321,7 +1321,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{H9}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of hot stream H9 (cheese making)"
         },
         {
@@ -1335,7 +1335,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{H9}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of hot stream H9 (cheese making)"
         },
         {
@@ -1349,7 +1349,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{H9}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
         },
         {
@@ -1363,7 +1363,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{H9}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
@@ -1405,7 +1405,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{C8}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of cold stream C8 (cleaning in place)"
         },
         {
@@ -1419,7 +1419,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{C8}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of cold stream C8 (cleaning in place)"
         },
         {
@@ -1433,7 +1433,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{C8}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
         },
         {
@@ -1447,7 +1447,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{C8}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
         },
         {
@@ -1489,7 +1489,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{C9}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of cold stream C9 (cleaning in place)"
         },
         {
@@ -1503,7 +1503,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{C9}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of cold stream C9 (cleaning in place)"
         },
         {
@@ -1517,7 +1517,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{C9}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
         },
         {
@@ -1531,7 +1531,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{C9}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
         },
         {
@@ -1573,7 +1573,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{H10}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of hot stream H10 (cleaning in place)"
         },
         {
@@ -1587,7 +1587,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{H10}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of hot stream H10 (cleaning in place)"
         },
         {
@@ -1601,7 +1601,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{H10}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
         },
         {
@@ -1615,7 +1615,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{H10}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
@@ -1657,7 +1657,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{H11}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of hot stream H11 (cleaning in place)"
         },
         {
@@ -1671,7 +1671,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{H11}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of hot stream H11 (cleaning in place)"
         },
         {
@@ -1685,7 +1685,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{H11}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
         },
         {
@@ -1699,7 +1699,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{H11}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
@@ -1741,7 +1741,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{H12}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of hot stream H12 (cleaning in place)"
         },
         {
@@ -1755,7 +1755,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{H12}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of hot stream H12 (cleaning in place)"
         },
         {
@@ -1769,7 +1769,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{H12}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
         },
         {
@@ -1783,7 +1783,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{H12}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
@@ -1825,7 +1825,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{C10}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of cold stream C10 (soft drink)"
         },
         {
@@ -1839,7 +1839,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{C10}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of cold stream C10 (soft drink)"
         },
         {
@@ -1853,7 +1853,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{C10}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
         },
         {
@@ -1867,7 +1867,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{C10}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
         },
         {
@@ -1909,7 +1909,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{C11}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of cold stream C11 (soft drink)"
         },
         {
@@ -1923,7 +1923,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{C11}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of cold stream C11 (soft drink)"
         },
         {
@@ -1937,7 +1937,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{C11}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
         },
         {
@@ -1951,7 +1951,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{C11}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
         },
         {
@@ -1993,7 +1993,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{C12}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of cold stream C12 (soft drink)"
         },
         {
@@ -2007,7 +2007,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{C12}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of cold stream C12 (soft drink)"
         },
         {
@@ -2021,7 +2021,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{C12}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
         },
         {
@@ -2035,7 +2035,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{C12}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
         },
         {
@@ -2077,7 +2077,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{H13}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of hot stream H13 (soft drink)"
         },
         {
@@ -2091,7 +2091,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{H13}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of hot stream H13 (soft drink)"
         },
         {
@@ -2105,7 +2105,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{H13}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
         },
         {
@@ -2119,7 +2119,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{H13}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
@@ -2161,7 +2161,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{H14}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of hot stream H14 (soft drink)"
         },
         {
@@ -2175,7 +2175,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{H14}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of hot stream H14 (soft drink)"
         },
         {
@@ -2189,7 +2189,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{H14}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
         },
         {
@@ -2203,7 +2203,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{H14}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
@@ -2245,7 +2245,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{H15}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of hot stream H15 (soft drink)"
         },
         {
@@ -2259,7 +2259,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{H15}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of hot stream H15 (soft drink)"
         },
         {
@@ -2273,7 +2273,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{H15}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
         },
         {
@@ -2287,7 +2287,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{H15}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
@@ -2329,7 +2329,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{H16}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of hot stream H16 (soft drink)"
         },
         {
@@ -2343,7 +2343,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{H16}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of hot stream H16 (soft drink)"
         },
         {
@@ -2357,7 +2357,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{H16}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
         },
         {
@@ -2371,7 +2371,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{H16}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
@@ -2413,7 +2413,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{H17}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of hot stream H17 (soft drink)"
         },
         {
@@ -2427,7 +2427,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{H17}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of hot stream H17 (soft drink)"
         },
         {
@@ -2441,7 +2441,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{H17}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
         },
         {
@@ -2455,7 +2455,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{H17}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
@@ -2497,7 +2497,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{in}_{H18}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Inlet temperature of hot stream H18 (soft drink)"
         },
         {
@@ -2511,7 +2511,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$T^{out}_{H18}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Outlet temperature of hot stream H18 (soft drink)"
         },
         {
@@ -2525,7 +2525,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{in}_{H18}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
         },
         {
@@ -2539,7 +2539,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot H^{out}_{H18}$",
-            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V2, Table 3",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); case study V2, Table 3",
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
@@ -2581,7 +2581,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{milk}$",
-            "reference": "Flórez-Orrego et al. (2025); case study V2, Table 1",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; case study V2, Table 1",
             "description": "Raw milk received at 6 °C and cooled to 4 °C on reception"
         },
         {
@@ -2595,7 +2595,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{salt}$",
-            "reference": "Flórez-Orrego et al. (2025); case study V2, Table 1",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; case study V2, Table 1",
             "description": "Salt for the brine"
         },
         {
@@ -2609,7 +2609,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{w,brine}$",
-            "reference": "Flórez-Orrego et al. (2025); case study V2, Table 1",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; case study V2, Table 1",
             "description": "Water for the brine"
         },
         {
@@ -2623,7 +2623,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{w,CIP}$",
-            "reference": "Flórez-Orrego et al. (2025); case study V2, Table 1",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; case study V2, Table 1",
             "description": "Make-up water of the cleaning-in-place system"
         },
         {
@@ -2637,7 +2637,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{sugar}$",
-            "reference": "Flórez-Orrego et al. (2025); case study V2, Table 1",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; case study V2, Table 1",
             "description": "Sugar, 9 g per 100 mL of drink"
         },
         {
@@ -2651,7 +2651,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{aroma}$",
-            "reference": "Flórez-Orrego et al. (2025); case study V2, Table 1",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; case study V2, Table 1",
             "description": "Aroma blended into the drink"
         },
         {
@@ -2665,7 +2665,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{CO2}$",
-            "reference": "Flórez-Orrego et al. (2025); case study V2, Table 1",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; case study V2, Table 1",
             "description": "Carbon dioxide for the carbonation of the drink"
         },
         {
@@ -2679,7 +2679,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{w,drink}$",
-            "reference": "Flórez-Orrego et al. (2025); case study V2, Table 1",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; case study V2, Table 1",
             "description": "Water blended into the drink"
         },
         {
@@ -2693,7 +2693,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{cream}$",
-            "reference": "Flórez-Orrego et al. (2025); case study V2, Table 1",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; case study V2, Table 1",
             "description": "Cream separated by centrifugation at about 60 °C and cooled to 4 °C"
         },
         {
@@ -2707,7 +2707,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{cheese}$",
-            "reference": "Flórez-Orrego et al. (2025); case study V2, Table 1",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; case study V2, Table 1",
             "description": "Cheese after brining at about 13 °C"
         },
         {
@@ -2721,7 +2721,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{drink}$",
-            "reference": "Flórez-Orrego et al. (2025); case study V2, Table 1",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; case study V2, Table 1",
             "description": "Carbonated whey soft drink, cooled to 10 °C"
         },
         {
@@ -2735,7 +2735,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{vap,whey}$",
-            "reference": "Flórez-Orrego et al. (2025); case study V2, Table 1",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; case study V2, Table 1",
             "description": "Water evaporated from the whey at about 100 °C"
         },
         {
@@ -2749,7 +2749,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{cond}$",
-            "reference": "Flórez-Orrego et al. (2025); case study V2, Table 1",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; case study V2, Table 1",
             "description": "Water evaporated from the skimmed milk and condensed"
         },
         {
@@ -2763,7 +2763,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{w,treated}$",
-            "reference": "Flórez-Orrego et al. (2025); case study V2, Table 1",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; case study V2, Table 1",
             "description": "Water discharged by the wastewater treatment"
         },
         {
@@ -2777,7 +2777,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{w,CIP,out}$",
-            "reference": "Flórez-Orrego et al. (2025); case study V2, Table 1",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; case study V2, Table 1",
             "description": "Spent cleaning water, cooled to 30 °C and discharged; about 70 % of the cleaning water is reused"
         },
         {
@@ -2791,7 +2791,7 @@
             "min_bound": null,
             "max_bound": null,
             "latex_syntax": "$\\dot m_{sludge}$",
-            "reference": "Flórez-Orrego et al. (2025); case study V2, Table 1",
+            "reference": "DWSIM model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; case study V2, Table 1",
             "description": "Sludge separated in the wastewater treatment"
         },
         {
@@ -3680,7 +3680,7 @@
                     "description": "Sludge separated in the wastewater treatment"
                 }
             ],
-            "heat_streams_description": "12 cold and 18 hot streams per 1 t/h of fresh milk, from the dairy model of Dardor et al. (2024). The evaporator is described effect by effect. Phase changes at constant temperature have a span of 0.1 K; the ΔTmin/2 contribution is 5 K for liquid streams and 2 K for boiling and condensing streams; the whey evaporator (C11, H15) keeps the 8 K of the source model. Streams ending below about 20 °C need refrigeration unless another process stream absorbs their heat.",
+            "heat_streams_description": "12 cold and 18 hot streams per 1 t/h of fresh milk, from the DWSIM dairy model of Bhatnagar, Flórez-Orrego, Boztas and Dardor and from Dardor et al. (2024). The evaporator is described effect by effect. Phase changes at constant temperature have a span of 0.1 K; the ΔTmin/2 contribution is 5 K for liquid streams and 2 K for boiling and condensing streams; the whey evaporator (C11, H15) keeps the 8 K of the source model. Streams ending below about 20 °C need refrigeration unless another process stream absorbs their heat.",
             "heat_streams": [
                 {
                     "name": "C1_Fresh_milk_heating_to_pasteurisa",

@@ -134,7 +134,7 @@ Check your own problem-table or composite-curve calculation against these target
 
 | Data | Source |
 |:---|:---|
-| Stream temperatures, heat loads and mass flows of all units | IPESE dairy model (DWSIM simulation, ROSMOSE implementation), Dardor et al. (2024) and IETS Task XXIV dairy data set; values of the latest MER runs |
+| Stream temperatures, heat loads and mass flows of all units | DWSIM dairy model of Bhatnagar, Flórez-Orrego, Boztas and Dardor; Dardor et al. (2024); values of the latest MER runs |
 | Normalisation to 1 t/h of fresh milk | Plant values divided by 28.8 t/h of fresh milk |
 | Evaporator effect by effect; ΔTmin/2 = 2 K on condensing and boiling streams | Source model, with the condensing vapour of each effect grouped by effect |
 | Process electricity of the cheese line: 4.3 GJ primary energy per t of cheese; electricity 40 % of primary energy, converted with a factor of 2.5; cooling (19 %) and compressed air (5 %) shares assumed fully electric; refrigeration excluded | Ramírez et al. (2006), Tables 4 and 7 and Section 5; electricity share and allocation are assumptions of this handout |
@@ -145,5 +145,4 @@ Check your own problem-table or composite-curve calculation against these target
 ## References
 
 1. Dardor D., Flórez-Orrego D., Terrier C., Ribeiro Domingos M.E., Platteau C., da Silva J.C., Lopez M., Maréchal F. (2024). ROSMOSE: A web-based decision support tool for the design and optimization of industrial and urban energy systems. *Energy* 304, 132182. <https://doi.org/10.1016/j.energy.2024.132182>
-2. Flórez-Orrego D., Heringer R., Davi P. et al. (2025). *Dairy process model*, IETS Task XXIV gray-box data set (DWSIM, ROSMOSE). EPFL IPESE. <https://gitlab.epfl.ch/ipese/pinchsmall/dairycasestudy>
-3. Ramírez C.A., Patel M., Blok K. (2006). From fluid milk to milk powder: energy use and energy efficiency in the European dairy industry. *Energy* 31(12), 1984–2004. <https://doi.org/10.1016/j.energy.2005.10.014>
+2. Ramírez C.A., Patel M., Blok K. (2006). From fluid milk to milk powder: energy use and energy efficiency in the European dairy industry. *Energy* 31(12), 1984–2004. <https://doi.org/10.1016/j.energy.2005.10.014>
