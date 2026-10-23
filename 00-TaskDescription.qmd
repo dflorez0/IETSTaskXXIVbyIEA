@@ -102,7 +102,7 @@ At the end of 2025, Task XXIV gathered researchers from ten participating countr
 |:------|:-----------|:-------------|
 | Belgium | University of Liège | Rafailia Mitraki, Muhammad Salman, Grégoire Léonard |
 | Belgium | VITO (Flemish Institute for Technological Research) | Joris Valee |
-| Belgium | Ghent University | Lieven Vandevelde, Greet Van Eetvelde |
+| Belgium | Ghent University | Lieven Vandevelde, Greet Van Eetvelde, Thijs Duvillard, Louis DeBackere |
 | Chile | Fraunhofer Chile | Diego Naranjo, Francisco Fuentes |
 | Colombia | Universidad Industrial de Santander | Pablo Silva Ortiz |
 
@@ -122,8 +122,6 @@ At the end of 2025, Task XXIV gathered researchers from ten participating countr
 | Sweden | Chalmers University of Technology | Henrik Thunman |
 
 : {.striped}
-
-Thijs Duvillard and Louis DeBackere also contributed to the 2025 interim report.
 
 ## Further information {.unnumbered}
 
