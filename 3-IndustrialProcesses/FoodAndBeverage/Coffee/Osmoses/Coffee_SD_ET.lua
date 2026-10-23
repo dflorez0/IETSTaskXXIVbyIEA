@@ -4,14 +4,17 @@ local et     = osmose.Model 'Coffee_SD_ET'
 et.header = {
   name        = 'Coffee_SD_ET',
   displayName = 'Instant coffee (spray-dried)',
-  authors     = {'EPFL IPESE research group'},
+  authors     = {'Rafailia Mitraki, University of Liège', 'Juliette Limpach, University of Liège',
+                 'Muhammad Salman, University of Liège', 'Daniel Flórez-Orrego, EPFL IPESE research group',
+                 'Grégoire Léonard, University of Liège'},
   versions    = {'1.0'},
   title       = 'Instant coffee, spray-dried route',
   description = [[Spray-dried instant coffee from green coffee beans: roasting with gas recirculation and a catalytic afterburner,
   quench, cooling and grinding, extraction with water at 180 C, cooling and clarification of the extract, single-effect
   vacuum evaporation and spray drying with a fluid bed. Flows and heat loads are given per 1 t/h of instant coffee and
   scale with coffee_prod. Utilities (burners, steam, refrigeration, cooling water, air dehumidification) are not part of the process data.]],
-  references  = {'Mitraki et al. (2026), Energy Demand 1(2), 1-18, https://doi.org/10.66506/ed.52', 'Process data: Instant_Coffee_SD_moodle.md'},
+  references  = {'Mitraki et al. (2026), Energy Demand 1(2), 1-18, https://doi.org/10.66506/ed.52',
+                 'Process data: case study of the spray-dried route, Documents/Instant_Coffee_SD_Case_Study_rs_qt.docx'},
 }
 
 --==============================================================================================

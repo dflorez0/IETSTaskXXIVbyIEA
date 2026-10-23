@@ -4,7 +4,8 @@ local et     = osmose.Model 'Chocolate_PR1_ET'
 et.header = {
   name        = 'Chocolate_PR1_ET',
   displayName = 'Milk chocolate (route PR1)',
-  authors     = {'EPFL IPESE research group'},
+  authors     = {'Daniel Flórez-Orrego, EPFL IPESE research group', 'Meire Ribeiro Domingos, EPFL IPESE research group',
+                 'Pullah Bhatnagar, EPFL IPESE research group', 'Oktay Boztas, EPFL IPESE research group'},
   versions    = {'1.0'},
   title       = 'Milk chocolate from whole cocoa beans (route PR1)',
   description = [[Milk chocolate from whole fermented cocoa beans: debacterization, whole-bean roasting with hot air,
@@ -12,7 +13,7 @@ et.header = {
   mixing and refining, conching, tempering, moulding and cooling. Flows and heat loads are given per 1 t/h of chocolate
   and scale with choco_prod. Utilities (heat, refrigeration, cooling water) are not part of the process data.]],
   references  = {'Bhadbhade et al. (2024), J. Clean. Prod. 455, 142323, https://doi.org/10.1016/j.jclepro.2024.142323',
-                 'Process data: chocolate.md (route PR1)'},
+                 'Process data: case study of route PR1, Documents/PR1casestudyChocolate.docx'},
 }
 
 --==============================================================================================

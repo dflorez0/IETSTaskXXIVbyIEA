@@ -4,14 +4,16 @@ local et     = osmose.Model 'Meat_plant_ET'
 et.header = {
   name        = 'Meat_plant_ET',
   displayName = 'Integrated pork plant',
-  authors     = {'EPFL IPESE research group'},
+  authors     = {'Daniel Flórez-Orrego, EPFL IPESE research group', 'Meire Ribeiro Domingos, EPFL IPESE research group',
+                 'Pullah Bhatnagar, EPFL IPESE research group', 'Oktay Boztas, EPFL IPESE research group'},
   versions    = {'1.0'},
   title       = 'Integrated pork plant: slaughtering, cutting and cooked sausages',
   description = [[Integrated pork plant: stunning and bleeding, scalding and dehairing, singeing and dressing, carcass chilling,
   cutting and deboning, and a cooked-sausage line, with chilled and frozen storage and the hot, warm and tap water networks.
   Flows and heat loads are given per 1 t/h of hot carcass and scale with carcass_prod. Utilities (steam, hot-water generation,
   refrigeration, cooling) are not part of the process data.]],
-  references  = {'Fritzson and Berntsson (2006), J. Food Eng. 76, 594-604, https://doi.org/10.1016/j.jfoodeng.2005.06.007', 'Process data: Meat_plant.md'},
+  references  = {'Fritzson and Berntsson (2006), J. Food Eng. 76, 594-604, https://doi.org/10.1016/j.jfoodeng.2005.06.007',
+                 'Process data: case study of the integrated pork plant, Documents/Meat_Plant_Case_Study_rs_qt.docx'},
 }
 
 --==============================================================================================
