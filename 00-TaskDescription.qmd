@@ -71,12 +71,59 @@ This database is the documentation side of that effort: each ex-ante model contr
 
 ## Task participants {.unnumbered}
 
-At the end of 2025, Task XXIV gathered researchers from ten participating countries — Canada, Denmark, France, Germany, Italy, the Netherlands, Norway, Portugal, Sweden and Switzerland, which manages the Task — and three observer countries: Belgium, Chile and Colombia.
+At the end of 2025, Task XXIV gathered researchers from ten participating countries — Canada, Denmark, France, Germany, Italy, the Netherlands, Norway, Portugal, Sweden and Switzerland, which manages the Task — and three observer countries: Belgium, Chile and Colombia. The tables below list them by country and institution, as in the [interim report to SFOE](03-AnnualInterimReport.qmd).
 
-* **Task managers:** Daniel Flórez-Orrego, François Maréchal (EPFL)
-* **EPFL team:** Oktay Boztas, Meire Ellen Ribeiro Domingos, Pullah Bhatnagar, Dareen Dardor, Vibhu Baibhav
+### Participants {.unnumbered}
 
-Other Task participants and contributors: Rafailia Mitraki, Muhammad Salman, Grégoire Léonard, Joris Valee, Serge Bedard, Paul Stuart, Sara Russo Garrido, Marzouk Benali, Lijun Wu, Thijs Duvillard, Lieven Vandevelde, Manuele Margni, Diego Naranjo, Francisco Fuentes, Pablo Silva Ortiz, Robin Maximilian Kreipe, Henning Meschede, Florian Schlosser, Lukas Knorr, Sanduni Pathiraja, Nasrim Kermani, Roger Padullés I Solé, Zheng Grace Ma, Assaad Zoughaib, Emanuele Moioli, Mattia Vallerio, Flavio Manenti, Thomas Adams II, Andrea Ramirez, Mar Perez-Fortes, Maria Cristina Fernandes, Jorge Costa, Isabel Cabrita, Fernando Gomes Martins, Daniel Sousa, Pedro Mendes, Matilde Viegas, Henrique Matos, Carmen Bacariza, Pedro Nunes, Judit Fortet Casabella, Simon Harvey, Louis DeBackere, Greet Van Eetvelde and Michel Vinckenbosch.
+| Country | Institution | Members |
+|:------|:-----------|:-------------|
+| Canada | Natural Resources Canada (NRCan) | Serge Bedard, Marzouk Benali, Lijun Wu |
+| Canada | Polytechnique Montréal | Paul Stuart |
+| Canada | Université du Québec à Montréal | Sara Russo Garrido |
+| Denmark | Danish Technological Institute | Sanduni Pathiraja |
+| Denmark | Technical University of Denmark (DTU) | Nasrim Kermani, Roger Padullés I Solé |
+| Denmark | University of Southern Denmark | Zheng Grace Ma |
+| France | Mines Paris – PSL | Assaad Zoughaib |
+| Germany | University of Paderborn | Robin Maximilian Kreipe, Henning Meschede, Florian Schlosser, Lukas Knorr |
+| Italy | Politecnico di Milano | Emanuele Moioli, Mattia Vallerio, Flavio Manenti |
+| Netherlands | Delft University of Technology (TU Delft) | Andrea Ramirez, Mar Perez-Fortes |
+| Portugal | Instituto Superior Técnico | Maria Cristina Fernandes, Daniel Sousa, Pedro Mendes, Matilde Viegas, Henrique Matos, Carmen Bacariza, Pedro Nunes |
+| Portugal | ISEC Lisboa | Jorge Costa, Isabel Cabrita |
+| Portugal | Universidade do Porto | Fernando Gomes Martins |
+| Sweden | Chalmers University of Technology | Judit Fortet Casabella, Simon Harvey |
+| Switzerland | École Polytechnique Fédérale de Lausanne (EPFL) | Daniel Flórez-Orrego and François Maréchal (Task managers), Oktay Boztas, Meire Ellen Ribeiro Domingos, Pullah Bhatnagar, Dareen Dardor, Vibhu Baibhav, Michel Vinckenbosch |
+| Switzerland | HES-SO Valais | Manuele Margni |
+
+: {.striped}
+
+### Observers {.unnumbered}
+
+| Country | Institution | Members |
+|:------|:-----------|:-------------|
+| Belgium | University of Liège | Rafailia Mitraki, Muhammad Salman, Grégoire Léonard |
+| Belgium | VITO (Flemish Institute for Technological Research) | Joris Valee |
+| Belgium | Ghent University | Lieven Vandevelde, Greet Van Eetvelde |
+| Chile | Fraunhofer Chile | Diego Naranjo, Francisco Fuentes |
+| Colombia | Universidad Industrial de Santander | Pablo Silva Ortiz |
+
+: {.striped}
+
+### Collaborators and other interested partners {.unnumbered}
+
+| Country | Institution | Members |
+|:------|:-----------|:-------------|
+| Austria | Energieinstitut Linz | Simon Moser |
+| Austria | TU Wien | Rene Hofmann |
+| Canada | Natural Resources Canada (NRCan) | Etienne Bernier |
+| Denmark | Danish Technological Institute | Benjamin Zühlsdorf |
+| France | CEA | Guillaume Boissonnet |
+| Germany | RWTH Aachen University | Alexander Mitsos |
+| Norway | Norwegian University of Science and Technology (NTNU) | Thomas Adams II |
+| Sweden | Chalmers University of Technology | Henrik Thunman |
+
+: {.striped}
+
+Thijs Duvillard and Louis DeBackere also contributed to the 2025 interim report.
 
 ## Further information {.unnumbered}
 
