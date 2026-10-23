@@ -8,7 +8,37 @@
   browsed together.
 -->
 
-Task XXIV is presented at conferences, workshops and in continuing education. This page gathers, year by year, its keynote lectures, workshops and sessions, with pictures from the Task reports. Recordings are on the [Task XXIV playlist on YouTube](https://www.youtube.com/playlist?list=PLpiTZx5_rPlCT_1Pb3Zh1TYdmAYYGTFZP), and news on the [LinkedIn group](https://www.linkedin.com/groups/16699007/). Click a picture to enlarge it.
+Task XXIV is presented at conferences, workshops and in continuing education. This page gathers, year by year, its keynote lectures, workshops and sessions. Recordings are on the [Task XXIV playlist on YouTube](https://www.youtube.com/playlist?list=PLpiTZx5_rPlCT_1Pb3Zh1TYdmAYYGTFZP), and news on the [LinkedIn group](https://www.linkedin.com/groups/16699007/). Click a picture to enlarge it.
+
+## 2026 {.unnumbered}
+
+### DECHEMA Forum 2026, Frankfurt am Main, 15–17 September {.unnumbered}
+
+At the DECHEMA Forum 2026, "Defossilizing the Process Industry – Creating Competitive Solutions", the EPFL team of Task XXIV (Daniel Flórez-Orrego, Oktay Boztas, Meire Ribeiro Domingos, Pullah Bhatnagar, Vibhu Baibhav and François Maréchal) held the [workshop](https://dechema.de/en/DECHEMAFORUM2026.html#IEA) "Towards a shared database of ex-ante process models for the systematic development of industrial decarbonization roadmaps" (17 September). Building on the database of Task XXIV, participants from academia and industry discussed the standardization of process data, such as heat demands, waste streams and utility configurations, the structure of the database, data-sharing protocols and decision-support methods for process integration and decarbonization roadmaps.
+
+::: {layout-ncol=2}
+![Workshop of Task XXIV at the DECHEMA Forum 2026.](0-TaskXXIVDescription/dissemination/2026/2026-09-17-dechema-workshop-1.jpg){.lightbox group="dechema2026"}
+
+![At the DECHEMA Forum 2026.](0-TaskXXIVDescription/dissemination/2026/2026-09-17-dechema-forum-1.jpg){.lightbox group="dechema2026"}
+
+![Workshop of Task XXIV at the DECHEMA Forum 2026.](0-TaskXXIVDescription/dissemination/2026/2026-09-17-dechema-workshop-2.jpg){.lightbox group="dechema2026"}
+
+![The DECHEMA Forum 2026 at the DECHEMA-Haus, Frankfurt am Main.](0-TaskXXIVDescription/dissemination/2026/2026-09-17-dechema-forum-2.jpg){.lightbox group="dechema2026"}
+:::
+
+### ECOS 2026, Constanța, 28 June – 3 July {.unnumbered}
+
+At the 39th International Conference on Efficiency, Cost, Optimization, Simulation and Environmental Impact of Energy Systems (ECOS 2026), hosted by Ovidius University of Constanța, Task XXIV was presented in a lecture on industrial processes as part of larger energy systems and on the class hierarchy of the models of its database.
+
+::: {layout-ncol=2}
+![Lecture on Task XXIV: industrial processes as part of a larger system.](0-TaskXXIVDescription/dissemination/2026/2026-ecos-lecture-1.jpg){.lightbox group="ecos2026"}
+
+![Lecture on Task XXIV: the class hierarchy of the models.](0-TaskXXIVDescription/dissemination/2026/2026-ecos-lecture-2.jpg){.lightbox group="ecos2026"}
+
+![Technical session at ECOS 2026.](0-TaskXXIVDescription/dissemination/2026/2026-ecos-session.jpg){.lightbox group="ecos2026"}
+
+![At ECOS 2026.](0-TaskXXIVDescription/dissemination/2026/2026-ecos-group.jpg){.lightbox group="ecos2026"}
+:::
 
 ## 2025 {.unnumbered}
 
@@ -39,9 +69,13 @@ At the 35th European Symposium on Computer Aided Process Engineering (ESCAPE 35)
 
 ![Keynote lecture of Task XXIV at ESCAPE 35.](0-TaskXXIVDescription/dissemination/2025/2025-07-escape35-keynote-4.jpg){.lightbox group="escape35"}
 
+![The keynote lecture before a full-house audience.](0-TaskXXIVDescription/dissemination/2025/2025-07-escape35-keynote-audience.jpg){.lightbox group="escape35"}
+
 ![The audience of the keynote lecture.](0-TaskXXIVDescription/dissemination/2025/2025-07-escape35-keynote-1.jpg){.lightbox group="escape35"}
 
 ![The audience of the keynote lecture.](0-TaskXXIVDescription/dissemination/2025/2025-07-escape35-keynote-2.jpg){.lightbox group="escape35"}
+
+![Case study of the aluminium sector.](0-TaskXXIVDescription/dissemination/2025/2025-07-escape35-aluminium.jpg){.lightbox group="escape35"}
 :::
 
 ### EUBCE 2025, Valencia, 9–12 June {.unnumbered}
