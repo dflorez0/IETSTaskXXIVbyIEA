@@ -4,5 +4,8 @@ IETS Task XXIV **Process Integration for Industry Decarbonization** (2025–2027
 
 * the [Task](../00-TaskDescription.qmd): context, objectives, activities, deliverables and participants;
 * the [rules for participating and sharing models](../01-ParticipationRules.qmd): joining the Task, the model template, confidentiality layers and intellectual property;
-* [how to use this database](../02-HowToUseThisDatabase.qmd);
-* the [annual interim Task report to SFOE](../03-AnnualInterimReport.qmd): the report on the first year of the Task, with its bibliographic information.
+* [how to use this database](../02-HowToUseThisDatabase.qmd), and how to submit and publish a model;
+* the [annual interim Task report to SFOE](../03-AnnualInterimReport.qmd): the report on the first year of the Task, with its bibliographic information;
+* the [intra-task presentations](../04-IntraTaskPresentations.qmd): the slides of the meetings of the Task participants;
+* [dissemination and events](../05-DisseminationAndEvents.qmd): keynote lectures, workshops and sessions, with pictures;
+* the [contact for model submissions](../06-ContactModelSubmissions.qmd).

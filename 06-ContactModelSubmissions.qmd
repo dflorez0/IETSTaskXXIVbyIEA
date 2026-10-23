@@ -1,0 +1,26 @@
+---
+# The addresses are written into the page by a script, so that they are not harvested as text.
+email-obfuscation: javascript
+---
+
+# Contact for model submissions {.unnumbered}
+
+To submit a model to the database, or for any question about documenting and sharing a model, contact:
+
+::: {.contact-card}
+**Daniel Flórez-Orrego**\
+Task co-manager, IETS Task XXIV\
+Industrial Process and Energy Systems Engineering (IPESE) group, EPFL, Sion, Switzerland
+
+<daniel.florezorrego@epfl.ch>\
+Alternative addresses: <daflorezo@alumni.usp.br>, <daflorezo@unal.edu.co>
+:::
+
+## What to send {.unnumbered}
+
+* The model documented with the [ex-ante model template](01-ParticipationRules.qmd#the-ex-ante-model-template), as a spreadsheet or a JSON file.
+* The files of the model in its own software (OSMOSE/Lua, Aspen Plus, Python, ...), as far as they can be shared.
+* Its supplementary material: block flow diagram, publications and other documentation.
+* The authors of the model, and the sharing layer, from L0 to L6, that sets how much of it may be disclosed (see the [seven-tier disclosure framework](01-ParticipationRules.qmd#confidentiality-the-seven-tier-disclosure-framework)).
+
+The model then follows the [sharing procedure](02-HowToUseThisDatabase.qmd#submitting-and-publishing-a-model) of the Task: the choice of its sharing layer, licence and confidentiality settings, a review by a sub-team, and its publication in the database. Task participants with access to the repository can also add a model themselves, following the steps on the same page.

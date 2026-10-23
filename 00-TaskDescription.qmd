@@ -144,5 +144,7 @@ At the end of 2025, Task XXIV gathered researchers from ten participating countr
 
 * Task page on the IETS website: <https://iea-industry.org/tasks/process-integration-for-industry-decarbonization/>
 * [Annual interim Task report to SFOE](03-AnnualInterimReport.qmd) (31 December 2025): coordination of Task XXIV in its first year, participants' survey, the ex-ante model template and the seven-tier disclosure framework
+* [Intra-task presentations](04-IntraTaskPresentations.qmd): the slides of the meetings of the Task participants
+* [Dissemination and events](05-DisseminationAndEvents.qmd): keynote lectures, workshops and conference sessions, with pictures
 * [Task proposal](https://iea-industry.org/app/uploads/Proposal-_-IETS-Task-Process-integration-for-Industrial-Decarbonization-DFO-FM-TB-PAF-1.pdf) and [Subtask 1 proposal](https://iea-industry.org/app/uploads/SubTask1-IETS-Task-Process-integration-for-Industrial-Decarbonization-DFO-FM-TB-PAF.pdf) (PDF)
-* Contact: <francois.marechal@epfl.ch>, <daniel.florezorrego@epfl.ch>
+* Contact: <francois.marechal@epfl.ch>, <daniel.florezorrego@epfl.ch>; to submit a model, see the [contact for model submissions](06-ContactModelSubmissions.qmd)

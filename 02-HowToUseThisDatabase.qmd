@@ -34,9 +34,13 @@ quarto preview
 
 `quarto preview` serves the site in your browser and reloads it every time a file is saved. `quarto render` builds the complete site into `_book/`. The website itself is rebuilt and published automatically every time changes are pushed to the `main` branch.
 
-## Adding a model {.unnumbered}
+## Submitting and publishing a model {.unnumbered}
 
-The [Cooling tower](1-EnergyTechnologies/PowerAndUtilities/CoolingTower/index.qmd) is a complete example to copy from.
+Models are shared following the procedure of @fig-sharing-procedure, in five phases: the contributor proposes the model and adapts it to the template (submission); chooses its sharing layer, licence and confidentiality settings (configuration); a sub-team reviews it, possibly followed by a plenary validation (validation); it is classified, given a DOI and stored in the repository (consolidation); and its versions, corrections, authorship and possible withdrawal are then managed over time (maintenance). To submit a model, write to the [contact for model submissions](06-ContactModelSubmissions.qmd).
+
+![The sharing procedure of ex-ante models in Task XXIV, from the submission of a model to its maintenance. Click to enlarge.](0-TaskXXIVDescription/Model_Sharing_Procedure_Flowchart.svg){#fig-sharing-procedure .lightbox width=100%}
+
+The steps below add a model to the repository and publish its page. The [Cooling tower](1-EnergyTechnologies/PowerAndUtilities/CoolingTower/index.qmd) is a complete example to copy from.
 
 **1. Create the model folder** in the folder of its category, named after the model:
 
