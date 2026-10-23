@@ -124,8 +124,10 @@ website:
           - section: "Food and beverage"
             href: 3-IndustrialProcesses/FoodAndBeverage/index.qmd
             contents:
+              - 3-IndustrialProcesses/FoodAndBeverage/Brewery/index.qmd
               - 3-IndustrialProcesses/FoodAndBeverage/Chocolate/index.qmd
               - 3-IndustrialProcesses/FoodAndBeverage/Coffee/index.qmd
+              - 3-IndustrialProcesses/FoodAndBeverage/Dairy/index.qmd
               - 3-IndustrialProcesses/FoodAndBeverage/Meat/index.qmd
           - 3-IndustrialProcesses/BioAndWaste/index.qmd
 

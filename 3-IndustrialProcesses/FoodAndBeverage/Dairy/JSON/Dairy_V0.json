@@ -1,0 +1,3705 @@
+{
+    "header": {
+        "uid": "",
+        "name": "Dairy_V0",
+        "full_name": "Dairy plant V0: cheese only, whey leaves the site",
+        "ET_model_type": "regular",
+        "authors_and_contributors": "Sophia Wallerand, Daniel Flórez-Orrego, Pullah Bhatnagar, Oktay Boztas, Dareen Dardor, EPFL IPESE research group",
+        "contact_info": "",
+        "creation_date": "20.10.2026",
+        "last_updated": "23.10.2026",
+        "status": "Maintained",
+        "version": "1.0",
+        "confidentiality": "Open",
+        "sharing_layer": "1",
+        "grade": "GRAY-BOX",
+        "reference_capacity": "1 t/h of fresh milk (CAPACITY)",
+        "TRL": "9",
+        "keywords": [
+            "Dairy",
+            "Cheese",
+            "Whey",
+            "Food and beverage",
+            "Multiple-effect evaporation",
+            "Pinch analysis"
+        ],
+        "description": "Cheese dairy that processes fresh milk into cream and cheese: pasteurisation with cream separation, three-effect evaporation of the skimmed milk, cheese making and brining, cleaning in place and wastewater treatment; the whey leaves the site. 21 thermal streams per 1 t/h of fresh milk.",
+        "DOI": "",
+        "main_related_publication": "https://doi.org/10.1016/j.energy.2024.132182",
+        "references": "[1] Dardor, D., Flórez-Orrego, D., Terrier, C., Ribeiro Domingos, M.E., Platteau, C., da Silva, J.C., Lopez, M., Maréchal, F., ROSMOSE: A web-based decision support tool for the design and optimization of industrial and urban energy systems. Energy 304 (2024) 132182, DOI: https://doi.org/10.1016/j.energy.2024.132182;\n[2] Flórez-Orrego, D., Heringer, R., Davi, P., et al., Dairy process model, IETS Task XXIV gray-box data set (DWSIM, ROSMOSE). EPFL IPESE (2025), https://gitlab.epfl.ch/ipese/pinchsmall/dairycasestudy;\n[3] Ramírez, C.A., Patel, M., Blok, K., From fluid milk to milk powder: energy use and energy efficiency in the European dairy industry. Energy 31(12) (2006) 1984-2004, DOI: https://doi.org/10.1016/j.energy.2005.10.014",
+        "software": "OSMOSE",
+        "software_file": "Dairy_V0_ET.lua",
+        "block_flow_diagram": "Dairy/Figures/dairycheese_V0_flowsheet.png",
+        "url": null,
+        "supplementary_material": "See SUPPL MATERIAL tab",
+        "hierarchy": "process"
+    },
+    "variables": [
+        {
+            "var_name": "CAPACITY",
+            "type": "CONTEXT",
+            "full_name": "Plant capacity",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "t/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{milk}$",
+            "reference": "Case study V0: basis of 1 t/h of fresh milk",
+            "description": "Fresh milk processed; every flow and heat load is given per 1 t/h and scales with it. Reference plant: 28.8 t/h"
+        },
+        {
+            "var_name": "C1_Fresh_milk_heating_to_pasteurisa_Tin",
+            "type": "LITERATURE",
+            "full_name": "C1 Fresh milk heating to pasteurisation, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 4,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C1}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of cold stream C1 (pasteurisation)"
+        },
+        {
+            "var_name": "C1_Fresh_milk_heating_to_pasteurisa_Tout",
+            "type": "LITERATURE",
+            "full_name": "C1 Fresh milk heating to pasteurisation, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 75,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C1}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of cold stream C1 (pasteurisation)"
+        },
+        {
+            "var_name": "C1_Fresh_milk_heating_to_pasteurisa_hin",
+            "type": "LITERATURE",
+            "full_name": "C1 Fresh milk heating to pasteurisation, inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{C1}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
+        },
+        {
+            "var_name": "C1_Fresh_milk_heating_to_pasteurisa_hout",
+            "type": "LITERATURE",
+            "full_name": "C1 Fresh milk heating to pasteurisation, outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 76.3785,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{C1}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "C1_Fresh_milk_heating_to_pasteurisa_dTmin",
+            "type": "CONTEXT",
+            "full_name": "C1 Fresh milk heating to pasteurisation, ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,C1}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream C1"
+        },
+        {
+            "var_name": "C1_Fresh_milk_heating_to_pasteurisa_alpha",
+            "type": "CONTEXT",
+            "full_name": "C1 Fresh milk heating to pasteurisation, heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{C1}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream C1; not used for energy targeting"
+        },
+        {
+            "var_name": "H1_Raw_milk_cooling_on_reception_Tin",
+            "type": "LITERATURE",
+            "full_name": "H1 Raw milk cooling on reception, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 6,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H1}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of hot stream H1 (pasteurisation)"
+        },
+        {
+            "var_name": "H1_Raw_milk_cooling_on_reception_Tout",
+            "type": "LITERATURE",
+            "full_name": "H1 Raw milk cooling on reception, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 4,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H1}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of hot stream H1 (pasteurisation)"
+        },
+        {
+            "var_name": "H1_Raw_milk_cooling_on_reception_hin",
+            "type": "LITERATURE",
+            "full_name": "H1 Raw milk cooling on reception, inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 2.18403,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{H1}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "H1_Raw_milk_cooling_on_reception_hout",
+            "type": "LITERATURE",
+            "full_name": "H1 Raw milk cooling on reception, outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{H1}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
+        },
+        {
+            "var_name": "H1_Raw_milk_cooling_on_reception_dTmin",
+            "type": "CONTEXT",
+            "full_name": "H1 Raw milk cooling on reception, ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,H1}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream H1"
+        },
+        {
+            "var_name": "H1_Raw_milk_cooling_on_reception_alpha",
+            "type": "CONTEXT",
+            "full_name": "H1 Raw milk cooling on reception, heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{H1}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream H1; not used for energy targeting"
+        },
+        {
+            "var_name": "H2_Pasteurised_milk_cooling_Tin",
+            "type": "LITERATURE",
+            "full_name": "H2 Pasteurised milk cooling, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 75,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H2}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of hot stream H2 (pasteurisation)"
+        },
+        {
+            "var_name": "H2_Pasteurised_milk_cooling_Tout",
+            "type": "LITERATURE",
+            "full_name": "H2 Pasteurised milk cooling, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 4,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H2}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of hot stream H2 (pasteurisation)"
+        },
+        {
+            "var_name": "H2_Pasteurised_milk_cooling_hin",
+            "type": "LITERATURE",
+            "full_name": "H2 Pasteurised milk cooling, inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 73.1285,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{H2}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "H2_Pasteurised_milk_cooling_hout",
+            "type": "LITERATURE",
+            "full_name": "H2 Pasteurised milk cooling, outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{H2}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
+        },
+        {
+            "var_name": "H2_Pasteurised_milk_cooling_dTmin",
+            "type": "CONTEXT",
+            "full_name": "H2 Pasteurised milk cooling, ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,H2}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream H2"
+        },
+        {
+            "var_name": "H2_Pasteurised_milk_cooling_alpha",
+            "type": "CONTEXT",
+            "full_name": "H2 Pasteurised milk cooling, heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{H2}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream H2; not used for energy targeting"
+        },
+        {
+            "var_name": "C2_Skimmed_milk_preheating_Tin",
+            "type": "LITERATURE",
+            "full_name": "C2 Skimmed milk preheating, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 4,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C2}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of cold stream C2 (evaporation)"
+        },
+        {
+            "var_name": "C2_Skimmed_milk_preheating_Tout",
+            "type": "LITERATURE",
+            "full_name": "C2 Skimmed milk preheating, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 70.2,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C2}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of cold stream C2 (evaporation)"
+        },
+        {
+            "var_name": "C2_Skimmed_milk_preheating_hin",
+            "type": "LITERATURE",
+            "full_name": "C2 Skimmed milk preheating, inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{C2}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
+        },
+        {
+            "var_name": "C2_Skimmed_milk_preheating_hout",
+            "type": "LITERATURE",
+            "full_name": "C2 Skimmed milk preheating, outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 45.1944,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{C2}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "C2_Skimmed_milk_preheating_dTmin",
+            "type": "CONTEXT",
+            "full_name": "C2 Skimmed milk preheating, ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,C2}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream C2"
+        },
+        {
+            "var_name": "C2_Skimmed_milk_preheating_alpha",
+            "type": "CONTEXT",
+            "full_name": "C2 Skimmed milk preheating, heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{C2}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream C2; not used for energy targeting"
+        },
+        {
+            "var_name": "C3_Effect_1_boiling_steam_heated_Tin",
+            "type": "LITERATURE",
+            "full_name": "C3 Effect 1, boiling (steam-heated), inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 70.2,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C3}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of cold stream C3 (evaporation)"
+        },
+        {
+            "var_name": "C3_Effect_1_boiling_steam_heated_Tout",
+            "type": "LITERATURE",
+            "full_name": "C3 Effect 1, boiling (steam-heated), outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 70.3,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C3}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of cold stream C3 (evaporation)"
+        },
+        {
+            "var_name": "C3_Effect_1_boiling_steam_heated_hin",
+            "type": "LITERATURE",
+            "full_name": "C3 Effect 1, boiling (steam-heated), inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{C3}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
+        },
+        {
+            "var_name": "C3_Effect_1_boiling_steam_heated_hout",
+            "type": "LITERATURE",
+            "full_name": "C3 Effect 1, boiling (steam-heated), outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 122.014,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{C3}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "C3_Effect_1_boiling_steam_heated_dTmin",
+            "type": "CONTEXT",
+            "full_name": "C3 Effect 1, boiling (steam-heated), ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 2,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,C3}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream C3"
+        },
+        {
+            "var_name": "C3_Effect_1_boiling_steam_heated_alpha",
+            "type": "CONTEXT",
+            "full_name": "C3 Effect 1, boiling (steam-heated), heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{C3}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream C3; not used for energy targeting"
+        },
+        {
+            "var_name": "C4_Effect_2_boiling_Tin",
+            "type": "LITERATURE",
+            "full_name": "C4 Effect 2, boiling, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 65.3,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C4}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of cold stream C4 (evaporation)"
+        },
+        {
+            "var_name": "C4_Effect_2_boiling_Tout",
+            "type": "LITERATURE",
+            "full_name": "C4 Effect 2, boiling, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 65.6,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C4}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of cold stream C4 (evaporation)"
+        },
+        {
+            "var_name": "C4_Effect_2_boiling_hin",
+            "type": "LITERATURE",
+            "full_name": "C4 Effect 2, boiling, inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{C4}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
+        },
+        {
+            "var_name": "C4_Effect_2_boiling_hout",
+            "type": "LITERATURE",
+            "full_name": "C4 Effect 2, boiling, outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 102.319,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{C4}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "C4_Effect_2_boiling_dTmin",
+            "type": "CONTEXT",
+            "full_name": "C4 Effect 2, boiling, ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 2,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,C4}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream C4"
+        },
+        {
+            "var_name": "C4_Effect_2_boiling_alpha",
+            "type": "CONTEXT",
+            "full_name": "C4 Effect 2, boiling, heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{C4}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream C4; not used for energy targeting"
+        },
+        {
+            "var_name": "C5_Effect_3_boiling_Tin",
+            "type": "LITERATURE",
+            "full_name": "C5 Effect 3, boiling, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 60.7,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C5}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of cold stream C5 (evaporation)"
+        },
+        {
+            "var_name": "C5_Effect_3_boiling_Tout",
+            "type": "LITERATURE",
+            "full_name": "C5 Effect 3, boiling, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 61.3,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C5}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of cold stream C5 (evaporation)"
+        },
+        {
+            "var_name": "C5_Effect_3_boiling_hin",
+            "type": "LITERATURE",
+            "full_name": "C5 Effect 3, boiling, inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{C5}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
+        },
+        {
+            "var_name": "C5_Effect_3_boiling_hout",
+            "type": "LITERATURE",
+            "full_name": "C5 Effect 3, boiling, outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 64.2743,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{C5}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "C5_Effect_3_boiling_dTmin",
+            "type": "CONTEXT",
+            "full_name": "C5 Effect 3, boiling, ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 2,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,C5}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream C5"
+        },
+        {
+            "var_name": "C5_Effect_3_boiling_alpha",
+            "type": "CONTEXT",
+            "full_name": "C5 Effect 3, boiling, heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{C5}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream C5; not used for energy targeting"
+        },
+        {
+            "var_name": "H3_Effect_1_vapour_condensing_Tin",
+            "type": "LITERATURE",
+            "full_name": "H3 Effect 1 vapour, condensing, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 70.2,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H3}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of hot stream H3 (evaporation)"
+        },
+        {
+            "var_name": "H3_Effect_1_vapour_condensing_Tout",
+            "type": "LITERATURE",
+            "full_name": "H3 Effect 1 vapour, condensing, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 69.1,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H3}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of hot stream H3 (evaporation)"
+        },
+        {
+            "var_name": "H3_Effect_1_vapour_condensing_hin",
+            "type": "LITERATURE",
+            "full_name": "H3 Effect 1 vapour, condensing, inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 122.146,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{H3}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "H3_Effect_1_vapour_condensing_hout",
+            "type": "LITERATURE",
+            "full_name": "H3 Effect 1 vapour, condensing, outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{H3}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
+        },
+        {
+            "var_name": "H3_Effect_1_vapour_condensing_dTmin",
+            "type": "CONTEXT",
+            "full_name": "H3 Effect 1 vapour, condensing, ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 2,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,H3}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream H3"
+        },
+        {
+            "var_name": "H3_Effect_1_vapour_condensing_alpha",
+            "type": "CONTEXT",
+            "full_name": "H3 Effect 1 vapour, condensing, heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{H3}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream H3; not used for energy targeting"
+        },
+        {
+            "var_name": "H4_Effect_2_vapour_condensing_Tin",
+            "type": "LITERATURE",
+            "full_name": "H4 Effect 2 vapour, condensing, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 65.6,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H4}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of hot stream H4 (evaporation)"
+        },
+        {
+            "var_name": "H4_Effect_2_vapour_condensing_Tout",
+            "type": "LITERATURE",
+            "full_name": "H4 Effect 2 vapour, condensing, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 65,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H4}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of hot stream H4 (evaporation)"
+        },
+        {
+            "var_name": "H4_Effect_2_vapour_condensing_hin",
+            "type": "LITERATURE",
+            "full_name": "H4 Effect 2 vapour, condensing, inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 104.58,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{H4}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "H4_Effect_2_vapour_condensing_hout",
+            "type": "LITERATURE",
+            "full_name": "H4 Effect 2 vapour, condensing, outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{H4}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
+        },
+        {
+            "var_name": "H4_Effect_2_vapour_condensing_dTmin",
+            "type": "CONTEXT",
+            "full_name": "H4 Effect 2 vapour, condensing, ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 2,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,H4}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream H4"
+        },
+        {
+            "var_name": "H4_Effect_2_vapour_condensing_alpha",
+            "type": "CONTEXT",
+            "full_name": "H4 Effect 2 vapour, condensing, heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{H4}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream H4; not used for energy targeting"
+        },
+        {
+            "var_name": "H5_Effect_3_vapour_condensing_Tin",
+            "type": "LITERATURE",
+            "full_name": "H5 Effect 3 vapour, condensing, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 61.3,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H5}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of hot stream H5 (evaporation)"
+        },
+        {
+            "var_name": "H5_Effect_3_vapour_condensing_Tout",
+            "type": "LITERATURE",
+            "full_name": "H5 Effect 3 vapour, condensing, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 60.1,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H5}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of hot stream H5 (evaporation)"
+        },
+        {
+            "var_name": "H5_Effect_3_vapour_condensing_hin",
+            "type": "LITERATURE",
+            "full_name": "H5 Effect 3 vapour, condensing, inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 65.6076,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{H5}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "H5_Effect_3_vapour_condensing_hout",
+            "type": "LITERATURE",
+            "full_name": "H5 Effect 3 vapour, condensing, outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{H5}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
+        },
+        {
+            "var_name": "H5_Effect_3_vapour_condensing_dTmin",
+            "type": "CONTEXT",
+            "full_name": "H5 Effect 3 vapour, condensing, ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 2,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,H5}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream H5"
+        },
+        {
+            "var_name": "H5_Effect_3_vapour_condensing_alpha",
+            "type": "CONTEXT",
+            "full_name": "H5 Effect 3 vapour, condensing, heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{H5}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream H5; not used for energy targeting"
+        },
+        {
+            "var_name": "H6_Condensate_cooling_Tin",
+            "type": "LITERATURE",
+            "full_name": "H6 Condensate cooling, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 69.9,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H6}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of hot stream H6 (evaporation)"
+        },
+        {
+            "var_name": "H6_Condensate_cooling_Tout",
+            "type": "LITERATURE",
+            "full_name": "H6 Condensate cooling, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 25,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H6}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of hot stream H6 (evaporation)"
+        },
+        {
+            "var_name": "H6_Condensate_cooling_hin",
+            "type": "LITERATURE",
+            "full_name": "H6 Condensate cooling, inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 21.1875,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{H6}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "H6_Condensate_cooling_hout",
+            "type": "LITERATURE",
+            "full_name": "H6 Condensate cooling, outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{H6}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
+        },
+        {
+            "var_name": "H6_Condensate_cooling_dTmin",
+            "type": "CONTEXT",
+            "full_name": "H6 Condensate cooling, ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,H6}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream H6"
+        },
+        {
+            "var_name": "H6_Condensate_cooling_alpha",
+            "type": "CONTEXT",
+            "full_name": "H6 Condensate cooling, heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{H6}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream H6; not used for energy targeting"
+        },
+        {
+            "var_name": "H7_Concentrated_milk_cooling_Tin",
+            "type": "LITERATURE",
+            "full_name": "H7 Concentrated milk cooling, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 61.3,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H7}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of hot stream H7 (evaporation)"
+        },
+        {
+            "var_name": "H7_Concentrated_milk_cooling_Tout",
+            "type": "LITERATURE",
+            "full_name": "H7 Concentrated milk cooling, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 4,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H7}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of hot stream H7 (evaporation)"
+        },
+        {
+            "var_name": "H7_Concentrated_milk_cooling_hin",
+            "type": "LITERATURE",
+            "full_name": "H7 Concentrated milk cooling, inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 9.31597,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{H7}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "H7_Concentrated_milk_cooling_hout",
+            "type": "LITERATURE",
+            "full_name": "H7 Concentrated milk cooling, outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{H7}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
+        },
+        {
+            "var_name": "H7_Concentrated_milk_cooling_dTmin",
+            "type": "CONTEXT",
+            "full_name": "H7 Concentrated milk cooling, ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,H7}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream H7"
+        },
+        {
+            "var_name": "H7_Concentrated_milk_cooling_alpha",
+            "type": "CONTEXT",
+            "full_name": "H7 Concentrated milk cooling, heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{H7}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream H7; not used for energy targeting"
+        },
+        {
+            "var_name": "C6_Concentrated_milk_heating_for_cu_Tin",
+            "type": "LITERATURE",
+            "full_name": "C6 Concentrated milk heating for curdling, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 4,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C6}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of cold stream C6 (cheese making)"
+        },
+        {
+            "var_name": "C6_Concentrated_milk_heating_for_cu_Tout",
+            "type": "LITERATURE",
+            "full_name": "C6 Concentrated milk heating for curdling, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 56,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C6}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of cold stream C6 (cheese making)"
+        },
+        {
+            "var_name": "C6_Concentrated_milk_heating_for_cu_hin",
+            "type": "LITERATURE",
+            "full_name": "C6 Concentrated milk heating for curdling, inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{C6}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
+        },
+        {
+            "var_name": "C6_Concentrated_milk_heating_for_cu_hout",
+            "type": "LITERATURE",
+            "full_name": "C6 Concentrated milk heating for curdling, outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 8.27083,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{C6}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "C6_Concentrated_milk_heating_for_cu_dTmin",
+            "type": "CONTEXT",
+            "full_name": "C6 Concentrated milk heating for curdling, ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,C6}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream C6"
+        },
+        {
+            "var_name": "C6_Concentrated_milk_heating_for_cu_alpha",
+            "type": "CONTEXT",
+            "full_name": "C6 Concentrated milk heating for curdling, heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{C6}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream C6; not used for energy targeting"
+        },
+        {
+            "var_name": "C7_Brining_water_warming_Tin",
+            "type": "LITERATURE",
+            "full_name": "C7 Brining water warming, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 12,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C7}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of cold stream C7 (cheese making)"
+        },
+        {
+            "var_name": "C7_Brining_water_warming_Tout",
+            "type": "LITERATURE",
+            "full_name": "C7 Brining water warming, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 15.2,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C7}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of cold stream C7 (cheese making)"
+        },
+        {
+            "var_name": "C7_Brining_water_warming_hin",
+            "type": "LITERATURE",
+            "full_name": "C7 Brining water warming, inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{C7}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
+        },
+        {
+            "var_name": "C7_Brining_water_warming_hout",
+            "type": "LITERATURE",
+            "full_name": "C7 Brining water warming, outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0.114583,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{C7}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "C7_Brining_water_warming_dTmin",
+            "type": "CONTEXT",
+            "full_name": "C7 Brining water warming, ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,C7}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream C7"
+        },
+        {
+            "var_name": "C7_Brining_water_warming_alpha",
+            "type": "CONTEXT",
+            "full_name": "C7 Brining water warming, heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{C7}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream C7; not used for energy targeting"
+        },
+        {
+            "var_name": "H8_Curd_and_whey_cooling_Tin",
+            "type": "LITERATURE",
+            "full_name": "H8 Curd and whey cooling, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 56,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H8}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of hot stream H8 (cheese making)"
+        },
+        {
+            "var_name": "H8_Curd_and_whey_cooling_Tout",
+            "type": "LITERATURE",
+            "full_name": "H8 Curd and whey cooling, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 16,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H8}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of hot stream H8 (cheese making)"
+        },
+        {
+            "var_name": "H8_Curd_and_whey_cooling_hin",
+            "type": "LITERATURE",
+            "full_name": "H8 Curd and whey cooling, inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 2.1875,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{H8}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "H8_Curd_and_whey_cooling_hout",
+            "type": "LITERATURE",
+            "full_name": "H8 Curd and whey cooling, outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{H8}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
+        },
+        {
+            "var_name": "H8_Curd_and_whey_cooling_dTmin",
+            "type": "CONTEXT",
+            "full_name": "H8 Curd and whey cooling, ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,H8}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream H8"
+        },
+        {
+            "var_name": "H8_Curd_and_whey_cooling_alpha",
+            "type": "CONTEXT",
+            "full_name": "H8 Curd and whey cooling, heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{H8}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream H8; not used for energy targeting"
+        },
+        {
+            "var_name": "H9_Brining_cooling_side_lumped_Tin",
+            "type": "LITERATURE",
+            "full_name": "H9 Brining, cooling side (lumped), inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 25,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H9}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of hot stream H9 (cheese making)"
+        },
+        {
+            "var_name": "H9_Brining_cooling_side_lumped_Tout",
+            "type": "LITERATURE",
+            "full_name": "H9 Brining, cooling side (lumped), outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 13,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H9}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of hot stream H9 (cheese making)"
+        },
+        {
+            "var_name": "H9_Brining_cooling_side_lumped_hin",
+            "type": "LITERATURE",
+            "full_name": "H9 Brining, cooling side (lumped), inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0.326389,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{H9}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "H9_Brining_cooling_side_lumped_hout",
+            "type": "LITERATURE",
+            "full_name": "H9 Brining, cooling side (lumped), outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{H9}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
+        },
+        {
+            "var_name": "H9_Brining_cooling_side_lumped_dTmin",
+            "type": "CONTEXT",
+            "full_name": "H9 Brining, cooling side (lumped), ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,H9}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream H9"
+        },
+        {
+            "var_name": "H9_Brining_cooling_side_lumped_alpha",
+            "type": "CONTEXT",
+            "full_name": "H9 Brining, cooling side (lumped), heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{H9}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream H9; not used for energy targeting"
+        },
+        {
+            "var_name": "C8_Make_up_water_heating_Tin",
+            "type": "LITERATURE",
+            "full_name": "C8 Make-up water heating, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 25,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C8}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of cold stream C8 (cleaning in place)"
+        },
+        {
+            "var_name": "C8_Make_up_water_heating_Tout",
+            "type": "LITERATURE",
+            "full_name": "C8 Make-up water heating, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 60,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C8}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of cold stream C8 (cleaning in place)"
+        },
+        {
+            "var_name": "C8_Make_up_water_heating_hin",
+            "type": "LITERATURE",
+            "full_name": "C8 Make-up water heating, inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{C8}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
+        },
+        {
+            "var_name": "C8_Make_up_water_heating_hout",
+            "type": "LITERATURE",
+            "full_name": "C8 Make-up water heating, outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 6.10069,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{C8}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "C8_Make_up_water_heating_dTmin",
+            "type": "CONTEXT",
+            "full_name": "C8 Make-up water heating, ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,C8}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream C8"
+        },
+        {
+            "var_name": "C8_Make_up_water_heating_alpha",
+            "type": "CONTEXT",
+            "full_name": "C8 Make-up water heating, heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{C8}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream C8; not used for energy targeting"
+        },
+        {
+            "var_name": "C9_Cleaning_water_heating_Tin",
+            "type": "LITERATURE",
+            "full_name": "C9 Cleaning water heating, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 60,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{C9}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of cold stream C9 (cleaning in place)"
+        },
+        {
+            "var_name": "C9_Cleaning_water_heating_Tout",
+            "type": "LITERATURE",
+            "full_name": "C9 Cleaning water heating, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 80,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{C9}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of cold stream C9 (cleaning in place)"
+        },
+        {
+            "var_name": "C9_Cleaning_water_heating_hin",
+            "type": "LITERATURE",
+            "full_name": "C9 Cleaning water heating, inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{C9}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
+        },
+        {
+            "var_name": "C9_Cleaning_water_heating_hout",
+            "type": "LITERATURE",
+            "full_name": "C9 Cleaning water heating, outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 11.6285,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{C9}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the cold stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "C9_Cleaning_water_heating_dTmin",
+            "type": "CONTEXT",
+            "full_name": "C9 Cleaning water heating, ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,C9}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream C9"
+        },
+        {
+            "var_name": "C9_Cleaning_water_heating_alpha",
+            "type": "CONTEXT",
+            "full_name": "C9 Cleaning water heating, heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{C9}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream C9; not used for energy targeting"
+        },
+        {
+            "var_name": "H10_Cleaning_circuits_cooling_Tin",
+            "type": "LITERATURE",
+            "full_name": "H10 Cleaning circuits, cooling, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 80,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H10}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of hot stream H10 (cleaning in place)"
+        },
+        {
+            "var_name": "H10_Cleaning_circuits_cooling_Tout",
+            "type": "LITERATURE",
+            "full_name": "H10 Cleaning circuits, cooling, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 75,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H10}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of hot stream H10 (cleaning in place)"
+        },
+        {
+            "var_name": "H10_Cleaning_circuits_cooling_hin",
+            "type": "LITERATURE",
+            "full_name": "H10 Cleaning circuits, cooling, inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 2.90972,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{H10}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "H10_Cleaning_circuits_cooling_hout",
+            "type": "LITERATURE",
+            "full_name": "H10 Cleaning circuits, cooling, outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{H10}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
+        },
+        {
+            "var_name": "H10_Cleaning_circuits_cooling_dTmin",
+            "type": "CONTEXT",
+            "full_name": "H10 Cleaning circuits, cooling, ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,H10}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream H10"
+        },
+        {
+            "var_name": "H10_Cleaning_circuits_cooling_alpha",
+            "type": "CONTEXT",
+            "full_name": "H10 Cleaning circuits, cooling, heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{H10}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream H10; not used for energy targeting"
+        },
+        {
+            "var_name": "H11_Returned_water_cooling_before_re_Tin",
+            "type": "LITERATURE",
+            "full_name": "H11 Returned water cooling before reuse, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 75,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H11}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of hot stream H11 (cleaning in place)"
+        },
+        {
+            "var_name": "H11_Returned_water_cooling_before_re_Tout",
+            "type": "LITERATURE",
+            "full_name": "H11 Returned water cooling before reuse, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 60,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H11}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of hot stream H11 (cleaning in place)"
+        },
+        {
+            "var_name": "H11_Returned_water_cooling_before_re_hin",
+            "type": "LITERATURE",
+            "full_name": "H11 Returned water cooling before reuse, inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 6.10764,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{H11}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "H11_Returned_water_cooling_before_re_hout",
+            "type": "LITERATURE",
+            "full_name": "H11 Returned water cooling before reuse, outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{H11}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
+        },
+        {
+            "var_name": "H11_Returned_water_cooling_before_re_dTmin",
+            "type": "CONTEXT",
+            "full_name": "H11 Returned water cooling before reuse, ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,H11}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream H11"
+        },
+        {
+            "var_name": "H11_Returned_water_cooling_before_re_alpha",
+            "type": "CONTEXT",
+            "full_name": "H11 Returned water cooling before reuse, heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{H11}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream H11; not used for energy targeting"
+        },
+        {
+            "var_name": "H12_Spent_water_cooling_before_disch_Tin",
+            "type": "LITERATURE",
+            "full_name": "H12 Spent water cooling before discharge, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 75,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{H12}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Inlet temperature of hot stream H12 (cleaning in place)"
+        },
+        {
+            "var_name": "H12_Spent_water_cooling_before_disch_Tout",
+            "type": "LITERATURE",
+            "full_name": "H12 Spent water cooling before discharge, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{H12}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Outlet temperature of hot stream H12 (cleaning in place)"
+        },
+        {
+            "var_name": "H12_Spent_water_cooling_before_disch_hin",
+            "type": "LITERATURE",
+            "full_name": "H12 Spent water cooling before discharge, inlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 7.84375,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{in}_{H12}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Heat load of the hot stream, per 1 t/h of fresh milk"
+        },
+        {
+            "var_name": "H12_Spent_water_cooling_before_disch_hout",
+            "type": "LITERATURE",
+            "full_name": "H12 Spent water cooling before discharge, outlet enthalpy flow",
+            "user_grade": "MANDATORY",
+            "value": 0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot H^{out}_{H12}$",
+            "reference": "Dardor et al. (2024); Flórez-Orrego et al. (2025); case study V0, Table 3",
+            "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
+        },
+        {
+            "var_name": "H12_Spent_water_cooling_before_disch_dTmin",
+            "type": "CONTEXT",
+            "full_name": "H12 Spent water cooling before discharge, ΔTmin/2 contribution",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,H12}/2$",
+            "reference": "Case study V0, Table 3",
+            "description": "Minimum temperature difference contribution of stream H12"
+        },
+        {
+            "var_name": "H12_Spent_water_cooling_before_disch_alpha",
+            "type": "CONTEXT",
+            "full_name": "H12 Spent water cooling before discharge, heat transfer coefficient",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kW/m2K",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\alpha_{H12}$",
+            "reference": "Default value",
+            "description": "Heat transfer coefficient of stream H12; not used for energy targeting"
+        },
+        {
+            "var_name": "FRESH_MILK_flow",
+            "type": "LITERATURE",
+            "full_name": "Fresh milk",
+            "user_grade": "MANDATORY",
+            "value": 1000,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{milk}$",
+            "reference": "Flórez-Orrego et al. (2025); case study V0, Table 1",
+            "description": "Raw milk received at 6 °C and cooled to 4 °C on reception"
+        },
+        {
+            "var_name": "SALT_flow",
+            "type": "LITERATURE",
+            "full_name": "Salt",
+            "user_grade": "MANDATORY",
+            "value": 6.08681,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{salt}$",
+            "reference": "Flórez-Orrego et al. (2025); case study V0, Table 1",
+            "description": "Salt for the brine"
+        },
+        {
+            "var_name": "WATER_FOR_BRINING_flow",
+            "type": "LITERATURE",
+            "full_name": "Water for brining",
+            "user_grade": "MANDATORY",
+            "value": 31.25,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{w,brine}$",
+            "reference": "Flórez-Orrego et al. (2025); case study V0, Table 1",
+            "description": "Water for the brine"
+        },
+        {
+            "var_name": "WATER_FOR_CLEANING_CIP_flow",
+            "type": "LITERATURE",
+            "full_name": "Water for cleaning (CIP)",
+            "user_grade": "MANDATORY",
+            "value": 150,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{w,CIP}$",
+            "reference": "Flórez-Orrego et al. (2025); case study V0, Table 1",
+            "description": "Make-up water of the cleaning-in-place system"
+        },
+        {
+            "var_name": "CREAM_flow",
+            "type": "LITERATURE",
+            "full_name": "Cream",
+            "user_grade": "MANDATORY",
+            "value": 59.5208,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{cream}$",
+            "reference": "Flórez-Orrego et al. (2025); case study V0, Table 1",
+            "description": "Cream separated by centrifugation at about 60 °C and cooled to 4 °C"
+        },
+        {
+            "var_name": "CHEESE_flow",
+            "type": "LITERATURE",
+            "full_name": "Cheese",
+            "user_grade": "MANDATORY",
+            "value": 70.309,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{cheese}$",
+            "reference": "Flórez-Orrego et al. (2025); case study V0, Table 1",
+            "description": "Cheese after brining at about 13 °C"
+        },
+        {
+            "var_name": "DILUTED_WHEY_TO_EXTERNAL_USE_flow",
+            "type": "LITERATURE",
+            "full_name": "Diluted whey (to external use)",
+            "user_grade": "MANDATORY",
+            "value": 189.258,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{whey,dil}$",
+            "reference": "Flórez-Orrego et al. (2025); case study V0, Table 1",
+            "description": "Diluted whey from the evaporation, for external use such as animal feed"
+        },
+        {
+            "var_name": "CONCENTRATED_WHEY_TO_EXTERNAL_USE_flow",
+            "type": "LITERATURE",
+            "full_name": "Concentrated whey (to external use)",
+            "user_grade": "MANDATORY",
+            "value": 109.368,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{whey,conc}$",
+            "reference": "Flórez-Orrego et al. (2025); case study V0, Table 1",
+            "description": "Whey separated in cheese making, for external use such as animal feed"
+        },
+        {
+            "var_name": "EVAPORATOR_CONDENSATE_WATER_flow",
+            "type": "LITERATURE",
+            "full_name": "Evaporator condensate water",
+            "user_grade": "MANDATORY",
+            "value": 448.47,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{cond}$",
+            "reference": "Flórez-Orrego et al. (2025); case study V0, Table 1",
+            "description": "Water evaporated from the skimmed milk and condensed"
+        },
+        {
+            "var_name": "TREATED_WATER_DISCHARGE_flow",
+            "type": "LITERATURE",
+            "full_name": "Treated water discharge",
+            "user_grade": "MANDATORY",
+            "value": 155.654,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{w,treated}$",
+            "reference": "Flórez-Orrego et al. (2025); case study V0, Table 1",
+            "description": "Water discharged by the wastewater treatment"
+        },
+        {
+            "var_name": "CIP_WATER_DISCHARGE_flow",
+            "type": "LITERATURE",
+            "full_name": "CIP water discharge",
+            "user_grade": "MANDATORY",
+            "value": 150,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{w,CIP,out}$",
+            "reference": "Flórez-Orrego et al. (2025); case study V0, Table 1",
+            "description": "Spent cleaning water, cooled to 30 °C and discharged; about 70 % of the cleaning water is reused"
+        },
+        {
+            "var_name": "SLUDGE_FROM_WASTEWATER_TREATMENT_flow",
+            "type": "LITERATURE",
+            "full_name": "Sludge from wastewater treatment",
+            "user_grade": "MANDATORY",
+            "value": 4.75694,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{sludge}$",
+            "reference": "Flórez-Orrego et al. (2025); case study V0, Table 1",
+            "description": "Sludge separated in the wastewater treatment"
+        },
+        {
+            "var_name": "ELEC_process",
+            "type": "LITERATURE",
+            "full_name": "Process electricity",
+            "user_grade": "MANDATORY",
+            "value": 7.05434,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot E_{process}$",
+            "reference": "Ramírez et al. (2006), Tables 4 and 7; case study V0, Table 2",
+            "description": "Electric drives (separator, pumps, agitators, curd and cheese handling, cleaning pumps) and compressed air of the cheese line; refrigeration is excluded"
+        }
+    ],
+    "units": [
+        {
+            "unit_description": "This unit processes 1 t/h of fresh milk into cream and cheese: reception, pasteurisation with regenerative heat exchange and cream separation, three-effect evaporation of the skimmed milk, cheese making and brining, cleaning in place and wastewater treatment. The whey leaves the site without further processing. In the OSMOSE model, the heat streams are grouped by section into the units Pasteurisation, Evaporation, Cheese and CIP, and the material flows and the electricity into the unit Plant_boundary, all at the scale CAPACITY.",
+            "unit_info": {
+                "unit_name": "Dairy_V0",
+                "full_name": "Cheese dairy, whey to external use",
+                "unit_type": "process",
+                "minimum_capacity_multiplier": {
+                    "value": 1,
+                    "formula": "=CAPACITY",
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 1,
+                    "formula": "=CAPACITY",
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes fresh milk, salt, water for brining and water for cleaning (CIP), and electricity, and delivers cream, cheese, diluted whey, concentrated whey, evaporator condensate water, treated water discharge, CIP water discharge and wastewater sludge. The material flows close at 1,187.3 kg/h in and out.",
+            "connectors": [
+                {
+                    "name": "ELECTRICITY",
+                    "full_name": "Electricity",
+                    "scope": "GLOBAL",
+                    "type": "ELECTRICITY",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 7.05434,
+                        "formula": "=ELEC_process",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Electric drives (separator, pumps, agitators, curd and cheese handling, cleaning pumps) and compressed air of the cheese line; refrigeration is excluded"
+                },
+                {
+                    "name": "FRESH_MILK",
+                    "full_name": "Fresh milk",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 1000,
+                        "formula": "=FRESH_MILK_flow",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 6,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "Raw milk received at 6 °C and cooled to 4 °C on reception"
+                },
+                {
+                    "name": "SALT",
+                    "full_name": "Salt",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 6.08681,
+                        "formula": "=SALT_flow",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 25,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Salt for the brine"
+                },
+                {
+                    "name": "WATER_FOR_BRINING",
+                    "full_name": "Water for brining",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 31.25,
+                        "formula": "=WATER_FOR_BRINING_flow",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 12,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Water for the brine"
+                },
+                {
+                    "name": "WATER_FOR_CLEANING_CIP",
+                    "full_name": "Water for cleaning (CIP)",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 150,
+                        "formula": "=WATER_FOR_CLEANING_CIP_flow",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 25,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Make-up water of the cleaning-in-place system"
+                },
+                {
+                    "name": "CREAM",
+                    "full_name": "Cream",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 59.5208,
+                        "formula": "=CREAM_flow",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 4,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Cream separated by centrifugation at about 60 °C and cooled to 4 °C"
+                },
+                {
+                    "name": "CHEESE",
+                    "full_name": "Cheese",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 70.309,
+                        "formula": "=CHEESE_flow",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 13,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(S)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Cheese after brining at about 13 °C"
+                },
+                {
+                    "name": "DILUTED_WHEY_TO_EXTERNAL_USE",
+                    "full_name": "Diluted whey",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 189.258,
+                        "formula": "=DILUTED_WHEY_TO_EXTERNAL_USE_flow",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 4,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Diluted whey from the evaporation, for external use such as animal feed"
+                },
+                {
+                    "name": "CONCENTRATED_WHEY_TO_EXTERNAL_USE",
+                    "full_name": "Concentrated whey",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 109.368,
+                        "formula": "=CONCENTRATED_WHEY_TO_EXTERNAL_USE_flow",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 56,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Whey separated in cheese making, for external use such as animal feed"
+                },
+                {
+                    "name": "EVAPORATOR_CONDENSATE_WATER",
+                    "full_name": "Evaporator condensate water",
+                    "scope": "GLOBAL",
+                    "type": "WASTE",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 448.47,
+                        "formula": "=EVAPORATOR_CONDENSATE_WATER_flow",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 65,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Water evaporated from the skimmed milk and condensed"
+                },
+                {
+                    "name": "TREATED_WATER_DISCHARGE",
+                    "full_name": "Treated water discharge",
+                    "scope": "GLOBAL",
+                    "type": "WASTE",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 155.654,
+                        "formula": "=TREATED_WATER_DISCHARGE_flow",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 20,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Water discharged by the wastewater treatment"
+                },
+                {
+                    "name": "CIP_WATER_DISCHARGE",
+                    "full_name": "CIP water discharge",
+                    "scope": "GLOBAL",
+                    "type": "WASTE",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 150,
+                        "formula": "=CIP_WATER_DISCHARGE_flow",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Spent cleaning water, cooled to 30 °C and discharged; about 70 % of the cleaning water is reused"
+                },
+                {
+                    "name": "SLUDGE_FROM_WASTEWATER_TREATMENT",
+                    "full_name": "Wastewater sludge",
+                    "scope": "GLOBAL",
+                    "type": "WASTE",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 4.75694,
+                        "formula": "=SLUDGE_FROM_WASTEWATER_TREATMENT_flow",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 20,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Sludge separated in the wastewater treatment"
+                }
+            ],
+            "heat_streams_description": "9 cold and 12 hot streams per 1 t/h of fresh milk, from the dairy model of Dardor et al. (2024). The evaporator is described effect by effect. Phase changes at constant temperature have a span of 0.1 K; the ΔTmin/2 contribution is 5 K for liquid streams and 2 K for boiling and condensing streams. Streams ending below about 20 °C need refrigeration unless another process stream absorbs their heat.",
+            "heat_streams": [
+                {
+                    "name": "C1_Fresh_milk_heating_to_pasteurisa",
+                    "full_name": "C1 Fresh milk heating to pasteurisation",
+                    "description": "Pasteurisation: fresh milk heating to pasteurisation, from 4 to 75 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 4,
+                        "formula": "=C1_Fresh_milk_heating_to_pasteurisa_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 75,
+                        "formula": "=C1_Fresh_milk_heating_to_pasteurisa_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=C1_Fresh_milk_heating_to_pasteurisa_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 76.3785,
+                        "formula": "=C1_Fresh_milk_heating_to_pasteurisa_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=C1_Fresh_milk_heating_to_pasteurisa_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=C1_Fresh_milk_heating_to_pasteurisa_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "C2_Skimmed_milk_preheating",
+                    "full_name": "C2 Skimmed milk preheating",
+                    "description": "Evaporation: skimmed milk preheating, from 4 to 70.2 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 4,
+                        "formula": "=C2_Skimmed_milk_preheating_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 70.2,
+                        "formula": "=C2_Skimmed_milk_preheating_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=C2_Skimmed_milk_preheating_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 45.1944,
+                        "formula": "=C2_Skimmed_milk_preheating_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=C2_Skimmed_milk_preheating_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=C2_Skimmed_milk_preheating_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "C3_Effect_1_boiling_steam_heated",
+                    "full_name": "C3 Effect 1, boiling (steam-heated)",
+                    "description": "Evaporation: effect 1, boiling (steam-heated), from 70.2 to 70.3 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 70.2,
+                        "formula": "=C3_Effect_1_boiling_steam_heated_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 70.3,
+                        "formula": "=C3_Effect_1_boiling_steam_heated_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=C3_Effect_1_boiling_steam_heated_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 122.014,
+                        "formula": "=C3_Effect_1_boiling_steam_heated_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 2,
+                        "formula": "=C3_Effect_1_boiling_steam_heated_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=C3_Effect_1_boiling_steam_heated_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "C4_Effect_2_boiling",
+                    "full_name": "C4 Effect 2, boiling",
+                    "description": "Evaporation: effect 2, boiling, from 65.3 to 65.6 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 65.3,
+                        "formula": "=C4_Effect_2_boiling_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 65.6,
+                        "formula": "=C4_Effect_2_boiling_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=C4_Effect_2_boiling_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 102.319,
+                        "formula": "=C4_Effect_2_boiling_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 2,
+                        "formula": "=C4_Effect_2_boiling_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=C4_Effect_2_boiling_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "C5_Effect_3_boiling",
+                    "full_name": "C5 Effect 3, boiling",
+                    "description": "Evaporation: effect 3, boiling, from 60.7 to 61.3 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 60.7,
+                        "formula": "=C5_Effect_3_boiling_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 61.3,
+                        "formula": "=C5_Effect_3_boiling_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=C5_Effect_3_boiling_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 64.2743,
+                        "formula": "=C5_Effect_3_boiling_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 2,
+                        "formula": "=C5_Effect_3_boiling_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=C5_Effect_3_boiling_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "C6_Concentrated_milk_heating_for_cu",
+                    "full_name": "C6 Concentrated milk heating for curdling",
+                    "description": "Cheese making: concentrated milk heating for curdling, from 4 to 56 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 4,
+                        "formula": "=C6_Concentrated_milk_heating_for_cu_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 56,
+                        "formula": "=C6_Concentrated_milk_heating_for_cu_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=C6_Concentrated_milk_heating_for_cu_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 8.27083,
+                        "formula": "=C6_Concentrated_milk_heating_for_cu_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=C6_Concentrated_milk_heating_for_cu_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=C6_Concentrated_milk_heating_for_cu_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "C7_Brining_water_warming",
+                    "full_name": "C7 Brining water warming",
+                    "description": "Cheese making: brining water warming, from 12 to 15.2 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 12,
+                        "formula": "=C7_Brining_water_warming_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 15.2,
+                        "formula": "=C7_Brining_water_warming_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=C7_Brining_water_warming_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0.114583,
+                        "formula": "=C7_Brining_water_warming_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=C7_Brining_water_warming_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=C7_Brining_water_warming_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "C8_Make_up_water_heating",
+                    "full_name": "C8 Make-up water heating",
+                    "description": "Cleaning in place: make-up water heating, from 25 to 60 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 25,
+                        "formula": "=C8_Make_up_water_heating_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 60,
+                        "formula": "=C8_Make_up_water_heating_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=C8_Make_up_water_heating_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 6.10069,
+                        "formula": "=C8_Make_up_water_heating_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=C8_Make_up_water_heating_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=C8_Make_up_water_heating_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "C9_Cleaning_water_heating",
+                    "full_name": "C9 Cleaning water heating",
+                    "description": "Cleaning in place: cleaning water heating, from 60 to 80 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 60,
+                        "formula": "=C9_Cleaning_water_heating_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 80,
+                        "formula": "=C9_Cleaning_water_heating_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=C9_Cleaning_water_heating_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 11.6285,
+                        "formula": "=C9_Cleaning_water_heating_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=C9_Cleaning_water_heating_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=C9_Cleaning_water_heating_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "H1_Raw_milk_cooling_on_reception",
+                    "full_name": "H1 Raw milk cooling on reception",
+                    "description": "Pasteurisation: raw milk cooling on reception, from 6 to 4 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 6,
+                        "formula": "=H1_Raw_milk_cooling_on_reception_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 4,
+                        "formula": "=H1_Raw_milk_cooling_on_reception_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 2.18403,
+                        "formula": "=H1_Raw_milk_cooling_on_reception_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=H1_Raw_milk_cooling_on_reception_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=H1_Raw_milk_cooling_on_reception_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=H1_Raw_milk_cooling_on_reception_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "H2_Pasteurised_milk_cooling",
+                    "full_name": "H2 Pasteurised milk cooling",
+                    "description": "Pasteurisation: pasteurised milk cooling, from 75 to 4 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 75,
+                        "formula": "=H2_Pasteurised_milk_cooling_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 4,
+                        "formula": "=H2_Pasteurised_milk_cooling_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 73.1285,
+                        "formula": "=H2_Pasteurised_milk_cooling_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=H2_Pasteurised_milk_cooling_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=H2_Pasteurised_milk_cooling_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=H2_Pasteurised_milk_cooling_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "H3_Effect_1_vapour_condensing",
+                    "full_name": "H3 Effect 1 vapour, condensing",
+                    "description": "Evaporation: effect 1 vapour, condensing, from 70.2 to 69.1 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 70.2,
+                        "formula": "=H3_Effect_1_vapour_condensing_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 69.1,
+                        "formula": "=H3_Effect_1_vapour_condensing_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 122.146,
+                        "formula": "=H3_Effect_1_vapour_condensing_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=H3_Effect_1_vapour_condensing_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 2,
+                        "formula": "=H3_Effect_1_vapour_condensing_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=H3_Effect_1_vapour_condensing_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "H4_Effect_2_vapour_condensing",
+                    "full_name": "H4 Effect 2 vapour, condensing",
+                    "description": "Evaporation: effect 2 vapour, condensing, from 65.6 to 65 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 65.6,
+                        "formula": "=H4_Effect_2_vapour_condensing_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 65,
+                        "formula": "=H4_Effect_2_vapour_condensing_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 104.58,
+                        "formula": "=H4_Effect_2_vapour_condensing_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=H4_Effect_2_vapour_condensing_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 2,
+                        "formula": "=H4_Effect_2_vapour_condensing_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=H4_Effect_2_vapour_condensing_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "H5_Effect_3_vapour_condensing",
+                    "full_name": "H5 Effect 3 vapour, condensing",
+                    "description": "Evaporation: effect 3 vapour, condensing, from 61.3 to 60.1 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 61.3,
+                        "formula": "=H5_Effect_3_vapour_condensing_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 60.1,
+                        "formula": "=H5_Effect_3_vapour_condensing_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 65.6076,
+                        "formula": "=H5_Effect_3_vapour_condensing_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=H5_Effect_3_vapour_condensing_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 2,
+                        "formula": "=H5_Effect_3_vapour_condensing_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=H5_Effect_3_vapour_condensing_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "H6_Condensate_cooling",
+                    "full_name": "H6 Condensate cooling",
+                    "description": "Evaporation: condensate cooling, from 69.9 to 25 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 69.9,
+                        "formula": "=H6_Condensate_cooling_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 25,
+                        "formula": "=H6_Condensate_cooling_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 21.1875,
+                        "formula": "=H6_Condensate_cooling_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=H6_Condensate_cooling_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=H6_Condensate_cooling_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=H6_Condensate_cooling_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "H7_Concentrated_milk_cooling",
+                    "full_name": "H7 Concentrated milk cooling",
+                    "description": "Evaporation: concentrated milk cooling, from 61.3 to 4 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 61.3,
+                        "formula": "=H7_Concentrated_milk_cooling_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 4,
+                        "formula": "=H7_Concentrated_milk_cooling_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 9.31597,
+                        "formula": "=H7_Concentrated_milk_cooling_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=H7_Concentrated_milk_cooling_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=H7_Concentrated_milk_cooling_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=H7_Concentrated_milk_cooling_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "H8_Curd_and_whey_cooling",
+                    "full_name": "H8 Curd and whey cooling",
+                    "description": "Cheese making: curd and whey cooling, from 56 to 16 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 56,
+                        "formula": "=H8_Curd_and_whey_cooling_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 16,
+                        "formula": "=H8_Curd_and_whey_cooling_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 2.1875,
+                        "formula": "=H8_Curd_and_whey_cooling_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=H8_Curd_and_whey_cooling_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=H8_Curd_and_whey_cooling_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=H8_Curd_and_whey_cooling_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "H9_Brining_cooling_side_lumped",
+                    "full_name": "H9 Brining, cooling side (lumped)",
+                    "description": "Cheese making: brining, cooling side (lumped), from 25 to 13 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 25,
+                        "formula": "=H9_Brining_cooling_side_lumped_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 13,
+                        "formula": "=H9_Brining_cooling_side_lumped_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0.326389,
+                        "formula": "=H9_Brining_cooling_side_lumped_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=H9_Brining_cooling_side_lumped_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=H9_Brining_cooling_side_lumped_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=H9_Brining_cooling_side_lumped_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "H10_Cleaning_circuits_cooling",
+                    "full_name": "H10 Cleaning circuits, cooling",
+                    "description": "Cleaning in place: cleaning circuits, cooling, from 80 to 75 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 80,
+                        "formula": "=H10_Cleaning_circuits_cooling_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 75,
+                        "formula": "=H10_Cleaning_circuits_cooling_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 2.90972,
+                        "formula": "=H10_Cleaning_circuits_cooling_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=H10_Cleaning_circuits_cooling_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=H10_Cleaning_circuits_cooling_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=H10_Cleaning_circuits_cooling_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "H11_Returned_water_cooling_before_re",
+                    "full_name": "H11 Returned water cooling before reuse",
+                    "description": "Cleaning in place: returned water cooling before reuse, from 75 to 60 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 75,
+                        "formula": "=H11_Returned_water_cooling_before_re_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 60,
+                        "formula": "=H11_Returned_water_cooling_before_re_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 6.10764,
+                        "formula": "=H11_Returned_water_cooling_before_re_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=H11_Returned_water_cooling_before_re_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=H11_Returned_water_cooling_before_re_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=H11_Returned_water_cooling_before_re_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "H12_Spent_water_cooling_before_disch",
+                    "full_name": "H12 Spent water cooling before discharge",
+                    "description": "Cleaning in place: spent water cooling before discharge, from 75 to 30 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 75,
+                        "formula": "=H12_Spent_water_cooling_before_disch_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=H12_Spent_water_cooling_before_disch_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 7.84375,
+                        "formula": "=H12_Spent_water_cooling_before_disch_hin",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": "=H12_Spent_water_cooling_before_disch_hout",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=H12_Spent_water_cooling_before_disch_dTmin",
+                        "unit": "K"
+                    },
+                    "heat_transfer_coef": {
+                        "value": 1,
+                        "formula": "=H12_Spent_water_cooling_before_disch_alpha",
+                        "unit": "kW/m2K"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                }
+            ],
+            "equipments_description": "No cost data.",
+            "equipments": [],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        }
+    ],
+    "custom_constraints": [
+        {
+            "name": "",
+            "equation": "",
+            "type": ""
+        }
+    ]
+}

@@ -9,13 +9,13 @@ Food and drink production.
 
 | Model type | Model | Status |
 |:--|:--|:--|
-| Brewery | — | Work in progress |
 | Malting | — | Work in progress |
 | Distillery | — | Work in progress |
-| Dairy | — | Work in progress |
 | Sugar | — | Work in progress |
+| Brewery | [Beer production](Brewery/index.qmd) | Documented |
 | Chocolate | [Milk chocolate production](Chocolate/index.qmd) | Documented |
 | Coffee | [Instant coffee production](Coffee/index.qmd) | Documented |
+| Dairy | [Cheese dairy](Dairy/index.qmd) | Documented |
 | Meat | [Integrated pork plant](Meat/index.qmd) | Documented |
 
 : {.striped}
