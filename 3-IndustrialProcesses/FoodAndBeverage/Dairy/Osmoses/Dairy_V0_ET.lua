@@ -1,7 +1,7 @@
 --[[ OSMOSE energy-technology (ET) model: Dairy plant V0: cheese only, whey leaves the site
   Basis: all flows and heat loads per 1 t/h of fresh milk (input) (kg/h = kg/t; kW = kWh/t).
   Reference plant: 28.8 t/h of fresh milk. Set CAPACITY (t/h) to scale the process units; operating time 8,760 h/y (set op_time in the frontend).
-  Source: IPESE dairy model (DWSIM/ROSMOSE, Dardor et al. 2024; IETS Task XXIV); IPESE case-study workbook Dairy_V0_rs_qt.xlsx.
+  Source: IPESE dairy model (DWSIM/ROSMOSE, Dardor et al. 2024; IETS Task XXIV); IPESE case-study workbook DairyCheese_V0_rs_qt.xlsx.
   Heat streams: cold streams hin = 0, hout = Q; hot streams hin = Q, hout = 0; dTmin is the dTmin/2 contribution of each stream (K).
   Utilities (steam, hot water, refrigeration, cooling water, burners) are not part of this model; refrigeration demands are hot streams at process temperature.
   Reference MER targets at CAPACITY = 1 (problem table of the case study): Qh = 146.48 kW, Qc = 127.71 kW, shifted pinch = 67.3 C.
@@ -23,7 +23,7 @@ et.header = {
   versions = {'1.0'},
   confidentiality = {'Open'},
   title = 'Dairy plant V0: cheese only, whey leaves the site',
-  description = 'Process data (material flows and heat streams) per 1 t/h of fresh milk (input). Source: IPESE dairy model (DWSIM/ROSMOSE, Dardor et al. 2024; IETS Task XXIV); IPESE case-study workbook Dairy_V0_rs_qt.xlsx',
+  description = 'Process data (material flows and heat streams) per 1 t/h of fresh milk (input). Source: IPESE dairy model (DWSIM/ROSMOSE, Dardor et al. 2024; IETS Task XXIV); IPESE case-study workbook DairyCheese_V0_rs_qt.xlsx',
 }
 
 -- ========== LAYERS ==========

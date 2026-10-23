@@ -1,7 +1,7 @@
 --[[ OSMOSE energy-technology (ET) model: Brewery V1: beer production with anaerobic digestion of the spent grains
   Basis: all flows and heat loads per 1 t/h of beer (kg/h = kg/t; kW = kWh/t).
   Reference plant: 68.686 t/h of beer (19.0793 kg/s). Set CAPACITY (t/h) to scale the process units; operating time 8,760 h/y (set op_time in the frontend).
-  Source: Marechal, Sachan, Salgueiro (2013), Handbook of Process Integration, Woodhead, pp. 820-863, doi:10.1533/9780857097255.5.820; IPESE case-study workbook Brewery_V1_rs_qt.xlsx.
+  Source: Marechal, Sachan, Salgueiro (2013), Handbook of Process Integration, Woodhead, pp. 820-863, doi:10.1533/9780857097255.5.820; IPESE case-study workbook BreweryBiog_V1_rs_qt.xlsx.
   Heat streams: cold streams hin = 0, hout = Q; hot streams hin = Q, hout = 0; dTmin is the dTmin/2 contribution of each stream (K).
   Utilities (steam, hot water, refrigeration, cooling water, burners) are not part of this model; refrigeration demands are hot streams at process temperature.
   Reference MER targets at CAPACITY = 1 (problem table of the case study): Qh = 72.91 kW, Qc = 59.79 kW, shifted pinch = 20 C.
@@ -23,7 +23,7 @@ et.header = {
   versions = {'1.0'},
   confidentiality = {'Open'},
   title = 'Brewery V1: beer production with anaerobic digestion of the spent grains',
-  description = 'Process data (material flows and heat streams) per 1 t/h of beer. Source: Marechal, Sachan, Salgueiro (2013), Handbook of Process Integration, Woodhead, pp. 820-863, doi:10.1533/9780857097255.5.820; IPESE case-study workbook Brewery_V1_rs_qt.xlsx',
+  description = 'Process data (material flows and heat streams) per 1 t/h of beer. Source: Marechal, Sachan, Salgueiro (2013), Handbook of Process Integration, Woodhead, pp. 820-863, doi:10.1533/9780857097255.5.820; IPESE case-study workbook BreweryBiog_V1_rs_qt.xlsx',
 }
 
 -- ========== LAYERS ==========
