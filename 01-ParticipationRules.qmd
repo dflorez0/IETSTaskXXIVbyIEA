@@ -48,9 +48,9 @@ The template is a class-attribute tree (@fig-template-tree) with six primary ent
 
 ![The ex-ante model template as a class-attribute tree: the entities, the objects of each unit and their attributes.](<0-TaskXXIVDescription/TREE MODEL CLASS IETS 12.2025-ONTOLOGY 12.2025.svg>){#fig-template-tree .lightbox width=100%}
 
-## Confidentiality: the layered disclosure framework {.unnumbered}
+## Confidentiality: the seven-tier disclosure framework {.unnumbered}
 
-Industrial confidentiality (non-disclosure agreements, patents, co-owned models) is the main barrier to sharing models. Each model therefore declares a **sharing layer**, which sets how much of it is disclosed:
+Industrial confidentiality (non-disclosure agreements, patents, co-owned models) is the main barrier to sharing models. Each model therefore declares a **sharing layer**, from L0 to L6, which sets how much of it is disclosed:
 
 | Layer | Content disclosed | Access |
 |:--|:--|:--|
