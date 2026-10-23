@@ -332,6 +332,75 @@ blockquote > p:last-child  { text-align: right; }
   margin: .25rem 0 1.5rem;
 }
 
+/* ---- Report page (03-AnnualInterimReport.qmd) ------------------------ */
+/* The report's card: its cover, which opens the PDF, beside its title,
+   authors and buttons. Below 576px the cover sits above the text. */
+.report-card {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  margin: 1.5rem 0 2rem;
+  padding: 1.25rem 1.5rem;
+  background: #fafafa;
+  border: 1px solid $epfl-grey-lt;
+  border-left: 4px solid $epfl-red;
+  border-radius: 4px;
+}
+.report-card .report-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid $epfl-grey-mid;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .18);
+  transition: transform .2s, box-shadow .2s;
+}
+.report-card .report-cover:hover img {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .24);
+}
+.report-card p { margin: 0 0 .5rem; }
+.report-card .report-kicker {
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: $epfl-red;
+}
+.report-card .report-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.report-card .report-subtitle,
+.report-card .report-authors { color: #555; }
+.report-card .report-authors { font-size: .95rem; }
+.report-card .report-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin: 1rem 0 0;
+}
+@media (max-width: 575.98px) {
+  .report-card { grid-template-columns: 1fr; }
+  .report-card .report-cover { max-width: 160px; }
+}
+
+/* The report itself, in the browser's PDF viewer. Phone browsers do not show
+   a PDF inside a page, so there the viewer gives way to a button. */
+.report-viewer object {
+  display: block;
+  width: 100%;
+  height: min(88vh, 1150px);
+  border: 1px solid $epfl-grey-lt;
+  border-radius: 4px;
+}
+.report-viewer-phone { display: none; }
+@media (max-width: 767.98px) {
+  .report-viewer { display: none; }
+  .report-viewer-phone { display: block; }
+}
+
 /* Subsections read as one level below the sections: smaller and in the
    accent red, while sections keep their size and grey underline. */
 main.content h3 {

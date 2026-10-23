@@ -17,6 +17,7 @@ project:
     - 00-TaskDescription.qmd
     - 01-ParticipationRules.qmd
     - 02-HowToUseThisDatabase.qmd
+    - 03-AnnualInterimReport.qmd
     - integration.qmd
     - "*/index.qmd"
     - "*/*/index.qmd"
@@ -48,6 +49,7 @@ website:
           - 00-TaskDescription.qmd
           - 01-ParticipationRules.qmd
           - 02-HowToUseThisDatabase.qmd
+          - 03-AnnualInterimReport.qmd
 
       # Each section holds categories; a category with documented or
       # placeholder model pages is itself a section, the others are a page.

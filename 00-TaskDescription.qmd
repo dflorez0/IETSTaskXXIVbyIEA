@@ -81,6 +81,6 @@ Other Task participants and contributors: Rafailia Mitraki, Muhammad Salman, Gr√
 ## Further information {.unnumbered}
 
 * Task page on the IETS website: <https://iea-industry.org/tasks/process-integration-for-industry-decarbonization/>
-* [Interim report 2025 to the Swiss Federal Office of Energy](TaskInformation/IETS-TaskXXIV-Interim-Report-2025.pdf) (PDF, 8 MB, draft): coordination of Task XXIV in its first year, participants' survey, the ex-ante model template and the data management plan
+* [Annual interim Task report to SFOE](03-AnnualInterimReport.qmd) (31 December 2025): coordination of Task XXIV in its first year, participants' survey, the ex-ante model template and the seven-tier disclosure framework
 * [Task proposal](https://iea-industry.org/app/uploads/Proposal-_-IETS-Task-Process-integration-for-Industrial-Decarbonization-DFO-FM-TB-PAF-1.pdf) and [Subtask 1 proposal](https://iea-industry.org/app/uploads/SubTask1-IETS-Task-Process-integration-for-Industrial-Decarbonization-DFO-FM-TB-PAF.pdf) (PDF)
 * Contact: <francois.marechal@epfl.ch>, <daniel.florezorrego@epfl.ch>
