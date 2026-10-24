@@ -13,7 +13,8 @@ et.header = {
   confidentiality = {''},
   title = 'Natural gas combustion furnace',
   description = [[Natural gas combustion furnace]],
-  references = {''},
+  references = {'Adiabatic flame temperature of methane in air, https://www.thoughtco.com/flame-temperatures-table-607307',
+                'Maréchal F., Kalitventzeff B. (1998). Process integration: Selection of the optimal utility system. Computers & Chemical Engineering 22 (Supplement 1), S149-S156, https://doi.org/10.1016/S0098-1354(98)00049-0'},
   adaptedwith = {},
   notes =  {}
 }
