@@ -272,8 +272,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (back) out += '<tspan dy="' + back + '"></tspan>';
     return out;
   }
+  // A URL may hold balanced parentheses, as in DOIs like 10.1016/S0098-1354(98)00049-0;
+  // a lone ")" ends it, as when the URL closes a parenthesis of the text.
   function linkify(s) {
-    return xesc(s).replace(/(https?:\/\/[^\s;,)]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+    return xesc(s).replace(/(https?:\/\/(?:[^\s;,()]|\([^\s;,()]*\))+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
   }
   function download(name, content, mime) {
     var a = document.createElement("a");
