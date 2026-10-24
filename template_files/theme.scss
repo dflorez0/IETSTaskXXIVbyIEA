@@ -8,8 +8,13 @@ $epfl-grey-lt:  #d5d5d5;
 $epfl-grey-bg:  #e6e6e6;
 
 $primary:       $epfl-red;
-$link-color:    $epfl-red;
 $body-color:    $epfl-grey;
+
+// Links are a muted blue with a light underline (see "Links" below): the
+// bright red drew the eye away from the text. The page TOC keeps the red.
+$link-color:       #2f5d86;
+$link-hover-color: #1c3d5c;
+$toc-color:        $epfl-red;
 
 // Sidebar (the gitbook "book-summary" equivalent).
 // gitbook: .book-summary { width: 300px } — Quarto's grid knob for that.
@@ -78,6 +83,18 @@ p.caption {
 #quarto-header .navbar .nav-link:hover,
 #quarto-back-to-top:hover {
   color: $epfl-red;
+}
+
+/* ---- Links ------------------------------------------------------------- */
+/* Links in the text read as part of it: the muted blue of $link-color with a
+   light underline, which darkens on hover. Buttons keep their own look. */
+main.content a:not(.btn) {
+  text-decoration-color: rgba($link-color, .4);
+  text-decoration-thickness: 1px;
+  text-underline-offset: .15em;
+}
+main.content a:not(.btn):hover {
+  text-decoration-color: currentColor;
 }
 
 /* gitbook: pre.sourceCode red left rule */
@@ -442,7 +459,7 @@ blockquote > p:last-child  { text-align: right; }
 .slides-card .slides-viewer { grid-column: 1 / -1; }
 .slides-card .slides-viewer summary {
   cursor: pointer;
-  color: $epfl-red;
+  color: $link-color;
   font-size: .95rem;
 }
 .slides-card .slides-viewer object {
