@@ -40,7 +40,7 @@ et:addLayers { DIGESTER_WASTEWATER_AND_DRYING_CONDENSAT = {type = 'ResourceBalan
 et:addLayers { EVAPORATOR_CONDENSATE_WATER = {type = 'ResourceBalance', unit = 'kg/h'} } -- Evaporator condensate water
 et:addLayers { TREATED_WATER_DISCHARGE = {type = 'ResourceBalance', unit = 'kg/h'} } -- Treated water discharge
 et:addLayers { CIP_WATER_DISCHARGE = {type = 'ResourceBalance', unit = 'kg/h'} } -- CIP water discharge
-et:addLayers { ELECTRICITY = {type = 'ResourceBalance', unit = 'kW'} }
+et:addLayers { Elec = {type = 'ResourceBalance', unit = 'kW'} }
 et:addLayers { BIOMETHANE = {type = 'ResourceBalance', unit = 'kW'} } -- methane exported to the gas grid (LHV)
 
 -- ========== PROCESS UNITS (heat streams by section) ==========
@@ -107,7 +107,7 @@ et['Plant_boundary']:addStreams({
   EVAPORATOR_CONDENSATE_WATER_out = rs{'EVAPORATOR_CONDENSATE_WATER', 'out', 'EVAPORATOR_CONDENSATE_WATER_flow'}, -- Evaporator condensate water
   TREATED_WATER_DISCHARGE_out = rs{'TREATED_WATER_DISCHARGE', 'out', 'TREATED_WATER_DISCHARGE_flow'}, -- Treated water discharge
   CIP_WATER_DISCHARGE_out = rs{'CIP_WATER_DISCHARGE', 'out', 'CIP_WATER_DISCHARGE_flow'}, -- CIP water discharge
-  ELECTRICITY_process = rs{'ELECTRICITY', 'in', 'ELEC_process'}, -- process electricity, refrigeration excluded
+  ELECTRICITY_process = rs{'Elec', 'in', 'ELEC_process'}, -- process electricity, refrigeration excluded
 })
 
 -- ========== BIOGAS USE OPTIONS (utilities, selected by the optimisation) ==========
@@ -115,14 +115,14 @@ et['Plant_boundary']:addStreams({
 et:addUnit('Biogas_CHP_engine', {type = 'Utility', Cost1 = 0, Cost2 = 0, Cinv1 = 0, Cinv2 = 0, Impact1 = 0, Impact2 = 0, Fmin = 0, Fmax = 'CAPACITY'})
 et['Biogas_CHP_engine']:addStreams({
   BIOGAS_in = rs{'BIOGAS', 'in', 'BIOGAS_flow'},
-  ELECTRICITY_out = rs{'ELECTRICITY', 'out', 'CHP_elec'},
+  ELECTRICITY_out = rs{'Elec', 'out', 'CHP_elec'},
   CHP_flue_gas = qt{tin = 450, hin = 'CHP_flue_gas_Q', tout = 150, hout = 0, dtmin = 15, alpha = 1}, -- hot
   CHP_cooling_water = qt{tin = 90, hin = 'CHP_cooling_water_Q', tout = 40, hout = 0, dtmin = 5, alpha = 1}, -- hot
 })
 et:addUnit('Biogas_upgrading_export', {type = 'Utility', Cost1 = 0, Cost2 = 0, Cinv1 = 0, Cinv2 = 0, Impact1 = 0, Impact2 = 0, Fmin = 0, Fmax = 'CAPACITY'})
 et['Biogas_upgrading_export']:addStreams({
   BIOGAS_in = rs{'BIOGAS', 'in', 'BIOGAS_flow'},
-  ELECTRICITY_in = rs{'ELECTRICITY', 'in', 'UPGRADING_elec'},
+  ELECTRICITY_in = rs{'Elec', 'in', 'UPGRADING_elec'},
   BIOMETHANE_out = rs{'BIOMETHANE', 'out', 'BIOMETHANE_export'},
 })
 

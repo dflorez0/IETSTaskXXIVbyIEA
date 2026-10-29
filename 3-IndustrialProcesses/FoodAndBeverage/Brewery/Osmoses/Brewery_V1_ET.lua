@@ -44,7 +44,7 @@ et:addLayers { TRUB = {type = 'ResourceBalance', unit = 'kg/h'} } -- Trub
 et:addLayers { CO2_FROM_FERMENTATION = {type = 'ResourceBalance', unit = 'kg/h'} } -- CO2 from fermentation
 et:addLayers { HOT_WATER_TO_CLEANING_IN_PLACE = {type = 'ResourceBalance', unit = 'kg/h'} } -- Hot water to cleaning in place
 et:addLayers { BOTTLE_WASHING_WASTEWATER = {type = 'ResourceBalance', unit = 'kg/h'} } -- Bottle-washing wastewater
-et:addLayers { ELECTRICITY = {type = 'ResourceBalance', unit = 'kW'} }
+et:addLayers { Elec = {type = 'ResourceBalance', unit = 'kW'} }
 et:addLayers { BIOMETHANE = {type = 'ResourceBalance', unit = 'kW'} } -- methane exported to the gas grid (LHV)
 
 -- ========== PROCESS UNITS (heat streams by section) ==========
@@ -145,7 +145,7 @@ et['Plant_boundary']:addStreams({
   CO2_FROM_FERMENTATION_out = rs{'CO2_FROM_FERMENTATION', 'out', 'CO2_FROM_FERMENTATION_flow'}, -- CO2 from fermentation
   HOT_WATER_TO_CLEANING_IN_PLACE_out = rs{'HOT_WATER_TO_CLEANING_IN_PLACE', 'out', 'HOT_WATER_TO_CLEANING_IN_PLACE_flow'}, -- Hot water to cleaning in place
   BOTTLE_WASHING_WASTEWATER_out = rs{'BOTTLE_WASHING_WASTEWATER', 'out', 'BOTTLE_WASHING_WASTEWATER_flow'}, -- Bottle-washing wastewater
-  ELECTRICITY_process = rs{'ELECTRICITY', 'in', 'ELEC_process'}, -- process electricity, refrigeration excluded
+  ELECTRICITY_process = rs{'Elec', 'in', 'ELEC_process'}, -- process electricity, refrigeration excluded
 })
 
 -- ========== BIOGAS USE OPTIONS (utilities, selected by the optimisation) ==========
@@ -153,14 +153,14 @@ et['Plant_boundary']:addStreams({
 et:addUnit('Biogas_CHP_engine', {type = 'Utility', Cost1 = 0, Cost2 = 0, Cinv1 = 0, Cinv2 = 0, Impact1 = 0, Impact2 = 0, Fmin = 0, Fmax = 'CAPACITY'})
 et['Biogas_CHP_engine']:addStreams({
   BIOGAS_in = rs{'BIOGAS', 'in', 'BIOGAS_flow'},
-  ELECTRICITY_out = rs{'ELECTRICITY', 'out', 'CHP_elec'},
+  ELECTRICITY_out = rs{'Elec', 'out', 'CHP_elec'},
   CHP_flue_gas = qt{tin = 470, hin = 'CHP_flue_gas_Q', tout = 90, hout = 0, dtmin = 15, alpha = 1}, -- hot
   CHP_cooling_water = qt{tin = 87, hin = 'CHP_cooling_water_Q', tout = 80, hout = 0, dtmin = 5, alpha = 1}, -- hot
 })
 et:addUnit('Biogas_upgrading_export', {type = 'Utility', Cost1 = 0, Cost2 = 0, Cinv1 = 0, Cinv2 = 0, Impact1 = 0, Impact2 = 0, Fmin = 0, Fmax = 'CAPACITY'})
 et['Biogas_upgrading_export']:addStreams({
   BIOGAS_in = rs{'BIOGAS', 'in', 'BIOGAS_flow'},
-  ELECTRICITY_in = rs{'ELECTRICITY', 'in', 'UPGRADING_elec'},
+  ELECTRICITY_in = rs{'Elec', 'in', 'UPGRADING_elec'},
   BIOMETHANE_out = rs{'BIOMETHANE', 'out', 'BIOMETHANE_export'},
 })
 

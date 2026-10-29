@@ -1,0 +1,1370 @@
+{
+    "header": {
+        "uid": "",
+        "name": "SOEC",
+        "full_name": "High temperature solid oxide electrolysis (SOEC)",
+        "ET_model_type": "regular",
+        "authors_and_contributors": "Meire Ribeiro Domingos, Daniel Flórez-Orrego, EPFL IPESE research group",
+        "contact_info": "meire.ribeirodomingos@epfl.ch, daniel.florezorrego@epfl.ch",
+        "creation_date": "",
+        "last_updated": "29.10.2026",
+        "status": "Maintained",
+        "version": "1.0",
+        "confidentiality": "Open",
+        "sharing_layer": "1",
+        "grade": "WHITE-BOX",
+        "reference_capacity": "1 kg/h of hydrogen (massflowH2), 34.217 kW of electricity",
+        "TRL": "",
+        "keywords": [
+            "Hydrogen",
+            "Electrolysis",
+            "Solid oxide electrolyzer",
+            "SOEC",
+            "Power-to-gas"
+        ],
+        "description": "Solid oxide electrolyzer producing hydrogen from steam at about 800 °C, with a sweep air that leaves enriched in oxygen.",
+        "DOI": "",
+        "main_related_publication": "",
+        "references": "[1] ISPT, Next Level Solid Oxide Electrolysis (2022), https://ispt.eu/media/20230508-FINAL-SOE-public-report-ISPT.pdf;\n[2] Clean Air Task Force, Solid Oxide Electrolysis: A Technology Status Assessment (2023), https://cdn.catf.us/wp-content/uploads/2023/11/15092028/solid-oxide-electrolysis-report.pdf",
+        "software": "OSMOSE",
+        "software_file": "",
+        "block_flow_diagram": "HighTElectrolysis/Figures/soecelectrolyzer.svg",
+        "url": null,
+        "supplementary_material": "See SUPPL MATERIAL tab",
+        "hierarchy": "utility"
+    },
+    "variables": [
+        {
+            "var_name": "massflowH2O",
+            "type": "MEASURED",
+            "full_name": "Water fed",
+            "user_grade": "MANDATORY",
+            "value": 10.78,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m^{in}_{H_2O}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Water fed to the steam generator, per 1 kg/h of hydrogen"
+        },
+        {
+            "var_name": "massflowAir",
+            "type": "MEASURED",
+            "full_name": "Sweep air",
+            "user_grade": "MANDATORY",
+            "value": 55.66,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{air}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Sweep air fed to the anode side, per 1 kg/h of hydrogen"
+        },
+        {
+            "var_name": "massflowH2",
+            "type": "CONTEXT",
+            "full_name": "Hydrogen production",
+            "user_grade": "MANDATORY",
+            "value": 1,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{H_2}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Hydrogen produced (reference size)"
+        },
+        {
+            "var_name": "massflowH2O_out",
+            "type": "MEASURED",
+            "full_name": "Water recovered",
+            "user_grade": "MANDATORY",
+            "value": 1.84,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m^{out}_{H_2O}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Unconverted water condensed and recovered in the molecular sieves"
+        },
+        {
+            "var_name": "massflow_EnrAir",
+            "type": "MEASURED",
+            "full_name": "Enriched air",
+            "user_grade": "MANDATORY",
+            "value": 63.59,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{enr.air}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Sweep air enriched with the oxygen produced: 70 % N2 and 30 % O2 (molar), at 25 °C"
+        },
+        {
+            "var_name": "Elec_input",
+            "type": "MEASURED",
+            "full_name": "Electricity input",
+            "user_grade": "MANDATORY",
+            "value": 34.217,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot E_{in}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Electricity consumption of the SOEC system, including the overpotentials"
+        },
+        {
+            "var_name": "hx_B3_ti",
+            "type": "MEASURED",
+            "full_name": "Sweep air preheating, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 25,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{B3}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Sweep air preheating (block B3), inlet temperature"
+        },
+        {
+            "var_name": "hx_B3_to",
+            "type": "MEASURED",
+            "full_name": "Sweep air preheating, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 700,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{B3}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Sweep air preheating (block B3), outlet temperature"
+        },
+        {
+            "var_name": "hx_B3_ho",
+            "type": "MEASURED",
+            "full_name": "Sweep air preheating, heat load",
+            "user_grade": "MANDATORY",
+            "value": 11.16,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{B3}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Sweep air preheating (block B3), heat load"
+        },
+        {
+            "var_name": "hx_B13_ti",
+            "type": "MEASURED",
+            "full_name": "Water heating, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 25,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{B13}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Water heating (block B13), inlet temperature"
+        },
+        {
+            "var_name": "hx_B13_to",
+            "type": "MEASURED",
+            "full_name": "Water heating, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 99,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{B13}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Water heating (block B13), outlet temperature"
+        },
+        {
+            "var_name": "hx_B13_ho",
+            "type": "MEASURED",
+            "full_name": "Water heating, heat load",
+            "user_grade": "MANDATORY",
+            "value": 0.954,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{B13}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Water heating (block B13), heat load"
+        },
+        {
+            "var_name": "hx_B12_ti",
+            "type": "MEASURED",
+            "full_name": "Water evaporation, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 99,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{B12}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Water evaporation (block B12), inlet temperature"
+        },
+        {
+            "var_name": "hx_B12_to",
+            "type": "MEASURED",
+            "full_name": "Water evaporation, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 99.64,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{B12}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Water evaporation (block B12), outlet temperature"
+        },
+        {
+            "var_name": "hx_B12_ho",
+            "type": "MEASURED",
+            "full_name": "Water evaporation, heat load",
+            "user_grade": "MANDATORY",
+            "value": 6.77,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{B12}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Water evaporation (block B12), heat load"
+        },
+        {
+            "var_name": "hx_B11_ti",
+            "type": "MEASURED",
+            "full_name": "Steam superheating, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 99.64,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{B11}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Steam superheating (block B11), inlet temperature"
+        },
+        {
+            "var_name": "hx_B11_to",
+            "type": "MEASURED",
+            "full_name": "Steam superheating, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 800,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{B11}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Steam superheating (block B11), outlet temperature"
+        },
+        {
+            "var_name": "hx_B11_ho",
+            "type": "MEASURED",
+            "full_name": "Steam superheating, heat load",
+            "user_grade": "MANDATORY",
+            "value": 4.41,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{B11}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Steam superheating (block B11), heat load"
+        },
+        {
+            "var_name": "hx_B5_ti",
+            "type": "MEASURED",
+            "full_name": "Enriched air cooling, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 712,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{B5}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Enriched air cooling (block B5), inlet temperature"
+        },
+        {
+            "var_name": "hx_B5_to",
+            "type": "MEASURED",
+            "full_name": "Enriched air cooling, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 25,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{B5}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Enriched air cooling (block B5), outlet temperature"
+        },
+        {
+            "var_name": "hx_B5_ho",
+            "type": "MEASURED",
+            "full_name": "Enriched air cooling, heat load",
+            "user_grade": "MANDATORY",
+            "value": 12.905,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{B5}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Enriched air cooling (block B5), heat load"
+        },
+        {
+            "var_name": "hx_B6_ti",
+            "type": "MEASURED",
+            "full_name": "Hydrogen and steam cooling, 800 to 200 °C, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 800,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{B6}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Hydrogen and steam cooling, 800 to 200 °C (block B6), inlet temperature"
+        },
+        {
+            "var_name": "hx_B6_to",
+            "type": "MEASURED",
+            "full_name": "Hydrogen and steam cooling, 800 to 200 °C, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 200,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{B6}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Hydrogen and steam cooling, 800 to 200 °C (block B6), outlet temperature"
+        },
+        {
+            "var_name": "hx_B6_ho",
+            "type": "MEASURED",
+            "full_name": "Hydrogen and steam cooling, 800 to 200 °C, heat load",
+            "user_grade": "MANDATORY",
+            "value": 3.11,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{B6}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Hydrogen and steam cooling, 800 to 200 °C (block B6), heat load"
+        },
+        {
+            "var_name": "hx_B17_ti",
+            "type": "MEASURED",
+            "full_name": "Hydrogen and steam cooling, 200 to 100 °C, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 200,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{B17}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Hydrogen and steam cooling, 200 to 100 °C (block B17), inlet temperature"
+        },
+        {
+            "var_name": "hx_B17_to",
+            "type": "MEASURED",
+            "full_name": "Hydrogen and steam cooling, 200 to 100 °C, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 100,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{B17}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Hydrogen and steam cooling, 200 to 100 °C (block B17), outlet temperature"
+        },
+        {
+            "var_name": "hx_B17_ho",
+            "type": "MEASURED",
+            "full_name": "Hydrogen and steam cooling, 200 to 100 °C, heat load",
+            "user_grade": "MANDATORY",
+            "value": 0.5,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{B17}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Hydrogen and steam cooling, 200 to 100 °C (block B17), heat load"
+        },
+        {
+            "var_name": "hx_B18_ti",
+            "type": "MEASURED",
+            "full_name": "Hydrogen and steam cooling, 100 to 60 °C, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 100,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{B18}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Hydrogen and steam cooling, 100 to 60 °C (block B18), inlet temperature"
+        },
+        {
+            "var_name": "hx_B18_to",
+            "type": "MEASURED",
+            "full_name": "Hydrogen and steam cooling, 100 to 60 °C, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 60,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{B18}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Hydrogen and steam cooling, 100 to 60 °C (block B18), outlet temperature"
+        },
+        {
+            "var_name": "hx_B18_ho",
+            "type": "MEASURED",
+            "full_name": "Hydrogen and steam cooling, 100 to 60 °C, heat load",
+            "user_grade": "MANDATORY",
+            "value": 0.198,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{B18}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Hydrogen and steam cooling, 100 to 60 °C (block B18), heat load"
+        },
+        {
+            "var_name": "hx_B19_ti",
+            "type": "MEASURED",
+            "full_name": "Water condensation, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 60,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{B19}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Water condensation (block B19), inlet temperature"
+        },
+        {
+            "var_name": "hx_B19_to",
+            "type": "MEASURED",
+            "full_name": "Water condensation, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 25,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{B19}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Water condensation (block B19), outlet temperature"
+        },
+        {
+            "var_name": "hx_B19_ho",
+            "type": "MEASURED",
+            "full_name": "Water condensation, heat load",
+            "user_grade": "MANDATORY",
+            "value": 1.225,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{B19}$",
+            "reference": "Aspen Plus model of the SOEC system, via SOEC_ET.lua",
+            "description": "Water condensation (block B19), heat load"
+        },
+        {
+            "var_name": "dtmin_liq",
+            "type": "CONTEXT",
+            "full_name": "Delta Tmin/2 of liquids",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,liq}/2$",
+            "reference": "SOEC_ET.lua",
+            "description": "Minimum temperature difference contribution of liquid streams"
+        },
+        {
+            "var_name": "dtmin_gas",
+            "type": "CONTEXT",
+            "full_name": "Delta Tmin/2 of gases",
+            "user_grade": "MANDATORY",
+            "value": 8,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,gas}/2$",
+            "reference": "SOEC_ET.lua",
+            "description": "Minimum temperature difference contribution of gas streams"
+        },
+        {
+            "var_name": "dtmin_2ph",
+            "type": "CONTEXT",
+            "full_name": "Delta Tmin/2 of two-phase streams",
+            "user_grade": "MANDATORY",
+            "value": 2,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,2ph}/2$",
+            "reference": "SOEC_ET.lua",
+            "description": "Minimum temperature difference contribution of evaporating or condensing streams"
+        },
+        {
+            "var_name": "costinv",
+            "type": "LITERATURE",
+            "full_name": "Specific investment cost",
+            "user_grade": "MANDATORY",
+            "value": 1800,
+            "physical_unit": "EUR/kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{inv}$",
+            "reference": "SOEC_ET.lua",
+            "description": "Investment cost per kW of electricity consumption"
+        },
+        {
+            "var_name": "i",
+            "type": "CONTEXT",
+            "full_name": "Interest rate",
+            "user_grade": "MANDATORY",
+            "value": 0.06,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$i$",
+            "reference": "SOEC_ET.lua",
+            "description": "Interest rate"
+        },
+        {
+            "var_name": "n",
+            "type": "CONTEXT",
+            "full_name": "Lifetime",
+            "user_grade": "MANDATORY",
+            "value": 40,
+            "physical_unit": "year",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$n$",
+            "reference": "SOEC_ET.lua",
+            "description": "Lifetime of the electrolyzer"
+        },
+        {
+            "var_name": "E_SOEC",
+            "type": "CALCULATED",
+            "full_name": "Electricity consumption",
+            "user_grade": "MANDATORY",
+            "value": 34.217,
+            "physical_unit": "kW",
+            "formula": "1*Elec_input",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot E_{SOEC}$",
+            "reference": "SOEC_ET.lua",
+            "description": "Electricity consumption of the SOEC system"
+        },
+        {
+            "var_name": "Water_bal",
+            "type": "CALCULATED",
+            "full_name": "Net water consumption",
+            "user_grade": "MANDATORY",
+            "value": 0.00894,
+            "physical_unit": "m3/h",
+            "formula": "(massflowH2O-massflowH2O_out)/1000",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot V_{H_2O}$",
+            "reference": "SOEC_ET.lua",
+            "description": "Net water consumption: the water fed minus the water recovered"
+        },
+        {
+            "var_name": "Cinv2_SOEC",
+            "type": "CALCULATED",
+            "full_name": "Annualized investment of the SOEC",
+            "user_grade": "MANDATORY",
+            "value": 4093.405874275956,
+            "physical_unit": "EUR/year",
+            "formula": "costinv*E_SOEC*(i*((1+i)**n)/((1+i)**n-1))",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$C^{inv}_{SOEC}$",
+            "reference": "SOEC_ET.lua",
+            "description": "Annualized investment cost of the SOEC system, over n years at the interest rate i"
+        }
+    ],
+    "units": [
+        {
+            "unit_description": "This unit is a solid oxide electrolyzer operating at about 800 °C. At its reference size it produces 1 kg/h of hydrogen from 10.78 kg/h of water, of which 1.84 kg/h are recovered, with 34.217 kW of electricity. A sweep air of 55.66 kg/h carries away the oxygen produced.",
+            "unit_info": {
+                "unit_name": "SOEC",
+                "full_name": "Solid oxide electrolyzer",
+                "unit_type": "utility",
+                "minimum_capacity_multiplier": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 1000,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes water and electricity, and delivers hydrogen and oxygen-enriched air. The sweep air is drawn from the atmosphere and is not given as a connector.",
+            "connectors": [
+                {
+                    "name": "WATER",
+                    "full_name": "Water",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 0.00894,
+                        "formula": "=Water_bal",
+                        "unit": "m3/h"
+                    },
+                    "temperature": {
+                        "value": 25,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": -1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "H2O[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Net water consumption"
+                },
+                {
+                    "name": "HYDROGEN",
+                    "full_name": "Hydrogen",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 1,
+                        "formula": "=massflowH2",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 25,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "H2[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "Hydrogen produced"
+                },
+                {
+                    "name": "ELECTRICITY",
+                    "full_name": "Electricity",
+                    "scope": "GLOBAL",
+                    "type": "ELECTRICITY",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 34.217,
+                        "formula": "=E_SOEC",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Electricity of the SOEC system, including the overpotentials"
+                },
+                {
+                    "name": "ENRICHED_AIR",
+                    "full_name": "Enriched air",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 63.59,
+                        "formula": "=massflow_EnrAir",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 25,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "N2[0.67],O2[0.33]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Sweep air enriched with the oxygen produced, 30 % O2 (molar)"
+                }
+            ],
+            "heat_streams_description": "The sweep air and the feed water are heated to the stack temperature, and the enriched air and the hydrogen leaving the stack are cooled to 25 °C.",
+            "heat_streams": [
+                {
+                    "name": "qt_101",
+                    "full_name": "Sweep air preheating",
+                    "description": "Sweep air heated from 25 to 700 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 25,
+                        "formula": "=hx_B3_ti",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 700,
+                        "formula": "=hx_B3_to",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 11.16,
+                        "formula": "=hx_B3_ho",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_102",
+                    "full_name": "Water heating",
+                    "description": "Feed water heated from 25 to 99 °C in the steam generator",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 25,
+                        "formula": "=hx_B13_ti",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 99,
+                        "formula": "=hx_B13_to",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0.954,
+                        "formula": "=hx_B13_ho",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dtmin_liq",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_103",
+                    "full_name": "Water evaporation",
+                    "description": "Feed water evaporated at about 99.6 °C in the steam generator",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 99,
+                        "formula": "=hx_B12_ti",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 99.64,
+                        "formula": "=hx_B12_to",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 6.77,
+                        "formula": "=hx_B12_ho",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 2,
+                        "formula": "=dtmin_2ph",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_104",
+                    "full_name": "Steam superheating",
+                    "description": "Steam superheated from 99.6 to 800 °C",
+                    "type": "Cold",
+                    "inlet_temperature": {
+                        "value": 99.64,
+                        "formula": "=hx_B11_ti",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 800,
+                        "formula": "=hx_B11_to",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 4.41,
+                        "formula": "=hx_B11_ho",
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_105",
+                    "full_name": "Enriched air cooling",
+                    "description": "Oxygen-enriched air cooled from 712 to 25 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 712,
+                        "formula": "=hx_B5_ti",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 25,
+                        "formula": "=hx_B5_to",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 12.905,
+                        "formula": "=hx_B5_ho",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_106",
+                    "full_name": "Hydrogen and steam cooling, 800 to 200 °C",
+                    "description": "Hydrogen and unconverted steam cooled from 800 to 200 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 800,
+                        "formula": "=hx_B6_ti",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 200,
+                        "formula": "=hx_B6_to",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 3.11,
+                        "formula": "=hx_B6_ho",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_107",
+                    "full_name": "Hydrogen and steam cooling, 200 to 100 °C",
+                    "description": "Hydrogen and unconverted steam cooled from 200 to 100 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 200,
+                        "formula": "=hx_B17_ti",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 100,
+                        "formula": "=hx_B17_to",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0.5,
+                        "formula": "=hx_B17_ho",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_108",
+                    "full_name": "Hydrogen and steam cooling, 100 to 60 °C",
+                    "description": "Hydrogen and unconverted steam cooled from 100 to 60 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 100,
+                        "formula": "=hx_B18_ti",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 60,
+                        "formula": "=hx_B18_to",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 0.198,
+                        "formula": "=hx_B18_ho",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "qt_109",
+                    "full_name": "Water condensation",
+                    "description": "Hydrogen and steam cooled from 60 to 25 °C, condensing the unconverted water",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 60,
+                        "formula": "=hx_B19_ti",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 25,
+                        "formula": "=hx_B19_to",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 1.225,
+                        "formula": "=hx_B19_ho",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 2,
+                        "formula": "=dtmin_2ph",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                }
+            ],
+            "equipments_description": "One SOEC system, whose investment cost is proportional to its electricity consumption.",
+            "equipments": [
+                {
+                    "name": "SOEC_investment",
+                    "full_name": "Investment of the SOEC system",
+                    "type": "Asset",
+                    "subtype": "",
+                    "reference": "SOEC_ET.lua",
+                    "reference_size": {
+                        "full_name": "Reference size of equipment",
+                        "value": 34.217,
+                        "formula": "=E_SOEC",
+                        "unit": "kW"
+                    },
+                    "lifetime": {
+                        "full_name": "Lifetime",
+                        "value": 40,
+                        "formula": "=n",
+                        "unit": "year"
+                    },
+                    "year": {
+                        "full_name": "Year of reference",
+                        "value": null,
+                        "formula": null,
+                        "unit": "year"
+                    },
+                    "CAPEX": {
+                        "full_name": "Total investment cost for ref. size",
+                        "value": 61590.6,
+                        "formula": "=costinv*E_SOEC",
+                        "unit": "EUR"
+                    },
+                    "impact": {
+                        "full_name": "Scope 3 environmental impact per unit of ref. size",
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kgCO2-eq"
+                    },
+                    "interest_rate": {
+                        "full_name": "Interest rate",
+                        "value": 0.06,
+                        "formula": "=i",
+                        "unit": "-"
+                    },
+                    "F_BM": {
+                        "full_name": "Bare module factor",
+                        "value": 1,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "capacity_exponent": {
+                        "full_name": "Capacity exponent",
+                        "value": 1,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "parameters": [
+                        {
+                            "parameter": "Annualized investment",
+                            "value": 4093.405874275956,
+                            "formula": "=Cinv2_SOEC",
+                            "unit": "EUR/year"
+                        }
+                    ]
+                }
+            ],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        }
+    ],
+    "custom_constraints": [
+        {
+            "name": "",
+            "equation": "",
+            "type": ""
+        }
+    ]
+}

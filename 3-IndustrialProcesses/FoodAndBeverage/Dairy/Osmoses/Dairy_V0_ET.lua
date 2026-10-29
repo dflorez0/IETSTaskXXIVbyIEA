@@ -39,7 +39,7 @@ et:addLayers { EVAPORATOR_CONDENSATE_WATER = {type = 'ResourceBalance', unit = '
 et:addLayers { TREATED_WATER_DISCHARGE = {type = 'ResourceBalance', unit = 'kg/h'} } -- Treated water discharge
 et:addLayers { CIP_WATER_DISCHARGE = {type = 'ResourceBalance', unit = 'kg/h'} } -- CIP water discharge
 et:addLayers { SLUDGE_FROM_WASTEWATER_TREATMENT = {type = 'ResourceBalance', unit = 'kg/h'} } -- Sludge from wastewater treatment
-et:addLayers { ELECTRICITY = {type = 'ResourceBalance', unit = 'kW'} }
+et:addLayers { Elec = {type = 'ResourceBalance', unit = 'kW'} }
 
 -- ========== PROCESS UNITS (heat streams by section) ==========
 et:addUnit('Pasteurisation', {type = 'Process', Cost1 = 0, Cost2 = 0, Cinv1 = 0, Cinv2 = 0, Impact1 = 0, Impact2 = 0, Fmin = 'CAPACITY', Fmax = 'CAPACITY'})
@@ -94,7 +94,7 @@ et['Plant_boundary']:addStreams({
   TREATED_WATER_DISCHARGE_out = rs{'TREATED_WATER_DISCHARGE', 'out', 'TREATED_WATER_DISCHARGE_flow'}, -- Treated water discharge
   CIP_WATER_DISCHARGE_out = rs{'CIP_WATER_DISCHARGE', 'out', 'CIP_WATER_DISCHARGE_flow'}, -- CIP water discharge
   SLUDGE_FROM_WASTEWATER_TREATMENT_out = rs{'SLUDGE_FROM_WASTEWATER_TREATMENT', 'out', 'SLUDGE_FROM_WASTEWATER_TREATMENT_flow'}, -- Sludge from wastewater treatment
-  ELECTRICITY_process = rs{'ELECTRICITY', 'in', 'ELEC_process'}, -- process electricity, refrigeration excluded
+  ELECTRICITY_process = rs{'Elec', 'in', 'ELEC_process'}, -- process electricity, refrigeration excluded
 })
 
 -- ========== INPUTS (values per 1 t/h of fresh milk (input)) ==========

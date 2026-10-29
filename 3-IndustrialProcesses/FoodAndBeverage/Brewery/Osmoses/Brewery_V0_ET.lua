@@ -43,7 +43,7 @@ et:addLayers { TRUB = {type = 'ResourceBalance', unit = 'kg/h'} } -- Trub
 et:addLayers { CO2_FROM_FERMENTATION = {type = 'ResourceBalance', unit = 'kg/h'} } -- CO2 from fermentation
 et:addLayers { HOT_WATER_TO_CLEANING_IN_PLACE = {type = 'ResourceBalance', unit = 'kg/h'} } -- Hot water to cleaning in place
 et:addLayers { BOTTLE_WASHING_WASTEWATER = {type = 'ResourceBalance', unit = 'kg/h'} } -- Bottle-washing wastewater
-et:addLayers { ELECTRICITY = {type = 'ResourceBalance', unit = 'kW'} }
+et:addLayers { Elec = {type = 'ResourceBalance', unit = 'kW'} }
 
 -- ========== PROCESS UNITS (heat streams by section) ==========
 et:addUnit('Mashing', {type = 'Process', Cost1 = 0, Cost2 = 0, Cinv1 = 0, Cinv2 = 0, Impact1 = 0, Impact2 = 0, Fmin = 'CAPACITY', Fmax = 'CAPACITY'})
@@ -136,7 +136,7 @@ et['Plant_boundary']:addStreams({
   CO2_FROM_FERMENTATION_out = rs{'CO2_FROM_FERMENTATION', 'out', 'CO2_FROM_FERMENTATION_flow'}, -- CO2 from fermentation
   HOT_WATER_TO_CLEANING_IN_PLACE_out = rs{'HOT_WATER_TO_CLEANING_IN_PLACE', 'out', 'HOT_WATER_TO_CLEANING_IN_PLACE_flow'}, -- Hot water to cleaning in place
   BOTTLE_WASHING_WASTEWATER_out = rs{'BOTTLE_WASHING_WASTEWATER', 'out', 'BOTTLE_WASHING_WASTEWATER_flow'}, -- Bottle-washing wastewater
-  ELECTRICITY_process = rs{'ELECTRICITY', 'in', 'ELEC_process'}, -- process electricity, refrigeration excluded
+  ELECTRICITY_process = rs{'Elec', 'in', 'ELEC_process'}, -- process electricity, refrigeration excluded
 })
 
 -- ========== INPUTS (values per 1 t/h of beer) ==========

@@ -74,7 +74,7 @@ et:addLayers { Kiln_H2O             = {type = 'ResourceBalance', unit = 'kg/h'} 
 et:addLayers { Moisture_to_exhaustgas={type='ResourceBalance',   unit = 'kg/h'} }
 
 -- ── Electrical power ──────────────────────────────────────────────────────────
-et:addLayers { Electricity          = {type = 'ResourceBalance', unit = 'kW'} }
+et:addLayers { Elec                 = {type = 'ResourceBalance', unit = 'kW'} }
 
 -- ── OSMOSE framework layers ───────────────────────────────────────────────────
 et:addLayers { DefaultOpCost        = {type = 'Costing'} }
@@ -137,7 +137,7 @@ et['KILNPC_DRY']:addStreams{
 et:addUnit('KILN_DRY', {type = 'Utility', Fmin = 0, Fmax = 100000000, addToProblem = 1, Mult = nil, Cost2 = 0})
 et['KILN_DRY']:addStreams{
   -- Inflows
-  kiln_dry_elec_IN         = rs({'Electricity',         'in',  'KILN_DRY_TOTAL_POWER'}),
+  kiln_dry_elec_IN         = rs({'Elec',                'in',  'KILN_DRY_TOTAL_POWER'}),
   kiln_dry_rm_IN           = rs({'PC_Raw_meal',         'in',  'KILN_RAWMEAL_MASSF'}),
   -- Outflows
   kiln_dry_clkhot_OUT      = rs({'Clinker_ShortDry_Hot','out', 'KILN_CLINKERHOT_MASSF'}),

@@ -1,0 +1,1740 @@
+{
+    "header": {
+        "uid": "",
+        "name": "ElectroAlka",
+        "full_name": "Low temperature (alkaline) water electrolysis",
+        "ET_model_type": "regular",
+        "authors_and_contributors": "Meire Ribeiro Domingos, Daniel Flórez-Orrego, EPFL IPESE research group",
+        "contact_info": "meire.ribeirodomingos@epfl.ch, daniel.florezorrego@epfl.ch",
+        "creation_date": "",
+        "last_updated": "29.10.2026",
+        "status": "Maintained",
+        "version": "1.0",
+        "confidentiality": "Open",
+        "sharing_layer": "1",
+        "grade": "GRAY-BOX",
+        "reference_capacity": "111.1 kg/h of hydrogen from 1,000 kg/h of water (massflowH2O), 6,111.1 kW of electricity",
+        "TRL": "9",
+        "keywords": [
+            "Hydrogen",
+            "Electrolysis",
+            "Alkaline electrolyzer",
+            "Power-to-gas",
+            "Oxygen"
+        ],
+        "description": "Alkaline water electrolyzer producing hydrogen and oxygen from liquid water at 80 to 90 °C, with compressors that bring the oxygen to 30 bar for the process or to 200 bar for export.",
+        "DOI": "",
+        "main_related_publication": "https://doi.org/10.1016/j.compchemeng.2023.108305",
+        "references": "[1] Domingos, M.E.G.R., Flórez-Orrego, D., Teles dos Santos, M., de Oliveira Jr., S., Maréchal, F., Multi-time integration approach for combined pulp and ammonia production and seasonal CO2 management. Computers and Chemical Engineering 176 (2023) 108305, DOI: https://doi.org/10.1016/j.compchemeng.2023.108305;\n[2] Clean Hydrogen Partnership, Strategic Research and Innovation Agenda 2021-2027 (2022), https://www.clean-hydrogen.europa.eu/system/files/2022-02/Clean%20Hydrogen%20JU%20SRIA%20-%20approved%20by%20GB%20-%20clean%20for%20publication%20%28ID%2013246486%29.pdf;\n[3] Baier, J., Schneider, G., Heel, A., A Cost Estimation for CO2 Reduction and Reuse by Methanation from Cement Industry Sources in Switzerland. Frontiers in Energy Research 6 (2018) 5, DOI: https://doi.org/10.3389/fenrg.2018.00005;\n[4] IEA, The Future of Hydrogen. Paris (2019), https://www.iea.org/reports/the-future-of-hydrogen",
+        "software": "OSMOSE",
+        "software_file": "",
+        "block_flow_diagram": "LowTElectrolysis/Figures/lowtelectrol.svg",
+        "url": null,
+        "supplementary_material": "See SUPPL MATERIAL tab",
+        "hierarchy": "utility"
+    },
+    "variables": [
+        {
+            "var_name": "HHV_H2",
+            "type": "LITERATURE",
+            "full_name": "Higher heating value of hydrogen",
+            "user_grade": "MANDATORY",
+            "value": 141746,
+            "physical_unit": "kJ/kg",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$HHV_{H_2}$",
+            "reference": "ElectroAlka_ET.lua",
+            "description": "Higher heating value of hydrogen (not used in the formulas)"
+        },
+        {
+            "var_name": "massflowH2O",
+            "type": "CONTEXT",
+            "full_name": "Water consumed",
+            "user_grade": "MANDATORY",
+            "value": 1000,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{H_2O}$",
+            "reference": "ElectroAlka_ET.lua",
+            "description": "Reference mass flow of water fed to the electrolyzer"
+        },
+        {
+            "var_name": "H2toH2O_massratio",
+            "type": "LITERATURE",
+            "full_name": "Hydrogen to water mass ratio",
+            "user_grade": "MANDATORY",
+            "value": 0.1111111111111111,
+            "physical_unit": "kg/kg",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$r_{H_2/H_2O}$",
+            "reference": "ElectroAlka_ET.lua",
+            "description": "Stoichiometric mass ratio of hydrogen to water, rounded to 1/9 (2.016/18.015 = 0.112)"
+        },
+        {
+            "var_name": "dTminw",
+            "type": "CONTEXT",
+            "full_name": "Delta Tmin/2 of the electrolyzer cooling",
+            "user_grade": "MANDATORY",
+            "value": 5,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,w}/2$",
+            "reference": "ElectroAlka_ET.lua",
+            "description": "Minimum temperature difference contribution of the electrolyzer cooling water"
+        },
+        {
+            "var_name": "dtmin_gas",
+            "type": "CONTEXT",
+            "full_name": "Delta Tmin/2 of gases",
+            "user_grade": "MANDATORY",
+            "value": 8,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,gas}/2$",
+            "reference": "ElectroAlka_ET.lua",
+            "description": "Minimum temperature difference contribution of the oxygen intercoolers"
+        },
+        {
+            "var_name": "E_AlkaElec_spec",
+            "type": "LITERATURE",
+            "full_name": "Specific electricity consumption",
+            "user_grade": "MANDATORY",
+            "value": 55,
+            "physical_unit": "kWh/kg",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$e_{AEL}$",
+            "reference": "Domingos et al. (2023), from JPI Urban Europe (2019)",
+            "description": "Electricity per kg of hydrogen, above the 50 kWh/kg typical of low temperature water electrolysis"
+        },
+        {
+            "var_name": "Q_AlkaElec_spec",
+            "type": "CALCULATED",
+            "full_name": "Specific cooling duty",
+            "user_grade": "MANDATORY",
+            "value": 0.30420304203042026,
+            "physical_unit": "kWh/kg",
+            "formula": "(21.90+11.90)/111.11",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$q_{AEL}$",
+            "reference": "ElectroAlka_ET.lua",
+            "description": "Cooling duty per kg of hydrogen: 21.90 + 11.90 kW for 111.11 kg/h of hydrogen and 888 kg/h of oxygen"
+        },
+        {
+            "var_name": "Thot_AlkaEle",
+            "type": "CONTEXT",
+            "full_name": "Electrolyzer outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 80,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{out,AEL}$",
+            "reference": "ElectroAlka_ET.lua",
+            "description": "Outlet temperature of the electrolyzer, within the 80 to 90 °C of alkaline cells"
+        },
+        {
+            "var_name": "Tcold_AlkaEle",
+            "type": "CONTEXT",
+            "full_name": "Electrolyzer inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T_{in,AEL}$",
+            "reference": "ElectroAlka_ET.lua",
+            "description": "Inlet temperature of the electrolyzer"
+        },
+        {
+            "var_name": "costinv",
+            "type": "LITERATURE",
+            "full_name": "Specific investment cost",
+            "user_grade": "MANDATORY",
+            "value": 1200,
+            "physical_unit": "EUR/kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{inv}$",
+            "reference": "IEA, The Future of Hydrogen (2019), via Domingos et al. (2023)",
+            "description": "Investment cost per kW of electricity consumption"
+        },
+        {
+            "var_name": "i",
+            "type": "CONTEXT",
+            "full_name": "Interest rate",
+            "user_grade": "MANDATORY",
+            "value": 0.06,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$i$",
+            "reference": "ElectroAlka_ET.lua",
+            "description": "Interest rate"
+        },
+        {
+            "var_name": "n",
+            "type": "CONTEXT",
+            "full_name": "Lifetime",
+            "user_grade": "MANDATORY",
+            "value": 40,
+            "physical_unit": "year",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$n$",
+            "reference": "ElectroAlka_ET.lua",
+            "description": "Lifetime of the electrolyzer"
+        },
+        {
+            "var_name": "To2cp1procwsu_in",
+            "type": "MEASURED",
+            "full_name": "Oxygen intercooler 1 to 3 bar, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 172,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{O_2,1}$",
+            "reference": "Aspen Plus model of the oxygen compression, via ElectroAlka_ET.lua",
+            "description": "Oxygen temperature at the outlet of the compressor stage from 1 to 3 bar"
+        },
+        {
+            "var_name": "To2cp1procwsu_out",
+            "type": "CONTEXT",
+            "full_name": "Oxygen intercooler 1 to 3 bar, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{O_2,1}$",
+            "reference": "Aspen Plus model of the oxygen compression, via ElectroAlka_ET.lua",
+            "description": "Oxygen temperature after the intercooler of the stage from 1 to 3 bar"
+        },
+        {
+            "var_name": "To2cp2procwsu_in",
+            "type": "MEASURED",
+            "full_name": "Oxygen intercooler 3 to 10 bar, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 179.5,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{O_2,2}$",
+            "reference": "Aspen Plus model of the oxygen compression, via ElectroAlka_ET.lua",
+            "description": "Oxygen temperature at the outlet of the compressor stage from 3 to 10 bar"
+        },
+        {
+            "var_name": "To2cp2procwsu_out",
+            "type": "CONTEXT",
+            "full_name": "Oxygen intercooler 3 to 10 bar, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{O_2,2}$",
+            "reference": "Aspen Plus model of the oxygen compression, via ElectroAlka_ET.lua",
+            "description": "Oxygen temperature after the intercooler of the stage from 3 to 10 bar"
+        },
+        {
+            "var_name": "To2cp3procwsu_in",
+            "type": "MEASURED",
+            "full_name": "Oxygen intercooler 10 to 30 bar, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 179.6,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{O_2,3}$",
+            "reference": "Aspen Plus model of the oxygen compression, via ElectroAlka_ET.lua",
+            "description": "Oxygen temperature at the outlet of the compressor stage from 10 to 30 bar"
+        },
+        {
+            "var_name": "To2cp3procwsu_out",
+            "type": "CONTEXT",
+            "full_name": "Oxygen intercooler 10 to 30 bar, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{O_2,3}$",
+            "reference": "Aspen Plus model of the oxygen compression, via ElectroAlka_ET.lua",
+            "description": "Oxygen temperature after the intercooler of the stage from 10 to 30 bar"
+        },
+        {
+            "var_name": "To2cp1expwsu_in",
+            "type": "MEASURED",
+            "full_name": "Oxygen intercooler 30 to 60 bar, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 108.6,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{O_2,1}$",
+            "reference": "Aspen Plus model of the oxygen compression, via ElectroAlka_ET.lua",
+            "description": "Oxygen temperature at the outlet of the compressor stage from 30 to 60 bar"
+        },
+        {
+            "var_name": "To2cp1expwsu_out",
+            "type": "CONTEXT",
+            "full_name": "Oxygen intercooler 30 to 60 bar, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{O_2,1}$",
+            "reference": "Aspen Plus model of the oxygen compression, via ElectroAlka_ET.lua",
+            "description": "Oxygen temperature after the intercooler of the stage from 30 to 60 bar"
+        },
+        {
+            "var_name": "To2cp2expwsu_in",
+            "type": "MEASURED",
+            "full_name": "Oxygen intercooler 60 to 100 bar, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 108.3,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{O_2,2}$",
+            "reference": "Aspen Plus model of the oxygen compression, via ElectroAlka_ET.lua",
+            "description": "Oxygen temperature at the outlet of the compressor stage from 60 to 100 bar"
+        },
+        {
+            "var_name": "To2cp2expwsu_out",
+            "type": "CONTEXT",
+            "full_name": "Oxygen intercooler 60 to 100 bar, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{O_2,2}$",
+            "reference": "Aspen Plus model of the oxygen compression, via ElectroAlka_ET.lua",
+            "description": "Oxygen temperature after the intercooler of the stage from 60 to 100 bar"
+        },
+        {
+            "var_name": "To2cp3expwsu_in",
+            "type": "MEASURED",
+            "full_name": "Oxygen intercooler 100 to 200 bar, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 107,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{O_2,3}$",
+            "reference": "Aspen Plus model of the oxygen compression, via ElectroAlka_ET.lua",
+            "description": "Oxygen temperature at the outlet of the compressor stage from 100 to 200 bar"
+        },
+        {
+            "var_name": "To2cp3expwsu_out",
+            "type": "CONTEXT",
+            "full_name": "Oxygen intercooler 100 to 200 bar, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{O_2,3}$",
+            "reference": "Aspen Plus model of the oxygen compression, via ElectroAlka_ET.lua",
+            "description": "Oxygen temperature after the intercooler of the stage from 100 to 200 bar"
+        },
+        {
+            "var_name": "waterCons",
+            "type": "CALCULATED",
+            "full_name": "Water consumption",
+            "user_grade": "MANDATORY",
+            "value": 1.0,
+            "physical_unit": "m3/h",
+            "formula": "massflowH2O/1000",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot V_{H_2O}$",
+            "reference": "ElectroAlka_ET.lua",
+            "description": "Volumetric flow of water consumed"
+        },
+        {
+            "var_name": "massflowH2",
+            "type": "CALCULATED",
+            "full_name": "Hydrogen production",
+            "user_grade": "MANDATORY",
+            "value": 111.1111111111111,
+            "physical_unit": "kg/h",
+            "formula": "massflowH2O*H2toH2O_massratio",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{H_2}$",
+            "reference": "ElectroAlka_ET.lua",
+            "description": "Mass flow of hydrogen produced"
+        },
+        {
+            "var_name": "massflowO2",
+            "type": "CALCULATED",
+            "full_name": "Oxygen production",
+            "user_grade": "MANDATORY",
+            "value": 888.8888888888889,
+            "physical_unit": "kg/h",
+            "formula": "massflowH2O-massflowH2",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{O_2}$",
+            "reference": "ElectroAlka_ET.lua",
+            "description": "Mass flow of oxygen produced"
+        },
+        {
+            "var_name": "E_AlkaElec",
+            "type": "CALCULATED",
+            "full_name": "Electricity consumption",
+            "user_grade": "MANDATORY",
+            "value": 6111.11111111111,
+            "physical_unit": "kW",
+            "formula": "massflowH2*E_AlkaElec_spec",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot E_{AEL}$",
+            "reference": "ElectroAlka_ET.lua",
+            "description": "Electricity consumption of the electrolyzer"
+        },
+        {
+            "var_name": "Q_AlkaElec",
+            "type": "CALCULATED",
+            "full_name": "Cooling duty",
+            "user_grade": "MANDATORY",
+            "value": 33.80033800338003,
+            "physical_unit": "kW",
+            "formula": "massflowH2*Q_AlkaElec_spec",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{AEL}$",
+            "reference": "ElectroAlka_ET.lua",
+            "description": "Cooling duty of the electrolyzer system, released from 80 to 30 °C. The ROSMOSE file describes it as the waste heat from compressing the hydrogen to 30 bar"
+        },
+        {
+            "var_name": "Cinv2_AlkaElec",
+            "type": "CALCULATED",
+            "full_name": "Annualized investment of the electrolyzer",
+            "user_grade": "MANDATORY",
+            "value": 487384.59675162024,
+            "physical_unit": "EUR/year",
+            "formula": "costinv*E_AlkaElec*(i*((1+i)**n)/((1+i)**n-1))",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$C^{inv}_{AEL}$",
+            "reference": "ElectroAlka_ET.lua",
+            "description": "Annualized investment cost of the electrolyzer, over n years at the interest rate i"
+        },
+        {
+            "var_name": "Qo2cp1procwsu",
+            "type": "CALCULATED",
+            "full_name": "Oxygen intercooler 1 to 3 bar, heat load",
+            "user_grade": "MANDATORY",
+            "value": 32.97777777777778,
+            "physical_unit": "kW",
+            "formula": "massflowO2*0.0371",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{O_2,1}$",
+            "reference": "Aspen Plus model of the oxygen compression, via ElectroAlka_ET.lua",
+            "description": "Heat removed by the intercooler of the stage from 1 to 3 bar: 0.0371 kWh per kg of oxygen"
+        },
+        {
+            "var_name": "Qo2cp2procwsu",
+            "type": "CALCULATED",
+            "full_name": "Oxygen intercooler 3 to 10 bar, heat load",
+            "user_grade": "MANDATORY",
+            "value": 34.94222222222222,
+            "physical_unit": "kW",
+            "formula": "massflowO2*0.03931",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{O_2,2}$",
+            "reference": "Aspen Plus model of the oxygen compression, via ElectroAlka_ET.lua",
+            "description": "Heat removed by the intercooler of the stage from 3 to 10 bar: 0.03931 kWh per kg of oxygen"
+        },
+        {
+            "var_name": "Qo2cp3procwsu",
+            "type": "CALCULATED",
+            "full_name": "Oxygen intercooler 10 to 30 bar, heat load",
+            "user_grade": "MANDATORY",
+            "value": 35.77777777777778,
+            "physical_unit": "kW",
+            "formula": "massflowO2*0.04025",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{O_2,3}$",
+            "reference": "Aspen Plus model of the oxygen compression, via ElectroAlka_ET.lua",
+            "description": "Heat removed by the intercooler of the stage from 10 to 30 bar: 0.04025 kWh per kg of oxygen"
+        },
+        {
+            "var_name": "Qo2cp1expwsu",
+            "type": "CALCULATED",
+            "full_name": "Oxygen intercooler 30 to 60 bar, heat load",
+            "user_grade": "MANDATORY",
+            "value": 19.386666666666667,
+            "physical_unit": "kW",
+            "formula": "massflowO2*0.02181",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{O_2,1}$",
+            "reference": "Aspen Plus model of the oxygen compression, via ElectroAlka_ET.lua",
+            "description": "Heat removed by the intercooler of the stage from 30 to 60 bar: 0.02181 kWh per kg of oxygen"
+        },
+        {
+            "var_name": "Qo2cp2expwsu",
+            "type": "CALCULATED",
+            "full_name": "Oxygen intercooler 60 to 100 bar, heat load",
+            "user_grade": "MANDATORY",
+            "value": 20.462222222222223,
+            "physical_unit": "kW",
+            "formula": "massflowO2*0.02302",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{O_2,2}$",
+            "reference": "Aspen Plus model of the oxygen compression, via ElectroAlka_ET.lua",
+            "description": "Heat removed by the intercooler of the stage from 60 to 100 bar: 0.02302 kWh per kg of oxygen"
+        },
+        {
+            "var_name": "Qo2cp3expwsu",
+            "type": "CALCULATED",
+            "full_name": "Oxygen intercooler 100 to 200 bar, heat load",
+            "user_grade": "MANDATORY",
+            "value": 21.84888888888889,
+            "physical_unit": "kW",
+            "formula": "massflowO2*0.02458",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{O_2,3}$",
+            "reference": "Aspen Plus model of the oxygen compression, via ElectroAlka_ET.lua",
+            "description": "Heat removed by the intercooler of the stage from 100 to 200 bar: 0.02458 kWh per kg of oxygen"
+        },
+        {
+            "var_name": "W_net_procO2wsu",
+            "type": "CALCULATED",
+            "full_name": "Electricity of the oxygen compression to 30 bar",
+            "user_grade": "MANDATORY",
+            "value": 103.07555555555555,
+            "physical_unit": "kW",
+            "formula": "massflowO2*(0.03823+0.03886+0.03887)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{O_2,30}$",
+            "reference": "Aspen Plus model of the oxygen compression, via ElectroAlka_ET.lua",
+            "description": "Electricity of the three stages from 1 to 30 bar: 0.03823 + 0.03886 + 0.03887 kWh per kg of oxygen"
+        },
+        {
+            "var_name": "W_net_exportO2wsu",
+            "type": "CALCULATED",
+            "full_name": "Electricity of the oxygen compression to 200 bar",
+            "user_grade": "MANDATORY",
+            "value": 155.47555555555556,
+            "physical_unit": "kW",
+            "formula": "W_net_procO2wsu+massflowO2*(0.01984+0.01963+0.01948)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{O_2,200}$",
+            "reference": "Aspen Plus model of the oxygen compression, via ElectroAlka_ET.lua",
+            "description": "Electricity of the six stages from 1 to 200 bar: the compression to 30 bar plus 0.01984 + 0.01963 + 0.01948 kWh per kg of oxygen from 30 to 200 bar"
+        }
+    ],
+    "units": [
+        {
+            "unit_description": "This unit is an alkaline water electrolyzer operating at 80 to 90 °C. At its reference size it splits 1,000.0 kg/h of water into 111.1 kg/h of hydrogen and 888.9 kg/h of oxygen, with 6,111.1 kW of electricity.",
+            "unit_info": {
+                "unit_name": "AElectrolyzer",
+                "full_name": "Alkaline electrolyzer",
+                "unit_type": "utility",
+                "minimum_capacity_multiplier": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 1000,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes water and electricity, and delivers hydrogen and oxygen at 1 bar. The oxygen goes to the oxyvent layer, from which it is vented or compressed by one of the two oxygen compressors.",
+            "connectors": [
+                {
+                    "name": "WATER",
+                    "full_name": "Water",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 1.0,
+                        "formula": "=waterCons",
+                        "unit": "m3/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": -1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(L)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "H2O[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Water to the electrolyzer"
+                },
+                {
+                    "name": "HYDROGEN",
+                    "full_name": "Hydrogen",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 111.1111111111111,
+                        "formula": "=massflowH2",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "H2[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "Hydrogen produced"
+                },
+                {
+                    "name": "ELECTRICITY",
+                    "full_name": "Electricity",
+                    "scope": "GLOBAL",
+                    "type": "ELECTRICITY",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 6111.11111111111,
+                        "formula": "=E_AlkaElec",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Electricity of the electrolyzer"
+                },
+                {
+                    "name": "OXYVENT",
+                    "full_name": "Oxygen at 1 bar",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 888.8888888888889,
+                        "formula": "=massflowO2",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "O2[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Oxygen produced, to be vented or compressed"
+                }
+            ],
+            "heat_streams_description": "The cooling duty of the electrolyzer system is released between 80 and 30 °C.",
+            "heat_streams": [
+                {
+                    "name": "Heat_AlkaElec",
+                    "full_name": "Electrolyzer cooling",
+                    "description": "Cooling of the electrolyzer system from 80 to 30 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 80,
+                        "formula": "=Thot_AlkaEle",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=Tcold_AlkaEle",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 33.80033800338003,
+                        "formula": "=Q_AlkaElec",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 5,
+                        "formula": "=dTminw",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                }
+            ],
+            "equipments_description": "One electrolyzer, whose investment cost is proportional to its electricity consumption.",
+            "equipments": [
+                {
+                    "name": "AEL_investment",
+                    "full_name": "Investment of the alkaline electrolyzer",
+                    "type": "Asset",
+                    "subtype": "",
+                    "reference": "IEA, The Future of Hydrogen (2019)",
+                    "reference_size": {
+                        "full_name": "Reference size of equipment",
+                        "value": 6111.11111111111,
+                        "formula": "=E_AlkaElec",
+                        "unit": "kW"
+                    },
+                    "lifetime": {
+                        "full_name": "Lifetime",
+                        "value": 40,
+                        "formula": "=n",
+                        "unit": "year"
+                    },
+                    "year": {
+                        "full_name": "Year of reference",
+                        "value": null,
+                        "formula": null,
+                        "unit": "year"
+                    },
+                    "CAPEX": {
+                        "full_name": "Total investment cost for ref. size",
+                        "value": 7333333.333333332,
+                        "formula": "=costinv*E_AlkaElec",
+                        "unit": "EUR"
+                    },
+                    "impact": {
+                        "full_name": "Scope 3 environmental impact per unit of ref. size",
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kgCO2-eq"
+                    },
+                    "interest_rate": {
+                        "full_name": "Interest rate",
+                        "value": 0.06,
+                        "formula": "=i",
+                        "unit": "-"
+                    },
+                    "F_BM": {
+                        "full_name": "Bare module factor",
+                        "value": 1,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "capacity_exponent": {
+                        "full_name": "Capacity exponent",
+                        "value": 1,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "parameters": [
+                        {
+                            "parameter": "Annualized investment",
+                            "value": 487384.59675162024,
+                            "formula": "=Cinv2_AlkaElec",
+                            "unit": "EUR/year"
+                        }
+                    ]
+                }
+            ],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        },
+        {
+            "unit_description": "This unit compresses the oxygen of the electrolyzer, 888.9 kg/h at its reference size, from 1 to 30 bar in three intercooled stages, for use in the process. It takes 103.1 kW of electricity.",
+            "unit_info": {
+                "unit_name": "O2ToProcWSU",
+                "full_name": "Oxygen compressor to the process",
+                "unit_type": "utility",
+                "minimum_capacity_multiplier": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 1000,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes oxygen at 1 bar and electricity, and delivers oxygen at 30 bar to the process.",
+            "connectors": [
+                {
+                    "name": "ELECTRICITY",
+                    "full_name": "Electricity",
+                    "scope": "GLOBAL",
+                    "type": "ELECTRICITY",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 103.07555555555555,
+                        "formula": "=W_net_procO2wsu",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Electricity of the compressor"
+                },
+                {
+                    "name": "OXYVENT",
+                    "full_name": "Oxygen at 1 bar",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 888.8888888888889,
+                        "formula": "=massflowO2",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "O2[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Oxygen from the electrolyzer"
+                },
+                {
+                    "name": "OXYPROCESS",
+                    "full_name": "Oxygen at 30 bar",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 888.8888888888889,
+                        "formula": "=massflowO2",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "O2[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "Oxygen at 30 bar to the process"
+                }
+            ],
+            "heat_streams_description": "Each of the three intercoolers cools the oxygen to 30 °C.",
+            "heat_streams": [
+                {
+                    "name": "Qo2cw1procWSU",
+                    "full_name": "Oxygen intercooler, 1 to 3 bar",
+                    "description": "Oxygen cooled from 172 to 30 °C after the stage from 1 to 3 bar",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 172,
+                        "formula": "=To2cp1procwsu_in",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=To2cp1procwsu_out",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 32.97777777777778,
+                        "formula": "=Qo2cp1procwsu",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "Qo2cw2procWSU",
+                    "full_name": "Oxygen intercooler, 3 to 10 bar",
+                    "description": "Oxygen cooled from 179.5 to 30 °C after the stage from 3 to 10 bar",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 179.5,
+                        "formula": "=To2cp2procwsu_in",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=To2cp2procwsu_out",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 34.94222222222222,
+                        "formula": "=Qo2cp2procwsu",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "Qo2cw3procWSU",
+                    "full_name": "Oxygen intercooler, 10 to 30 bar",
+                    "description": "Oxygen cooled from 179.6 to 30 °C after the stage from 10 to 30 bar",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 179.6,
+                        "formula": "=To2cp3procwsu_in",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=To2cp3procwsu_out",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 35.77777777777778,
+                        "formula": "=Qo2cp3procwsu",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                }
+            ],
+            "equipments_description": "",
+            "equipments": [],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        },
+        {
+            "unit_description": "This unit compresses the oxygen of the electrolyzer, 888.9 kg/h at its reference size, from 1 to 200 bar in six intercooled stages, for export. It takes 155.5 kW of electricity.",
+            "unit_info": {
+                "unit_name": "O2ToExportWSU",
+                "full_name": "Oxygen compressor to export",
+                "unit_type": "utility",
+                "minimum_capacity_multiplier": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 1000,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes oxygen at 1 bar and electricity, and delivers oxygen at 200 bar for export.",
+            "connectors": [
+                {
+                    "name": "ELECTRICITY",
+                    "full_name": "Electricity",
+                    "scope": "GLOBAL",
+                    "type": "ELECTRICITY",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 155.47555555555556,
+                        "formula": "=W_net_exportO2wsu",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Electricity of the compressor"
+                },
+                {
+                    "name": "OXYVENT",
+                    "full_name": "Oxygen at 1 bar",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 888.8888888888889,
+                        "formula": "=massflowO2",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "O2[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Oxygen from the electrolyzer"
+                },
+                {
+                    "name": "OXYGEN",
+                    "full_name": "Oxygen at 200 bar",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 888.8888888888889,
+                        "formula": "=massflowO2",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 200,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": "O2[1]",
+                        "formula": null,
+                        "unit": "MASSFRAC"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "Oxygen at 200 bar for export"
+                }
+            ],
+            "heat_streams_description": "Each of the six intercoolers cools the oxygen to 30 °C: the three stages to 30 bar, as in the compressor to the process, and three more to 200 bar.",
+            "heat_streams": [
+                {
+                    "name": "Qo2cw1procWSU",
+                    "full_name": "Oxygen intercooler, 1 to 3 bar",
+                    "description": "Oxygen cooled from 172 to 30 °C after the stage from 1 to 3 bar",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 172,
+                        "formula": "=To2cp1procwsu_in",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=To2cp1procwsu_out",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 32.97777777777778,
+                        "formula": "=Qo2cp1procwsu",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "Qo2cw2procWSU",
+                    "full_name": "Oxygen intercooler, 3 to 10 bar",
+                    "description": "Oxygen cooled from 179.5 to 30 °C after the stage from 3 to 10 bar",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 179.5,
+                        "formula": "=To2cp2procwsu_in",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=To2cp2procwsu_out",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 34.94222222222222,
+                        "formula": "=Qo2cp2procwsu",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "Qo2cw3procWSU",
+                    "full_name": "Oxygen intercooler, 10 to 30 bar",
+                    "description": "Oxygen cooled from 179.6 to 30 °C after the stage from 10 to 30 bar",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 179.6,
+                        "formula": "=To2cp3procwsu_in",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=To2cp3procwsu_out",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 35.77777777777778,
+                        "formula": "=Qo2cp3procwsu",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "Qo2cw1expWSU",
+                    "full_name": "Oxygen intercooler, 30 to 60 bar",
+                    "description": "Oxygen cooled from 108.6 to 30 °C after the stage from 30 to 60 bar",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 108.6,
+                        "formula": "=To2cp1expwsu_in",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=To2cp1expwsu_out",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 19.386666666666667,
+                        "formula": "=Qo2cp1expwsu",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "Qo2cw2expWSU",
+                    "full_name": "Oxygen intercooler, 60 to 100 bar",
+                    "description": "Oxygen cooled from 108.3 to 30 °C after the stage from 60 to 100 bar",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 108.3,
+                        "formula": "=To2cp2expwsu_in",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=To2cp2expwsu_out",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 20.462222222222223,
+                        "formula": "=Qo2cp2expwsu",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "Qo2cw3expWSU",
+                    "full_name": "Oxygen intercooler, 100 to 200 bar",
+                    "description": "Oxygen cooled from 107 to 30 °C after the stage from 100 to 200 bar",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 107,
+                        "formula": "=To2cp3expwsu_in",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=To2cp3expwsu_out",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 21.84888888888889,
+                        "formula": "=Qo2cp3expwsu",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                }
+            ],
+            "equipments_description": "",
+            "equipments": [],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        }
+    ],
+    "custom_constraints": [
+        {
+            "name": "",
+            "equation": "",
+            "type": ""
+        }
+    ]
+}

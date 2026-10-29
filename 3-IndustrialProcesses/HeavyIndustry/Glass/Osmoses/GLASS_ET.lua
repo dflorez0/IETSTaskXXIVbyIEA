@@ -48,7 +48,7 @@ et:addLayers { Flue_gas           = { type = 'ResourceBalance', unit = 'kg/h' } 
 et:addLayers { Naturalgas         = { type = 'ResourceBalance', unit = 'kg/h' } }
 
 -- Energy
-et:addLayers { Electricity        = { type = 'ResourceBalance', unit = 'kW'   } }
+et:addLayers { Elec               = { type = 'ResourceBalance', unit = 'kW'   } }
 
 -- Products and wastes
 et:addLayers { Float_glass_product = { type = 'ResourceBalance', unit = 'kg/h' } }
@@ -124,7 +124,7 @@ et['glass_melting_solids']:addStreams {
 et:addUnit('glass_float', {type='Process', Fmax=1e9, addToProblem=1, Cost1=0, Cost2=0, Cinv1=0, Cinv2='Cinv2_float'})
 
 et['glass_float']:addStreams {
-  Electricity         = rs({ 'Electricity',        'in',  'Electricity_in' }),
+  Electricity         = rs({ 'Elec',               'in',  'Electricity_in' }),
   melted_glass_in     = rs({ 'melted_glass',        'in',  'float_product'  }),
   Float_glass_product = rs({ 'Float_glass_product', 'out', 'float_product'  }),
 

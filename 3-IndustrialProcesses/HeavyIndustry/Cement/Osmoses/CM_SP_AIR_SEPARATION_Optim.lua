@@ -23,7 +23,7 @@ et.header = {
   notes = {'ATTENTION : If the Resource_Oxygen_sell unit in the MARKET is available, this unit produces to furnish it.'}
 }
 -------------------------------------------------------------------------------
-et:addLayers { Electricity = {type = 'ResourceBalance', unit = 'kW' } }
+et:addLayers { Elec = {type = 'ResourceBalance', unit = 'kW' } }
 et:addLayers { O2 = {type = 'ResourceBalance', unit = 'kg/h' } }
 et:addLayers { Nitrogen = {type = 'ResourceBalance', unit = 'kg/h' } }
 et:addLayers { Compressed_Air = {type = 'ResourceBalance', unit = 'm3/h' } }
@@ -35,7 +35,7 @@ et:addLayers { DefaultInvCost = {type = 'Costing',  } }
 
 et:addUnit('ASU',{type = 'Utility', Fmax = 1e9, addToProblem='add_ASU',  Cinv2 = 'Cinv2',Cost2 = 0,sizingStream = 'asu_O2' })
 et['ASU']:addStreams{
-  asu_elec = rs({ 'Electricity', 'in', "ASU_TOTAL_POWER_IN" }),
+  asu_elec = rs({ 'Elec', 'in', "ASU_TOTAL_POWER_IN" }),
   asu_air = rs({ 'Compressed_Air', 'in', "ASU_AIR_IN_VOLF_sz" }),
 
   asu_O2 = rs({ 'O2', 'out', "ASU_O2_OUT" }),

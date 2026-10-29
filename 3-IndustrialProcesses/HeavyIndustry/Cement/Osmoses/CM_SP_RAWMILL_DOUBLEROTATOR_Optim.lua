@@ -44,7 +44,7 @@ et:addLayers { Atm_Air = {type = 'ResourceBalance', unit = 'kg/h' }}
 et:addLayers { DefaultHeatCascade = {type = 'HeatCascade',  }}
 et:addLayers { Clay = {type = 'ResourceBalance', unit = 'kg/h' }}
 et:addLayers { Rm_mat = {type = 'ResourceBalance', unit = 'kg/h' }}
-et:addLayers { Electricity = {type = 'ResourceBalance', unit = 'kW' }}
+et:addLayers { Elec = {type = 'ResourceBalance', unit = 'kW' }}
 et:addLayers { Raw_meal = {type = 'ResourceBalance', unit = 'kg/h' }}
 et:addLayers { Bessemer_Slag = {type = 'ResourceBalance', unit = 'kg/h' }}
 et:addLayers { Moisture_to_exhaustgas = {type = 'ResourceBalance', unit = 'kg/h' }}
@@ -61,7 +61,7 @@ et['RAWMILL_DOUBLEROTATOR']:addStreams{
 	rawmill_clay_IN = rs({ 'Clay', 'in', "DR_CLAY_MASSF" }),
 	rawmill_lmsn_IN = rs({ 'Limestone', 'in', "DR_LMSN_MASSF" }),
   rawmill_sludge_IN = rs ({ 'Sludge_cement', 'in', "DR_SLUDGE_MASSF" }),
-	rawmill_totelec_IN = rs({ 'Electricity', 'in', "DR_TOTAL_POWER" }),		
+	rawmill_totelec_IN = rs({ 'Elec', 'in', "DR_TOTAL_POWER" }),		
 
 	------------- OUT -------------
 	rawmill_prodrm_OUT = rs({ 'Raw_meal', 'out', "DOUBLEROTATOR_RAWMEAL_MASSF" }),

@@ -83,7 +83,7 @@ et.outputs = {
 -----------
 
 et:addLayers {Elec = {type= 'ResourceBalance', unit = 'kW'} }
-et:addLayers {water = {type= 'ResourceBalance', unit = 'm^3/h'} } -- makeup water
+et:addLayers {water = {type= 'ResourceBalance', unit = 'm3/h'} } -- makeup water
 
 -----------
 -- Units

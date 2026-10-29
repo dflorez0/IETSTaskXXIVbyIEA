@@ -5,7 +5,7 @@ Carbon capture, hydrogen and syngas technology models, by category.
 <!-- category-overview:start -->
 | Category | Documented | Work in progress |
 |:--|:--|--:|
-| [Electrochemical](Electrochemical/index.qmd) | — | 2 |
+| [Electrochemical](Electrochemical/index.qmd) | [High-temperature electrolysis](Electrochemical/HighTElectrolysis/index.qmd), [low-temperature electrolysis](Electrochemical/LowTElectrolysis/index.qmd) | 1 |
 | [Gas upgrading and syngas](GasUpgradingAndSyngas/index.qmd) | [Methanation](GasUpgradingAndSyngas/Methanation/index.qmd) | 3 |
 | [CO~2~ capture, use and sequestration](CO2Capture/index.qmd) | — | 7 |
 <!-- category-overview:end -->

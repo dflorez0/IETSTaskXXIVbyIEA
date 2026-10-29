@@ -1,0 +1,166 @@
+### High temperature electrolysis {-} 
+
+```{rosmose}
+! OSMOSE ET SOECmodel
+```
+
+Hydrogen is used in various chemical and industrial applications, such as fuel cells, hydrogenation reactions, protective atmospheres, transportation, among others uses. A solid oxide electrolysis cell (SOEC) is an electrochemical cell capable of converting steam and optionally carbon dioxide (co-electrolysis) into hydrogen and carbon monoxide. In addition, an oxygen-rich stream is also separately produced. The SOEC consists of a ceramic oxygen ionic conducting electrolyte, surrounded by two porous electrodes. Steam is converted at the porous cathode into hydrogen and oxygen ions under the absorption of electrons. Under an applied voltage the oxygen ions are transported through the dense ceramic oxygen ion-conducting electrolyte to the porous anode, in which oxygen is formed with the release of electrons.
+
+The SOEC technology operates at higher temperatures than other electrolysis technologies, typically between 600 and 850ºC, which is required to have sufficient oxygen ion conductivity in the ceramic electrolyte. Alkaline (AWE) and PEM electrolyzers technologies operate at much lower temperatures, typically between 60-100ºC. The high operating temperatures for SOEC entail two main advantages compared to the low temperature electrolysis technologies, namely, higher thermodynamic efficiency and faster kinetics. The theoretical energy consumption for splitting water and carbon dioxide decreases with increasing temperature. The voltage required for electrolysis goes down by approximately 25-30% when temperature rises from 60 to 800ºC. A SOEC is typically operated at a thermoneutral voltage of 1.29 V (for water splitting), whereas for the low temperature water electrolysis this value is around 1.48 V. Consequently, the stack electricity consumption in SOEC steam electrolysis technology is lower (33-38 kWh/kg H2), compared to that of the low temperature water electrolysis systems (above 48 kWh/kg H2). 
+
+```{r soelectrol, out.width='80%', fig.align='center', fig.cap='Solid oxide electrolyzer unit structure'}
+knitr::include_graphics('soecelectrolyzer.svg')
+```
+
+In the context of sustainable energy solutions, electrolyzers also play a role in harvesting and transforming renewable electricity into storable chemicals and fuels. Their ability to efficiently convert surplus electricity from renewable sources, such as solar and wind, into storable hydrogen will be key for balancing the intermittency of these energy systems. In fact, SOEC electrolyzers play a dual role as a way to store excess electricity in the form of gas (i.e. power-to-gas system) and the direct production of hydrogen energy carrier for various sectors. In this way, the hydrogen produced or any other of its derivatives (e.g. SNG, methanol, etc.) can be stored for later use, providing grid stability, backup power, and fuel for transportation and industrial applications. As the world increasingly shifts towards renewable energy sources, the importance of the electrolyzers in facilitating this transition is more and more evident. Their ability to convert renewable electricity into a versatile and clean energy carrier positions them as indispensable components in the journey towards a more sustainable and resilient energy future.
+
+Some other thermodynamic and financial parameters are summarized in the following chunk of code, whereas the commentaries provide further details on the meaning and relevance of each term.
+
+```{rosmose} 
+massflowH2O = 10.78 [kg/h] # Reference mass flow rate of water consumed
+massflowAir = 55.66 [kg/h] # Reference mass flow rate of sweep air consumed
+massflowH2 = 1 [kg/h] # Mass flow rate of hydrogen produced
+massflowH2O_out = 1.84 [kg/h] # Total condensed water plus water recovered in sieves
+massflow_EnrAir = 63.59 [kg/h] # Mass flow rate of enriched air, 70% N2, 30% O2 at 25°C
+Elec_input = 34.217 [kW] # Electricity consumption including overpotentials (Aspen)
+
+hx_B3_ti = 25 [C] # Temperature inlet of air preheater
+hx_B3_to = 700 [C] # Temperature outlet of air preheater
+hx_B3_ho = 11.16 [C] # Heat duty of air preheater
+
+hx_B13_ti = 25 [C] # Temperature inlet of water in the steam generator
+hx_B13_to = 99 [C] # Temperature outlet of water in the steam generator
+hx_B13_ho = 0.954 [C] # Heat duty of water in the steam generator
+
+hx_B12_ti = 99 [C] # Temperature inlet of water in the steam generator
+hx_B12_to = 99.64 [C] # Temperature outlet of water in the steam generator
+hx_B12_ho = 6.77 [C] # Heat duty of water in the steam generator
+
+hx_B11_ti = 99.64 [C] # Temperature inlet of water in the steam generator
+hx_B11_to = 800 [C] # Temperature outlet of water in the steam generator
+hx_B11_ho = 4.41 [C] # Heat duty of water in the steam generator
+
+hx_B5_ti = 712 [C] # Temperature inlet in the air cooler
+hx_B5_to = 25 [C] # Temperature outlet in the air cooler
+hx_B5_ho = 12.905 [C] Heat duty of the air cooler
+
+hx_B6_ti = 800 [C] # Temperature inlet in the fuel cooler
+hx_B6_to = 200 [C] # Temperature inlet in the fuel cooler
+hx_B6_ho = 3.11 [C] # Heat duty of the fuel cooler
+
+hx_B17_ti = 200 [C] # Temperature inlet in the fuel cooler
+hx_B17_to = 100 [C] # Temperature inlet in the fuel cooler
+hx_B17_ho = 0.5 [C] # Heat duty of the fuel cooler
+
+hx_B18_ti = 100 [C] # Temperature inlet in the fuel cooler
+hx_B18_to = 60 [C] # Temperature inlet in the fuel cooler
+hx_B18_ho = 0.198 [C] Heat duty of the fuel cooler
+
+hx_B19_ti = 60 [C] # Temperature inlet in the fuel cooler
+hx_B19_to = 25 [C] # Temperature inlet in the fuel cooler
+hx_B19_ho = 1.225 [C] # Heat duty of the fuel cooler
+
+dTmin_liq = 5 [C] # Minimum temperature difference contribution for liquids
+dtmin_gas = 8 [C] # Minimum temperature difference contribution for gases
+dtmin_2ph = 2 [C] # Minimum temperature difference contribution for 2 phases
+ 
+costinv = 1800 [Eur/kW] # Investment cost of electrolyzer 
+i = 0.06 [-] # Interest rate
+n = 40 [yr] # Lifetime
+```
+
+Based on the previous parameters, it is possible to calculate other important process parameters and thermodynamic variables, such as the net water consumption `Water_bal`. The annualization factor can be determined based on the assumed life time of the energy technology and the interest rate adopted to calculate the annualized investment cost.
+
+```{rosmose} 
+E_SOEC = 1*%Elec_input% [kW] # Power consumption of the SOEC electrolyzer
+Water_bal = %massflow_H2O_in%-%massflow_H2O_out%)/1000 [m3/h] # Net water consumption rate
+Cinv2_SOEC = %costinv%*%E_SOEC%*(%i%*((1+%i%)**%n%)/((1+%i%)**%n%-1))[Eur/yr] # Investment cost of SOEC system
+```
+
+<!-- ## With this chunk of code, the input and calculated parameters can be displayed{-} -->
+<!-- ```{rosmose} -->
+<!-- : TAGS DISPLAY_TAGS [nvuD] -->
+<!-- ``` -->
+
+**Layers of the SOECmodel ET**
+
+The concept of layers in ROsmose language is equivalent to pipes through which the mass and resources balances are closed. For instance, the electricity consumed by the SOEC unit (in kW) is imported through the `Electricity` layer from an electricity supply grid located in the market model. The hydrogen produced can be fed to the subsequent eChemicals processes. These and other layers can be defined as shown in the following table:
+
+
+```{rosmose} 
+: OSMOSE LAYERS SOECmodel
+
+| Layer        | Display name  | shortname    | Unit | Color  |
+|:-------------|:--------------|:-------------|:-----|:-------|
+| Enriched_air | Enriched air  | Enriched air | kg/h |green   |
+| hydrogen     | hydrogen      | hydrogen     | kg/h |red     |
+| water        | water         | water        | m3/h |black   |
+| Electricity  | Elec          | Elec         | kW   |magenta |
+```
+
+
+**Units of the SOEC ET**
+
+The model of the solid oxide electrolyzer consists of one unit, the `SOEC` unit, which is an utility unit. It means that their size (continuous) and existence (binary) can be regarded as optimization variables used to minimize the energy consumption or any other targets. To this end, other parameters of these units, such as the lower `fmin` and upper `fmax` sizing bounds, must be specified in the Parameters tables shown next. Other operating costs (`cost1`:fixed, in Eur/y, `cost2`:variable in Eur/kWh/y or Eur/kg/y) and investment costs (`cinv1`:fixed in Eur/y; `cinv2`:variable in Eur/kW/y or Eur/kg/y) can be also specified.
+
+
+```{rosmose} 
+: OSMOSE UNIT SOECmodel
+
+|unit name   |type   |
+|:-----------|:------|
+|SOEC        |Utility|
+```
+
+Finally, the mass and resource streams of the different units associated to each relevant layer are defined. It must be carefully inserted each one of the `%tags%` defined in the previous chunks. It is important to define the direction of the mass or resource streams from the perspective of each unit. For instance, electricity is consumed in the unit (i.e. direction is `in`). It is important to highlight that the layer for the heat streams balance is not explicitly defined, since a `DefaultHeatCascade` is already implemented for all the units in Rosmose. The heat streams are defined with source and target temperatures, and the respective heat flows (calculated as `H_{out}-H_{in}` in kW). These utility streams are used to do the combined heat and power balance of the process and to apply the optimization routine that minimizes the energy requirement (MER) by maximizing the waste heat recovery.
+
+**Parameters of the SOEC unit**
+
+```{rosmose}
+: OSMOSE UNIT_PARAM SOEC
+
+|cost1  |cost2  |cinv1  |cinv2              |imp1   |imp2   |fmin   |fmax   |
+|:------|:------|:------|:------------------|:------|:------|:------|:------|
+|0      |0      |0      |%Cinv2_SOEC%       |0      |0      |0      |1000   |
+```
+
+**Resource streams**
+
+Defining the resource streams
+
+```{rosmose}
+: OSMOSE RESOURCE_STREAMS SOEC
+
+|layer         |direction|value                |
+|:-------------|:--------|:--------------------|
+|water         | in      |%Water_bal%          | 
+|hydrogen      | out     |%massflowH2%         |
+|Electricity   | in      |%E_SOEC%             |
+|Enriched_air  | out     |%massflow_EnrAir%    |
+```
+
+**Heat Streams**
+
+Defining the heat streams
+
+```{rosmose}
+: OSMOSE HEAT_STREAMS SOEC
+
+| name      | Tin          | Tout             | Hin         | Hout       | DT min      | alpha |
+|:----------|:-------------|:-----------------|:------------|:-----------|:------------|:------|
+|qt_101     |%hx_B3_ti%    | %hx_B3_to%       | 0           | %hx_B3_ho% | %dtmin_gas% | 1     |
+|qt_102     |%hx_B13_ti%   | %hx_B13_to%      | 0           | %hx_B13_ho%| %dtmin_liq% | 1     |
+|qt_103     |%hx_B12_ti%   | %hx_B12_to%      | 0           | %hx_B12_ho%| %dtmin_2ph% | 1     |
+|qt_104     |%hx_B11_ti%   | %hx_B11_to%      | 0           | %hx_B11_ho%| %dtmin_gas% | 1     |
+|qt_105     |%hx_B5_ti%    | %hx_B5_to%       | %hx_B5_ho%  | 0          | %dtmin_gas% | 1     |
+|qt_106     |%hx_B6_ti%    | %hx_B6_to%       | %hx_B6_ho%  | 0          | %dtmin_gas% | 1     |
+|qt_107     |%hx_B17_ti%   | %hx_B17_to%      | %hx_B17_ho% | 0          | %dtmin_gas% | 1     |
+|qt_108     |%hx_B18_ti%   | %hx_B18_to%      | %hx_B18_ho% | 0          | %dtmin_gas% | 1     |
+|qt_109     |%hx_B19_ti%   | %hx_B19_to%      | %hx_B19_ho% | 0          | %dtmin_2ph% | 1     |
+```
+
+**References**
+
+[1] Next Level Solid Oxide Electrolysis, 2022, available at: https://ispt.eu/media/20230508-FINAL-SOE-public-report-ISPT.pdf
+
+[2] Solid Oxide Electrolysis: A Technology Status Assessment, 2023, available at: https://cdn.catf.us/wp-content/uploads/2023/11/15092028/solid-oxide-electrolysis-report.pdf

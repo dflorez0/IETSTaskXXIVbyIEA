@@ -32,7 +32,7 @@ et:addLayers { Scrap_Gyps = {type = 'ResourceBalance', unit = 'kg/h' } }
 et:addLayers { millprod3_mix = {type = 'ResourceBalance', unit = 'kg/h' } }
 et:addLayers { Gyps = {type = 'ResourceBalance', unit = 'kg/h' } }
 et:addLayers { CementProduct5 = {type = 'ResourceBalance', unit = 'kg/h' } }
-et:addLayers { Electricity = {type = 'ResourceBalance', unit = 'kW' } }
+et:addLayers { Elec = {type = 'ResourceBalance', unit = 'kW' } }
 et:addLayers { FBC_ash = {type = 'ResourceBalance', unit = 'kg/h' } }
 et:addLayers { Bessemer_Slag = {type = 'ResourceBalance', unit = 'kg/h' } }
 et:addLayers { CementProduct6 = {type = 'ResourceBalance', unit = 'kg/h' } }
@@ -57,7 +57,7 @@ et:addUnit('Mill_CEMPROD1',{type = 'Utility', Fmax = 10000000, addToProblem = 1,
 et['Mill_CEMPROD1']:addStreams{
 	millprod1_gaid_IN = rs({ 'G_Aid', 'in', "MILL_CEMPROD1_GAID_VOLF" }),
 	millprod1_rm_IN = rs({ 'millprod1_mix', 'in', "MILL_CEMPROD1_MASSF" }),
-	millprod1_elec_IN = rs({ 'Electricity', 'in', "MILL_CEMPROD1_POWER" }),
+	millprod1_elec_IN = rs({ 'Elec', 'in', "MILL_CEMPROD1_POWER" }),
 	millprod1_h2o_IN = rs({ 'Industrial_Water', 'in', "MILL_CEMPROD1_H2O_VOLF" }),
 	millprod1_OUT = rs({ 'CementProduct1', 'out', "MILL_CEMPROD1_MASSF" }),
 }
@@ -75,7 +75,7 @@ et['Mill_CEMPROD2']:addStreams{
 	millprod2_cem_OUT = rs({ 'CementProduct2', 'out', "MILL_CEMPROD2_MASSF" }),
 	millprod2_rm_IN = rs({ 'millprod2_mix', 'in', "MILL_CEMPROD2_MASSF" }),
 	millprod2_h2o_IN = rs({ 'Industrial_Water', 'in', "MILL_CEMPROD2_H2O_VOLF" }),
-	millprod2_elec_IN = rs({ 'Electricity', 'in', "MILL_CEMPROD2_POWER" }),
+	millprod2_elec_IN = rs({ 'Elec', 'in', "MILL_CEMPROD2_POWER" }),
 	millprod2_gaid_IN = rs({ 'G_Aid', 'in', "MILL_CEMPROD2_GAID_VOLF" }),
 }
 -- CEM 3 (Holcim - CEM II/B-S) --------------------------------
@@ -90,7 +90,7 @@ et['Mill_CEMPROD3_FEED']:addStreams{
 et:addUnit('Mill_CEMPROD3',{type = 'Utility', Fmax = 1, addToProblem = 1, Mult = nil, Cost2 = 0, Cinv2 = 0 })
 et['Mill_CEMPROD3']:addStreams{
 	millprod3_rm_IN = rs({ 'millprod3_mix', 'in', "MILL_CEMPROD3_MASSF" }),
-	millprod3_elec_IN = rs({ 'Electricity', 'in', "MILL_CEMPROD3_POWER" }),
+	millprod3_elec_IN = rs({ 'Elec', 'in', "MILL_CEMPROD3_POWER" }),
 	millprod3_OUT = rs({ 'CementProduct3', 'out', "MILL_CEMPROD3_MASSF" }),
 	millprod3_h2o_IN = rs({ 'Industrial_Water', 'in', "MILL_CEMPROD3_H2O_VOLF" }),
 	millprod3_gaid_IN = rs({ 'G_Aid', 'in', "MILL_CEMPROD3_GAID_VOLF" }),
@@ -106,7 +106,7 @@ et['Mill_CEMPROD4_FEED']:addStreams{
 }
 et:addUnit('Mill_CEMPROD4',{type = 'Utility', Fmax = 1, addToProblem = 1, Cost2 = 0, Mult = nil, Cinv2 = 0})
 et['Mill_CEMPROD4']:addStreams{
-	millprod4_elec_IN = rs({ 'Electricity', 'in', "MILL_CEMPROD4_POWER" }),
+	millprod4_elec_IN = rs({ 'Elec', 'in', "MILL_CEMPROD4_POWER" }),
 	millprod4_gaid_IN = rs({ 'G_Aid', 'in', "MILL_CEMPROD4_GAID_VOLF" }),
 	millprod4_rm_IN = rs({ 'millprod4_mix', 'in', "MILL_CEMPROD4_MASSF" }),
 	millprod4_cem_OUT = rs({ 'CementProduct4', 'out', "MILL_CEMPROD4_MASSF" }),
@@ -125,7 +125,7 @@ et['Mill_CEMPROD5_FEED']:addStreams{
 et:addUnit('Mill_CEMPROD5',{type = 'Utility', Fmax = 1, addToProblem = 1, Mult = nil, Cost2 = 0, Cinv2 = 0})
 et['Mill_CEMPROD5']:addStreams{
 	millprod5_gaid_IN = rs({ 'G_Aid', 'in', "MILL_CEMPROD5_GAID_VOLF" }),
-	millprod5_elec_IN = rs({ 'Electricity', 'in', "MILL_CEMPROD5_POWER" }),
+	millprod5_elec_IN = rs({ 'Elec', 'in', "MILL_CEMPROD5_POWER" }),
 	millprod5_rm_IN = rs({ 'millprod5_mix', 'in', "MILL_CEMPROD5_MASSF" }),
 	millprod5_h2o_IN = rs({ 'Industrial_Water', 'in', "MILL_CEMPROD5_H2O_VOLF" }),
 	millprod5_OUT = rs({ 'CementProduct5', 'out', "MILL_CEMPROD5_MASSF" }),
@@ -142,7 +142,7 @@ et['Mill_CEMPROD6_FEED']:addStreams{
 et:addUnit('Mill_CEMPROD6',{type = 'Utility', Fmax = 1000000, addToProblem = 1,  Mult = nil, Cost2 = 0, Cinv2 =0})
 et['Mill_CEMPROD6']:addStreams{
 	millprod6_rm_IN = rs({ 'millprod6_mix', 'in', "MILL_CEMPROD6_MASSF" }),
-	millprod6_elec_IN = rs({ 'Electricity', 'in', "MILL_CEMPROD6_POWER" }),
+	millprod6_elec_IN = rs({ 'Elec', 'in', "MILL_CEMPROD6_POWER" }),
 	millprod6_OUT = rs({ 'CementProduct6', 'out', "MILL_CEMPROD6_MASSF" }),
 	millprod6_h2o_IN = rs({ 'Industrial_Water', 'in', "MILL_CEMPROD6_H2O_VOLF" }),
 	millprod6_gaid_IN = rs({ 'G_Aid', 'in', "MILL_CEMPROD6_GAID_VOLF" }),

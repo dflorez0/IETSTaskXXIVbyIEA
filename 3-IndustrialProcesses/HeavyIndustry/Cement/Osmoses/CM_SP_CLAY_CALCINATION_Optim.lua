@@ -25,7 +25,7 @@ et.header = {
 
 -------------------------------------------------------------------------------
 
-et:addLayers { Electricity = {type = 'ResourceBalance', unit = 'kW' } }
+et:addLayers { Elec = {type = 'ResourceBalance', unit = 'kW' } }
 et:addLayers { Clay = {type = 'ResourceBalance', unit = 'kg/h' } }
 et:addLayers { Calcined_clay = {type = 'ResourceBalance', unit = 'kg/h' } }
 
@@ -39,7 +39,7 @@ et:addLayers { DefaultInvCost = {type = 'Costing',  } }
 -- This ET includes all treatment steps as developed in the Flash calcination process from FLSmidth
 et:addUnit('CLAY_CALICINER',{type = 'Utility', Fmax = 1000, addToProblem = 'add_ClayCal',  Cinv2 = 'Cinv2_ClayCal' })
 et['CLAY_CALICINER']:addStreams{
-	cca_elec_in = rs({ 'Electricity', 'in', "CCa_TOTAL_POWER" }), -- for pretreatment grinding
+	cca_elec_in = rs({ 'Elec', 'in', "CCa_TOTAL_POWER" }), -- for pretreatment grinding
 	cca_clay_IN = rs({ 'Clay', 'in', "CCa_CLAY_IN_sz" }),
 
   cca_calc_clay_OUT = rs({ 'Calcined_clay', 'out', "CCa_CALC_CLAY_OUT" }),

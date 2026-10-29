@@ -4,7 +4,7 @@ Electrolyzers and fuel cells.
 
 | Model type | Model | Status |
 |:--|:--|:--|
-| Electrolyzers | [High-temperature electrolysis](HighTElectrolysis/index.qmd), [low-temperature electrolysis](LowTElectrolysis/index.qmd) | Work in progress |
+| Electrolyzers | [High-temperature electrolysis](HighTElectrolysis/index.qmd), [low-temperature electrolysis](LowTElectrolysis/index.qmd) | Documented |
 | Fuel cells (alkaline, PEM, SOC) | — | Work in progress |
 
 : {.striped}

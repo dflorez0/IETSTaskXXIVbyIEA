@@ -90,7 +90,7 @@ et:addLayers {CO2  = {type ='ResourceBalance', unit ='kg/h'}}
 et:addLayers { Comp_CO2 = { type='ResourceBalance', unit = 'kg/h' }} -- compressed CO2 from CO2 storage or from CO2 at low pressure (bypass storage)
 et:addLayers { hydrogen  = { type='ResourceBalance', unit = 'kg/h' }}
 et:addLayers { CH4 = { type='ResourceBalance', unit = 'kW' }}
-et:addLayers {Water = {type= 'ResourceBalance', unit = 'kg/h'} }
+et:addLayers {water = {type= 'ResourceBalance', unit = 'm3/h'} }
 et:addLayers {Elec = {type ='ResourceBalance', unit ='kW'}}
 
 
@@ -98,7 +98,7 @@ et:addUnit('MethanatorUtil', {type = 'Utility', Fmin = 0, Fmax = 100000000, Cost
 et['MethanatorUtil']:addStreams({
     H2_in = rs({'hydrogen','in', 'H2_input'}),
     CO2_in = rs({'Comp_CO2','in', 'CO2_input'}),
-    water_out = rs({'Water','out','Water_output'}),
+    water_out = rs({'water','out','Water_output'}),
     CH4_out = rs({'CH4','out','CH4_outputkW'}), -- methanator operating at 30 bar - pure methanation TREMP hysys model
 
     q_meth1 = qt({tin = 'Tin_hot1' , hin = 'Q_hot1', tout = 'Tout_hot1', hout = 0, dtmin = 'dtmin_intercool', alpha = 1}),

@@ -1,0 +1,242 @@
+### Low temperature electrolysis {-}
+
+```{rosmose}
+! OSMOSE ET Lowtelectro
+```
+
+Hydrogen is used in various chemical and industrial applications, such as fuel cells, hydrogenation reactions, protective atmospheres, transportation, among others uses. The most mature technologies for industrial hydrogen production are low temperature electrolyzers, which consume liquid water to produce hydrogen. Alkaline water electrolysis is a type of electrolyzer with two electrodes operating in a liquid alkaline electrolyte, such as potassium or sodium hydroxide at 25-40 wt%. Typical operating temperatures in this type of electrolyzers are between 80-90°C. As voltage and current increase, irreversibilities appear in the electrolyzer, and the total power consumption increases compared to the ideal power consumption (electrolysis is an endergonic process). This fact limits the maximum applicable current density, and so the hydrogen yield and the production efficiency, apart from increasing the electricity losses in the form of waste heat. Moreover, since the theoretical ideal energy consumption for water electrolysis reduces while the temperature increases, low temperature electrolyzers are more energy-intensive than their high temperature counterparts that can profit from existing waste heat from the industrial processes.
+
+Low temperature electrolysis systems are typically operated at higher voltages than the thermoneutral voltage around 1.8 V since a higher cell potential is needed to compensate for ohmic losses. Consequently, the stack electricity consumption in SOEC steam electrolysis technology is lower (33-38 kWh/kg H2), compared to that of the low temperature water electrolysis systems (above 50 kWh/kg H2).
+
+```{r lowtelectrol, out.width='80%', fig.align='center', fig.cap='Low temperature electrolyzer unit structure'}
+knitr::include_graphics('lowtelectrol.svg')
+```
+
+In the context of sustainable energy solutions, electrolyzers also play an important role in harvesting and transforming renewable electricity into storable chemicals and fuels. Their ability to efficiently convert surplus electricity from renewable sources, such as solar and wind, into storable hydrogen will be key for balancing the intermittency of these energy systems. In fact, alkaline electrolyzers will play a dual role as a way to store excess electricity in the form of gas (i.e. a power-to-gas system) and the direct production of hydrogen energy carrier for various sectors. In this way, the hydrogen produced or its derivatives (e.g. SNG, methanol, etc.) can be stored for later use, providing grid stability, backup power, and fuel for transportation and industrial applications. Their ability to convert renewable electricity into a versatile and clean energy carrier positions them as indispensable components in the journey towards a more sustainable and resilient energy future.
+
+Some other thermodynamic and financial parameters are summarized in the following chunk of code, whereas the commentaries provide further details on the meaning and relevance of each term.
+
+```{rosmose} 
+HHV_H2 = 141746 [kJ/kg] # Higher heating value of hydrogen
+massflowH2O = 1000 [kg/h] # Reference mass flow of water consumed
+H2toH2O_massratio = 1/9[kgH2/kgH2O] # Stocihiometric hydrogen to water ratio
+dTminw = 5 [C] # Minimum temperature difference contribution for hydrogen
+dtmin_gas = 8 [C] # Minimum temperature difference contribution for gases
+
+E_AlkaElec_spec = 55 [kWh/kgH2] # Specific electricity consumption
+Q_AlkaElec_spec = (21.90+11.90)/111.11 [kWh/kgH2] # Specific cooling duty during production of 888 kgO2/h and 111 kgH2/h
+Thot_AlkaEle = 80 [C] # Temperature outlet of the low temperature electrolyzer
+Tcold_AlkaEle = 30 [C] # Temperature inlet of the low temperature electrolyzer
+ 
+costinv = 1200 [Euro/kW] # Specific investment cost of electrolyzer
+i = 0.06 [-] # Interest rate
+n = 40 [yr] # Lifetime
+```
+
+Based on the previous data, it is possible to calculate other important process parameters and thermodynamic variables, such as the power consumption in the electrolyzer `E_AlkaElec`, and the heat generated `Q_AlkaElec`, as well as the exported hydrogen energy `massflowH2`, among others. Finally, the annualization factor can be determined based on the assumed life time of the energy technology and the interest rate adopted to calculate the annualized investment cost.
+
+```{rosmose} 
+waterCons = %massflowH2O%/1000 [m3/h] # Volumetric flow of water consumption
+massflowH2 = %massflowH2O%*%H2toH2O_massratio% [kg/h] # Mass flow rate of hydrogen produced
+massflowO2 = %massflowH2O%-%massflowH2%  [kg/h] # Mass flow rate of oxygen produced
+E_AlkaElec = %massflowH2%*E_AlkaElec_spec% [kW] # Electricity consumption
+Q_AlkaElec = %massflowH2%*Q_AlkaElec_spec% [kW] # Waste heat from hydrogen compression to 30 bar
+Cinv2_AlkaElec = %costinv%*%E_AlkaElec%*(%i%*((1+%i%)**%n%)/((1+%i%)**%n%-1))[Eur/yr] # Specific investment cost of electrolyzer
+
+To2cp1procwsu_in = 172 [C] # Temperature inlet of intercooling oxygen compressor from 1 to 3 bar
+Qo2cp1procwsu = %massflowO2%*0.0371 [kW] # Heat duty intercooling oxygen compressor from 1 to 3 bar
+To2cp1procwsu_out = 30 [C] # Temperature outlet of intercooling oxygen compressor from 1 to 3 bar
+
+To2cp2procwsu_in = 179.5 [C] # Temperature inlet of intercooling oxygen compressor from 3 to 10 bar
+Qo2cp2procwsu = %massflowO2%*0.03931 [kW] # Heat duty intercooling oxygen compressor from 3 to 10 bar 
+To2cp2procwsu_out = 30 [C] # Temperature outlet of intercooling oxygen compressor from 3 to 10 bar
+
+To2cp3procwsu_in = 179.6 [C] # Temperature inlet of intercooling oxygen compressor from 10 to 30 bar
+Qo2cp3procwsu = %massflowO2%*0.04025 [kW%] # Heat duty intercooling oxygen compressor from 10 to 30 bar
+To2cp3procwsu_out = 30 [C] # Temperature outlet of intercooling oxygen compressor from 10 to 30 bar
+
+W_net_procO2wsu = %massflowO2%*(0.03823+0.03886+0.03887) [kW%] # Power consumption compressor oxygen to process (1-30 bar)
+
+To2cp1expwsu_in = 108.6 [C] # Temperature inlet of intercooling oxygen compressor from 30 to 60 bar
+Qo2cp1expwsu = %massflowO2%*0.02181 [kW%] # Heat duty intercooling oxygen compressor from 30 to 60 bar
+To2cp1expwsu_out = 30 [C] # Temperature outlet of intercooling oxygen compressor from 30 to 60 bar
+
+To2cp2expwsu_in = 108.3 [C] # Temperature inlet of intercooling oxygen compressor from 60 to 100 bar
+Qo2cp2expwsu = %massflowO2%*0.02302 [kW%] # Heat duty intercooling oxygen compressor from 60 to 100 bar
+To2cp2expwsu_out = 30 [C] # Temperature outlet of intercooling oxygen compressor from 60 to 100 bar
+
+To2cp3expwsu_in = 107 [C] # Temperature outlet of intercooling oxygen compressor from 100 to 200 bar
+Qo2cp3expwsu = %massflowO2%*0.02458 [kW] # Heat duty intercooling oxygen compressor from 100 to 200 bar
+To2cp3expwsu_out = 30 [C] # Temperature outlet of intercooling oxygen compressor from 100 to 200 bar
+
+W_net_exportO2wsu = %W_net_procO2wsu%+%massflowO2%*(0.01984+0.01963+0.01948) [kW] # Power consumption compressor oxygen to process (30-200 bar)
+```
+
+
+<!-- ## With this chunk of code, the input and calculated parameters can be displayed{-} -->
+<!-- ```{rosmose} -->
+<!-- : TAGS DISPLAY_TAGS [nvuD] -->
+<!-- ``` -->
+
+
+**Layers of the Lowtelectro ET**
+
+The concept of layers in ROsmose language is equivalent to pipes through which the mass and resources balances are closed. For instance, the electricity consumed by the electrolyzer (in kW) is imported through the `Electricity` layer from an electricity supply grid located in the market model. The hydrogen can be fed to the subsequent eChemicals processes via the `hydrogen` layer. Note that the oxygen can be exported through different distribution layers, namely the oxygen consumed at 30 bar in the process `oxyprocess` or exported at 200 bar `oxygen`. Also, if the hydrogen and oxygen consumption is not matched, there may be a need to vent some of the produced oxygen `oxyvent`. These and other layers can be defined as shown in the following table:
+
+
+```{rosmose} 
+: OSMOSE LAYERS Lowtelectro
+
+| Layer        | Display name  | shortname    | Unit | Color  |
+|:-------------|:--------------|:-------------|:-----|:-------|
+| oxygen       | oxygen        | oxygen       | kg/h |green   |
+| oxyprocess   | oxyprocess    | oxyprocess   | kg/h |blue    |
+| oxyvent      | oxyvent       | oxyvent      | kg/h |yellow  |
+| hydrogen     | hydrogen      | hydrogen     | kg/h |red     |
+| water        | water         | water        | m3/h |black   |
+| Electricity  | Elec          | Elec         | kW   |magenta |
+```
+
+**Units of the Lowtelectro ET**
+
+The model of the low temperature electrolyzer consists of three units, the proper `AElectrolyzer` unit, and the booster compressors of oxygen to process `O2ToProcWSU` or to export `O2ToExportWSU`, all of which are utility units. It means that their size (continuous) and existence (binary) can be regarded as optimization variables used to minimize the energy consumption or any other targets. To this end, other parameters of these units, such as the lower `fmin` and upper `fmax` sizing bounds, must be specified in the Parameters tables shown next. Other operating costs (`cost1`:fixed, in Eur/y, `cost2`:variable in Eur/kWh/y or Eur/kg/y) and investment costs (`cinv1`:fixed in Eur/y; `cinv2`:variable in Eur/kW/y or Eur/kg/y) can be also specified.
+
+```{rosmose} 
+: OSMOSE UNIT Lowtelectro
+
+|unit name        |type   |
+|:----------------|:------|
+|AElectrolyzer    |Utility|
+|O2ToProcWSU      |Utility|
+|O2ToExportWSU    |Utility|
+```
+
+Finally, the mass and resource streams of the different units associated to each relevant layer are defined. It must be carefully inserted each one of the `%tags%` defined in the previous chunks. It is important to define the direction of the mass or resource streams from the perspective of each unit. For instance, electricity is consumed in the unit (i.e. direction is `in`). It is important to highlight that the layer for the heat streams balance is not explicitly defined, since a `DefaultHeatCascade` is already implemented for all the units in Rosmose. The heat streams are defined with source and target temperatures, and the respective heat flows (calculated as `H_{out}-H_{in}` in kW). These utility streams are used to do the combined heat and power balance of the process and to apply the optimization routine that minimizes the energy requirement (MER) by maximizing the waste heat recovery.
+
+**Parameters of the AElectrolyzer unit**
+
+```{rosmose}
+: OSMOSE UNIT_PARAM AElectrolyzer
+
+|cost1  |cost2  |cinv1  |cinv2              |imp1   |imp2   |fmin   |fmax   |
+|:------|:------|:------|:------------------|:------|:------|:------|:------|
+|0      |0      |0      |%Cinv2_AlkaElec%   |0      |0      |0      |1000   |
+```
+
+**Resource streams**
+
+Defining the resource streams
+
+```{rosmose}
+: OSMOSE RESOURCE_STREAMS AElectrolyzer
+
+|layer         |direction|value                |
+|:-------------|:--------|:--------------------|
+|water         | in      |%waterCons%          | 
+|hydrogen      | out     |%massflowH2%         |
+|Electricity   | in      |%E_AlkaElec%         |
+|oxyvent       | out     |%massflowO2%         |
+```
+
+**Heat Streams**
+
+Defining the heat streams
+
+```{rosmose}
+: OSMOSE HEAT_STREAMS AElectrolyzer
+
+| name          | Tin          | Tout             | Hin           | Hout | DT min      | alpha |
+|:--------------|:-------------|:-----------------|:--------------|:-----|:------------|:------|
+|Heat_AlkaElec  |%Thot_AlkaEle%| %Tcold_AlkaEle%  | %Q_AlkaElec%  | 0    | %dTminw%    | 1     |
+```
+
+
+**Parameters of the O2ToProcWSU unit**
+
+```{rosmose}
+: OSMOSE UNIT_PARAM O2ToProcWSU
+
+|cost1  |cost2  |cinv1  |cinv2      |imp1   |imp2   |fmin   |fmax   |
+|:------|:------|:------|:----------|:------|:------|:------|:------|
+|0      |0      |0      |0          |0      |0      |0      |1000   |
+```
+
+**Resource streams**
+
+Defining the resource streams
+
+```{rosmose}
+: OSMOSE RESOURCE_STREAMS O2ToProcWSU
+
+|layer         |direction|value                |
+|:-------------|:--------|:--------------------|
+|Electricity   | in      |%W_net_procO2wsu%    |
+|oxyvent       | in      |%massflowO2%         |
+|oxyprocess    | out     |%massflowO2%         |
+```
+
+**Heat Streams**
+
+Defining the heat streams
+
+```{rosmose}
+: OSMOSE HEAT_STREAMS O2ToProcWSU
+
+| name           | Tin                 | Tout                 | Hin             | Hout | DT min      | alpha |
+|:---------------|:--------------------|:---------------------|:----------------|:-----|:------------|:------|
+| Qo2cw1procWSU  | %To2cp1procwsu_in%  | %To2cp1procwsu_out%  | %Qo2cp1procwsu% | 0    | %dtmin_gas% | 1     |
+| Qo2cw2procWSU  | %To2cp2procwsu_in%  | %To2cp2procwsu_out%  | %Qo2cp2procwsu% | 0    | %dtmin_gas% | 1     |
+| Qo2cw3procWSU  | %To2cp3procwsu_in%  | %To2cp3procwsu_out%  | %Qo2cp3procwsu% | 0    | %dtmin_gas% | 1     |
+```
+
+
+
+** Parameters of the O2ToExportWSU unit**
+
+```{rosmose}
+: OSMOSE UNIT_PARAM O2ToExportWSU
+
+|cost1  |cost2  |cinv1  |cinv2       |imp1   |imp2   |fmin   |fmax   |
+|:------|:------|:------|:-----------|:------|:------|:------|:------|
+|0      |0      |0      |0           |0      |0      |0      |1000   |
+```
+
+**Resource streams**
+
+Defining the resource streams
+
+
+```{rosmose}
+: OSMOSE RESOURCE_STREAMS O2ToExportWSU
+
+|layer         |direction|value                |
+|:-------------|:--------|:--------------------|
+|Electricity   | in      |%W_net_exportO2wsu%  |
+|oxyvent       | in      |%massflowO2%         | 
+|oxygen        | out     |%massflowO2%         | 
+```
+
+**Heat Streams**
+
+Defining the heat streams
+
+```{rosmose}
+: OSMOSE HEAT_STREAMS O2ToExportWSU
+
+| name           | Tin                 | Tout                | Hin             |Hout| DT min      | alpha |
+|:---------------|:--------------------|:--------------------|:----------------|:---|:------------|:------|
+| Qo2cw1procWSU  | %To2cp1procwsu_in%  | %To2cp1procwsu_out% | %Qo2cp1procwsu% | 0  | %dtmin_gas% | 1     |
+| Qo2cw2procWSU  | %To2cp2procwsu_in%  | %To2cp2procwsu_out% | %Qo2cp2procwsu% | 0  | %dtmin_gas% | 1     |
+| Qo2cw3procWSU  | %To2cp3procwsu_in%  | %To2cp3procwsu_out% | %Qo2cp3procwsu% | 0  | %dtmin_gas% | 1     |
+| Qo2cw1expWSU   | %To2cp1expwsu_in%   | %To2cp1expwsu_out%  | %Qo2cp1expwsu%  | 0  | %dtmin_gas% | 1     |
+| Qo2cw2expWSU   | %To2cp2expwsu_in%   | %To2cp2expwsu_out%  | %Qo2cp2expwsu%  | 0  | %dtmin_gas% | 1     |
+| Qo2cw3expWSU   | %To2cp3expwsu_in%   | %To2cp3expwsu_out%  | %Qo2cp3expwsu%  | 0  | %dtmin_gas% | 1     |
+```
+
+**References**
+
+[1] Electrolyzers Factsheet, available from: https://www.clean-hydrogen.europa.eu/system/files/2022-02/Clean%20Hydrogen%20JU%20SRIA%20-%20approved%20by%20GB%20-%20clean%20for%20publication%20%28ID%2013246486%29.pdf
+
+[2] Baier, A Cost Estimation for CO2 Reduction and Reuse by Methanation from Cement Industry Sources in Switzerland, https://www.frontiersin.org/articles/10.3389/fenrg.2018.00005/full
+
+[3] IEA, The Future of Hydrogen (2019) Paris https://www.iea.org/reports/the-future-of-hydrogen
