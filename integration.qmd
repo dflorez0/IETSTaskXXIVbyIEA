@@ -12,5 +12,5 @@ Combine models of this database and see how much heat integrating them saves and
 
 - **Size.** The size factor *f* scales a unit's heat streams and flows.
 - **Heat.** Only each unit's default heat cascade is integrated; streams in a separate cascade are listed, not used.
-- **Flows.** Connectors with the same composition, phase, pressure and unit are matched automatically; close ones are suggested for you to accept.
+- **Flows.** Connectors are matched automatically when both models state the same composition, phase, pressure, temperature and unit; others are suggested with every difference shown.
 - **Aligning models.** When models describe the same flow differently, you can connect or merge it yourself on the map; only flows that can be the same are offered.

@@ -105,6 +105,7 @@
 .mv-map-port { font-size: 11px; fill: #2c3e50; }
 .mv-map-amt { font-size: 10.5px; fill: #2c3e50; paint-order: stroke; stroke: #fafbfc; stroke-width: 4px; stroke-linejoin: round; }
 .mv-map-amt.is-sugg { fill: #b35f0a; }
+.mv-map-sub { font-size: 10.5px; fill: #7f8c9b; }
 .mv-map-lbl { cursor: pointer; }
 .mv-map-bnd { font-size: 10.5px; fill: #5d6d7e; }
 .mv-map-bndrow { cursor: default; }
@@ -146,16 +147,25 @@
 .mv-int-sec { font-size: .7rem; text-transform: uppercase; letter-spacing: .06em; color: #7f8c9b; margin: .8rem 0 .2rem; font-weight: 600; }
 .mv-int-tag { display: inline-block; font-size: .68rem; padding: .05rem .45rem; border-radius: 4px; color: #fff; white-space: nowrap; }
 .mv-int-tag.is-sugg { background: #d4740e; } .mv-int-tag.is-user { background: #d00000; }
-.mv-crow { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .6rem; padding: .4rem .6rem; border: 1px solid #e1e4e8; border-radius: 8px; background: #fff; margin: .3rem 0; font-size: .82rem; }
+.mv-ctable-wrap { overflow-x: auto; }
+.mv-ctable { width: 100%; min-width: 640px; table-layout: fixed; border-collapse: separate; border-spacing: 0; font-size: .82rem; }
+.mv-ctable th { text-align: left; font-size: .7rem; text-transform: uppercase; letter-spacing: .05em; color: #8a96a3; font-weight: 600; padding: .2rem .55rem .35rem; border-bottom: 1px solid #e1e4e8; }
+.mv-ctable td { padding: .55rem .55rem; border-bottom: 1px solid #eef1f4; vertical-align: top; }
+.mv-crow-pills .mv-int-tag { display: inline-block; margin-bottom: .25rem; }
+.mv-ctable .mv-chip { display: flex; max-width: none; }
 .mv-crow-flow { display: inline-flex; align-items: center; gap: .4rem; flex-wrap: wrap; min-width: 0; }
 .mv-crow-arr { color: #7f8c9b; font-weight: 600; }
-.mv-crow-pills { display: inline-flex; flex-wrap: wrap; gap: .25rem; }
-.mv-crow-act { margin-left: auto; }
-.mv-chip { display: inline-flex; flex-direction: column; padding: .15rem .5rem; border: 1px solid #d8dce3; border-radius: 6px; background: #fafbfc; line-height: 1.25; max-width: 16em; min-width: 0; }
+td.mv-crow-arr { text-align: center; padding-top: .9rem !important; }
+.mv-crow-pills { font-size: .78rem; line-height: 1.45; color: #5d6d7e; }
+td.mv-crow-pills { padding-top: .65rem !important; }
+td.mv-crow-pills .mv-pill { display: block; } td.mv-crow-pills .mv-pill + .mv-pill::before { content: none; }
+.mv-crow-act { text-align: right; white-space: nowrap; padding-top: .6rem !important; }
+.mv-chip { display: inline-flex; flex-direction: column; padding: .2rem .55rem; border: 1px solid #d8dce3; border-radius: 6px; background: #fafbfc; line-height: 1.3; max-width: 22em; min-width: 0; }
 .mv-chip-n { font-weight: 600; color: #2c3e50; white-space: nowrap; } .mv-chip-u { font-weight: 400; color: #7f8c9b; font-size: .75rem; }
-.mv-chip-w { font-size: .7rem; color: #7f8c9b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.mv-pill { font-size: .7rem; padding: .05rem .5rem; border-radius: 999px; background: #eef1f4; color: #5d6d7e; white-space: nowrap; cursor: help; }
-.mv-pill.is-hard { background: #fbe9e7; color: #b03a2e; font-weight: 600; }
+.mv-chip-w { font-size: .72rem; color: #7f8c9b; }
+.mv-pill { cursor: help; }
+.mv-pill + .mv-pill::before { content: "·"; margin: 0 .5rem; color: #c3cad3; font-weight: 400; }
+.mv-pill.is-hard { color: #b03a2e; font-weight: 600; }
 .mv-btn { font: inherit; font-size: .78rem; padding: .2rem .75rem; border-radius: 6px; border: 1px solid #c3cad3; background: #fff; color: #2c3e50; cursor: pointer; }
 .mv-btn:hover { border-color: #8a96a3; } .mv-btn:disabled { opacity: .45; cursor: default; }
 .mv-btn.is-primary { background: #2c3e50; border-color: #2c3e50; color: #fff; } .mv-btn.is-primary.is-risky { background: #b03a2e; border-color: #b03a2e; }
@@ -167,9 +177,10 @@
 .mv-ccard-f input { width: 7em; font: inherit; padding: .15rem .4rem; border: 1px solid #c3cad3; border-radius: 5px; }
 .mv-ccard-res { font-size: 1.05rem; margin: .3rem 0 .35rem; }
 .mv-ccard .mv-crow-pills { margin: .2rem 0 .5rem; }
+.mv-ccard-f .mv-pill { color: #8a96a3; font-size: .78rem; }
 .mv-int-refused { flex-basis: 100%; color: #b03a2e; font-size: .82rem; }
 .mv-ccard-btns { display: flex; gap: .4rem; }
-.mv-int-howto { display: flex; flex-wrap: wrap; gap: .2rem 1rem; } .mv-int-howto span + span::before { content: "·"; margin-right: 1rem; color: #c3cad3; }
+.mv-int-hint { margin-left: auto; }
 .mv-int-made { font-size: .75rem; color: #7f8c9b; line-height: 1.35; margin-top: .15rem; white-space: normal; min-width: 14em; max-width: 18em; }
 .mv-int-made > div { margin-top: .2rem; }
 .mv-int-key { display: flex; flex-wrap: wrap; gap: .3rem 1.2rem; font-size: .78rem; color: #7f8c9b; margin: .4rem 0 0; }
@@ -1915,11 +1926,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ---- flows: identity, matching and the connection map ----------------------
-    // Identity of a connector: electricity is one flow; a composition with its
-    // phase and pressure given is identified by them (whatever it is called);
-    // anything else by its name and unit. Emissions never match a feed. A match
-    // the reader undoes (autoOff) splits that identity per unit; a connection the
-    // reader makes (rules) renames one identity into another, with a factor.
+    // Identity of a connector. Within one model, connectors of the same name and unit are one flow (that is how a model
+    // links its own units). Across models, two connectors are one flow only when both state composition, phase, pressure
+    // and temperature and every one of them, and the unit, is equal; electricity is one flow everywhere. Everything else
+    // is suggested, with every difference shown. A match the reader undoes (autoOff) is kept apart; a connection the
+    // reader makes (rules, between port keys) joins one flow into another, with a factor.
     var PHASE = { "(V)": "vapor", "(G)": "vapor", "(L)": "liquid", "(S)": "solid" };
     var pendingPort = null, pendingConnect = null, pendingSel = null, refused = null;   // the selected port is kept as { c, node }: positions change when units do
     function normUnit(u) { return String(u || "").trim().replace(/m3/g, "m³"); }
@@ -2000,17 +2011,19 @@ document.addEventListener("DOMContentLoaded", function () {
     function identity(c, node) {
       var unit = normUnit(c.unit), name = c.name.trim(), r;
       if (/electric/i.test(c.type) || /^electricity$/i.test(name))
-        r = { id: "e|" + unit, name: "Electricity", unit: unit, basis: "electricity", complete: true };
+        r = { key: "e|" + unit, sig: null, name: "Electricity", unit: unit, basis: "electricity", complete: true };
       else {
-        var sp = species(c.comp), ph = PHASE[String(c.phase || "").trim().toUpperCase()] || null, p = parseFloat(c.pres);
-        var emis = /emission/i.test(c.type), complete = !!(sp && ph && isFinite(p)) && !emis;
-        var why = !sp ? "no composition" : [ph ? "" : "no phase", isFinite(p) ? "" : "no pressure"].filter(Boolean).join(", ");
-        r = complete ? { id: "s|" + sp + "|" + ph + "|" + Number(p.toPrecision(6)) + "|" + unit, name: name, unit: unit,
-                         basis: compName(sp) + ", " + ph + ", " + nice(p) + " bar", sp: sp, cd: compData(c.comp), ph: ph, p: p, complete: true }
-                     : { id: "n|" + name.toLowerCase() + "|" + unit, name: name, unit: unit, basis: "same name", sp: sp, cd: compData(c.comp), ph: ph,
-                         p: isFinite(p) ? p : null, complete: false, emis: emis, why: why };
+        var sp = species(c.comp), ph = PHASE[String(c.phase || "").trim().toUpperCase()] || null, p = parseFloat(c.pres), T = parseFloat(c.temp);
+        var emis = /emission/i.test(c.type), complete = !!(sp && ph && isFinite(p) && isFinite(T)) && !emis;
+        var why = [sp ? "" : "no composition", ph ? "" : "no phase", isFinite(p) ? "" : "no pressure", isFinite(T) ? "" : "no temperature"].filter(Boolean).join(", ");
+        r = { key: "n|" + String(node).split(":")[0] + "|" + name.toLowerCase() + "|" + unit, name: name, unit: unit, sp: sp, cd: compData(c.comp), ph: ph,
+              p: isFinite(p) ? p : null, T: isFinite(T) ? T : null, emis: emis, complete: complete,
+              sig: complete ? "s|" + sp + "|" + ph + "|" + Number(p.toPrecision(6)) + "|" + Number(T.toPrecision(6)) + "|" + unit : null,
+              basis: complete ? compName(sp) + ", " + ph + ", " + nice(p) + " bar, " + nice(T) + " °C" : "same name in one model",
+              why: emis ? "marked as an emission" : why };
       }
-      if (autoOff[r.id]) { r.id += "#" + node; r.apart = true; }
+      if (autoOff["key:" + r.key]) { r.key += "#" + node; r.apart = true; }
+      if (r.sig && autoOff["sig:" + r.sig]) { r.sig = null; r.apart = true; }
       return r;
     }
     function renderFlows(items) {
@@ -2024,10 +2037,18 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       items.forEach(function (it, k) { it.k = k; it.idn = identity(it.c, it.node); it.dir = it.c.dir === "in" ? "in" : "out"; });
       pendingPort = sp ? sp.k : null;
-      // base groups (same identity) and the reader's connections between them
+      // base groups: ports with the same key, joined across models by an equal full signature; a group is named by its smallest key
+      var up = {}, root = function (k) { while (up[k] !== k) k = up[k] = up[up[k]]; return k; };
+      items.forEach(function (it) { up[it.idn.key] = it.idn.key; });
+      var bySig = {};
+      items.forEach(function (it) { if (!it.idn.sig) return; var o = bySig[it.idn.sig]; if (o === undefined) bySig[it.idn.sig] = it.idn.key;
+        else { var a = root(o), b = root(it.idn.key); if (a !== b) { if (a < b) up[b] = a; else up[a] = b; } } });
+      items.forEach(function (it) { it.idn.id = root(it.idn.key); });
       var base = {};
       items.forEach(function (it) { (base[it.idn.id] = base[it.idn.id] || { idn: it.idn, items: [] }).items.push(it); });
-      var live = rules.filter(function (r) { return base[r.from] && base[r.to]; });
+      // the reader's connections, from port keys to the groups now holding them
+      var live = rules.filter(function (r) { return up[r.from] !== undefined && up[r.to] !== undefined; })
+        .map(function (r) { return Object.assign({}, r, { from: root(r.from), to: root(r.to) }); }).filter(function (r) { return r.from !== r.to; });
       function final(id) { var f = 1, via = null; for (var k = 0; k < 5; k++) { var r = live.filter(function (x) { return x.from === id; })[0]; if (!r) break; f *= r.factor; via = via || r; id = r.to; } return { id: id, f: f, rule: via }; }
       var groups = {}, gorder = [];
       items.forEach(function (it) {
@@ -2043,7 +2064,7 @@ document.addEventListener("DOMContentLoaded", function () {
         G.prod.forEach(function (p) { G.cons.forEach(function (q) {
           var amt = inside * (p.qc / G.out) * (q.qc / G.inn);
           if (!(amt > 0)) return;
-          var kind = p.rule || q.rule ? "user" : (gid.indexOf("e|") === 0 || gid.indexOf("s|") === 0 ? "auto" : "name");
+          var kind = p.rule || q.rule ? "user" : (p.idn.key === q.idn.key ? "name" : "auto");
           links.push({ from: p, to: q, amt: amt, unit: G.idn.unit, gid: gid, kind: kind, rule: p.rule || q.rule });
         }); });
       });
@@ -2052,25 +2073,29 @@ document.addEventListener("DOMContentLoaded", function () {
         var G = groups[it.fid], side = it.dir === "out" ? G.out : G.inn;
         it.inside = side > 0 ? G.inside * it.qc / side : 0;
       });
-      // suggestions: compositions at least 99 % alike, same unit, no phase or pressure that differs, one produces and the other consumes
-      var sugg = [];
-      Object.keys(base).forEach(function (i) { Object.keys(base).forEach(function (j) {
-        if (i === j) return; var a = base[i].idn, b = base[j].idn;
-        if (!a.cd || !b.cd || a.unit !== b.unit || a.emis || b.emis || a.apart || b.apart || similarity(a.cd, b.cd).v < SIM_NOTE) return;
-        if ((a.ph && b.ph && a.ph !== b.ph) || (a.p !== null && b.p !== null && Math.abs(a.p - b.p) > 1e-9)) return;
-        if (final(i).id === final(j).id) return;
-        var p = base[i].items.filter(function (x) { return x.dir === "out"; })[0], q = base[j].items.filter(function (x) { return x.dir === "in"; })[0];
-        if (!p || !q || p.node === q.node) return;
-        var from = a.complete ? j : i, to = from === i ? j : i;
-        sugg.push({ p: p, q: q, from: from, to: to, why: diffs(p, q).map(function (x) { return x.s; }).join("; ") });
+      // suggestions: for each flow taken in, flows produced by other models with the same name or a composition at least 99 % alike
+      // that may be joined to it, fewest differences first, then fewest missing values; the best three, and the best one on the map.
+      // A model's own units are linked as its author wired them, so suggestions only go between models, once per pair of flows.
+      var sugg = [], perFeed = {}, seenPair = {}, inst = function (it) { return String(it.node).split(":")[0]; };
+      items.forEach(function (q) { if (q.dir !== "in") return; items.forEach(function (p) {
+        if (p.dir !== "out" || inst(p) === inst(q) || p.fid === q.fid || q.idn.apart || p.idn.apart || seenPair[p.fid + ">" + q.fid]) return;
+        var same = p.c.name.trim().toLowerCase() === q.c.name.trim().toLowerCase(), close = p.idn.cd && q.idn.cd && similarity(p.idn.cd, q.idn.cd).v >= SIM_NOTE;
+        if (!same && !close) return;
+        var d = compat(p, q, false); if (d.hard.length) return;
+        var miss = d.soft.filter(function (x) { return x.kind === "miss"; }).length;
+        seenPair[p.fid + ">" + q.fid] = 1;
+        (perFeed[q.fid] = perFeed[q.fid] || []).push({ p: p, q: q, d: d, dif: d.soft.length - miss, miss: miss });
       }); });
+      Object.keys(perFeed).forEach(function (k) {
+        perFeed[k].sort(function (a, b) { return a.dif - b.dif || a.miss - b.miss; }).slice(0, 3).forEach(function (x, r) {
+          x.top = r === 0; x.i = sugg.length; x.why = reasonText(x.d.soft) || "no difference"; sugg.push(x); });
+      });
 
       flowsEl.innerHTML =
         '<h3 class="mv-int-h">System connections</h3>' +
-        '<p class="mv-legend mv-int-howto"><span>Click a dashed arrow: accept</span><span>a solid arrow: disconnect</span><span>a product, then a feed: connect</span><span>two products or two feeds: merge</span></p>' +
         '<div class="mv-int-connect"></div><div class="mv-frame mv-int-map"></div>' +
-        '<div class="mv-int-key"><span><i class="k-auto"></i>matched (same composition, phase and pressure, or same name)</span><span><i class="k-user"></i>connected by you</span>' +
-        '<span><i class="k-sugg"></i>suggested, click to accept</span><span><i class="k-bound"></i>from a source or to a sink</span></div><div class="mv-int-mine"></div>' +
+        '<div class="mv-int-key"><span title="Everything both models state is equal, or the same name within one model"><i class="k-auto"></i>matched</span><span><i class="k-user"></i>yours</span>' +
+        '<span title="Hover a suggestion in the list below, or select a port, to see it here"><i class="k-sugg"></i>suggested</span><span><i class="k-bound"></i>in / out</span><span class="mv-int-hint">Click a port to connect it, or an arrow to accept or remove it.</span></div><div class="mv-int-mine"></div>' +
         '<h3 class="mv-int-h">Flow balance</h3>' +
         '<p class="mv-legend">Composition, phase and pressure decide which flows are matched; a value a model leaves out is shown as not given. Inside is the amount exchanged between units.</p><div style="overflow-x:auto">' +
         TOPEN + ' class="mv-table mv-int-flows"><thead><tr><th class="l">Flow</th><th class="l">Composition</th><th class="l">Phase</th><th>Temperature</th><th>Pressure</th><th class="l">Unit</th>' +
@@ -2094,9 +2119,9 @@ document.addEventListener("DOMContentLoaded", function () {
           var twins = gorder.filter(function (o) { return o !== gid && groups[o].idn.name.toLowerCase() === G.idn.name.toLowerCase(); });
           var apart = twins.map(function (o) {
             var a = G.prod.concat(G.cons)[0], b = groups[o].prod.concat(groups[o].cons)[0], d = diffs(a, b);
-            return d.length ? d.map(function (x) { return chemHTML(x.s); }).join(", ") : "separated by you";
+            return d.length ? chemHTML(reasonText(d)) : "separated by you";
           }).filter(function (t, i, arr) { return arr.indexOf(t) === i; });
-          var apartHTML = apart.length ? '<div class="mv-int-made">kept apart from the other ' + chemHTML(G.idn.name) + " row: " + apart.join("; ") + "</div>" : "";
+          var apartHTML = apart.length ? '<div class="mv-int-made">Not matched with the other ' + chemHTML(G.idn.name) + " row: " + apart.join("; ") + ".</div>" : "";
           var parts = G.prod.concat(G.cons), isMerged = parts.some(function (it) { return it.rule && it.rule.kind === "merge"; });
           var made = isMerged ? '<div class="mv-int-made">merged from:' + parts.map(function (it) {
             return "<div>" + nice(it.qc) + " " + xesc(prettyUnit(G.idn.unit)) + " " + chemHTML(it.c.name) + " of " + xesc(it.who) + "</div>"; }).join("") + "</div>" : "";
@@ -2105,11 +2130,15 @@ document.addEventListener("DOMContentLoaded", function () {
                  "</td><td>" + (G.inn ? nice(G.inn) : "–") + "</td><td>" + (G.inside > tol ? nice(G.inside) : "–") + "</td><td>" + netTxt + "</td></tr>";
         }).join("") + "</tbody>" + TCLOSE + "</div>";
       flowsEl._sugg = sugg; flowsEl._links = links; flowsEl._items = items;
-      flowsEl.querySelector(".mv-int-map").innerHTML = mapSVG(items, links, sugg, groups);
+      // suggestions on the map: those of the selected port's flow, or the row hovered in the list
+      var sel = pendingPort !== null ? items[pendingPort] : null;
+      flowsEl._baseShown = sel ? sugg.filter(function (x) { return x.p.fid === sel.fid || x.q.fid === sel.fid; }).map(function (x) { return x.i; }) : [];
+      flowsEl._drawMap = function (shown) { flowsEl.querySelector(".mv-int-map").innerHTML = mapSVG(items, links, sugg, groups, shown); };
+      flowsEl._drawMap(flowsEl._baseShown); flowsEl._hover = null;
       // suggestions and the reader's changes, one row each, with a way to accept or undo
       var sug = sugg.map(function (q, i) {
-        var d = compat(q.p, q.q, false);
-        return crow("is-sugg", "suggested", chip(q.p), "→", chip(q.q), pills(d), '<button type="button" class="mv-btn is-primary" data-accept="' + i + '">Accept</button>');
+        var d = q.d;
+        return crow("is-sugg", q.top ? "best match" : "", chip(q.p), "→", chip(q.q), pills(d), '<button type="button" class="mv-btn is-primary" data-accept="' + i + '">Accept</button>');
       });
       var mine = rules.map(function (r, i) {
         var d = r.doubts || { hard: [], soft: [] }, extra = [];
@@ -2122,8 +2151,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     '<button type="button" class="mv-btn" data-undo="off:' + xesc(k) + '">Undo</button>');
       }));
       flowsEl.querySelector(".mv-int-mine").innerHTML =
-        (sug.length ? '<div class="mv-int-sec">Suggested · ' + sug.length + "</div>" + sug.join("") : "") +
-        (mine.length ? '<div class="mv-int-sec">Your changes · ' + mine.length + "</div>" + mine.join("") : "");
+        (sug.length ? '<div class="mv-int-sec">Suggested · ' + sug.length + "</div>" + ctable("Not matched because", sug) : "") +
+        (mine.length ? '<div class="mv-int-sec">Your changes · ' + mine.length + "</div>" + ctable("Notes", mine) : "");
       showConnect();
     }
 
@@ -2133,11 +2162,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // exports leave on the right at the height of their product; flows exchanged
     // between units run in lanes beside the boxes and cross in the gap above the
     // receiving unit. Boxes carry the flow names; the amounts sit on the arrows.
-    function mapSVG(items, links, sugg, groups) {
+    function mapSVG(items, links, sugg, groups, shown) {
       var CH = 6.3, ROW = 20, HEAD = 28, PAD = 14, LANE = 9;
       var nodes = {}, norder = [];
       items.forEach(function (it) {
-        var n = nodes[it.node]; if (!n) { n = nodes[it.node] = { key: it.node, title: it.who, ins: [], outs: [] }; norder.push(it.node); }
+        var n = nodes[it.node]; if (!n) { n = nodes[it.node] = { key: it.node, title: it.model, sub: it.who !== it.model ? it.unitName : "", ins: [], outs: [] }; norder.push(it.node); }
         (it.dir === "in" ? n.ins : n.outs).push(it);
       });
       var unitOf = function (it) { return prettyUnit(normUnit(it.c.unit)); };
@@ -2145,7 +2174,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // process order: longest chain of links (and suggestions) feeding a unit
       var depth = {}; norder.forEach(function (k) { depth[k] = 0; });
       var edges = links.filter(function (l) { return l.from.node !== l.to.node; }).map(function (l) { return [l.from.node, l.to.node]; })
-        .concat(sugg.map(function (q) { return [q.p.node, q.q.node]; }));
+        .concat(sugg.filter(function (q) { return q.top; }).map(function (q) { return [q.p.node, q.q.node]; }));
       for (var pass = 0; pass < norder.length; pass++) edges.forEach(function (e) {
         if (depth[e[1]] < depth[e[0]] + 1) depth[e[1]] = Math.min(norder.length, depth[e[0]] + 1);
       });
@@ -2170,7 +2199,8 @@ document.addEventListener("DOMContentLoaded", function () {
       var SB = 10, LB = LW ? Math.max(LW, 52) + 2 * SB : 0, RB = RW ? Math.max(RW, 40) + 2 * SB : 0;
       // internal routes (links and suggestions) and their lanes
       var routes = links.filter(function (l) { return l.from.node !== l.to.node; }).map(function (l) { return { a: l.from, b: l.to, l: l }; })
-        .concat(sugg.map(function (q, i) { return { a: q.p, b: q.q, s: i }; }));
+        .concat(sugg.filter(function (q) { return q.top || (shown && shown.indexOf(q.i) >= 0); })
+          .map(function (q) { return { a: q.p, b: q.q, s: q.i, hidden: !(shown && shown.indexOf(q.i) >= 0) }; }));   // lanes kept for the best ones, so the map keeps its size
       var nR = {}, nL = {}, nGap = {};
       routes.forEach(function (r) {
         r.ro = nR[r.a.node] = (nR[r.a.node] || 0) + 1; r.lo = nL[r.b.node] = (nL[r.b.node] || 0) + 1;
@@ -2184,8 +2214,9 @@ document.addEventListener("DOMContentLoaded", function () {
         var li = 0, lo = 0;
         n.ins.forEach(function (it) { li = Math.max(li, it.c.name.length); }); n.outs.forEach(function (it) { lo = Math.max(lo, it.c.name.length); });
         n.li = li * CH; n.lo = lo * CH;
-        boxW = Math.max(boxW, Math.min(360, Math.max(170, n.li + n.lo + 46, n.title.length * 7.2 + 24)));
-        n.h = HEAD + Math.max(n.ins.length, n.outs.length, 1) * ROW + 6;
+        boxW = Math.max(boxW, Math.min(360, Math.max(170, n.li + n.lo + 46, n.title.length * 7.2 + 24, n.sub.length * CH + 24)));
+        n.head = n.sub ? HEAD + 14 : HEAD;
+        n.h = n.head + Math.max(n.ins.length, n.outs.length, 1) * ROW + 6;
       });
       var arrowL = 42 + LANE * mL, arrowR = 42 + LANE * mR, bx0 = PAD + LB + arrowL, gapL = 30 + LANE * laneL, gapR = 30 + LANE * laneR;
       var X = bx0 + gapL, W = X + boxW + gapR + arrowR + RB + PAD, y = PAD + 8;
@@ -2193,8 +2224,8 @@ document.addEventListener("DOMContentLoaded", function () {
         n.x = X; n.w = boxW; n.y = y + 22 + LANE * (nGap[n.key] || 0);
         var both = n.ins.length && n.outs.length, half = both ? (boxW - 30) / 2 : boxW - 20;
         var li = Math.min(n.li, half), lo = Math.min(n.lo, half), spare = Math.max(0, boxW - 30 - li - lo);
-        n.ins.forEach(function (it, i) { it.px = n.x; it.py = n.y + HEAD + i * ROW + ROW / 2; it.lw = both ? li + (n.li > li ? spare : 0) : half; });
-        n.outs.forEach(function (it, i) { it.px = n.x + n.w; it.py = n.y + HEAD + i * ROW + ROW / 2; it.lw = both ? lo + (n.lo > lo ? spare : 0) : half; });
+        n.ins.forEach(function (it, i) { it.px = n.x; it.py = n.y + n.head + i * ROW + ROW / 2; it.lw = both ? li + (n.li > li ? spare : 0) : half; });
+        n.outs.forEach(function (it, i) { it.px = n.x + n.w; it.py = n.y + n.head + i * ROW + ROW / 2; it.lw = both ? lo + (n.lo > lo ? spare : 0) : half; });
         y = n.y + n.h + 14;
       });
       var H = y + PAD + 4, frame = { x: bx0, y: PAD, w: X + boxW + gapR - bx0, h: y - PAD };
@@ -2239,11 +2270,11 @@ document.addEventListener("DOMContentLoaded", function () {
       var lbl = [];
       routes.forEach(function (r) {
         if (r.s !== undefined) {
-          var q = sugg[r.s];
+          if (r.hidden) return;
+          var q = sugg[r.s];   // shown without a label: the list below gives its reasons
           out.push('<g class="mv-map-sugg" data-sugg="' + r.s + '"><path d="' + r.path + '" fill="none" stroke="transparent" stroke-width="12"/>' +
                    '<path d="' + r.path + '" fill="none" stroke="' + COL.sugg + '" stroke-width="1.8" stroke-dasharray="6 4" stroke-linejoin="round" marker-end="url(#mvArr-sugg)"/>' +
                    "<title>" + xesc("Suggested: " + q.p.c.name + " (" + q.p.who + ") → " + q.q.c.name + " (" + q.q.who + "); " + q.why + ". Click to connect.") + "</title></g>");
-          lbl.push('<g class="mv-map-lbl" data-sugg="' + r.s + '"><text x="' + r.lx + '" y="' + r.ly + '" text-anchor="middle" class="mv-map-amt is-sugg">suggested: ' + chemSVGsafe(q.p.c.name) + " → " + chemSVGsafe(q.q.c.name) + "</text></g>");
           return;
         }
         var l = r.l, col = COL[l.kind], factor = l.rule && l.rule.factor !== 1 ? " (× " + nice(l.rule.factor) + ")" : "";
@@ -2258,7 +2289,8 @@ document.addEventListener("DOMContentLoaded", function () {
       order.forEach(function (n) {
         out.push('<rect x="' + n.x + '" y="' + n.y + '" width="' + n.w + '" height="' + n.h + '" rx="6" fill="#fff" stroke="#2c3e50" stroke-width="1.3"/>' +
                  '<text x="' + (n.x + n.w / 2) + '" y="' + (n.y + 18) + '" text-anchor="middle" class="mv-map-title">' + chemSVGsafe(cut(n.title, n.w - 16)) + "<title>" + xesc(n.title) + "</title></text>" +
-                 '<line x1="' + n.x + '" y1="' + (n.y + HEAD - 4) + '" x2="' + (n.x + n.w) + '" y2="' + (n.y + HEAD - 4) + '" stroke="#e1e4e8"/>');
+                 (n.sub ? '<text x="' + (n.x + n.w / 2) + '" y="' + (n.y + 32) + '" text-anchor="middle" class="mv-map-sub">' + chemSVGsafe(cut(n.sub, n.w - 16)) + "<title>" + xesc(n.sub) + "</title></text>" : "") +
+                 '<line x1="' + n.x + '" y1="' + (n.y + n.head - 4) + '" x2="' + (n.x + n.w) + '" y2="' + (n.y + n.head - 4) + '" stroke="#e1e4e8"/>');
         n.ins.forEach(function (it) {
           out.push('<text x="' + (n.x + 11) + '" y="' + (it.py + 4) + '" class="mv-map-port">' + chemSVGsafe(cut(it.c.name, it.lw)) + "<title>" + xesc(it.c.name + " · " + nice(it.q) + " " + unitOf(it)) + "</title></text>" +
                    '<circle cx="' + it.px + '" cy="' + it.py + '" r="4.5" class="mv-map-dot is-in' + dotState(it) + '" data-port="' + it.k + '"><title>' + xesc("Feed: " + it.c.name + " · " + nice(it.q) + " " + unitOf(it)) + "</title></circle>");
@@ -2327,9 +2359,9 @@ document.addEventListener("DOMContentLoaded", function () {
         out.push({ kind: "unit", s: prettyUnit(A.unit) + " → " + prettyUnit(B.unit), l: "different units; " + (g ? g.why : "the factor depends on the composition") }); }
       if (e1 || e2) { if (e1 !== e2) out.push({ kind: "elec", s: "electricity ↔ material", l: (e1 ? p : q).c.name + " is electricity and " + (e1 ? q : p).c.name + " is a material flow" }); return out; }
       var m1 = mainComp(A.sp), m2 = mainComp(B.sp);
-      [[p, "sp", "composition"], [p, "ph", "phase"], [p, "p", "pressure"]].forEach(function (f) {
+      [[p, "sp", "composition"], [p, "ph", "phase"], [p, "p", "pressure"], [p, "T", "temperature"]].forEach(function (f) {
         var a = A[f[1]], b = B[f[1]], miss = function (v) { return v === null || v === undefined || v === ""; };
-        if (miss(a) || miss(b)) [p, q].forEach(function (it) { if (miss(it.idn[f[1]])) out.push({ kind: "miss", s: "no " + f[2] + ": " + it.model, l: it.c.name + " of " + it.who + " does not state its " + f[2] }); });
+        if (miss(a) || miss(b)) [p, q].forEach(function (it) { if (miss(it.idn[f[1]])) out.push({ kind: "miss", m: it.model, f: f[2], s: it.model + " gives no " + f[2], l: it.c.name + " of " + it.who + " does not state its " + f[2] }); });
         else if (f[1] === "sp" && A.cd && B.cd) {
           var sim = similarity(A.cd, B.cd), pc = Math.floor(sim.v * 1000) / 10;
           if (sim.v < SIM_BLOCK) out.push({ kind: "comp", s: "composition " + (m1 !== m2 ? m1 + " vs " + m2 : pc + " % alike"), l: "different composition: " + (m1 !== m2 ? m1 + " vs " + m2 + ", " : "") + "only " + pc + " % alike" });
@@ -2338,6 +2370,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         else if (f[1] === "ph" && a !== b) out.push({ kind: "phase", s: a + " → " + b, l: "the change of phase is not part of either model" });
         else if (f[1] === "p" && Math.abs(a - b) > 1e-9) out.push({ kind: "pres", s: nice(a) + " → " + nice(b) + " bar", l: "the " + (a < b ? "compression" : "expansion") + " between them is not part of either model" });
+        else if (f[1] === "T" && Math.abs(a - b) > 1e-9) out.push({ kind: "temp", s: nice(a) + " → " + nice(b) + " °C", l: "the " + (a < b ? "heating" : "cooling") + " between them is not part of either model" });
       });
       return out;
     }
@@ -2347,31 +2380,58 @@ document.addEventListener("DOMContentLoaded", function () {
       // without a composition there is nothing to check against, so only a flow of the same name may be joined
       var e = p.idn.basis === "electricity" || q.idn.basis === "electricity", sameName = p.c.name.trim().toLowerCase() === q.c.name.trim().toLowerCase();
       if (!e && !sameName) [p, q].forEach(function (it) {
-        if (!it.idn.sp) hard.push({ s: "no composition: " + it.model, l: it.c.name + " of " + it.model + " does not state its composition, so it can only be joined to a flow of the same name" }); });
+        if (!it.idn.sp) hard.push({ s: it.model + " gives no composition", l: it.c.name + " of " + it.model + " does not state its composition, so it can only be joined to a flow of the same name" }); });
       if (!merge && p.node === q.node) hard.push({ s: "same unit", l: "a unit cannot supply itself" });
       if (p.fid === q.fid) hard.push({ s: "already one flow", l: "these are already the same flow" });
       return { hard: hard, soft: soft };
     }
     // the product and the feed (or the two of a merge) when sel is selected and it clicked
     function orient(sel, it) { var merge = sel.dir === it.dir; return merge || sel.dir === "out" ? { p: sel, q: it, merge: merge } : { p: it, q: sel, merge: false }; }
+    // reasons as they are read: differences as they are ("30 → 1 bar"), values a model leaves out gathered per model
+    // ("Methanation gives no pressure or temperature")
+    function tidy(list) {
+      var out = [], byModel = {};
+      list.forEach(function (x) {
+        if (x.kind !== "miss") return out.push(x);
+        var g = byModel[x.m]; if (!g) { g = byModel[x.m] = { kind: "miss", m: x.m, fields: [] }; out.push(g); }
+        if (g.fields.indexOf(x.f) < 0) g.fields.push(x.f);
+      });
+      out.forEach(function (g) {
+        if (g.kind !== "miss" || !g.fields) return;
+        var f = g.fields, words = f.length < 2 ? f[0] : f.slice(0, -1).join(", ") + " or " + f[f.length - 1];
+        g.s = g.m + " gives no " + words; g.l = g.s + ", so it cannot be compared";
+      });
+      return out;
+    }
+    function reasonText(list) { return tidy(list).map(function (x) { return x.s; }).join("; "); }
     function pills(d) {
-      return d.hard.map(function (t) { return '<span class="mv-pill is-hard" title="' + xesc(t.l) + '">⚠ ' + chemHTML(t.s) + "</span>"; }).join("") +
-             d.soft.map(function (t) { return '<span class="mv-pill" title="' + xesc(t.l) + '">' + chemHTML(t.s) + "</span>"; }).join("");
+      return tidy(d.hard).map(function (t) { return '<span class="mv-pill is-hard" title="' + xesc(t.l) + '">⚠ ' + chemHTML(t.s) + "</span>"; }).join("") +
+             tidy(d.soft).map(function (t) { return '<span class="mv-pill" title="' + xesc(t.l) + '">' + chemHTML(t.s) + "</span>"; }).join("");
     }
     function chip(it) {
       return '<span class="mv-chip" title="' + xesc(it.c.name + " · " + it.who) + '"><span class="mv-chip-n">' + chemHTML(it.c.name) +
              ' <span class="mv-chip-u">' + xesc(prettyUnit(it.idn.unit)) + '</span></span><span class="mv-chip-w">' + xesc(it.who) + "</span></span>";
     }
     function crow(cls, tag, a, arr, b, pl, act) {
-      return '<div class="mv-crow"><span class="mv-int-tag ' + cls + '">' + tag + '</span><span class="mv-crow-flow">' + a + '<span class="mv-crow-arr">' + arr + "</span>" + b +
-             '</span><span class="mv-crow-pills">' + pl + '</span><span class="mv-crow-act">' + act + "</span></div>";
+      return '<tr class="mv-crow"><td>' + a + '</td><td class="mv-crow-arr">' + arr + "</td><td>" + b + '</td><td class="mv-crow-pills">' +
+             (tag ? '<span class="mv-int-tag ' + cls + '">' + tag + "</span>" : "") + (pl || (tag ? "" : '<span class="mv-muted">–</span>')) + '</td><td class="mv-crow-act">' + act + "</td></tr>";
+    }
+    function ctable(head, rows) {
+      return '<div class="mv-ctable-wrap">' + TOPEN + ' class="mv-ctable"><colgroup><col style="width:25%"><col style="width:1.8rem"><col style="width:25%"><col><col style="width:5.6rem"></colgroup><thead><tr><th>From</th><th></th><th>To</th><th>' + head + "</th><th></th></tr></thead><tbody>" +
+             rows.join("") + "</tbody>" + TCLOSE + "</div>";
     }
     // connect a product to a feed, or merge two products (or two feeds) into one flow: p's flow becomes q's
     function connect(p, q, factor, merge) {
-      rules = rules.filter(function (r) { return r.from !== p.idn.id; });
-      rules.push({ from: p.idn.id, to: q.idn.id, factor: factor, kind: merge ? "merge" : "user", a: chip(p), b: chip(q), ua: prettyUnit(p.idn.unit), ub: prettyUnit(q.idn.unit),
+      rules = rules.filter(function (r) { return r.from !== p.idn.key; });
+      rules.push({ from: p.idn.key, to: q.idn.key, factor: factor, kind: merge ? "merge" : "user", a: chip(p), b: chip(q), ua: prettyUnit(p.idn.unit), ub: prettyUnit(q.idn.unit),
                    doubts: compat(p, q, merge) });
     }
+    flowsEl.addEventListener("mouseover", function (e) {
+      var tr = e.target.closest && e.target.closest(".mv-crow"), b = tr && tr.querySelector("[data-accept]"), i = b ? +b.getAttribute("data-accept") : null;
+      if (i === flowsEl._hover || !flowsEl._drawMap) return;
+      flowsEl._hover = i; flowsEl._drawMap(i === null ? flowsEl._baseShown : flowsEl._baseShown.concat([i]));
+    });
+    flowsEl.addEventListener("mouseleave", function () { if (flowsEl._drawMap && flowsEl._hover !== null) { flowsEl._hover = null; flowsEl._drawMap(flowsEl._baseShown); } });
     flowsEl.addEventListener("click", function (e) {
       var t = e.target, g, v, items = flowsEl._items || [];
       if ((v = t.getAttribute && t.getAttribute("data-undo")) !== null && v !== undefined) {
@@ -2383,17 +2443,19 @@ document.addEventListener("DOMContentLoaded", function () {
         pendingConnect = null; pendingSel = null; refused = null; update(false); return;
       }
       if ((g = t.closest && t.closest("[data-sugg],[data-accept]"))) {
-        var s = flowsEl._sugg[+(g.getAttribute("data-sugg") || g.getAttribute("data-accept"))]; rules.push({ from: s.from, to: s.to, factor: 1, kind: "user", a: chip(s.p), b: chip(s.q), doubts: compat(s.p, s.q, false) }); update(false); return;
+        var s = flowsEl._sugg[+(g.getAttribute("data-sugg") || g.getAttribute("data-accept"))];
+        if (s.p.idn.unit !== s.q.idn.unit) { pendingConnect = { p: s.p, q: s.q, merge: false }; update(false); return; }   // the factor first
+        connect(s.p, s.q, 1, false); update(false); return;
       }
       if ((g = t.closest && t.closest("[data-bnd]"))) {
-        var R = flowsEl._bnd[+g.getAttribute("data-bnd")], ids = R.ports.map(function (it) { return it.idn.id; });
+        var R = flowsEl._bnd[+g.getAttribute("data-bnd")], ids = R.ports.map(function (it) { return it.idn.key; });
         rules = rules.filter(function (r) { return !(r.kind === "merge" && (ids.indexOf(r.from) >= 0 || ids.indexOf(r.to) >= 0)); });
         update(false); return;
       }
       if ((g = t.closest && t.closest("[data-link]"))) {
         var l = flowsEl._links[+g.getAttribute("data-link")];
-        if (l.kind === "user") rules = rules.filter(function (r) { return r.from !== l.from.idn.id && r.from !== l.to.idn.id; });
-        else autoOff[l.gid] = { a: chip(l.from), b: chip(l.to) };
+        if (l.kind === "user") rules = rules.filter(function (r) { return r.from !== l.from.idn.key && r.from !== l.to.idn.key; });
+        else autoOff[l.kind === "name" || !l.from.idn.sig ? "key:" + l.from.idn.key : "sig:" + l.from.idn.sig] = { a: chip(l.from), b: chip(l.to) };
         update(false); return;
       }
       if ((v = t.getAttribute && t.getAttribute("data-port")) !== null && v !== undefined) {
