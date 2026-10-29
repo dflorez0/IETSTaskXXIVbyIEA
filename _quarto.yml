@@ -81,7 +81,10 @@ website:
             contents:
               - 1-EnergyTechnologies/Renewables/PVpanels/index.qmd
               - 1-EnergyTechnologies/Renewables/WindTurbine/index.qmd
-          - 1-EnergyTechnologies/AirSeparation/index.qmd
+          - section: "Air separation"
+            href: 1-EnergyTechnologies/AirSeparation/index.qmd
+            contents:
+              - 1-EnergyTechnologies/AirSeparation/CryoASU/index.qmd
           - 1-EnergyTechnologies/EnergySystemsAndGrids/index.qmd
 
       - section: "Decarbonization technologies"

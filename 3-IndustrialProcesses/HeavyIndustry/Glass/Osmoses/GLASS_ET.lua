@@ -34,7 +34,7 @@ et:addLayers { Feldspar           = { type = 'ResourceBalance', unit = 'kg/h' } 
 et:addLayers { NaCl               = { type = 'ResourceBalance', unit = 'kg/h' } }
 et:addLayers { Slag               = { type = 'ResourceBalance', unit = 'kg/h' } }
 et:addLayers { Coal               = { type = 'ResourceBalance', unit = 'kg/h' } }
-et:addLayers { water              = { type = 'ResourceBalance', unit = 'kg/h' } }
+et:addLayers { water              = { type = 'ResourceBalance', unit = 'm3/h' } }
 
 -- Cullet (internal and external recycling)
 et:addLayers { Cullet_int         = { type = 'ResourceBalance', unit = 'kg/h' } }
@@ -100,7 +100,7 @@ et['glass_melting_solids']:addStreams {
   NaCl                = rs({ 'NaCl',        'in',  'NaCl_in'        }),
   Slag                = rs({ 'Slag',        'in',  'Slag_in'        }),
   Coal                = rs({ 'Coal',        'in',  'Coal_in'        }),
-  Water               = rs({ 'water',       'in',  'Water_in'       }),
+  Water               = rs({ 'water',       'in',  'Water_in_vol'   }),
 
   -- Outputs
   wastewater          = rs({ 'wastewater',  'out', 'wastewater_out'      }),
@@ -297,6 +297,7 @@ et.outputs = {
   Slag_in        = { unit = 'kg/h', job = 'Slag_in_r       * float_product' },
   Coal_in        = { unit = 'kg/h', job = 'Coal_in_r       * float_product' },
   Water_in       = { unit = 'kg/h', job = 'Water_in_r      * float_product' },
+  Water_in_vol   = { unit = 'm3/h', job = 'Water_in() / 1000' },  -- as a volume flow (1,000 kg/m3), the unit of the water layer
   NG_in          = { unit = 'kg/h', job = 'NG_in_r         * float_product' },
   Fuel_oil_in    = { unit = 'kg/h', job = 'Fuel_oil_in_r   * float_product' },
   Electricity_in = { unit = 'kW',   job = 'Electricity_in_r * float_product' },

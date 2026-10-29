@@ -24,7 +24,7 @@ et.header = {
 }
 -------------------------------------------------------------------------------
 et:addLayers { Elec = {type = 'ResourceBalance', unit = 'kW' } }
-et:addLayers { O2 = {type = 'ResourceBalance', unit = 'kg/h' } }
+et:addLayers { Oxygen = {type = 'ResourceBalance', unit = 'kg/h' } }
 et:addLayers { Nitrogen = {type = 'ResourceBalance', unit = 'kg/h' } }
 et:addLayers { Compressed_Air = {type = 'ResourceBalance', unit = 'm3/h' } }
 et:addLayers { DefaultImpact = {type = 'Costing',  } }
@@ -38,7 +38,7 @@ et['ASU']:addStreams{
   asu_elec = rs({ 'Elec', 'in', "ASU_TOTAL_POWER_IN" }),
   asu_air = rs({ 'Compressed_Air', 'in', "ASU_AIR_IN_VOLF_sz" }),
 
-  asu_O2 = rs({ 'O2', 'out', "ASU_O2_OUT" }),
+  asu_O2 = rs({ 'Oxygen', 'out', "ASU_O2_OUT" }),
   asu_N2 = rs({ 'Nitrogen', 'out', "ASU_N2_OUT" }),
 
   TSA_regeneration = qt{tin = 'T_AMBIENT', hin = 0, tout = 'T_REGEN', hout = 'TSA_REGEN_LP_HEAT_IN', dtmin = 'dtmin'}, -- heat requirement

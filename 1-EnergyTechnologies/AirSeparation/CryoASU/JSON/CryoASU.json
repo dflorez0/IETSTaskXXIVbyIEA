@@ -1,0 +1,3270 @@
+{
+    "header": {
+        "uid": "",
+        "name": "CryoASU",
+        "full_name": "Cryogenic air separation unit",
+        "ET_model_type": "regular",
+        "authors_and_contributors": "Meire Ribeiro Domingos, Daniel Flórez-Orrego, EPFL IPESE research group",
+        "contact_info": "meire.ribeirodomingos@epfl.ch, daniel.florezorrego@epfl.ch",
+        "creation_date": "",
+        "last_updated": "29.10.2026",
+        "status": "Maintained",
+        "version": "1.0",
+        "confidentiality": "Open",
+        "sharing_layer": "1",
+        "grade": "WHITE-BOX",
+        "reference_capacity": "21,026 kg/h of oxygen (OXYGEN), 505 t/day, and 86,417 kg/h of nitrogen (NITROGEN)",
+        "TRL": "9",
+        "keywords": [
+            "Air separation",
+            "Cryogenic distillation",
+            "Oxygen",
+            "Nitrogen",
+            "Oxy-combustion"
+        ],
+        "description": "Cryogenic double-column air separation unit producing oxygen (99.5 % molar) and nitrogen at 1 bar, with compressors that bring the oxygen to 30 or 200 bar and the nitrogen to 7 or 200 bar.",
+        "DOI": "",
+        "main_related_publication": "",
+        "references": "[1] Van der Ham, L., Gross, J., Kjelstrup, S., Two performance indicators for the characterization of the entropy production in a process unit. Energy 36(6) (2011) 3727-3732;\n[2] Agrawal, R., Herron, D., Air liquefaction: distillation. Encyclopedia of Separation Science (2000);\n[3] Fu, W., Process Design and Evaluation for Chemicals Based on Renewable Resources. PhD thesis, Technical University of Denmark, Department of Chemical Engineering (2012);\n[4] Woods, M., Matuszewski, M., Quality Guideline for Energy System Studies: CO2 Impurity Design Parameters. National Energy Technology Laboratory (NETL) (2012);\n[5] Technical & Cost Comparison of Laterite Treatment Processes, Part 3, https://www.researchgate.net/publication/290390987_Technical_Cost_Comparison_of_Laterite_Treatment_Processes_Part_3;\n[6] Linde, Oxygen supply products, https://www.linde-gas.ae/en/products_and_supply/oxygen-gas/oxygen.html;\n[7] Survitec, Nitrogen cylinder datasheet, https://survitecgroup.com/media/344949/s_n2-cylinder_datasheet.pdf",
+        "software": "Aspen HYSYS, OSMOSE",
+        "software_file": "",
+        "block_flow_diagram": "AirSeparation/CryoASU/Figures/cryoASU.svg",
+        "url": null,
+        "supplementary_material": "See SUPPL MATERIAL tab",
+        "hierarchy": "utility"
+    },
+    "variables": [
+        {
+            "var_name": "dtmin_gas",
+            "type": "CONTEXT",
+            "full_name": "Delta Tmin/2 of the intercoolers",
+            "user_grade": "MANDATORY",
+            "value": 8,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\Delta T_{min,gas}/2$",
+            "reference": "CryoASU_ET.lua",
+            "description": "Minimum temperature difference contribution of the compressor intercoolers"
+        },
+        {
+            "var_name": "HX1_Tin",
+            "type": "MEASURED",
+            "full_name": "Air compressor intercooler 1, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 77.95,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{HX1}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Air compressor intercooler 1, inlet temperature"
+        },
+        {
+            "var_name": "HX1_Tout",
+            "type": "MEASURED",
+            "full_name": "Air compressor intercooler 1, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 40,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{HX1}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Air compressor intercooler 1, outlet temperature"
+        },
+        {
+            "var_name": "HX1_Q",
+            "type": "MEASURED",
+            "full_name": "Air compressor intercooler 1, heat load",
+            "user_grade": "MANDATORY",
+            "value": 1223.34,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{HX1}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Air compressor intercooler 1, heat load"
+        },
+        {
+            "var_name": "HX2_Tin",
+            "type": "MEASURED",
+            "full_name": "Air compressor intercooler 2, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 96.72,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{HX2}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Air compressor intercooler 2, inlet temperature"
+        },
+        {
+            "var_name": "HX2_Tout",
+            "type": "MEASURED",
+            "full_name": "Air compressor intercooler 2, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 40,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{HX2}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Air compressor intercooler 2, outlet temperature"
+        },
+        {
+            "var_name": "HX2_Q",
+            "type": "MEASURED",
+            "full_name": "Air compressor intercooler 2, heat load",
+            "user_grade": "MANDATORY",
+            "value": 1834.63,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{HX2}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Air compressor intercooler 2, heat load"
+        },
+        {
+            "var_name": "HX3_Tin",
+            "type": "MEASURED",
+            "full_name": "Air compressor intercooler 3, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 96.33,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{HX3}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Air compressor intercooler 3, inlet temperature"
+        },
+        {
+            "var_name": "HX3_Tout",
+            "type": "MEASURED",
+            "full_name": "Air compressor intercooler 3, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 40,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{HX3}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Air compressor intercooler 3, outlet temperature"
+        },
+        {
+            "var_name": "HX3_Q",
+            "type": "MEASURED",
+            "full_name": "Air compressor intercooler 3, heat load",
+            "user_grade": "MANDATORY",
+            "value": 1826.33,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{HX3}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Air compressor intercooler 3, heat load"
+        },
+        {
+            "var_name": "HX4_Tin",
+            "type": "MEASURED",
+            "full_name": "Air compressor intercooler 4, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 95.64,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{HX4}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Air compressor intercooler 4, inlet temperature"
+        },
+        {
+            "var_name": "HX4_Tout",
+            "type": "MEASURED",
+            "full_name": "Air compressor intercooler 4, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 40,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{HX4}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Air compressor intercooler 4, outlet temperature"
+        },
+        {
+            "var_name": "HX4_Q",
+            "type": "MEASURED",
+            "full_name": "Air compressor intercooler 4, heat load",
+            "user_grade": "MANDATORY",
+            "value": 1811.04,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{HX4}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Air compressor intercooler 4, heat load"
+        },
+        {
+            "var_name": "CompAir1",
+            "type": "MEASURED",
+            "full_name": "Air compressor, stage 1, from 1 bar and 30 °C",
+            "user_grade": "MANDATORY",
+            "value": 1698.68,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{CompAir1}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Air compressor, stage 1, from 1 bar and 30 °C"
+        },
+        {
+            "var_name": "CompAir2",
+            "type": "MEASURED",
+            "full_name": "Air compressor, stage 2",
+            "user_grade": "MANDATORY",
+            "value": 1825.9,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{CompAir2}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Air compressor, stage 2"
+        },
+        {
+            "var_name": "CompAir3",
+            "type": "MEASURED",
+            "full_name": "Air compressor, stage 3",
+            "user_grade": "MANDATORY",
+            "value": 1812.07,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{CompAir3}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Air compressor, stage 3"
+        },
+        {
+            "var_name": "CompAir4",
+            "type": "MEASURED",
+            "full_name": "Air compressor, stage 4, to 7.45 bar and 40 °C",
+            "user_grade": "MANDATORY",
+            "value": 1788.02,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{CompAir4}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Air compressor, stage 4, to 7.45 bar and 40 °C"
+        },
+        {
+            "var_name": "Turb1",
+            "type": "MEASURED",
+            "full_name": "Expander 1, power recovered",
+            "user_grade": "MANDATORY",
+            "value": 1027.85,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{Turb1}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Expander 1, power recovered"
+        },
+        {
+            "var_name": "Turb2",
+            "type": "MEASURED",
+            "full_name": "Expander 2, power recovered",
+            "user_grade": "MANDATORY",
+            "value": 42.65,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{Turb2}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Expander 2, power recovered"
+        },
+        {
+            "var_name": "OXYGEN",
+            "type": "MEASURED",
+            "full_name": "Oxygen production",
+            "user_grade": "MANDATORY",
+            "value": 21025.81,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{O_2}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen-rich stream at 1 bar and 30 °C, 99.5 % O2 (molar), for autothermal reformers, gasifiers or oxy-combustion, or for export or venting"
+        },
+        {
+            "var_name": "NITROGEN",
+            "type": "MEASURED",
+            "full_name": "Nitrogen production",
+            "user_grade": "MANDATORY",
+            "value": 86417.2,
+            "physical_unit": "kg/h",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot m_{N_2}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen-rich stream at 1 bar and 30 °C, 93 % N2, for plasma torches, or for export or venting"
+        },
+        {
+            "var_name": "HX13_Tin",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to plasma compressor intercooler 1, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 109.8,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{HX13}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to plasma compressor intercooler 1, inlet temperature"
+        },
+        {
+            "var_name": "HX13_Tout",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to plasma compressor intercooler 1, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{HX13}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to plasma compressor intercooler 1, outlet temperature"
+        },
+        {
+            "var_name": "HX13_Q",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to plasma compressor intercooler 1, heat load",
+            "user_grade": "MANDATORY",
+            "value": 2148,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{HX13}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to plasma compressor intercooler 1, heat load: 0.024856 kWh per kg of nitrogen"
+        },
+        {
+            "var_name": "HX14_Tin",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to plasma compressor intercooler 2, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 135.8,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{HX14}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to plasma compressor intercooler 2, inlet temperature"
+        },
+        {
+            "var_name": "HX14_Tout",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to plasma compressor intercooler 2, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{HX14}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to plasma compressor intercooler 2, outlet temperature"
+        },
+        {
+            "var_name": "HX14_Q",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to plasma compressor intercooler 2, heat load",
+            "user_grade": "MANDATORY",
+            "value": 2867,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{HX14}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to plasma compressor intercooler 2, heat load: 0.033176 kWh per kg of nitrogen"
+        },
+        {
+            "var_name": "CompN2Plas1",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to plasma compressor, stage 1, from 1 bar",
+            "user_grade": "MANDATORY",
+            "value": 2912,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{CompN2Plas1}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to plasma compressor, stage 1, from 1 bar"
+        },
+        {
+            "var_name": "CompN2Plas2",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to plasma compressor, stage 2, to 7 bar and 30 °C",
+            "user_grade": "MANDATORY",
+            "value": 2841,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{CompN2Plas2}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to plasma compressor, stage 2, to 7 bar and 30 °C"
+        },
+        {
+            "var_name": "HX15_Tin",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to export compressor intercooler 1, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 129.3,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{HX15}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to export compressor intercooler 1, inlet temperature"
+        },
+        {
+            "var_name": "HX15_Tout",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to export compressor intercooler 1, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{HX15}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to export compressor intercooler 1, outlet temperature"
+        },
+        {
+            "var_name": "HX15_Q",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to export compressor intercooler 1, heat load",
+            "user_grade": "MANDATORY",
+            "value": 2678,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{HX15}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to export compressor intercooler 1, heat load: 0.030989 kWh per kg of nitrogen"
+        },
+        {
+            "var_name": "HX16_Tin",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to export compressor intercooler 2, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 171.1,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{HX16}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to export compressor intercooler 2, inlet temperature"
+        },
+        {
+            "var_name": "HX16_Tout",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to export compressor intercooler 2, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{HX16}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to export compressor intercooler 2, outlet temperature"
+        },
+        {
+            "var_name": "HX16_Q",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to export compressor intercooler 2, heat load",
+            "user_grade": "MANDATORY",
+            "value": 3841,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{HX16}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to export compressor intercooler 2, heat load: 0.044447 kWh per kg of nitrogen"
+        },
+        {
+            "var_name": "HX17_Tin",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to export compressor intercooler 3, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 171.2,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{HX17}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to export compressor intercooler 3, inlet temperature"
+        },
+        {
+            "var_name": "HX17_Tout",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to export compressor intercooler 3, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{HX17}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to export compressor intercooler 3, outlet temperature"
+        },
+        {
+            "var_name": "HX17_Q",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to export compressor intercooler 3, heat load",
+            "user_grade": "MANDATORY",
+            "value": 3910,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{HX17}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to export compressor intercooler 3, heat load: 0.045246 kWh per kg of nitrogen"
+        },
+        {
+            "var_name": "HX18_Tin",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to export compressor intercooler 4, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 171.3,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{HX18}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to export compressor intercooler 4, inlet temperature"
+        },
+        {
+            "var_name": "HX18_Tout",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to export compressor intercooler 4, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{HX18}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to export compressor intercooler 4, outlet temperature"
+        },
+        {
+            "var_name": "HX18_Q",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to export compressor intercooler 4, heat load",
+            "user_grade": "MANDATORY",
+            "value": 4088,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{HX18}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to export compressor intercooler 4, heat load: 0.047305 kWh per kg of nitrogen"
+        },
+        {
+            "var_name": "HX19_Tin",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to export compressor intercooler 5, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 170.5,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{HX19}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to export compressor intercooler 5, inlet temperature"
+        },
+        {
+            "var_name": "HX19_Tout",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to export compressor intercooler 5, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{HX19}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to export compressor intercooler 5, outlet temperature"
+        },
+        {
+            "var_name": "HX19_Q",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to export compressor intercooler 5, heat load",
+            "user_grade": "MANDATORY",
+            "value": 4415,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{HX19}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to export compressor intercooler 5, heat load: 0.051089 kWh per kg of nitrogen"
+        },
+        {
+            "var_name": "CompN2Exp1",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to export compressor, stage 1, to 2.95 bar",
+            "user_grade": "MANDATORY",
+            "value": 3440,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{CompN2Exp1}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to export compressor, stage 1, to 2.95 bar"
+        },
+        {
+            "var_name": "CompN2Exp2",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to export compressor, stage 2, to 8.43 bar",
+            "user_grade": "MANDATORY",
+            "value": 3804,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{CompN2Exp2}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to export compressor, stage 2, to 8.43 bar"
+        },
+        {
+            "var_name": "CompN2Exp3",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to export compressor, stage 3, to 24.32 bar",
+            "user_grade": "MANDATORY",
+            "value": 3806,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{CompN2Exp3}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to export compressor, stage 3, to 24.32 bar"
+        },
+        {
+            "var_name": "CompN2Exp4",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to export compressor, stage 4, to 70.18 bar",
+            "user_grade": "MANDATORY",
+            "value": 3821,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{CompN2Exp4}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to export compressor, stage 4, to 70.18 bar"
+        },
+        {
+            "var_name": "CompN2Exp5",
+            "type": "MEASURED",
+            "full_name": "Nitrogen to export compressor, stage 5, to 200 bar and 30 °C",
+            "user_grade": "MANDATORY",
+            "value": 3905,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{CompN2Exp5}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Nitrogen to export compressor, stage 5, to 200 bar and 30 °C"
+        },
+        {
+            "var_name": "HX5_Tin",
+            "type": "MEASURED",
+            "full_name": "Oxygen to process compressor intercooler 1, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 155.6,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{HX5}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to process compressor intercooler 1, inlet temperature"
+        },
+        {
+            "var_name": "HX5_Tout",
+            "type": "MEASURED",
+            "full_name": "Oxygen to process compressor intercooler 1, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 56,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{HX5}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to process compressor intercooler 1, outlet temperature"
+        },
+        {
+            "var_name": "HX5_Q",
+            "type": "MEASURED",
+            "full_name": "Oxygen to process compressor intercooler 1, heat load",
+            "user_grade": "MANDATORY",
+            "value": 548.6,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{HX5}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to process compressor intercooler 1, heat load: 0.026092 kWh per kg of oxygen"
+        },
+        {
+            "var_name": "HX6_Tin",
+            "type": "MEASURED",
+            "full_name": "Oxygen to process compressor intercooler 2, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 198.3,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{HX6}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to process compressor intercooler 2, inlet temperature"
+        },
+        {
+            "var_name": "HX6_Tout",
+            "type": "MEASURED",
+            "full_name": "Oxygen to process compressor intercooler 2, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 56,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{HX6}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to process compressor intercooler 2, outlet temperature"
+        },
+        {
+            "var_name": "HX6_Q",
+            "type": "MEASURED",
+            "full_name": "Oxygen to process compressor intercooler 2, heat load",
+            "user_grade": "MANDATORY",
+            "value": 794.1,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{HX6}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to process compressor intercooler 2, heat load: 0.037768 kWh per kg of oxygen"
+        },
+        {
+            "var_name": "HX7_Tin",
+            "type": "MEASURED",
+            "full_name": "Oxygen to process compressor intercooler 3, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 198.7,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{HX7}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to process compressor intercooler 3, inlet temperature"
+        },
+        {
+            "var_name": "HX7_Tout",
+            "type": "MEASURED",
+            "full_name": "Oxygen to process compressor intercooler 3, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{HX7}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to process compressor intercooler 3, outlet temperature"
+        },
+        {
+            "var_name": "HX7_Q",
+            "type": "MEASURED",
+            "full_name": "Oxygen to process compressor intercooler 3, heat load",
+            "user_grade": "MANDATORY",
+            "value": 959.1,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{HX7}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to process compressor intercooler 3, heat load: 0.045615 kWh per kg of oxygen"
+        },
+        {
+            "var_name": "CompO2Proc1",
+            "type": "MEASURED",
+            "full_name": "Oxygen to process compressor, stage 1, to 3.14 bar",
+            "user_grade": "MANDATORY",
+            "value": 712.3,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{CompO2Proc1}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to process compressor, stage 1, to 3.14 bar"
+        },
+        {
+            "var_name": "CompO2Proc2",
+            "type": "MEASURED",
+            "full_name": "Oxygen to process compressor, stage 2, to 9.73 bar",
+            "user_grade": "MANDATORY",
+            "value": 784.7,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{CompO2Proc2}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to process compressor, stage 2, to 9.73 bar"
+        },
+        {
+            "var_name": "CompO2Proc3",
+            "type": "MEASURED",
+            "full_name": "Oxygen to process compressor, stage 3, to 30 bar and 30 °C",
+            "user_grade": "MANDATORY",
+            "value": 783.8,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{CompO2Proc3}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to process compressor, stage 3, to 30 bar and 30 °C"
+        },
+        {
+            "var_name": "HX8_Tin",
+            "type": "MEASURED",
+            "full_name": "Oxygen to export compressor intercooler 1, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 162,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{HX8}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to export compressor intercooler 1, inlet temperature"
+        },
+        {
+            "var_name": "HX8_Tout",
+            "type": "MEASURED",
+            "full_name": "Oxygen to export compressor intercooler 1, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{HX8}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to export compressor intercooler 1, outlet temperature"
+        },
+        {
+            "var_name": "HX8_Q",
+            "type": "MEASURED",
+            "full_name": "Oxygen to export compressor intercooler 1, heat load",
+            "user_grade": "MANDATORY",
+            "value": 724.4,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{HX8}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to export compressor intercooler 1, heat load: 0.034453 kWh per kg of oxygen"
+        },
+        {
+            "var_name": "HX9_Tin",
+            "type": "MEASURED",
+            "full_name": "Oxygen to export compressor intercooler 2, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 169,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{HX9}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to export compressor intercooler 2, inlet temperature"
+        },
+        {
+            "var_name": "HX9_Tout",
+            "type": "MEASURED",
+            "full_name": "Oxygen to export compressor intercooler 2, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{HX9}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to export compressor intercooler 2, outlet temperature"
+        },
+        {
+            "var_name": "HX9_Q",
+            "type": "MEASURED",
+            "full_name": "Oxygen to export compressor intercooler 2, heat load",
+            "user_grade": "MANDATORY",
+            "value": 768.8,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{HX9}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to export compressor intercooler 2, heat load: 0.036565 kWh per kg of oxygen"
+        },
+        {
+            "var_name": "HX10_Tin",
+            "type": "MEASURED",
+            "full_name": "Oxygen to export compressor intercooler 3, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 169.1,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{HX10}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to export compressor intercooler 3, inlet temperature"
+        },
+        {
+            "var_name": "HX10_Tout",
+            "type": "MEASURED",
+            "full_name": "Oxygen to export compressor intercooler 3, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{HX10}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to export compressor intercooler 3, outlet temperature"
+        },
+        {
+            "var_name": "HX10_Q",
+            "type": "MEASURED",
+            "full_name": "Oxygen to export compressor intercooler 3, heat load",
+            "user_grade": "MANDATORY",
+            "value": 783.8,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{HX10}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to export compressor intercooler 3, heat load: 0.037278 kWh per kg of oxygen. The ROSMOSE comment gives 0.035137 kWh per kg of oxygen, which is 738.8 kW: one of the two has swapped digits"
+        },
+        {
+            "var_name": "HX11_Tin",
+            "type": "MEASURED",
+            "full_name": "Oxygen to export compressor intercooler 4, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 169.3,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{HX11}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to export compressor intercooler 4, inlet temperature"
+        },
+        {
+            "var_name": "HX11_Tout",
+            "type": "MEASURED",
+            "full_name": "Oxygen to export compressor intercooler 4, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{HX11}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to export compressor intercooler 4, outlet temperature"
+        },
+        {
+            "var_name": "HX11_Q",
+            "type": "MEASURED",
+            "full_name": "Oxygen to export compressor intercooler 4, heat load",
+            "user_grade": "MANDATORY",
+            "value": 824.4,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{HX11}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to export compressor intercooler 4, heat load: 0.039209 kWh per kg of oxygen"
+        },
+        {
+            "var_name": "HX12_Tin",
+            "type": "MEASURED",
+            "full_name": "Oxygen to export compressor intercooler 5, inlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 168.2,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{in}_{HX12}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to export compressor intercooler 5, inlet temperature"
+        },
+        {
+            "var_name": "HX12_Tout",
+            "type": "MEASURED",
+            "full_name": "Oxygen to export compressor intercooler 5, outlet temperature",
+            "user_grade": "MANDATORY",
+            "value": 30,
+            "physical_unit": "°C",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$T^{out}_{HX12}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to export compressor intercooler 5, outlet temperature"
+        },
+        {
+            "var_name": "HX12_Q",
+            "type": "MEASURED",
+            "full_name": "Oxygen to export compressor intercooler 5, heat load",
+            "user_grade": "MANDATORY",
+            "value": 909.8,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$Q_{HX12}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to export compressor intercooler 5, heat load: 0.043271 kWh per kg of oxygen"
+        },
+        {
+            "var_name": "CompO2Exp1",
+            "type": "MEASURED",
+            "full_name": "Oxygen to export compressor, stage 1, to 2.95 bar",
+            "user_grade": "MANDATORY",
+            "value": 748.0,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{CompO2Exp1}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to export compressor, stage 1, to 2.95 bar"
+        },
+        {
+            "var_name": "CompO2Exp2",
+            "type": "MEASURED",
+            "full_name": "Oxygen to export compressor, stage 2, to 8.43 bar",
+            "user_grade": "MANDATORY",
+            "value": 759.6,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{CompO2Exp2}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to export compressor, stage 2, to 8.43 bar"
+        },
+        {
+            "var_name": "CompO2Exp3",
+            "type": "MEASURED",
+            "full_name": "Oxygen to export compressor, stage 3, to 24.32 bar",
+            "user_grade": "MANDATORY",
+            "value": 757.7,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{CompO2Exp3}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to export compressor, stage 3, to 24.32 bar"
+        },
+        {
+            "var_name": "CompO2Exp4",
+            "type": "MEASURED",
+            "full_name": "Oxygen to export compressor, stage 4, to 70.18 bar",
+            "user_grade": "MANDATORY",
+            "value": 753.2,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{CompO2Exp4}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to export compressor, stage 4, to 70.18 bar"
+        },
+        {
+            "var_name": "CompO2Exp5",
+            "type": "MEASURED",
+            "full_name": "Oxygen to export compressor, stage 5, to 200 bar and 30 °C",
+            "user_grade": "MANDATORY",
+            "value": 748.9,
+            "physical_unit": "kW",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{CompO2Exp5}$",
+            "reference": "Aspen HYSYS model of the cryogenic ASU, via CryoASU_ET.lua",
+            "description": "Oxygen to export compressor, stage 5, to 200 bar and 30 °C"
+        },
+        {
+            "var_name": "SpecInvASU",
+            "type": "LITERATURE",
+            "full_name": "Specific investment cost",
+            "user_grade": "MANDATORY",
+            "value": 50000.0,
+            "physical_unit": "EUR/tpd",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$c_{inv}$",
+            "reference": "CryoASU_ET.lua",
+            "description": "Investment cost per t/day of oxygen: 50 MEUR for 1,000 t/day"
+        },
+        {
+            "var_name": "i",
+            "type": "CONTEXT",
+            "full_name": "Interest rate",
+            "user_grade": "MANDATORY",
+            "value": 0.06,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$i$",
+            "reference": "CryoASU_ET.lua",
+            "description": "Interest rate"
+        },
+        {
+            "var_name": "n",
+            "type": "CONTEXT",
+            "full_name": "Lifetime",
+            "user_grade": "MANDATORY",
+            "value": 40,
+            "physical_unit": "year",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$n$",
+            "reference": "CryoASU_ET.lua",
+            "description": "Lifetime of the ASU"
+        },
+        {
+            "var_name": "CEPCI2020",
+            "type": "CONTEXT",
+            "full_name": "CEPCI 2020",
+            "user_grade": "MANDATORY",
+            "value": 596.2,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$CEPCI_{2020}$",
+            "reference": "CryoASU_ET.lua",
+            "description": "Chemical Engineering Plant Cost Index, 2020"
+        },
+        {
+            "var_name": "CEPCI2014",
+            "type": "CONTEXT",
+            "full_name": "CEPCI 2014",
+            "user_grade": "MANDATORY",
+            "value": 576.1,
+            "physical_unit": "-",
+            "formula": null,
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$CEPCI_{2014}$",
+            "reference": "CryoASU_ET.lua",
+            "description": "Chemical Engineering Plant Cost Index, 2014, the year of the cost data"
+        },
+        {
+            "var_name": "W_cryoASU",
+            "type": "CALCULATED",
+            "full_name": "Electricity of the ASU",
+            "user_grade": "MANDATORY",
+            "value": 6054.17,
+            "physical_unit": "kW",
+            "formula": "CompAir1+CompAir2+CompAir3+CompAir4-Turb1-Turb2",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{ASU}$",
+            "reference": "CryoASU_ET.lua",
+            "description": "Net electricity of the ASU: the four air compressor stages minus the power recovered in the two expanders"
+        },
+        {
+            "var_name": "W_O2proc",
+            "type": "CALCULATED",
+            "full_name": "Electricity of the oxygen compression to 30 bar",
+            "user_grade": "MANDATORY",
+            "value": 2280.8,
+            "physical_unit": "kW",
+            "formula": "CompO2Proc1+CompO2Proc2+CompO2Proc3",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{O_2,30}$",
+            "reference": "CryoASU_ET.lua",
+            "description": "Electricity of the three stages from 1 to 30 bar"
+        },
+        {
+            "var_name": "W_O2exp",
+            "type": "CALCULATED",
+            "full_name": "Electricity of the oxygen compression to 200 bar",
+            "user_grade": "MANDATORY",
+            "value": 3767.4,
+            "physical_unit": "kW",
+            "formula": "CompO2Exp1+CompO2Exp2+CompO2Exp3+CompO2Exp4+CompO2Exp5",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{O_2,200}$",
+            "reference": "CryoASU_ET.lua",
+            "description": "Electricity of the five stages from 1 to 200 bar"
+        },
+        {
+            "var_name": "W_N2plas",
+            "type": "CALCULATED",
+            "full_name": "Electricity of the nitrogen compression to 7 bar",
+            "user_grade": "MANDATORY",
+            "value": 5753,
+            "physical_unit": "kW",
+            "formula": "CompN2Plas1+CompN2Plas2",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{N_2,7}$",
+            "reference": "CryoASU_ET.lua",
+            "description": "Electricity of the two stages from 1 to 7 bar"
+        },
+        {
+            "var_name": "W_N2exp",
+            "type": "CALCULATED",
+            "full_name": "Electricity of the nitrogen compression to 200 bar",
+            "user_grade": "MANDATORY",
+            "value": 18776,
+            "physical_unit": "kW",
+            "formula": "CompN2Exp1+CompN2Exp2+CompN2Exp3+CompN2Exp4+CompN2Exp5",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot W_{N_2,200}$",
+            "reference": "CryoASU_ET.lua",
+            "description": "Electricity of the five stages from 1 to 200 bar"
+        },
+        {
+            "var_name": "Annuity",
+            "type": "CALCULATED",
+            "full_name": "Annualization factor",
+            "user_grade": "MANDATORY",
+            "value": 0.0664615359206755,
+            "physical_unit": "-",
+            "formula": "(i*(i+1)**n)/((i+1)**n-1)",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$a$",
+            "reference": "CryoASU_ET.lua",
+            "description": "Annualization factor over n years at the interest rate i"
+        },
+        {
+            "var_name": "Cinv2_CryoASU",
+            "type": "CALCULATED",
+            "full_name": "Annualized investment of the ASU",
+            "user_grade": "MANDATORY",
+            "value": 1735395.438912944,
+            "physical_unit": "EUR/year",
+            "formula": "SpecInvASU*OXYGEN/1000*24*(CEPCI2020/CEPCI2014)*Annuity",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$C^{inv}_{ASU}$",
+            "reference": "CryoASU_ET.lua",
+            "description": "Annualized investment of the ASU: the specific cost times the oxygen production in t/day, updated from 2014 to 2020 with the CEPCI"
+        }
+    ],
+    "units": [
+        {
+            "unit_description": "This unit separates air into an oxygen-rich stream, 21,026 kg/h at 99.5 % O2 (molar), and a nitrogen-rich stream, 86,417 kg/h, both at 1 bar and 30 °C. The air is compressed to 7.45 bar in four intercooled stages, cooled in the main heat exchanger and separated in a high-pressure and a low-pressure column; two expanders recover part of the power. It takes 6,054 kW of electricity.",
+            "unit_info": {
+                "unit_name": "CryoASUnit",
+                "full_name": "Cryogenic air separation unit",
+                "unit_type": "utility",
+                "minimum_capacity_multiplier": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 100000,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes electricity, and delivers oxygen and nitrogen at 1 bar, which are vented or compressed by the four compressor units. The air is drawn from the atmosphere and is not given as a connector.",
+            "connectors": [
+                {
+                    "name": "ELECTRICITY",
+                    "full_name": "Electricity",
+                    "scope": "GLOBAL",
+                    "type": "ELECTRICITY",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 6054.17,
+                        "formula": "=W_cryoASU",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Electricity of the compressors"
+                },
+                {
+                    "name": "OXYVENT",
+                    "full_name": "Oxygen at 1 bar",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 21025.81,
+                        "formula": "=OXYGEN",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "Oxygen-rich stream, 99.5 % O2 (molar), to be vented or compressed"
+                },
+                {
+                    "name": "NITROVENT",
+                    "full_name": "Nitrogen at 1 bar",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 86417.2,
+                        "formula": "=NITROGEN",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Nitrogen-rich stream, 93 % N2, to be vented or compressed"
+                }
+            ],
+            "heat_streams_description": "The heat of the four intercoolers of the air compressor, released from 78 to 97 °C down to 40 °C.",
+            "heat_streams": [
+                {
+                    "name": "heatexchanger1",
+                    "full_name": "Air compressor intercooler 1",
+                    "description": "Air compressor intercooler 1, gas cooled from 77.95 to 40 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 77.95,
+                        "formula": "=HX1_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 40,
+                        "formula": "=HX1_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 1223.34,
+                        "formula": "=HX1_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "heatexchanger2",
+                    "full_name": "Air compressor intercooler 2",
+                    "description": "Air compressor intercooler 2, gas cooled from 96.72 to 40 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 96.72,
+                        "formula": "=HX2_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 40,
+                        "formula": "=HX2_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 1834.63,
+                        "formula": "=HX2_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "heatexchanger3",
+                    "full_name": "Air compressor intercooler 3",
+                    "description": "Air compressor intercooler 3, gas cooled from 96.33 to 40 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 96.33,
+                        "formula": "=HX3_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 40,
+                        "formula": "=HX3_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 1826.33,
+                        "formula": "=HX3_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "heatexchanger4",
+                    "full_name": "Air compressor intercooler 4",
+                    "description": "Air compressor intercooler 4, gas cooled from 95.64 to 40 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 95.64,
+                        "formula": "=HX4_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 40,
+                        "formula": "=HX4_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 1811.04,
+                        "formula": "=HX4_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                }
+            ],
+            "equipments_description": "One cryogenic ASU, whose investment cost is proportional to its oxygen production.",
+            "equipments": [
+                {
+                    "name": "CryoASU_investment",
+                    "full_name": "Investment of the cryogenic ASU",
+                    "type": "Asset",
+                    "subtype": "",
+                    "reference": "",
+                    "reference_size": {
+                        "full_name": "Reference size of equipment",
+                        "value": 21025.81,
+                        "formula": "=OXYGEN",
+                        "unit": "kg/h"
+                    },
+                    "lifetime": {
+                        "full_name": "Lifetime",
+                        "value": 40,
+                        "formula": "=n",
+                        "unit": "year"
+                    },
+                    "year": {
+                        "full_name": "Year of reference",
+                        "value": 2020,
+                        "formula": null,
+                        "unit": "year"
+                    },
+                    "CAPEX": {
+                        "full_name": "Total investment cost for ref. size",
+                        "value": 26111274.96337442,
+                        "formula": "=SpecInvASU*OXYGEN/1000*24*(CEPCI2020/CEPCI2014)",
+                        "unit": "EUR"
+                    },
+                    "impact": {
+                        "full_name": "Scope 3 environmental impact per unit of ref. size",
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kgCO2-eq"
+                    },
+                    "interest_rate": {
+                        "full_name": "Interest rate",
+                        "value": 0.06,
+                        "formula": "=i",
+                        "unit": "-"
+                    },
+                    "F_BM": {
+                        "full_name": "Bare module factor",
+                        "value": 1,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "capacity_exponent": {
+                        "full_name": "Capacity exponent",
+                        "value": 1,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "parameters": [
+                        {
+                            "parameter": "Annualized investment",
+                            "value": 1735395.438912944,
+                            "formula": "=Cinv2_CryoASU",
+                            "unit": "EUR/year"
+                        }
+                    ]
+                }
+            ],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        },
+        {
+            "unit_description": "This unit compresses the nitrogen of the ASU, 86,417 kg/h at its reference size, from 1 to 7 bar in two intercooled stages, for plasma torches. It takes 5,753 kW of electricity.",
+            "unit_info": {
+                "unit_name": "CryoASUN2ToPlas",
+                "full_name": "Nitrogen compressor to plasma torches",
+                "unit_type": "utility",
+                "minimum_capacity_multiplier": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 100000,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes nitrogen at 1 bar and electricity, and delivers nitrogen at 7 bar.",
+            "connectors": [
+                {
+                    "name": "ELECTRICITY",
+                    "full_name": "Electricity",
+                    "scope": "GLOBAL",
+                    "type": "ELECTRICITY",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 5753,
+                        "formula": "=W_N2plas",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Electricity of the compressors"
+                },
+                {
+                    "name": "NITROVENT",
+                    "full_name": "Nitrogen at 1 bar",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 86417.2,
+                        "formula": "=NITROGEN",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Nitrogen from the ASU"
+                },
+                {
+                    "name": "NITROPLASMA",
+                    "full_name": "Nitrogen at 7 bar",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 86417.2,
+                        "formula": "=NITROGEN",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 7,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "Nitrogen at 7 bar to the plasma torches"
+                }
+            ],
+            "heat_streams_description": "Each of the two intercoolers cools the nitrogen to 30 °C.",
+            "heat_streams": [
+                {
+                    "name": "heatexchanger13",
+                    "full_name": "Nitrogen to plasma compressor intercooler 1",
+                    "description": "Nitrogen to plasma compressor intercooler 1, gas cooled from 109.8 to 30 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 109.8,
+                        "formula": "=HX13_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=HX13_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 2148,
+                        "formula": "=HX13_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "heatexchanger14",
+                    "full_name": "Nitrogen to plasma compressor intercooler 2",
+                    "description": "Nitrogen to plasma compressor intercooler 2, gas cooled from 135.8 to 30 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 135.8,
+                        "formula": "=HX14_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=HX14_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 2867,
+                        "formula": "=HX14_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                }
+            ],
+            "equipments_description": "",
+            "equipments": [],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        },
+        {
+            "unit_description": "This unit compresses the nitrogen of the ASU, 86,417 kg/h at its reference size, from 1 to 200 bar in five intercooled stages, for export in cylinders. It takes 18,776 kW of electricity.",
+            "unit_info": {
+                "unit_name": "CryoASUN2ToExp",
+                "full_name": "Nitrogen compressor to export",
+                "unit_type": "utility",
+                "minimum_capacity_multiplier": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 100000,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes nitrogen at 1 bar and electricity, and delivers nitrogen at 200 bar.",
+            "connectors": [
+                {
+                    "name": "ELECTRICITY",
+                    "full_name": "Electricity",
+                    "scope": "GLOBAL",
+                    "type": "ELECTRICITY",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 18776,
+                        "formula": "=W_N2exp",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Electricity of the compressors"
+                },
+                {
+                    "name": "NITROVENT",
+                    "full_name": "Nitrogen at 1 bar",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 86417.2,
+                        "formula": "=NITROGEN",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Nitrogen from the ASU"
+                },
+                {
+                    "name": "NITROGEN",
+                    "full_name": "Nitrogen at 200 bar",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 86417.2,
+                        "formula": "=NITROGEN",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 200,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "Nitrogen at 200 bar for export"
+                }
+            ],
+            "heat_streams_description": "Each of the five intercoolers cools the nitrogen to 30 °C.",
+            "heat_streams": [
+                {
+                    "name": "heatexchanger15",
+                    "full_name": "Nitrogen to export compressor intercooler 1",
+                    "description": "Nitrogen to export compressor intercooler 1, gas cooled from 129.3 to 30 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 129.3,
+                        "formula": "=HX15_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=HX15_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 2678,
+                        "formula": "=HX15_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "heatexchanger16",
+                    "full_name": "Nitrogen to export compressor intercooler 2",
+                    "description": "Nitrogen to export compressor intercooler 2, gas cooled from 171.1 to 30 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 171.1,
+                        "formula": "=HX16_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=HX16_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 3841,
+                        "formula": "=HX16_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "heatexchanger17",
+                    "full_name": "Nitrogen to export compressor intercooler 3",
+                    "description": "Nitrogen to export compressor intercooler 3, gas cooled from 171.2 to 30 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 171.2,
+                        "formula": "=HX17_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=HX17_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 3910,
+                        "formula": "=HX17_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "heatexchanger18",
+                    "full_name": "Nitrogen to export compressor intercooler 4",
+                    "description": "Nitrogen to export compressor intercooler 4, gas cooled from 171.3 to 30 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 171.3,
+                        "formula": "=HX18_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=HX18_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 4088,
+                        "formula": "=HX18_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "heatexchanger19",
+                    "full_name": "Nitrogen to export compressor intercooler 5",
+                    "description": "Nitrogen to export compressor intercooler 5, gas cooled from 170.5 to 30 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 170.5,
+                        "formula": "=HX19_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=HX19_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 4415,
+                        "formula": "=HX19_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                }
+            ],
+            "equipments_description": "",
+            "equipments": [],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        },
+        {
+            "unit_description": "This unit compresses the oxygen of the ASU, 21,026 kg/h at its reference size, from 1 to 30 bar in three intercooled stages, for autothermal reformers or entrained-flow gasifiers. It takes 2,281 kW of electricity.",
+            "unit_info": {
+                "unit_name": "CryoASUO2ToProc",
+                "full_name": "Oxygen compressor to the process",
+                "unit_type": "utility",
+                "minimum_capacity_multiplier": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 100000,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes oxygen at 1 bar and electricity, and delivers oxygen at 30 bar to the process.",
+            "connectors": [
+                {
+                    "name": "ELECTRICITY",
+                    "full_name": "Electricity",
+                    "scope": "GLOBAL",
+                    "type": "ELECTRICITY",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 2280.8,
+                        "formula": "=W_O2proc",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Electricity of the compressors"
+                },
+                {
+                    "name": "OXYVENT",
+                    "full_name": "Oxygen at 1 bar",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 21025.81,
+                        "formula": "=OXYGEN",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Oxygen from the ASU"
+                },
+                {
+                    "name": "OXYPROCESS",
+                    "full_name": "Oxygen at 30 bar",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 21025.81,
+                        "formula": "=OXYGEN",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "Oxygen at 30 bar to the process"
+                }
+            ],
+            "heat_streams_description": "The first two intercoolers cool the oxygen to 56 °C and the last one to 30 °C.",
+            "heat_streams": [
+                {
+                    "name": "heatexchanger5",
+                    "full_name": "Oxygen to process compressor intercooler 1",
+                    "description": "Oxygen to process compressor intercooler 1, gas cooled from 155.6 to 56 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 155.6,
+                        "formula": "=HX5_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 56,
+                        "formula": "=HX5_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 548.6,
+                        "formula": "=HX5_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "heatexchanger6",
+                    "full_name": "Oxygen to process compressor intercooler 2",
+                    "description": "Oxygen to process compressor intercooler 2, gas cooled from 198.3 to 56 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 198.3,
+                        "formula": "=HX6_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 56,
+                        "formula": "=HX6_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 794.1,
+                        "formula": "=HX6_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "heatexchanger7",
+                    "full_name": "Oxygen to process compressor intercooler 3",
+                    "description": "Oxygen to process compressor intercooler 3, gas cooled from 198.7 to 30 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 198.7,
+                        "formula": "=HX7_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=HX7_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 959.1,
+                        "formula": "=HX7_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                }
+            ],
+            "equipments_description": "",
+            "equipments": [],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        },
+        {
+            "unit_description": "This unit compresses the oxygen of the ASU, 21,026 kg/h at its reference size, from 1 to 200 bar in five intercooled stages, for export. It takes 3,767 kW of electricity.",
+            "unit_info": {
+                "unit_name": "CryoASUO2ToExp",
+                "full_name": "Oxygen compressor to export",
+                "unit_type": "utility",
+                "minimum_capacity_multiplier": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "-"
+                },
+                "maximum_capacity_multiplier": {
+                    "value": 100000,
+                    "formula": null,
+                    "unit": "-"
+                }
+            },
+            "connectors_description": "The unit takes oxygen at 1 bar and electricity, and delivers oxygen at 200 bar.",
+            "connectors": [
+                {
+                    "name": "ELECTRICITY",
+                    "full_name": "Electricity",
+                    "scope": "GLOBAL",
+                    "type": "ELECTRICITY",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 3767.4,
+                        "formula": "=W_O2exp",
+                        "unit": "kW"
+                    },
+                    "temperature": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "pressure": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Electricity of the compressors"
+                },
+                {
+                    "name": "OXYVENT",
+                    "full_name": "Oxygen at 1 bar",
+                    "scope": "GLOBAL",
+                    "type": "RAW MATERIAL",
+                    "direction": "IN",
+                    "flow": {
+                        "value": 21025.81,
+                        "formula": "=OXYGEN",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 1,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "No",
+                    "description": "Oxygen from the ASU"
+                },
+                {
+                    "name": "OXYGEN",
+                    "full_name": "Oxygen at 200 bar",
+                    "scope": "GLOBAL",
+                    "type": "PRODUCT",
+                    "direction": "OUT",
+                    "flow": {
+                        "value": 21025.81,
+                        "formula": "=OXYGEN",
+                        "unit": "kg/h"
+                    },
+                    "temperature": {
+                        "value": 30,
+                        "formula": null,
+                        "unit": "°C"
+                    },
+                    "pressure": {
+                        "value": 200,
+                        "formula": null,
+                        "unit": "bar"
+                    },
+                    "enthalpy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "entropy": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "vapor_fraction": {
+                        "value": 1.0,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "phase": {
+                        "value": "(V)",
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "composition": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "method": "-",
+                    "reference_stream": "Yes",
+                    "description": "Oxygen at 200 bar for export"
+                }
+            ],
+            "heat_streams_description": "Each of the five intercoolers cools the oxygen to 30 °C.",
+            "heat_streams": [
+                {
+                    "name": "heatexchanger8",
+                    "full_name": "Oxygen to export compressor intercooler 1",
+                    "description": "Oxygen to export compressor intercooler 1, gas cooled from 162 to 30 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 162,
+                        "formula": "=HX8_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=HX8_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 724.4,
+                        "formula": "=HX8_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "heatexchanger9",
+                    "full_name": "Oxygen to export compressor intercooler 2",
+                    "description": "Oxygen to export compressor intercooler 2, gas cooled from 169 to 30 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 169,
+                        "formula": "=HX9_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=HX9_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 768.8,
+                        "formula": "=HX9_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "heatexchanger10",
+                    "full_name": "Oxygen to export compressor intercooler 3",
+                    "description": "Oxygen to export compressor intercooler 3, gas cooled from 169.1 to 30 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 169.1,
+                        "formula": "=HX10_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=HX10_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 783.8,
+                        "formula": "=HX10_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "heatexchanger11",
+                    "full_name": "Oxygen to export compressor intercooler 4",
+                    "description": "Oxygen to export compressor intercooler 4, gas cooled from 169.3 to 30 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 169.3,
+                        "formula": "=HX11_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=HX11_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 824.4,
+                        "formula": "=HX11_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                },
+                {
+                    "name": "heatexchanger12",
+                    "full_name": "Oxygen to export compressor intercooler 5",
+                    "description": "Oxygen to export compressor intercooler 5, gas cooled from 168.2 to 30 °C",
+                    "type": "Hot",
+                    "inlet_temperature": {
+                        "value": 168.2,
+                        "formula": "=HX12_Tin",
+                        "unit": "°C"
+                    },
+                    "outlet_temperature": {
+                        "value": 30,
+                        "formula": "=HX12_Tout",
+                        "unit": "°C"
+                    },
+                    "inlet_enthalpy": {
+                        "value": 909.8,
+                        "formula": "=HX12_Q",
+                        "unit": "kW"
+                    },
+                    "outlet_enthalpy": {
+                        "value": 0,
+                        "formula": null,
+                        "unit": "kW"
+                    },
+                    "spec_heat_cap": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "mass_flow": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "dtmin": {
+                        "value": 8,
+                        "formula": "=dtmin_gas",
+                        "unit": "°C"
+                    },
+                    "heat_transfer_coef": {
+                        "value": null,
+                        "formula": null,
+                        "unit": "-"
+                    },
+                    "heat_cascade": "DEFAULT",
+                    "reference_stream": "No"
+                }
+            ],
+            "equipments_description": "",
+            "equipments": [],
+            "operating_cost_description": "",
+            "operating_cost": {
+                "fixed_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/year"
+                },
+                "variable_operating_cost": {
+                    "value": 0,
+                    "formula": null,
+                    "unit": "EUR/h"
+                }
+            }
+        }
+    ],
+    "custom_constraints": [
+        {
+            "name": "",
+            "equation": "",
+            "type": ""
+        }
+    ]
+}

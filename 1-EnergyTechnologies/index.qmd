@@ -10,6 +10,6 @@ Utility and energy conversion technology models, by category.
 | [Heat recovery and upgrade](HeatRecoveryAndUpgrade/index.qmd) | [Heat pump](HeatRecoveryAndUpgrade/HeatPump/index.qmd) | 0 |
 | [Mass and energy storage](MassAndEnergyStorage/index.qmd) | — | 4 |
 | [Renewables](Renewables/index.qmd) | [Photovoltaic panels](Renewables/PVpanels/index.qmd), [Wind turbine](Renewables/WindTurbine/index.qmd) | 0 |
-| [Air separation](AirSeparation/index.qmd) | — | 1 |
+| [Air separation](AirSeparation/index.qmd) | [Cryogenic air separation unit](AirSeparation/CryoASU/index.qmd) | 1 |
 | [Energy systems and grids](EnergySystemsAndGrids/index.qmd) | — | 6 |
 <!-- category-overview:end -->

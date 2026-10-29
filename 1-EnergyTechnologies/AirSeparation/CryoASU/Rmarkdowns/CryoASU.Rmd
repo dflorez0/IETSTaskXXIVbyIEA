@@ -1,0 +1,467 @@
+### Cryogenic air separation unit {-}
+
+```{rosmose}
+: OSMOSE ET cryoASU
+```
+
+Many industrial processes require the continuous supply of pure oxygen or nitrogen for its adequate operation. Examples of applications that may need pure oxygen are the autothermal reformers of syngas conditioning sections, and oxygen-blown entrained and fluidized bed gasifiers. Moreover, heating applications employing pure oxygen as oxidant instead of air, also known as oxycombustion processes, aim to achieve higher tempratures by avoiding dilution of the flue gases with the nitrogen in the air. Nitrogen production is also an important industrial activity, since nitrogen has innumerable applications, such as nitrogen fertilizers production, plasma torch gases and unreactive atmospheres.
+
+Atmospheric air is the most obvious source of nitrogen, whereas oxygen could be produced either from air splitting or from the electrolysis of water. Different technologies are available to separate the nitrogen and oxygen present in the air, including membrane, adsorption and cryogenic air separation units (ASU). The cryogenic ASU is the most adequate when large oxygen production yields at high purity are necessary [1]. In this type of air separation unit, the components of the mixture can be separated by distillation in a double column arrangement thanks to their different cryogenic boiling points. 
+
+```{r cryo_ASU, out.width='80%', fig.align='center', fig.cap='Cryogenic air separation unit structure'}
+knitr::include_graphics('cryoASU.svg')
+```
+
+In this unit, first normal air at 25°C and 1 bar is compressed to around 7 bar and 40°C. About 95% of the compressed air is cooled down in the main recovery heat exchanger (-170°C) and then it is fed into a high pressure separation column (HPC) [2]. The remaining 5% of the compressed air (-139°C) is expanded to around 3 bar before entering the low-pressure separation column (LPC). Next, both the liquid bottoms and vapor overhead outlets of the HPC are cooled down by using the nitrogen-rich stream coming from the LPC overhead, and then expanded and sent to the LPC, wherein further air separation occurs. Both columns are thermally integrated, as the HPC condenser provides the duty required by the LPC reboiler. A last expansion step (1 bar) of the nitrogen rich stream produced in the LPC allows for an increased cooling effect in the main heat exchanger [3]. The main products of the cryogenic ASU are an oxygen-rich stream (99.5% molar, 1 bar) and a nitrogen-rich stream [4].  
+
+
+Depending on the pressure levels at which the industrial applications demand oxygen and/or nitrogen, either of them could be used directly at low pressure (e.g. at 1-7 bar in oxycombustion or plasma furnaces), or further compressed to medium (e.g. 30 bar, for autothermal reformers and entrained flow gasifiers) or high pressures (200 bar, to export). If some of those gases is not used or commercialized, it can be vented to the environment, entailing a reduction of efficiency. 
+
+Some parameters of the cryogenic air separation unit (ASU), including thermo-physical properties of substances, costing parameters, empirically determined values reported in literature and others values calculated using flowsheeting tools (e.g. Aspen(R) Hysys) are summarized in the following chunk of code, whereas the commentaries provide further details on the meaning and relevance of each term.
+
+```{rosmose} 
+dtmin_gas = 8 [C] # Assumed dTmin contribution of intercooling of air compressors 
+
+
+# ##### Parameters related to the compression of fresh air into the cryogenic ASU
+HX1_Tin = 77.95 [C] # Air compressor intercooler 1 
+HX1_Tout = 40 [C] # Air compressor intercooler 1
+HX1_Q = 1223.34 [kW] # Air compressor intercooler 1
+
+
+HX2_Tin = 96.72 [C] # Air compressor intercooler 2 
+HX2_Tout = 40 [C] # Air compressor intercooler 2
+HX2_Q = 1834.63 [kW] # Air compressor intercooler 2
+
+
+HX3_Tin = 96.33 [C] # Air compressor intercooler 3 
+HX3_Tout = 40 [C] # Air compressor intercooler 3
+HX3_Q = 1826.33 [kW] # Air compressor intercooler 3
+
+
+HX4_Tin = 95.64 [C] # Air compressor intercooler 4  
+HX4_Tout = 40 [C] # Air compressor intercooler 4 
+HX4_Q = 1811.04 [kW] # Air compressor intercooler 4  
+
+
+CompAir1 = 1698.68 [kW] # Air inlet at 1 bar and 30 °C
+CompAir2 = 1825.90 [kW] # Air compression
+CompAir3 = 1812.07 [kW] # Air compression
+CompAir4 = 1788.02 [kW] # Air compression to 7.45 bar and 40 °C
+
+
+Turb1 = 1027.85 [kW] # Expander 1 for power recovery
+Turb2 = 42.65 [kW] # Expander 2 for power recovery
+
+
+# ##### Produced oxygen and nitrogen mass flows
+
+OXYGEN = 21025.81 [kg/h] # produced oxygen at 1 bar, 30 °C, 99.5% O2, it can be consumed in ATR syngas conditioning, FT-ATR loop, Entrained Gasifier and Oxycombustion, as well as exported or vented
+NITROGEN = 86417.20 [kg/h] # produced nitrogen at 1 bar, 30 °C, 93% N2, it can be consumed in plasma torch, as well as exported or vented
+
+
+# ##### Parameters related to the compression of the nitrogen consumed in the plasma torch at low pressure (7 bar and 30°C):
+HX13_Tin = 109.8 [C] # Nitrogen to plasma compressor intercooler 1
+HX13_Tout = 30 [C]  # Nitrogen to plasma compressor intercooler 1
+HX13_Q = 2148 [kW] # 2148 kW / (86417.20 kg/h) = 0.024856 kWh/kg_N2 in hysys
+
+
+HX14_Tin = 135.8 [C] # Nitrogen to plasma compressor intercooler 2
+HX14_Tout = 30 [C] # Nitrogen to plasma compressor intercooler 2
+HX14_Q = 2867 [kW] # 2867 kW / (86417.20 kg/h) = 0.033176 kWh/kg_N2 in hysys
+
+
+CompN2Plas1 = 2912 [kW] # Nitrogen inlet at 1 bar and 1 °C  2912 kW / (86417.20 kg/h) = 0.033696 kWh/kg_N2 in hysys
+CompN2Plas2 = 2841 [kW] # Nitrogen outlet at 7 bar and 30°C  2841 kW / (86417.20 kg/h) = 0.032875 kWh/kg_N2 in hysys
+
+
+# ##### Parameters related to the compression of the nitrogen exported at high pressure (200 bar and 30°C):
+HX15_Tin = 129.3 [C] # Nitrogen to export compressor intercooler 1
+HX15_Tout = 30 [C] # Nitrogen to export compressor intercooler 1
+HX15_Q = 2678 [kW] # 2678 kW / (86417.20 kg/h) = 0.030989 kWh/kg_N2 in hysys
+
+
+HX16_Tin = 171.1 [C] # Nitrogen to export compressor intercooler 2
+HX16_Tout = 30 [C] # Nitrogen to export compressor intercooler 2
+HX16_Q = 3841 [kW] # 3841 kW / (86417.20 kg/h) = 0.044447 kWh/kg_N2 in hysys
+
+
+HX17_Tin = 171.2 [C] # Nitrogen to export compressor intercooler 3
+HX17_Tout = 30 [C] # Nitrogen to export compressor intercooler 3
+HX17_Q = 3910 [kW] # 3910 kW / (86417.20 kg/h) = 0.045245 kWh/kg_N2 in hysys
+
+
+HX18_Tin = 171.3 [C] # Nitrogen to export compressor intercooler 4
+HX18_Tout = 30 [C] # Nitrogen to export compressor intercooler 4
+HX18_Q = 4088 [kW] # 4088 kW / (86417.20 kg/h) = 0.047305 kWh/kg_N2 in hysys
+
+
+HX19_Tin = 170.5 [C] # Nitrogen to export compressor intercooler 5
+HX19_Tout = 30 [C] # # Nitrogen to export compressor intercooler 5
+HX19_Q = 4415 [kW] #  4415 kW / (86417.20 kg/h) = 0.051089 kWh/kg_N2 in hysys
+
+CompN2Exp1 = 3440 [kW] # Nitrogen inlet at 1 bar and 1 °C and compressed to 2.95 bar
+CompN2Exp2 = 3804 [kW] # Intermediate pressure 8.43 bar
+CompN2Exp3 = 3806 [kW] # Intermediate pressure 24.32 bar
+CompN2Exp4 = 3821 [kW] # Intermediate pressure 70.18 bar
+CompN2Exp5 = 3905 [kW] # Nitrogen outlet at 200 bar and 30°C
+
+
+# ##### Parameters related to the compression of the oxygen consumed in the processes operating at middle pressure (30 bar and 30°C): ATR syngas conditioning, FT-ATR loop, Entrained Gasifier
+HX5_Tin = 155.6 [C] # Oxygen to process compressor intercooler 1
+HX5_Tout = 56 [C] # Oxygen to process compressor intercooler 1
+HX5_Q = 548.6[kW] # 548.6 kW / (21025.91 kg/h) = 0.026091 kWh/kg_O2 in hysys
+
+
+HX6_Tin = 198.3 [C] # Oxygen to process compressor intercooler 2
+HX6_Tout = 56 [C] # # Oxygen to process compressor intercooler 2
+HX6_Q = 794.1 [kW] # 794.1 kW / (21025.91 kg/h) = 0.037767 kWh/kg_O2 in hysys
+
+
+HX7_Tin = 198.7 [C] # Oxygen to process compressor intercooler 3
+HX7_Tout = 30 [C] #  # Oxygen to process compressor intercooler 3
+HX7_Q = 959.1 [kW] #  959.1 kW / (21025.91 kg/h) = 0.045615 kWh/kg_O2 in hysys
+
+
+CompO2Proc1 = 712.3 [kW] # Oxygen inlet at 1 bar and 25°C and compressed to 3.14 bar
+CompO2Proc2 = 784.7[kW] # Intermediate pressure 9.73 bar
+CompO2Proc3 = 783.8 [kW] # Oxygen outlet at 30 bar and 30°C
+
+
+# ##### Parameters related to the compression of the oxygen exported at high pressure (200 bar and 30°C):
+
+
+HX8_Tin = 162 [C] # Oxygen to export compressor intercooler 1
+HX8_Tout = 30 [C] # Oxygen to export compressor intercooler 1
+HX8_Q = 724.4 [kW] # 724.4 kW / (21025.91 kg/h) = 0.034453 kWh/kg_O2 in hysys
+
+# O2 intercooler 2
+HX9_Tin = 169 [C] # Oxygen to export compressor intercooler 2
+HX9_Tout = 30 [C] # Oxygen to export compressor intercooler 2
+HX9_Q = 768.8 [kW] # 768.8 kW / (21025.91 kg/h) = 0.036564 kWh/kg_O2 in hysys
+
+# O2 intercooler 3
+HX10_Tin = 169.1 [C] # Oxygen to export compressor intercooler 3
+HX10_Tout = 30 [C] # Oxygen to export compressor intercooler 3
+HX10_Q = 783.8 [kW] # 783.8 kW / (21025.91 kg/h) = 0.035137 kWh/kg_O2 in hysys
+
+# O2 intercooler 4
+HX11_Tin = 169.3 [C] # Oxygen to export compressor intercooler 4
+HX11_Tout = 30 [C] # Oxygen to export compressor intercooler 4
+HX11_Q = 824.4 [kW] # 824.4 kW / (21025.910 kg/h) = 0.039208 kWh/kg_O2 in hysys
+
+# O2 intercooler 5
+HX12_Tin = 168.2 [C] # Oxygen to export compressor intercooler 5
+HX12_Tout = 30 [C] # # Oxygen to export compressor intercooler 5
+HX12_Q = 909.8 [kW] # 909.8 kW / (21025.91 kg/h) = 0.043270 kWh/kg_O2 in hysys
+
+CompO2Exp1 = 748.0 [kW] # Oxygen inlet at 1 bar and 1 °C and compressed to 2.95 bar
+CompO2Exp2 = 759.6 [kW] # Intermediate pressure 8.43 bar
+CompO2Exp3 = 757.7 [kW] # Intermediate pressure 24.32 bar
+CompO2Exp4 = 753.2 [kW] # Intermediate pressure 70.18 bar
+CompO2Exp5 = 748.9 [kW] # Oxygen outlet at 200 bar and 30°C
+
+
+# Economic parameters of the air separation unit (ASU)
+SpecInvASU = 50E6/1000 [Eur/tpdO2] #See 
+i = 0.06 # Interest rate
+n = 40 # Lifetime
+CEPCI2020 = 596.2 # Current CEPCI index 
+CEPCI2014 = 576.1 # Old CEPCI index   
+```
+
+Based on the previous parameters, it is possible to calcualte the total power consumed by each one of the compression processes, either for running the cryogenic air separation unit and for either exporting and domestic utilization purposes. The total power consumed in the cryogenic ASU unit is given by `W_cryoASU`, which is the sum of the fresh air compression power minus the amount of power recovered by means of the gases expansion in the expanders/turbines. The total power consumed for compressing the oxygen-rich stream to 30 bar is `W_O2proc`, whereas the power required to compress the oxygen-rich stream to 200 bar for exportation is `W_O2exp`. Finally, the power required for compressing the nitrogen-rich stream to plasma torch is `W_N2plas`, while the total power consumption for nitrogen compression to 200 bar for exportation is `W_N2exp`.
+
+Finally, the annualization factor can be determined based on the assumed life time of the energy technology and the interest rate adopted to calculate the annualized investment cost.
+
+
+```{rosmose} 
+W_cryoASU = (%CompAir1% + %CompAir2% + %CompAir3% + %CompAir4%-%Turb1%-%Turb2%) [kW] # Total air compression in cryoASU
+
+W_O2proc = (%CompO2Proc1% + %CompO2Proc2% + %CompO2Proc3%) [kW] # compression if oxygen consumption processes used
+
+W_O2exp = (%CompO2Exp1% + %CompO2Exp2% + %CompO2Exp3% + %CompO2Exp4% + %CompO2Exp5%) [kW] # Total oxygen export compression power
+
+W_N2plas = (%CompN2Plas1% + %CompN2Plas2%) [kW] # compression if plasma used
+
+W_N2exp = (%CompN2Exp1% + %CompN2Exp2% + %CompN2Exp3% + %CompN2Exp4% + %CompN2Exp5%) [kW] # compression if exported in cylinders of 200 bar
+
+
+Annuity = (%i%*(%i%+1)**%n%)/((%i%+1)**%n%-1) [-] # Annualization factor
+Cinv2_CryoASU = %SpecInvASU%*%OXYGEN%/1000*24*(%CEPCI2020%/%CEPCI2014%)*%Annuity% [Eur/y] # Investment
+```
+
+<!-- ## With this chunk of code, the input and calculated parameters can be displayed{-} -->
+<!-- ```{rosmose} -->
+<!-- : TAGS DISPLAY_TAGS [nvuD] -->
+<!-- ``` -->
+
+
+**Layers of the cryoASU model**
+
+The concept of layers in ROsmose language is equivalent to pipes through which the mass and resources balances are closed. For instance, the energy consumed by the cryogenic air separation unit in the form of electricity (in kW) is imported through the `Electricity` layer from a electricity supply grid located in the market model. In turn, the `O_{2}` and `N_{2}` produced at different pressure levels can be sent to the respective layers to guarantee consistency in the mass and energy balances. These layers can be defined as shown in the following table:
+
+
+```{rosmose} 
+: OSMOSE LAYERS cryoASU
+
+|Layer      |Display name|shortname  |Unit    |Color  |
+|:----------|:-----------|:----------|:-------|:------|
+|Electricity|Electricity |electricity|kW      |yellow |
+|Oxygen     |Oxygen      |oxygen     |kg/h    |blue   |
+|Oxyprocess |Oxyprocess  |oxyproc    |kg/h    |black  |
+|Oxyvent    |oxyvent     |oxyvent    |kg/h    |red    |
+|Nitrogen   |Nitrogen    |nitrogen   |kg/h    |green  |
+|Nitroplasma|Nitroplasma |nitroplasma|kg/h    |white  |
+|Nitrovent  |Nitrovent   |nitrovent  |kg/h    |grey   |
+```
+
+
+
+**Units of the cryoASU model**
+
+The model of the cryogenic air separation unit (i.e. cryoASU) consists on different units, namely, the `CryoASUnit` unit, which is the utility unit that separates the `O_{2}` and `N_{2}` in the air. Other auxiliary units, such as the `CryoASUN2ToPlas`, `CryoASUN2ToExp`, `CryoASUO2ToProc`, `CryoASUO2ToExp` units are resposible for compressing the different streams of `O_{2}` and `N_{2}` produced to the desirable levels of pressure for each specific application. Since those auxiliary units are also utility units, it means that their size (continuous) and the existence (binary) can be regarded as optimization variables used to minimize the fuel consumption or any other targets. To this end, other parameters of these units, such as the lower `fmin` and upper `fmax` sizing bounds, must be specified in the Parameters tables shown next. Other operating costs (`cost1`:fixed, in Eur/y, `cost2`:variable in Eur/kWh/y or Eur/kg/y) and investment costs (`cinv1`:fixed in Eur/y; `cinv2`:variable in Eur/kW/y or Eur/kg/y) can be also specified.
+
+
+```{rosmose} 
+: OSMOSE UNIT cryoASU
+
+|unit name      |type   |
+|:--------------|:------|
+|CryoASUnit     |Utility|
+|CryoASUN2ToPlas|Utility|
+|CryoASUN2ToExp |Utility|
+|CryoASUO2ToProc|Utility|
+|CryoASUO2ToExp |Utility|
+```
+
+
+In the following tables, the mentioned sizing and economic parameters, along with the balances over the layers for both resource and heat streams of the different units are defined in the Rosmose language. It must be carefully inserted each one of the `%tags%` defined in the previous chunks. It is important to define the direction of the mass or resource streams from the perspective of each unit. For instance, the compression units demand oxygen or nitrogen from the `CryoASUnit` unit; thus, in the former the oxygen flow enters the unit (in) together with electricity, whereas in the latter the produced oxygen leaves the system at low pressure (out). It is important to highlight that the layers for the heat streams balance are not explicitly defined, since a `DefaultHeatCascade` is already implemented for all the units in Rosmose. The heat streams defined as a collection of source and target temperatures with their respective heat flows (calculated as `H_{out}-H_{in}` in kW) are used to apply the optimization routine that minimizes the energy requirement (MER) by maximizing the waste heat recovery.
+
+
+**Parameters of the CryoASUnit**
+
+```{rosmose}
+: OSMOSE UNIT_PARAM CryoASUnit
+
+|cost1  |cost2  |cinv1  |cinv2          |imp1   |imp2   |fmin   |fmax   |
+|:------|:------|:------|:--------------|:------|:------|:------|:------|
+|0      |0      |0      |%Cinv2_CryoASU%|0      |0      |0      |100000 |
+```
+
+**Cryogenic air separation unit resource and heat streams**
+
+
+**Resource Streams**
+
+Defining the resource streams
+
+```{rosmose}
+: OSMOSE RESOURCE_STREAMS CryoASUnit
+
+|layer      |direction|value                |
+|:----------|:--------|:--------------------|
+|Electricity| in      |%W_cryoASU%          |
+|Oxyvent    | out     |%OXYGEN%             |
+|Nitrovent  | out     |%NITROGEN%           |
+```
+
+**Heat Streams**
+
+Defining the heat streams
+
+```{rosmose}
+: OSMOSE HEAT_STREAMS CryoASUnit
+
+|name          |Tin        |Tout       |Hin        |Hout       |DT min/2   |alpha|
+|:-------------|:----------|:----------|:----------|:----------|:----------|:----|
+|heatexchanger1|%HX1_Tin%  |%HX1_Tout% |%HX1_Q%    |0          |%dtmin_gas%|1    |
+|heatexchanger2|%HX2_Tin%  |%HX2_Tout% |%HX2_Q%    |0          |%dtmin_gas%|1    |
+|heatexchanger3|%HX3_Tin%  |%HX3_Tout% |%HX3_Q%    |0          |%dtmin_gas%|1    |
+|heatexchanger4|%HX4_Tin%  |%HX4_Tout% |%HX4_Q%    |0          |%dtmin_gas%|1    |
+```
+
+
+**Parameters of the CryoASUN2ToPlas unit**
+
+```{rosmose}
+: OSMOSE UNIT_PARAM CryoASUN2ToPlas
+
+|cost1  |cost2  |cinv1  |cinv2  |imp1   |imp2   |fmin   |fmax   |
+|:------|:------|:------|:------|:------|:------|:------|:------|
+|0      |0      |0      |0      |0      |0      |0      |100000 |
+```
+
+**CryoASUN2ToPlas Streams**
+
+**Resource Streams**
+
+Defining the resource streams
+
+```{rosmose}
+: OSMOSE RESOURCE_STREAMS CryoASUN2ToPlas
+
+|layer      |direction|value       |
+|:----------|:--------|:-----------|
+|Electricity| in      |%W_N2plas%  |
+|Nitrovent  | in      |%NITROGEN%  |
+|Nitroplasma| out     |%NITROGEN%  |
+```
+
+
+***Heat Streams**
+
+Defining the heat streams
+
+```{rosmose}
+: OSMOSE HEAT_STREAMS CryoASUN2ToPlas
+
+|name           |Tin        |Tout        |Hin        |Hout       |DT min/2   |alpha|
+|:--------------|:----------|:-----------|:----------|:----------|:----------|:----|
+|heatexchanger13|%HX13_Tin% |%HX13_Tout% |%HX13_Q%   |0          |%dtmin_gas%|1    |
+|heatexchanger14|%HX14_Tin% |%HX14_Tout% |%HX14_Q%   |0          |%dtmin_gas%|1    |
+```
+
+**Parameters of the CryoASUN2ToExp unit**
+
+```{rosmose}
+: OSMOSE UNIT_PARAM CryoASUN2ToExp
+
+|cost1  |cost2  |cinv1  |cinv2  |imp1   |imp2   |fmin   |fmax   |
+|:------|:------|:------|:------|:------|:------|:------|:------|
+|0      |0      |0      |0      |0      |0      |0      |100000 |
+```
+
+**CryoASUN2ToExp Streams**
+
+**Resource Streams**
+
+Defining the resource streams 
+
+
+```{rosmose}
+: OSMOSE RESOURCE_STREAMS CryoASUN2ToExp
+
+|layer      |direction|value                |
+|:----------|:--------|:--------------------|
+|Electricity| in      |%W_N2exp%            |
+|Nitrovent  | in      |%NITROGEN%           |
+|Nitrogen   | out     |%NITROGEN%           |
+```
+
+
+**Heat Streams**
+
+Defining the heat streams
+
+```{rosmose}
+: OSMOSE HEAT_STREAMS CryoASUN2ToExp
+
+|name           |Tin        |Tout        |Hin      |Hout       |DT min/2   |alpha|
+|:--------------|:----------|:-----------|:--------|:----------|:----------|:----|
+|heatexchanger15|%HX15_Tin% |%HX15_Tout% |%HX15_Q% |0          |%dtmin_gas%|1    |
+|heatexchanger16|%HX16_Tin% |%HX16_Tout% |%HX16_Q% |0          |%dtmin_gas%|1    |
+|heatexchanger17|%HX17_Tin% |%HX17_Tout% |%HX17_Q% |0          |%dtmin_gas%|1    |
+|heatexchanger18|%HX18_Tin% |%HX18_Tout% |%HX18_Q% |0          |%dtmin_gas%|1    |
+|heatexchanger19|%HX19_Tin% |%HX19_Tout% |%HX19_Q% |0          |%dtmin_gas%|1    |
+```
+
+**Parameters of the CryoASUO2ToProc unit**
+
+```{rosmose}
+: OSMOSE UNIT_PARAM CryoASUO2ToProc
+
+|cost1  |cost2  |cinv1  |cinv2  |imp1   |imp2   |fmin   |fmax   |
+|:------|:------|:------|:------|:------|:------|:------|:------|
+|0      |0      |0      |0      |0      |0      |0      |100000 |
+```
+
+**CryoASUO2ToProc Streams**
+
+**Resource Streams**
+
+Defining the resource streams
+
+```{rosmose}
+: OSMOSE RESOURCE_STREAMS CryoASUO2ToProc
+
+|layer      |direction|value                |
+|:----------|:--------|:--------------------|
+|Electricity| in      |%W_O2proc%           |
+|Oxyvent    | in      |%OXYGEN%             |
+|Oxyprocess | out     |%OXYGEN%             |
+```
+
+
+**Heat Streams**
+
+Defining the heat streams
+
+```{rosmose}
+: OSMOSE HEAT_STREAMS CryoASUO2ToProc
+
+|name          |Tin        |Tout       |Hin        |Hout       |DT min/2   |alpha|
+|:-------------|:----------|:----------|:----------|:----------|:----------|:----|
+|heatexchanger5|%HX5_Tin%  |%HX5_Tout% |%HX5_Q%    |0          |%dtmin_gas%|1    |
+|heatexchanger6|%HX6_Tin%  |%HX6_Tout% |%HX6_Q%    |0          |%dtmin_gas%|1    |
+|heatexchanger7|%HX7_Tin%  |%HX7_Tout% |%HX7_Q%    |0          |%dtmin_gas%|1    |
+```
+
+**Parameters of the CryoASUO2ToExp unit**
+
+```{rosmose}
+: OSMOSE UNIT_PARAM CryoASUO2ToExp
+
+|cost1  |cost2  |cinv1  |cinv2  |imp1   |imp2   |fmin   |fmax   |
+|:------|:------|:------|:------|:------|:------|:------|:------|
+|0      |0      |0      |0      |0      |0      |0      |100000 |
+```
+
+**CryoASUO2ToExp Streams**
+
+**Resource Streams**
+
+Defining the resource streams
+
+```{rosmose}
+: OSMOSE RESOURCE_STREAMS CryoASUO2ToExp
+
+|layer      |direction|value                |
+|:----------|:--------|:--------------------|
+|Electricity| in      |%W_O2exp%            |
+|Oxyvent    | in      |%OXYGEN%             |
+|Oxygen     | out     |%OXYGEN%             |
+```
+
+
+**Heat Streams**
+
+Defining the heat streams
+
+```{rosmose}
+: OSMOSE HEAT_STREAMS CryoASUO2ToExp
+
+|name           |Tin        |Tout       |Hin        |Hout       |DT min/2   |alpha|
+|:--------------|:----------|:----------|:----------|:----------|:----------|:----|
+|heatexchanger8 |%HX8_Tin%  |%HX8_Tout% |%HX8_Q%    |0          |%dtmin_gas%|1    |
+|heatexchanger9 |%HX9_Tin%  |%HX9_Tout% |%HX9_Q%    |0          |%dtmin_gas%|1    |
+|heatexchanger10|%HX10_Tin% |%HX10_Tout%|%HX10_Q%   |0          |%dtmin_gas%|1    |
+|heatexchanger11|%HX11_Tin% |%HX11_Tout%|%HX11_Q%   |0          |%dtmin_gas%|1    |
+|heatexchanger12|%HX12_Tin% |%HX12_Tout%|%HX12_Q%   |0          |%dtmin_gas%|1    |
+```
+
+**References**
+
+[1] Van der Ham L, Gross J, Kjelstrup S. Two performance indicators for the characterization of the entropy production in a process unit. Energy. 2011;36(6):3727–32. 
+
+[2] Agrawal R, Herron D. Air liquefaction: distillation. 2000
+
+[3] Fu W. Process Design and Evaluation for Chemicals Based on Renewable Resources [PhD Thesis]. Technical University of Denmark, Department of Chemical Engineering; 2012. 
+
+[4] Woods M, Matuszewski M. Quality Guideline for Energy System Studies: CO2 Impurity Design Parameters. National Energy Technology Laboratory (NETL), Pittsburgh, PA, Morgantown, WV …; 2012. 
+
+[5] Technical & Cost Comparison of Laterite Treatment Processes Part 3 - Dry https://www.researchgate.net/publication/290390987_Technical_Cost_Comparison_of_Laterite_Treatment_Processes_Part_3
+
+[6] Oxygen supply products Linde, available at: https://www.linde-gas.ae/en/products_and_supply/oxygen-gas/oxygen.html
+
+[7] Nitrogen cylinder datasheet, available at: https://survitecgroup.com/media/344949/s_n2-cylinder_datasheet.pdf

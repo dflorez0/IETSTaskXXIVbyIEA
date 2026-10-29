@@ -11973,7 +11973,7 @@
                     "description": "Compressed air"
                 },
                 {
-                    "name": "O2",
+                    "name": "OXYGEN",
                     "full_name": "Oxygen",
                     "scope": "GLOBAL",
                     "type": "PRODUCT",

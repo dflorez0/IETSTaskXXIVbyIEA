@@ -1113,6 +1113,20 @@
             "description": "Water fed to the plant"
         },
         {
+            "var_name": "Water_in_vol",
+            "type": "CALCULATED",
+            "full_name": "Water feed, volume flow",
+            "user_grade": "MANDATORY",
+            "value": 47.9999952,
+            "physical_unit": "m3/h",
+            "formula": "Water_in/1000",
+            "min_bound": null,
+            "max_bound": null,
+            "latex_syntax": "$\\dot V_{Water}$",
+            "reference": "GLASS_ET.lua",
+            "description": "Water fed to the plant as a volume flow, at 1,000 kg/m3: the unit of the water layer shared with the other models"
+        },
+        {
             "var_name": "NG_in",
             "type": "CALCULATED",
             "full_name": "Natural gas feed",
@@ -2311,9 +2325,9 @@
                     "type": "RAW MATERIAL",
                     "direction": "IN",
                     "flow": {
-                        "value": 47999.9952,
-                        "formula": "=Water_in",
-                        "unit": "kg/h"
+                        "value": 47.9999952,
+                        "formula": "=Water_in_vol",
+                        "unit": "m3/h"
                     },
                     "temperature": {
                         "value": null,
