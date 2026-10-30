@@ -45,6 +45,7 @@
 .mv-tab:hover { color: #ff0000; }
 .mv-tab.is-active { border-color: #dee2e6; background: #fff; color: #212121; font-weight: 600; }
 .mv-panel[hidden] { display: none !important; }
+.mv-int-igbar[hidden], .mv-int-igframe[hidden] { display: none !important; }
 
 .mv-frame { position: relative; border: 1px solid #dee2e6; border-radius: 6px; background: #fafbfc; padding: .5rem; overflow-x: auto; }
 .mv-frame svg { display: block; width: 100%; height: auto; margin: 0 auto; }
@@ -1842,8 +1843,8 @@ document.addEventListener("DOMContentLoaded", function () {
         '<h3 class="mv-int-h">Heat: integrated and separately</h3><div class="mv-stats"></div>' +
         '<h3 class="mv-int-h">Composite curves</h3><div class="mv-frame"><canvas class="mv-int-cc"></canvas></div>' +
         '<h3 class="mv-int-h">Grand composite curve</h3><div class="mv-frame"><canvas class="mv-int-gcc"></canvas></div>' +
-        '<h3 class="mv-int-h">Integrated composite curves</h3><div class="mv-bar mv-int-igbar"></div>' +
-        '<div class="mv-frame"><canvas class="mv-int-igcc"></canvas></div>' +
+        '<h3 class="mv-int-h">Integrated grand composite curve</h3><p class="mv-legend mv-int-ighint" hidden>Add a second model to see one part of the system against the rest.</p><div class="mv-bar mv-int-igbar"></div>' +
+        '<div class="mv-frame mv-int-igframe"><canvas class="mv-int-igcc"></canvas></div>' +
       '</div><div class="mv-int-flows"></div>';
     var statusEl = host.querySelector(".mv-int-status"),
         unitsEl = host.querySelector(".mv-int-units"), warnEl = host.querySelector(".mv-int-warn"),
@@ -1997,6 +1998,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function drawIG(perUnit) {
       var bar = resEl.querySelector(".mv-int-igbar");
+      // one model has nothing to be compared against: the curves need at least two models with units on
+      var nModels = perUnit.map(function (u) { return u.a; }).filter(function (a, i, arr) { return arr.indexOf(a) === i; }).length;
+      resEl.querySelector(".mv-int-ighint").hidden = nModels >= 2;
+      bar.hidden = resEl.querySelector(".mv-int-igframe").hidden = nModels < 2;
+      if (nModels < 2) { igCanvas._icc = null; return; }
       var nP = perUnit.filter(function (u) { return u.x.side === "process"; }).length, nU = perUnit.length - nP;
       var cnt = function (n, w) { return " (" + n + " " + w + (n === 1 ? "" : "s") + ")"; };
       var opts = [["all", "Whole system" + cnt(perUnit.length, "unit")]]
