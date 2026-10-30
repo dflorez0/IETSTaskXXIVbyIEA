@@ -5,7 +5,7 @@ aliases:
 
 # Cooling tower {.unnumbered}
 
-{{< model-viewer JSON/CoolingTower.json view="card" >}}
+{{< model-viewer JSON/CoolingTower_from_lua.json view="card" >}}
 
 ## Description
 
@@ -21,11 +21,11 @@ Recirculation pumps and forced-draft fans consume electricity, and the evaporate
 
 Minimum utility requirements of the unit on its own, from its heat streams. The scale factor *f* multiplies every duty and flow on this page, as the optimization does with the unit's size.
 
-{{< model-viewer JSON/CoolingTower.json view="summary" >}}
+{{< model-viewer JSON/CoolingTower_from_lua.json view="summary" >}}
 
 ### Flows
 
-{{< model-viewer JSON/CoolingTower.json view="flows" >}}
+{{< model-viewer JSON/CoolingTower_from_lua.json view="flows" >}}
 
 ## Model
 
@@ -39,29 +39,29 @@ Throughout this page, names written like `Cool_Qmax` are variables of the model:
 
 **Investment cost.** The tower investment cost `CTCost` (EUR, 2008) is a correlation in the circulating water flow, the range, the approach and the wet-bulb temperature. It is updated with the cost indices `CEPCI_2020` and `CEPCI_2008` and annualized with the capital recovery factor `Annuity`, over the lifetime `n` at the interest rate `i`, to give the annualized investment cost `Cinv2_CT`.
 
-{{< model-viewer JSON/CoolingTower.json view="equations" >}}
+{{< model-viewer JSON/CoolingTower_from_lua.json view="equations" >}}
 
 ## Variables
 
-{{< model-viewer JSON/CoolingTower.json view="variables" >}}
+{{< model-viewer JSON/CoolingTower_from_lua.json view="variables" >}}
 
 ## Unit and connectors
 
-{{< model-viewer JSON/CoolingTower.json view="unit" >}}
+{{< model-viewer JSON/CoolingTower_from_lua.json view="unit" >}}
 
 ## Heat integration
 
 ### Heat streams
 
-{{< model-viewer JSON/CoolingTower.json view="streams" >}}
+{{< model-viewer JSON/CoolingTower_from_lua.json view="streams" >}}
 
 ### Composite curves
 
-{{< model-viewer JSON/CoolingTower.json view="cc" >}}
+{{< model-viewer JSON/CoolingTower_from_lua.json view="cc" >}}
 
 ### Grand composite curve
 
-{{< model-viewer JSON/CoolingTower.json view="gcc" >}}
+{{< model-viewer JSON/CoolingTower_from_lua.json view="gcc" >}}
 
 ## Supplementary material
 
@@ -76,4 +76,4 @@ Throughout this page, names written like `Cool_Qmax` are variables of the model:
 
 ## References
 
-{{< model-viewer JSON/CoolingTower.json view="references" >}}
+{{< model-viewer JSON/CoolingTower_from_lua.json view="references" >}}

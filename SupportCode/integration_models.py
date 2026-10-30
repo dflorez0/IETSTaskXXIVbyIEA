@@ -45,8 +45,9 @@ def models():
         folder = qmd.parent.relative_to(ROOT).as_posix()
         title = TITLE.search(text)
         try:                                         # the model's own keywords help the search
-            header = json.loads((qmd.parent / m.group(1)).read_text(encoding="utf-8-sig")).get("header", {})
-            keywords = [str(k) for k in header.get("keywords") or []]
+            data = json.loads((qmd.parent / m.group(1)).read_text(encoding="utf-8-sig"))
+            keywords = data.get("header", {}).get("keywords") or str(data.get("METADATA", {}).get("Keywords", "")).split(",")
+            keywords = [str(k).strip() for k in keywords if str(k).strip()]
         except (OSError, ValueError):
             keywords = []
         out.append({"title": title.group(1) if title else qmd.parent.name,

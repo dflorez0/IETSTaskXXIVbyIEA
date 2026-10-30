@@ -139,6 +139,9 @@
 .mv-int-chip { display: inline-flex; align-items: center; gap: .3rem; padding: .18rem .3rem .18rem .65rem; border-radius: 999px; background: #2c3e50; color: #fff; font-size: .8rem; }
 .mv-int-chip button { border: 0; background: rgba(255,255,255,.18); color: #fff; width: 1.15rem; height: 1.15rem; border-radius: 50%; cursor: pointer; font-size: .85rem; line-height: 1; padding: 0; }
 .mv-int-chip button:hover { background: rgba(255,255,255,.35); }
+.mv-int-igbar { margin-bottom: .6rem; }
+button.mv-int-side { cursor: pointer; border: 1px dashed transparent; font: inherit; font-size: .7rem; }
+button.mv-int-side:hover { border-color: #8a96a3; }
 .mv-int-status { font-size: .8rem; min-height: 1.1em; }
 .mv-int-empty { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin: .8rem 0; padding: 1.1rem 1.2rem; border: 1.5px dashed #c3cad3; border-radius: 12px; background: #fafbfc; }
 .mv-int-step { display: flex; flex-direction: column; gap: .2rem; }
@@ -519,7 +522,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         var oc = u["Operating Cost"] || {};
         units.push({
-          name: info["Unit name"] || k, kind: "", description: str(u["Unit Description"]),
+          name: info["Unit name"] || k, kind: str(info["Unit type"]).toLowerCase(), description: str(u["Unit Description"]),
           connDesc: str(u["Connectors Description"]), hsDesc: str(u["Heat Streams Description"]),
           eqDesc: str(u["Equipments Description"]), ocDesc: str(u["Operating Cost Description"]),
           fmin: num(info["Minimum capacity multiplier"]), fmax: num(info["Maximum capacity multiplier"]),
@@ -1133,6 +1136,64 @@ document.addEventListener("DOMContentLoaded", function () {
     if (top[0] > 1e-6) dimension(p, pad, cx(0), cx(top[0]), cy(top[1]) - 12, -1, C.hot, "Hot utility", heatText(top[0], hu));
     if (bot[0] > 1e-6) dimension(p, pad, cx(0), cx(bot[0]), cy(bot[1]) + 12, 1, C.cold, "Cold utility", heatText(bot[0], hu));
     return true;
+  }
+  // Integrated composite curves, as OSMOSE draws them (the definition of the DECHEMA Forum tool, checked there against
+  // OSMOSE's icc output point by point): on the temperature intervals of the whole system,
+  //   separated(T*) = -(hot - cold heat of the SUBJECT, summed from the top down to T*)
+  //   base(T*)      = system grand composite curve(T*) + separated(T*)
+  // so base - separated is the system grand composite curve at every temperature. A subject that is a net heat source
+  // runs negative, a net sink positive; the band between the curves is what the subject exchanges with the rest, and the
+  // gaps at the top and the bottom are the hot and cold utility still needed.
+  function gccPoints(res) {
+    var g = [[res.R[0], res.intervals[0][0]]];
+    res.intervals.forEach(function (iv, k) { g.push([res.R[k + 1], iv[1]]); });
+    return g;
+  }
+  function computeICC(all, subj) {
+    var res = all.length ? solve(all) : null; if (!res) return null;
+    var gcc = gccPoints(res), sep = [[0, res.intervals[0][0]]], cum = 0;
+    res.intervals.forEach(function (iv) {
+      subj.forEach(function (s) { var q = heatIn(s, iv[0], iv[1]); cum += s.type === "hot" ? q : -q; });
+      sep.push([-cum, iv[1]]);
+    });
+    return { gcc: gcc, sep: sep, base: gcc.map(function (q, i) { return [q[0] + sep[i][0], q[1]]; }), hu: res.Qhu, cu: res.Qcu, pinchTemp: res.pinchTemp };
+  }
+  function drawICC(canvas, all, subj, subjName) {
+    var p = prep(canvas), R = computeICC(all, subj);
+    canvas._icc = R;
+    if (!p) return R;
+    var pts = []; canvas._pts = pts;
+    if (!R) { emptyPlot(p, "No heat streams"); return R; }
+    var ctx = p.ctx, SEP = C.pinch, BASE = "#5d6d7e";   // the subject in the colour of the grand composite curve
+    var rows = legendRows(ctx, [[SEP, subjName], [BASE, "Rest of the system"]], p.W - 92);
+    var pad = { top: 36 + 18 * (rows.length - 1), right: 24, bottom: 56, left: 68 };
+    var every = R.base.concat(R.sep), xs = every.map(function (q) { return q[0]; }).concat([0]), ts = every.map(function (q) { return q[1]; });
+    var xLo = Math.min.apply(null, xs), xHi = Math.max.apply(null, xs), m = Math.max(1, (xHi - xLo) * 0.06); xLo -= m; xHi += m;
+    var tr = tRange(Math.min.apply(null, ts), Math.max.apply(null, ts), p.H - pad.top - pad.bottom, R.hu > 1e-6 ? 36 : 12, R.cu > 1e-6 ? 36 : 12);
+    var hu = heatUnit(xHi - xLo);
+    var cx = function (q) { return pad.left + (q - xLo) / (xHi - xLo) * (p.W - pad.left - pad.right); };
+    var cy = function (t) { return p.H - pad.bottom - (t - tr.lo) / (tr.hi - tr.lo) * (p.H - pad.top - pad.bottom); };
+    axes(p, pad, { lo: xLo, hi: xHi, k: hu.k, map: cx }, { lo: tr.lo, hi: tr.hi, map: cy }, "Net heat flow (" + hu.u + ")", "Shifted temperature (°C)");
+    ctx.strokeStyle = "rgba(44,62,80,0.5)"; ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(cx(0), pad.top); ctx.lineTo(cx(0), p.H - pad.bottom); ctx.stroke();
+    // the band between the curves: what the subject exchanges with the rest
+    ctx.beginPath();
+    R.base.forEach(function (q, i) { if (i) ctx.lineTo(cx(q[0]), cy(q[1])); else ctx.moveTo(cx(q[0]), cy(q[1])); });
+    for (var i = R.sep.length - 1; i >= 0; i--) ctx.lineTo(cx(R.sep[i][0]), cy(R.sep[i][1]));
+    ctx.closePath(); ctx.fillStyle = "rgba(212,116,14,0.10)"; ctx.fill();
+    [[R.base, BASE, "Rest of the system"], [R.sep, SEP, subjName]].forEach(function (c) {
+      ctx.strokeStyle = c[1]; ctx.lineWidth = 2.5; ctx.lineJoin = "round"; ctx.beginPath();
+      c[0].forEach(function (q, k) { if (k) ctx.lineTo(cx(q[0]), cy(q[1])); else ctx.moveTo(cx(q[0]), cy(q[1])); });
+      ctx.stroke();
+      c[0].forEach(function (q) { pts.push({ x: cx(q[0]), y: cy(q[1]), html: "<b>" + xesc(c[2]) + "</b><br>Shifted temperature " + minus(fmt(q[1], 1)) + " °C<br>Net heat flow " + heatText(q[0], hu) }); });
+    });
+    if (R.pinchTemp !== null) pinchLine(p, pad, cy, R.pinchTemp);
+    // what is still open: the gap at the top is the hot utility, at the bottom the cold utility
+    var n = R.base.length - 1;
+    if (R.hu > 1e-6) dimension(p, pad, cx(R.sep[0][0]), cx(R.base[0][0]), cy(R.base[0][1]) - 12, -1, C.hot, "Hot utility", heatText(R.hu, hu));
+    if (R.cu > 1e-6) dimension(p, pad, cx(R.sep[n][0]), cx(R.base[n][0]), cy(R.base[n][1]) + 12, 1, C.cold, "Cold utility", heatText(R.cu, hu));
+    legend(p, pad, rows);
+    return R;
   }
   // Snap to the nearest plotted point and show its values.
   function attachPlotHover(canvas) {
@@ -1781,13 +1842,20 @@ document.addEventListener("DOMContentLoaded", function () {
         '<h3 class="mv-int-h">Heat: integrated and separately</h3><div class="mv-stats"></div>' +
         '<h3 class="mv-int-h">Composite curves</h3><div class="mv-frame"><canvas class="mv-int-cc"></canvas></div>' +
         '<h3 class="mv-int-h">Grand composite curve</h3><div class="mv-frame"><canvas class="mv-int-gcc"></canvas></div>' +
+        '<h3 class="mv-int-h">Integrated composite curves</h3><div class="mv-bar mv-int-igbar"></div>' +
+        '<div class="mv-frame"><canvas class="mv-int-igcc"></canvas></div>' +
       '</div><div class="mv-int-flows"></div>';
     var statusEl = host.querySelector(".mv-int-status"),
         unitsEl = host.querySelector(".mv-int-units"), warnEl = host.querySelector(".mv-int-warn"),
         resEl = host.querySelector(".mv-int-results"), statsEl = resEl.querySelector(".mv-stats"),
         flowsEl = host.querySelector(".mv-int-flows"),
-        ccCanvas = resEl.querySelector(".mv-int-cc"), gccCanvas = resEl.querySelector(".mv-int-gcc");
-    attachPlotHover(ccCanvas); attachPlotHover(gccCanvas);
+        ccCanvas = resEl.querySelector(".mv-int-cc"), gccCanvas = resEl.querySelector(".mv-int-gcc"), igCanvas = resEl.querySelector(".mv-int-igcc");
+    attachPlotHover(ccCanvas); attachPlotHover(gccCanvas); attachPlotHover(igCanvas);
+    // integrated grand composite curve: process against utility units (each unit's side can be flipped), or one model against the rest
+    // integrated composite curves: the subject (the whole system, all process units, all utility units, or one model)
+    // against the rest; each unit's process / utility side can be flipped in the table
+    var igSubject = null;
+    resEl.querySelector(".mv-int-igbar").addEventListener("change", function (e) { if (e.target.matches(".mv-int-igsubject")) { igSubject = e.target.value; update(false); } });
 
     function loadModel(m) {
       if (m.model || m.error) return Promise.resolve();
@@ -1838,7 +1906,7 @@ document.addEventListener("DOMContentLoaded", function () {
         statusEl.textContent = m.error ? m.title + " " + m.error : "";
         if (m.error) return;
         var same = added.filter(function (a) { return a.m === m; }).length;
-        added.push({ id: nextId++, m: m, n: same + 1, units: m.model.units.map(function (u) { return { u: u, f: 1, on: true }; }) });
+        added.push({ id: nextId++, m: m, n: same + 1, units: m.model.units.map(function (u) { return { u: u, f: 1, on: true, side: u.kind === "utility" ? "utility" : "process" }; }) });
         update(true);
       });
     }
@@ -1875,13 +1943,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 var key = a.id + ":" + ui, rng = (isFinite(x.u.fmin) ? nice(x.u.fmin) : "–") + " – " + (isFinite(x.u.fmax) ? nice(x.u.fmax) : "–");
                 return '<tr data-row="' + key + '"><td class="l"><input type="checkbox" class="mv-switch" data-on="' + key + '"' + (x.on ? " checked" : "") +
                   ' title="Include this unit" aria-label="Include ' + xesc(unitLabel(a, x)) + '"></td>' +
-                  '<td class="l">' + xesc(x.u.name) + (x.u.kind ? ' <span class="mv-badge">' + xesc(x.u.kind) + "</span>" : "") + "</td>" +
+                  '<td class="l">' + xesc(x.u.name) + ' <button type="button" class="mv-badge mv-int-side" data-side="' + key + '" title="Process or utility in the integrated grand composite curve; click to flip">' + x.side + "</button></td>" +
                   '<td data-fcell="' + key + '"><input type="number" min="0" step="0.1" value="' + x.f + '" data-f="' + key + '" aria-label="Size factor of ' + xesc(unitLabel(a, x)) + '"></td>' +
                   "<td>" + rng + '</td><td data-hu="' + key + '"></td><td data-cu="' + key + '"></td></tr>';
               }).join("");
           }).join("") + "</tbody>" + TCLOSE + "</div>";
       }
-      var sel = [], sepHU = 0, sepCU = 0, warns = [], items = [];
+      var sel = [], sepHU = 0, sepCU = 0, warns = [], items = [], perUnit = [];
       added.forEach(function (a) {
         a.units.forEach(function (x, ui) {
           var key = a.id + ":" + ui, st = unitStreams(x), al = alone(st);
@@ -1901,6 +1969,7 @@ document.addEventListener("DOMContentLoaded", function () {
                        names.map(xesc).join(", ") + " are left out of the integration.");
           }
           sel = sel.concat(st.main); sepHU += al.hu; sepCU += al.cu;
+          perUnit.push({ a: a, x: x, streams: st.main });
           x.u.connectors.forEach(function (c) {
             if (isFinite(c.flow) && c.name) items.push({ c: c, q: c.flow * x.f, who: unitLabel(a, x), node: key, unitName: x.u.name, model: modelLabel(a) });
           });
@@ -1921,8 +1990,34 @@ document.addEventListener("DOMContentLoaded", function () {
           stat("Cold utility saved", kw(sepCU - cu) + pct(sepCU - cu, sepCU), C.out, "Separately minus integrated");
         drawComposite(ccCanvas, sel, res);
         drawGCC(gccCanvas, res);
+        drawIG(perUnit);
       }
       renderFlows(items);
+    }
+
+    function drawIG(perUnit) {
+      var bar = resEl.querySelector(".mv-int-igbar");
+      var nP = perUnit.filter(function (u) { return u.x.side === "process"; }).length, nU = perUnit.length - nP;
+      var cnt = function (n, w) { return " (" + n + " " + w + (n === 1 ? "" : "s") + ")"; };
+      var opts = [["all", "Whole system" + cnt(perUnit.length, "unit")]]
+        .concat(nP ? [["process", "Process" + cnt(nP, "P unit")]] : [])
+        .concat(nU ? [["utilities", "Utilities" + cnt(nU, "U unit")]] : [])
+        .concat(added.filter(function (a) { return perUnit.some(function (u) { return u.a === a; }); }).map(function (a) {
+          var sides = perUnit.filter(function (u) { return u.a === a; }).map(function (u) { return u.x.side === "process" ? "P" : "U"; })
+            .filter(function (v, i, arr) { return arr.indexOf(v) === i; }).sort().join("+");
+          return ["m" + a.id, modelLabel(a) + " (" + sides + ")"]; }));
+      var keys = opts.map(function (o) { return o[0]; });
+      if (keys.indexOf(igSubject) < 0) igSubject = nP ? "process" : nU ? "utilities" : "all";   // open on the process, where the question starts
+      var firstModel = 1 + (nP ? 1 : 0) + (nU ? 1 : 0);   // the groups, a separator, then the models
+      bar.innerHTML = '<label>Subject <select class="mv-int-igsubject">' + opts.map(function (o, i) {
+          return (i === firstModel ? '<option disabled>──────</option>' : "") +
+                 '<option value="' + o[0] + '"' + (o[0] === igSubject ? " selected" : "") + ">" + xesc(o[1]) + "</option>"; }).join("") + "</select></label>" +
+        '<span class="mv-muted" style="font-size:.82rem">Flip a unit with its process / utility label in the table above.</span>';
+      var inSubj = function (u) { return igSubject === "all" || (igSubject === "process" ? u.x.side === "process" : igSubject === "utilities" ? u.x.side === "utility" : "m" + u.a.id === igSubject); };
+      var all = [], subj = [];
+      perUnit.forEach(function (u) { all.push.apply(all, u.streams); if (inSubj(u)) subj.push.apply(subj, u.streams); });
+      var name = opts.filter(function (o) { return o[0] === igSubject; })[0][1].replace(/ \([^)]*\)$/, "");
+      drawICC(igCanvas, all, subj, name);
     }
 
     // ---- flows: identity, matching and the connection map ----------------------
@@ -2470,6 +2565,10 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
     function findUnit(key) { var p = String(key).split(":"), a = added.filter(function (z) { return String(z.id) === p[0]; })[0]; return a && a.units[+p[1]]; }
+    unitsEl.addEventListener("click", function (e) {
+      var k = e.target.getAttribute && e.target.getAttribute("data-side"); if (!k) return;
+      var x = findUnit(k); x.side = x.side === "utility" ? "process" : "utility"; e.target.textContent = x.side; update(false);
+    });
     unitsEl.addEventListener("change", function (e) {
       var k = e.target.getAttribute("data-on"); if (k === null) return;
       findUnit(k).on = e.target.checked; update(false);
