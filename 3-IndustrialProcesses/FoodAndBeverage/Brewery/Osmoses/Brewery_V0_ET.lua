@@ -35,10 +35,10 @@ et:addLayers { MAKE_UP_WATER_AT_THE_WHIRLPOOL = {type = 'ResourceBalance', unit 
 et:addLayers { DILUTION_WATER = {type = 'ResourceBalance', unit = 'kg/h'} } -- Dilution water
 et:addLayers { WATER_FOR_CLEANING_IN_PLACE = {type = 'ResourceBalance', unit = 'kg/h'} } -- Water for cleaning in place
 et:addLayers { SODA_NAOH_FOR_BOTTLE_WASHING = {type = 'ResourceBalance', unit = 'kg/h'} } -- Soda (NaOH) for bottle washing
-et:addLayers { WATER_FOR_BOTTLE_WASHING_SODA_BATH_PRE_R = {type = 'ResourceBalance', unit = 'kg/h'} } -- Water for bottle washing (soda bath, pre-rinse, final rinse)
+et:addLayers { WATER_FOR_BOTTLE_WASHING = {type = 'ResourceBalance', unit = 'kg/h'} } -- Water for bottle washing (soda bath, pre-rinse, final rinse)
 et:addLayers { BEER = {type = 'ResourceBalance', unit = 'kg/h'} } -- Beer
 et:addLayers { SPENT_GRAINS_DREGS = {type = 'ResourceBalance', unit = 'kg/h'} } -- Spent grains (dregs)
-et:addLayers { VAPOUR_FROM_WORT_BOILING = {type = 'ResourceBalance', unit = 'kg/h'} } -- Vapour from wort boiling
+et:addLayers { WORT_BOILING_CONDENSATE = {type = 'ResourceBalance', unit = 'kg/h'} } -- Condensate from wort boiling
 et:addLayers { TRUB = {type = 'ResourceBalance', unit = 'kg/h'} } -- Trub
 et:addLayers { CO2_FROM_FERMENTATION = {type = 'ResourceBalance', unit = 'kg/h'} } -- CO2 from fermentation
 et:addLayers { HOT_WATER_TO_CLEANING_IN_PLACE = {type = 'ResourceBalance', unit = 'kg/h'} } -- Hot water to cleaning in place
@@ -50,7 +50,7 @@ et:addUnit('Mashing', {type = 'Process', Cost1 = 0, Cost2 = 0, Cinv1 = 0, Cinv2 
 et['Mashing']:addStreams({
   C1_Water_to_the_mash_cooker_MAK = qt{tin = 'C1_Water_to_the_mash_cooker_MAK_Tin', hin = 'C1_Water_to_the_mash_cooker_MAK_hin', tout = 'C1_Water_to_the_mash_cooker_MAK_Tout', hout = 'C1_Water_to_the_mash_cooker_MAK_hout', dtmin = 'C1_Water_to_the_mash_cooker_MAK_dTmin', alpha = 'C1_Water_to_the_mash_cooker_MAK_alpha'}, -- cold: Water to the mash cooker (MAK)
   C2_Water_to_the_mash_tun_MAT = qt{tin = 'C2_Water_to_the_mash_tun_MAT_Tin', hin = 'C2_Water_to_the_mash_tun_MAT_hin', tout = 'C2_Water_to_the_mash_tun_MAT_Tout', hout = 'C2_Water_to_the_mash_tun_MAT_hout', dtmin = 'C2_Water_to_the_mash_tun_MAT_dTmin', alpha = 'C2_Water_to_the_mash_tun_MAT_alpha'}, -- cold: Water to the mash tun (MAT)
-  C3_Mash_heating_in_MAK_and_MAT_lump = qt{tin = 'C3_Mash_heating_in_MAK_and_MAT_lump_Tin', hin = 'C3_Mash_heating_in_MAK_and_MAT_lump_hin', tout = 'C3_Mash_heating_in_MAK_and_MAT_lump_Tout', hout = 'C3_Mash_heating_in_MAK_and_MAT_lump_hout', dtmin = 'C3_Mash_heating_in_MAK_and_MAT_lump_dTmin', alpha = 'C3_Mash_heating_in_MAK_and_MAT_lump_alpha'}, -- cold: Mash heating in MAK and MAT (lumped)
+  C3_Mash_heating_MAK_and_MAT = qt{tin = 'C3_Mash_heating_MAK_and_MAT_Tin', hin = 'C3_Mash_heating_MAK_and_MAT_hin', tout = 'C3_Mash_heating_MAK_and_MAT_Tout', hout = 'C3_Mash_heating_MAK_and_MAT_hout', dtmin = 'C3_Mash_heating_MAK_and_MAT_dTmin', alpha = 'C3_Mash_heating_MAK_and_MAT_alpha'}, -- cold: Mash heating in MAK and MAT (lumped)
   C4_Combined_mash_heating = qt{tin = 'C4_Combined_mash_heating_Tin', hin = 'C4_Combined_mash_heating_hin', tout = 'C4_Combined_mash_heating_Tout', hout = 'C4_Combined_mash_heating_hout', dtmin = 'C4_Combined_mash_heating_dTmin', alpha = 'C4_Combined_mash_heating_alpha'}, -- cold: Combined mash heating
 })
 
@@ -63,7 +63,7 @@ et:addUnit('Wort_boiling', {type = 'Process', Cost1 = 0, Cost2 = 0, Cinv1 = 0, C
 et['Wort_boiling']:addStreams({
   C6_Wort_heating_to_boiling = qt{tin = 'C6_Wort_heating_to_boiling_Tin', hin = 'C6_Wort_heating_to_boiling_hin', tout = 'C6_Wort_heating_to_boiling_Tout', hout = 'C6_Wort_heating_to_boiling_hout', dtmin = 'C6_Wort_heating_to_boiling_dTmin', alpha = 'C6_Wort_heating_to_boiling_alpha'}, -- cold: Wort heating to boiling
   C7_Wort_boiling_water_evaporation = qt{tin = 'C7_Wort_boiling_water_evaporation_Tin', hin = 'C7_Wort_boiling_water_evaporation_hin', tout = 'C7_Wort_boiling_water_evaporation_Tout', hout = 'C7_Wort_boiling_water_evaporation_hout', dtmin = 'C7_Wort_boiling_water_evaporation_dTmin', alpha = 'C7_Wort_boiling_water_evaporation_alpha'}, -- cold: Wort boiling, water evaporation
-  H1_Boiling_vapour_condensation_with = qt{tin = 'H1_Boiling_vapour_condensation_with_Tin', hin = 'H1_Boiling_vapour_condensation_with_hin', tout = 'H1_Boiling_vapour_condensation_with_Tout', hout = 'H1_Boiling_vapour_condensation_with_hout', dtmin = 'H1_Boiling_vapour_condensation_with_dTmin', alpha = 'H1_Boiling_vapour_condensation_with_alpha'}, -- hot: Boiling vapour, condensation (with desuperheating)
+  H1_Boiling_vapour_condensation = qt{tin = 'H1_Boiling_vapour_condensation_Tin', hin = 'H1_Boiling_vapour_condensation_hin', tout = 'H1_Boiling_vapour_condensation_Tout', hout = 'H1_Boiling_vapour_condensation_hout', dtmin = 'H1_Boiling_vapour_condensation_dTmin', alpha = 'H1_Boiling_vapour_condensation_alpha'}, -- hot: Boiling vapour, condensation (with desuperheating)
   H2_Vapour_condensate_cooling = qt{tin = 'H2_Vapour_condensate_cooling_Tin', hin = 'H2_Vapour_condensate_cooling_hin', tout = 'H2_Vapour_condensate_cooling_Tout', hout = 'H2_Vapour_condensate_cooling_hout', dtmin = 'H2_Vapour_condensate_cooling_dTmin', alpha = 'H2_Vapour_condensate_cooling_alpha'}, -- hot: Vapour condensate cooling
 })
 
@@ -79,7 +79,7 @@ et['CIP']:addStreams({
 
 et:addUnit('Beer_treatment', {type = 'Process', Cost1 = 0, Cost2 = 0, Cinv1 = 0, Cinv2 = 0, Impact1 = 0, Impact2 = 0, Fmin = 'CAPACITY', Fmax = 'CAPACITY'})
 et['Beer_treatment']:addStreams({
-  C10_Concentrated_beer_warming_before = qt{tin = 'C10_Concentrated_beer_warming_before_Tin', hin = 'C10_Concentrated_beer_warming_before_hin', tout = 'C10_Concentrated_beer_warming_before_Tout', hout = 'C10_Concentrated_beer_warming_before_hout', dtmin = 'C10_Concentrated_beer_warming_before_dTmin', alpha = 'C10_Concentrated_beer_warming_before_alpha'}, -- cold: Concentrated beer warming before dilution
+  C10_Beer_warming_before_dilution = qt{tin = 'C10_Beer_warming_before_dilution_Tin', hin = 'C10_Beer_warming_before_dilution_hin', tout = 'C10_Beer_warming_before_dilution_Tout', hout = 'C10_Beer_warming_before_dilution_hout', dtmin = 'C10_Beer_warming_before_dilution_dTmin', alpha = 'C10_Beer_warming_before_dilution_alpha'}, -- cold: Concentrated beer warming before dilution
   C11_Pasteurisation_heating = qt{tin = 'C11_Pasteurisation_heating_Tin', hin = 'C11_Pasteurisation_heating_hin', tout = 'C11_Pasteurisation_heating_Tout', hout = 'C11_Pasteurisation_heating_hout', dtmin = 'C11_Pasteurisation_heating_dTmin', alpha = 'C11_Pasteurisation_heating_alpha'}, -- cold: Pasteurisation heating
   H9_Pasteurised_beer_cooling = qt{tin = 'H9_Pasteurised_beer_cooling_Tin', hin = 'H9_Pasteurised_beer_cooling_hin', tout = 'H9_Pasteurised_beer_cooling_Tout', hout = 'H9_Pasteurised_beer_cooling_hout', dtmin = 'H9_Pasteurised_beer_cooling_dTmin', alpha = 'H9_Pasteurised_beer_cooling_alpha'}, -- hot: Pasteurised beer cooling
 })
@@ -92,22 +92,22 @@ et['Bottle_washing']:addStreams({
   C15_Pre_rinse_make_up_water_heating = qt{tin = 'C15_Pre_rinse_make_up_water_heating_Tin', hin = 'C15_Pre_rinse_make_up_water_heating_hin', tout = 'C15_Pre_rinse_make_up_water_heating_Tout', hout = 'C15_Pre_rinse_make_up_water_heating_hout', dtmin = 'C15_Pre_rinse_make_up_water_heating_dTmin', alpha = 'C15_Pre_rinse_make_up_water_heating_alpha'}, -- cold: Pre-rinse make-up water heating
   C16_Final_rinse_water_heating = qt{tin = 'C16_Final_rinse_water_heating_Tin', hin = 'C16_Final_rinse_water_heating_hin', tout = 'C16_Final_rinse_water_heating_Tout', hout = 'C16_Final_rinse_water_heating_hout', dtmin = 'C16_Final_rinse_water_heating_dTmin', alpha = 'C16_Final_rinse_water_heating_alpha'}, -- cold: Final rinse water heating
   H10_Soda_bath_rinse_water_cooling = qt{tin = 'H10_Soda_bath_rinse_water_cooling_Tin', hin = 'H10_Soda_bath_rinse_water_cooling_hin', tout = 'H10_Soda_bath_rinse_water_cooling_Tout', hout = 'H10_Soda_bath_rinse_water_cooling_hout', dtmin = 'H10_Soda_bath_rinse_water_cooling_dTmin', alpha = 'H10_Soda_bath_rinse_water_cooling_alpha'}, -- hot: Soda bath rinse water cooling
-  H11_Pre_rinse_water_to_wastewater_co = qt{tin = 'H11_Pre_rinse_water_to_wastewater_co_Tin', hin = 'H11_Pre_rinse_water_to_wastewater_co_hin', tout = 'H11_Pre_rinse_water_to_wastewater_co_Tout', hout = 'H11_Pre_rinse_water_to_wastewater_co_hout', dtmin = 'H11_Pre_rinse_water_to_wastewater_co_dTmin', alpha = 'H11_Pre_rinse_water_to_wastewater_co_alpha'}, -- hot: Pre-rinse water to wastewater, cooling
+  H11_Pre_rinse_water_cooling = qt{tin = 'H11_Pre_rinse_water_cooling_Tin', hin = 'H11_Pre_rinse_water_cooling_hin', tout = 'H11_Pre_rinse_water_cooling_Tout', hout = 'H11_Pre_rinse_water_cooling_hout', dtmin = 'H11_Pre_rinse_water_cooling_dTmin', alpha = 'H11_Pre_rinse_water_cooling_alpha'}, -- hot: Pre-rinse water to wastewater, cooling
 })
 
 et:addUnit('Wort_cooling', {type = 'Process', Cost1 = 0, Cost2 = 0, Cinv1 = 0, Cinv2 = 0, Impact1 = 0, Impact2 = 0, Fmin = 'CAPACITY', Fmax = 'CAPACITY'})
 et['Wort_cooling']:addStreams({
-  H3_Wort_cooling_to_pitching_tempera = qt{tin = 'H3_Wort_cooling_to_pitching_tempera_Tin', hin = 'H3_Wort_cooling_to_pitching_tempera_hin', tout = 'H3_Wort_cooling_to_pitching_tempera_Tout', hout = 'H3_Wort_cooling_to_pitching_tempera_hout', dtmin = 'H3_Wort_cooling_to_pitching_tempera_dTmin', alpha = 'H3_Wort_cooling_to_pitching_tempera_alpha'}, -- hot: Wort cooling to pitching temperature
+  H3_Wort_cooling_to_pitching = qt{tin = 'H3_Wort_cooling_to_pitching_Tin', hin = 'H3_Wort_cooling_to_pitching_hin', tout = 'H3_Wort_cooling_to_pitching_Tout', hout = 'H3_Wort_cooling_to_pitching_hout', dtmin = 'H3_Wort_cooling_to_pitching_dTmin', alpha = 'H3_Wort_cooling_to_pitching_alpha'}, -- hot: Wort cooling to pitching temperature
 })
 
 et:addUnit('Fermentation', {type = 'Process', Cost1 = 0, Cost2 = 0, Cinv1 = 0, Cinv2 = 0, Impact1 = 0, Impact2 = 0, Fmin = 'CAPACITY', Fmax = 'CAPACITY'})
 et['Fermentation']:addStreams({
-  H4_Fermentation_at_10_C_heat_of_fer = qt{tin = 'H4_Fermentation_at_10_C_heat_of_fer_Tin', hin = 'H4_Fermentation_at_10_C_heat_of_fer_hin', tout = 'H4_Fermentation_at_10_C_heat_of_fer_Tout', hout = 'H4_Fermentation_at_10_C_heat_of_fer_hout', dtmin = 'H4_Fermentation_at_10_C_heat_of_fer_dTmin', alpha = 'H4_Fermentation_at_10_C_heat_of_fer_alpha'}, -- hot: Fermentation at 10 C (heat of fermentation)
+  H4_Fermentation_at_10_C = qt{tin = 'H4_Fermentation_at_10_C_Tin', hin = 'H4_Fermentation_at_10_C_hin', tout = 'H4_Fermentation_at_10_C_Tout', hout = 'H4_Fermentation_at_10_C_hout', dtmin = 'H4_Fermentation_at_10_C_dTmin', alpha = 'H4_Fermentation_at_10_C_alpha'}, -- hot: Fermentation at 10 C (heat of fermentation)
 })
 
 et:addUnit('Maturation', {type = 'Process', Cost1 = 0, Cost2 = 0, Cinv1 = 0, Cinv2 = 0, Impact1 = 0, Impact2 = 0, Fmin = 'CAPACITY', Fmax = 'CAPACITY'})
 et['Maturation']:addStreams({
-  H5_Cooling_to_maturation_temperatur = qt{tin = 'H5_Cooling_to_maturation_temperatur_Tin', hin = 'H5_Cooling_to_maturation_temperatur_hin', tout = 'H5_Cooling_to_maturation_temperatur_Tout', hout = 'H5_Cooling_to_maturation_temperatur_hout', dtmin = 'H5_Cooling_to_maturation_temperatur_dTmin', alpha = 'H5_Cooling_to_maturation_temperatur_alpha'}, -- hot: Cooling to maturation temperature
+  H5_Cooling_to_maturation = qt{tin = 'H5_Cooling_to_maturation_Tin', hin = 'H5_Cooling_to_maturation_hin', tout = 'H5_Cooling_to_maturation_Tout', hout = 'H5_Cooling_to_maturation_hout', dtmin = 'H5_Cooling_to_maturation_dTmin', alpha = 'H5_Cooling_to_maturation_alpha'}, -- hot: Cooling to maturation temperature
   H6_Maturation_at_6_C = qt{tin = 'H6_Maturation_at_6_C_Tin', hin = 'H6_Maturation_at_6_C_hin', tout = 'H6_Maturation_at_6_C_Tout', hout = 'H6_Maturation_at_6_C_hout', dtmin = 'H6_Maturation_at_6_C_dTmin', alpha = 'H6_Maturation_at_6_C_alpha'}, -- hot: Maturation at 6 C
 })
 
@@ -128,10 +128,10 @@ et['Plant_boundary']:addStreams({
   DILUTION_WATER_in = rs{'DILUTION_WATER', 'in', 'DILUTION_WATER_flow'}, -- Dilution water
   WATER_FOR_CLEANING_IN_PLACE_in = rs{'WATER_FOR_CLEANING_IN_PLACE', 'in', 'WATER_FOR_CLEANING_IN_PLACE_flow'}, -- Water for cleaning in place
   SODA_NAOH_FOR_BOTTLE_WASHING_in = rs{'SODA_NAOH_FOR_BOTTLE_WASHING', 'in', 'SODA_NAOH_FOR_BOTTLE_WASHING_flow'}, -- Soda (NaOH) for bottle washing
-  WATER_FOR_BOTTLE_WASHING_SODA_BATH_PRE_R_in = rs{'WATER_FOR_BOTTLE_WASHING_SODA_BATH_PRE_R', 'in', 'WATER_FOR_BOTTLE_WASHING_SODA_BATH_PRE_R_flow'}, -- Water for bottle washing (soda bath, pre-rinse, final rinse)
+  WATER_FOR_BOTTLE_WASHING_in = rs{'WATER_FOR_BOTTLE_WASHING', 'in', 'WATER_FOR_BOTTLE_WASHING_flow'}, -- Water for bottle washing (soda bath, pre-rinse, final rinse)
   BEER_out = rs{'BEER', 'out', 'BEER_flow'}, -- Beer
   SPENT_GRAINS_DREGS_out = rs{'SPENT_GRAINS_DREGS', 'out', 'SPENT_GRAINS_DREGS_flow'}, -- Spent grains (dregs)
-  VAPOUR_FROM_WORT_BOILING_out = rs{'VAPOUR_FROM_WORT_BOILING', 'out', 'VAPOUR_FROM_WORT_BOILING_flow'}, -- Vapour from wort boiling
+  WORT_BOILING_CONDENSATE_out = rs{'WORT_BOILING_CONDENSATE', 'out', 'WORT_BOILING_CONDENSATE_flow'}, -- Condensate from wort boiling
   TRUB_out = rs{'TRUB', 'out', 'TRUB_flow'}, -- Trub
   CO2_FROM_FERMENTATION_out = rs{'CO2_FROM_FERMENTATION', 'out', 'CO2_FROM_FERMENTATION_flow'}, -- CO2 from fermentation
   HOT_WATER_TO_CLEANING_IN_PLACE_out = rs{'HOT_WATER_TO_CLEANING_IN_PLACE', 'out', 'HOT_WATER_TO_CLEANING_IN_PLACE_flow'}, -- Hot water to cleaning in place
@@ -155,12 +155,12 @@ et.inputs = {
   C2_Water_to_the_mash_tun_MAT_hout = {default = 11.9909, unit = 'kW'},
   C2_Water_to_the_mash_tun_MAT_dTmin = {default = 5, unit = 'K'},
   C2_Water_to_the_mash_tun_MAT_alpha = {default = 1, unit = 'kW/m2K'},
-  C3_Mash_heating_in_MAK_and_MAT_lump_Tin = {default = 48, unit = 'C'},
-  C3_Mash_heating_in_MAK_and_MAT_lump_Tout = {default = 65, unit = 'C'},
-  C3_Mash_heating_in_MAK_and_MAT_lump_hin = {default = 0, unit = 'kW'},
-  C3_Mash_heating_in_MAK_and_MAT_lump_hout = {default = 8.86213, unit = 'kW'},
-  C3_Mash_heating_in_MAK_and_MAT_lump_dTmin = {default = 5, unit = 'K'},
-  C3_Mash_heating_in_MAK_and_MAT_lump_alpha = {default = 1, unit = 'kW/m2K'},
+  C3_Mash_heating_MAK_and_MAT_Tin = {default = 48, unit = 'C'},
+  C3_Mash_heating_MAK_and_MAT_Tout = {default = 65, unit = 'C'},
+  C3_Mash_heating_MAK_and_MAT_hin = {default = 0, unit = 'kW'},
+  C3_Mash_heating_MAK_and_MAT_hout = {default = 8.86213, unit = 'kW'},
+  C3_Mash_heating_MAK_and_MAT_dTmin = {default = 5, unit = 'K'},
+  C3_Mash_heating_MAK_and_MAT_alpha = {default = 1, unit = 'kW/m2K'},
   C4_Combined_mash_heating_Tin = {default = 65, unit = 'C'},
   C4_Combined_mash_heating_Tout = {default = 75, unit = 'C'},
   C4_Combined_mash_heating_hin = {default = 0, unit = 'kW'},
@@ -187,12 +187,12 @@ et.inputs = {
   C7_Wort_boiling_water_evaporation_hout = {default = 48.3333, unit = 'kW'},
   C7_Wort_boiling_water_evaporation_dTmin = {default = 2, unit = 'K'},
   C7_Wort_boiling_water_evaporation_alpha = {default = 1, unit = 'kW/m2K'},
-  H1_Boiling_vapour_condensation_with_Tin = {default = 100.1, unit = 'C'},
-  H1_Boiling_vapour_condensation_with_Tout = {default = 100, unit = 'C'},
-  H1_Boiling_vapour_condensation_with_hin = {default = 51.0311, unit = 'kW'},
-  H1_Boiling_vapour_condensation_with_hout = {default = 0, unit = 'kW'},
-  H1_Boiling_vapour_condensation_with_dTmin = {default = 2, unit = 'K'},
-  H1_Boiling_vapour_condensation_with_alpha = {default = 1, unit = 'kW/m2K'},
+  H1_Boiling_vapour_condensation_Tin = {default = 100.1, unit = 'C'},
+  H1_Boiling_vapour_condensation_Tout = {default = 100, unit = 'C'},
+  H1_Boiling_vapour_condensation_hin = {default = 51.0311, unit = 'kW'},
+  H1_Boiling_vapour_condensation_hout = {default = 0, unit = 'kW'},
+  H1_Boiling_vapour_condensation_dTmin = {default = 2, unit = 'K'},
+  H1_Boiling_vapour_condensation_alpha = {default = 1, unit = 'kW/m2K'},
   H2_Vapour_condensate_cooling_Tin = {default = 100, unit = 'C'},
   H2_Vapour_condensate_cooling_Tout = {default = 25, unit = 'C'},
   H2_Vapour_condensate_cooling_hin = {default = 7.02914, unit = 'kW'},
@@ -214,12 +214,12 @@ et.inputs = {
   C9_Hot_water_for_cleaning_in_place_dTmin = {default = 5, unit = 'K'},
   C9_Hot_water_for_cleaning_in_place_alpha = {default = 1, unit = 'kW/m2K'},
   -- Beer_treatment
-  C10_Concentrated_beer_warming_before_Tin = {default = 1, unit = 'C'},
-  C10_Concentrated_beer_warming_before_Tout = {default = 15, unit = 'C'},
-  C10_Concentrated_beer_warming_before_hin = {default = 0, unit = 'kW'},
-  C10_Concentrated_beer_warming_before_hout = {default = 11.4128, unit = 'kW'},
-  C10_Concentrated_beer_warming_before_dTmin = {default = 5, unit = 'K'},
-  C10_Concentrated_beer_warming_before_alpha = {default = 1, unit = 'kW/m2K'},
+  C10_Beer_warming_before_dilution_Tin = {default = 1, unit = 'C'},
+  C10_Beer_warming_before_dilution_Tout = {default = 15, unit = 'C'},
+  C10_Beer_warming_before_dilution_hin = {default = 0, unit = 'kW'},
+  C10_Beer_warming_before_dilution_hout = {default = 11.4128, unit = 'kW'},
+  C10_Beer_warming_before_dilution_dTmin = {default = 5, unit = 'K'},
+  C10_Beer_warming_before_dilution_alpha = {default = 1, unit = 'kW/m2K'},
   C11_Pasteurisation_heating_Tin = {default = 15, unit = 'C'},
   C11_Pasteurisation_heating_Tout = {default = 70, unit = 'C'},
   C11_Pasteurisation_heating_hin = {default = 0, unit = 'kW'},
@@ -269,33 +269,33 @@ et.inputs = {
   H10_Soda_bath_rinse_water_cooling_hout = {default = 0, unit = 'kW'},
   H10_Soda_bath_rinse_water_cooling_dTmin = {default = 5, unit = 'K'},
   H10_Soda_bath_rinse_water_cooling_alpha = {default = 1, unit = 'kW/m2K'},
-  H11_Pre_rinse_water_to_wastewater_co_Tin = {default = 40, unit = 'C'},
-  H11_Pre_rinse_water_to_wastewater_co_Tout = {default = 20, unit = 'C'},
-  H11_Pre_rinse_water_to_wastewater_co_hin = {default = 10.3908, unit = 'kW'},
-  H11_Pre_rinse_water_to_wastewater_co_hout = {default = 0, unit = 'kW'},
-  H11_Pre_rinse_water_to_wastewater_co_dTmin = {default = 5, unit = 'K'},
-  H11_Pre_rinse_water_to_wastewater_co_alpha = {default = 1, unit = 'kW/m2K'},
+  H11_Pre_rinse_water_cooling_Tin = {default = 40, unit = 'C'},
+  H11_Pre_rinse_water_cooling_Tout = {default = 20, unit = 'C'},
+  H11_Pre_rinse_water_cooling_hin = {default = 10.3908, unit = 'kW'},
+  H11_Pre_rinse_water_cooling_hout = {default = 0, unit = 'kW'},
+  H11_Pre_rinse_water_cooling_dTmin = {default = 5, unit = 'K'},
+  H11_Pre_rinse_water_cooling_alpha = {default = 1, unit = 'kW/m2K'},
   -- Wort_cooling
-  H3_Wort_cooling_to_pitching_tempera_Tin = {default = 102.5, unit = 'C'},
-  H3_Wort_cooling_to_pitching_tempera_Tout = {default = 10, unit = 'C'},
-  H3_Wort_cooling_to_pitching_tempera_hin = {default = 79.123, unit = 'kW'},
-  H3_Wort_cooling_to_pitching_tempera_hout = {default = 0, unit = 'kW'},
-  H3_Wort_cooling_to_pitching_tempera_dTmin = {default = 5, unit = 'K'},
-  H3_Wort_cooling_to_pitching_tempera_alpha = {default = 1, unit = 'kW/m2K'},
+  H3_Wort_cooling_to_pitching_Tin = {default = 102.5, unit = 'C'},
+  H3_Wort_cooling_to_pitching_Tout = {default = 10, unit = 'C'},
+  H3_Wort_cooling_to_pitching_hin = {default = 79.123, unit = 'kW'},
+  H3_Wort_cooling_to_pitching_hout = {default = 0, unit = 'kW'},
+  H3_Wort_cooling_to_pitching_dTmin = {default = 5, unit = 'K'},
+  H3_Wort_cooling_to_pitching_alpha = {default = 1, unit = 'kW/m2K'},
   -- Fermentation
-  H4_Fermentation_at_10_C_heat_of_fer_Tin = {default = 10, unit = 'C'},
-  H4_Fermentation_at_10_C_heat_of_fer_Tout = {default = 9.9, unit = 'C'},
-  H4_Fermentation_at_10_C_heat_of_fer_hin = {default = 7.78621, unit = 'kW'},
-  H4_Fermentation_at_10_C_heat_of_fer_hout = {default = 0, unit = 'kW'},
-  H4_Fermentation_at_10_C_heat_of_fer_dTmin = {default = 5, unit = 'K'},
-  H4_Fermentation_at_10_C_heat_of_fer_alpha = {default = 1, unit = 'kW/m2K'},
+  H4_Fermentation_at_10_C_Tin = {default = 10, unit = 'C'},
+  H4_Fermentation_at_10_C_Tout = {default = 9.9, unit = 'C'},
+  H4_Fermentation_at_10_C_hin = {default = 7.78621, unit = 'kW'},
+  H4_Fermentation_at_10_C_hout = {default = 0, unit = 'kW'},
+  H4_Fermentation_at_10_C_dTmin = {default = 5, unit = 'K'},
+  H4_Fermentation_at_10_C_alpha = {default = 1, unit = 'kW/m2K'},
   -- Maturation
-  H5_Cooling_to_maturation_temperatur_Tin = {default = 10, unit = 'C'},
-  H5_Cooling_to_maturation_temperatur_Tout = {default = 6, unit = 'C'},
-  H5_Cooling_to_maturation_temperatur_hin = {default = 3.40392, unit = 'kW'},
-  H5_Cooling_to_maturation_temperatur_hout = {default = 0, unit = 'kW'},
-  H5_Cooling_to_maturation_temperatur_dTmin = {default = 5, unit = 'K'},
-  H5_Cooling_to_maturation_temperatur_alpha = {default = 1, unit = 'kW/m2K'},
+  H5_Cooling_to_maturation_Tin = {default = 10, unit = 'C'},
+  H5_Cooling_to_maturation_Tout = {default = 6, unit = 'C'},
+  H5_Cooling_to_maturation_hin = {default = 3.40392, unit = 'kW'},
+  H5_Cooling_to_maturation_hout = {default = 0, unit = 'kW'},
+  H5_Cooling_to_maturation_dTmin = {default = 5, unit = 'K'},
+  H5_Cooling_to_maturation_alpha = {default = 1, unit = 'kW/m2K'},
   H6_Maturation_at_6_C_Tin = {default = 6, unit = 'C'},
   H6_Maturation_at_6_C_Tout = {default = 5.9, unit = 'C'},
   H6_Maturation_at_6_C_hin = {default = 6.1949, unit = 'kW'},
@@ -324,10 +324,10 @@ et.inputs = {
   DILUTION_WATER_flow = {default = 237.302, unit = 'kg/h'}, -- in: Dilution water
   WATER_FOR_CLEANING_IN_PLACE_flow = {default = 354.677, unit = 'kg/h'}, -- in: Water for cleaning in place
   SODA_NAOH_FOR_BOTTLE_WASHING_flow = {default = 20.0007, unit = 'kg/h'}, -- in: Soda (NaOH) for bottle washing
-  WATER_FOR_BOTTLE_WASHING_SODA_BATH_PRE_R_flow = {default = 438.14, unit = 'kg/h'}, -- in: Water for bottle washing (soda bath, pre-rinse, final rinse)
+  WATER_FOR_BOTTLE_WASHING_flow = {default = 438.14, unit = 'kg/h'}, -- in: Water for bottle washing (soda bath, pre-rinse, final rinse)
   BEER_flow = {default = 1000, unit = 'kg/h'}, -- out: Beer
   SPENT_GRAINS_DREGS_flow = {default = 39.7446, unit = 'kg/h'}, -- out: Spent grains (dregs)
-  VAPOUR_FROM_WORT_BOILING_flow = {default = 80.9778, unit = 'kg/h'}, -- out: Vapour from wort boiling
+  WORT_BOILING_CONDENSATE_flow = {default = 80.9778, unit = 'kg/h'}, -- out: Condensate from wort boiling
   TRUB_flow = {default = 1.60383, unit = 'kg/h'}, -- out: Trub
   CO2_FROM_FERMENTATION_flow = {default = 37.3, unit = 'kg/h'}, -- out: CO2 from fermentation
   HOT_WATER_TO_CLEANING_IN_PLACE_flow = {default = 354.677, unit = 'kg/h'}, -- out: Hot water to cleaning in place

@@ -50,7 +50,7 @@ Process steps and conditions:
 | **Products, by-products and discharges (out)** |  |  |
 | Beer | 1,000.0 | 5 |
 | Spent grains (dregs) | 39.7 | 75 |
-| Vapour from wort boiling | 81.0 | 100 |
+| Condensate from wort boiling | 81.0 | 25 |
 | Trub | 1.6 | 100 |
 | CO2 from fermentation | 37.3 | 10 |
 | Hot water to cleaning in place | 354.7 | 80 |

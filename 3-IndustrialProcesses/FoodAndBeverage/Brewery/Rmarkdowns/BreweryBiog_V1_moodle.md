@@ -52,7 +52,7 @@ Process steps and conditions:
 | Beer | 1,000.0 | 5 |
 | Biogas (55 vol % CH4) | 7.0 | 35 |
 | Digestate | 32.8 | 35 |
-| Vapour from wort boiling | 81.0 | 100 |
+| Condensate from wort boiling | 81.0 | 25 |
 | Trub | 1.6 | 100 |
 | CO2 from fermentation | 37.3 | 10 |
 | Hot water to cleaning in place | 354.7 | 80 |

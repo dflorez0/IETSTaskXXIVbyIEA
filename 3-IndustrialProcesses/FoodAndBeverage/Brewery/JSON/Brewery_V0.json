@@ -217,7 +217,7 @@
             "description": "Heat transfer coefficient of stream C2; not used for energy targeting"
         },
         {
-            "var_name": "C3_Mash_heating_in_MAK_and_MAT_lump_Tin",
+            "var_name": "C3_Mash_heating_MAK_and_MAT_Tin",
             "type": "LITERATURE",
             "full_name": "C3 Mash heating in MAK and MAT (lumped), inlet temperature",
             "user_grade": "MANDATORY",
@@ -231,7 +231,7 @@
             "description": "Inlet temperature of cold stream C3 (mashing)"
         },
         {
-            "var_name": "C3_Mash_heating_in_MAK_and_MAT_lump_Tout",
+            "var_name": "C3_Mash_heating_MAK_and_MAT_Tout",
             "type": "LITERATURE",
             "full_name": "C3 Mash heating in MAK and MAT (lumped), outlet temperature",
             "user_grade": "MANDATORY",
@@ -245,7 +245,7 @@
             "description": "Outlet temperature of cold stream C3 (mashing)"
         },
         {
-            "var_name": "C3_Mash_heating_in_MAK_and_MAT_lump_hin",
+            "var_name": "C3_Mash_heating_MAK_and_MAT_hin",
             "type": "LITERATURE",
             "full_name": "C3 Mash heating in MAK and MAT (lumped), inlet enthalpy flow",
             "user_grade": "MANDATORY",
@@ -259,7 +259,7 @@
             "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
         },
         {
-            "var_name": "C3_Mash_heating_in_MAK_and_MAT_lump_hout",
+            "var_name": "C3_Mash_heating_MAK_and_MAT_hout",
             "type": "LITERATURE",
             "full_name": "C3 Mash heating in MAK and MAT (lumped), outlet enthalpy flow",
             "user_grade": "MANDATORY",
@@ -273,7 +273,7 @@
             "description": "Heat load of the cold stream, per 1 t/h of beer"
         },
         {
-            "var_name": "C3_Mash_heating_in_MAK_and_MAT_lump_dTmin",
+            "var_name": "C3_Mash_heating_MAK_and_MAT_dTmin",
             "type": "CONTEXT",
             "full_name": "C3 Mash heating in MAK and MAT (lumped), ΔTmin/2 contribution",
             "user_grade": "MANDATORY",
@@ -287,7 +287,7 @@
             "description": "Minimum temperature difference contribution of stream C3"
         },
         {
-            "var_name": "C3_Mash_heating_in_MAK_and_MAT_lump_alpha",
+            "var_name": "C3_Mash_heating_MAK_and_MAT_alpha",
             "type": "CONTEXT",
             "full_name": "C3 Mash heating in MAK and MAT (lumped), heat transfer coefficient",
             "user_grade": "MANDATORY",
@@ -637,7 +637,7 @@
             "description": "Heat transfer coefficient of stream C7; not used for energy targeting"
         },
         {
-            "var_name": "H1_Boiling_vapour_condensation_with_Tin",
+            "var_name": "H1_Boiling_vapour_condensation_Tin",
             "type": "LITERATURE",
             "full_name": "H1 Boiling vapour, condensation (with desuperheating), inlet temperature",
             "user_grade": "MANDATORY",
@@ -651,7 +651,7 @@
             "description": "Inlet temperature of hot stream H1 (wort boiling)"
         },
         {
-            "var_name": "H1_Boiling_vapour_condensation_with_Tout",
+            "var_name": "H1_Boiling_vapour_condensation_Tout",
             "type": "LITERATURE",
             "full_name": "H1 Boiling vapour, condensation (with desuperheating), outlet temperature",
             "user_grade": "MANDATORY",
@@ -665,7 +665,7 @@
             "description": "Outlet temperature of hot stream H1 (wort boiling)"
         },
         {
-            "var_name": "H1_Boiling_vapour_condensation_with_hin",
+            "var_name": "H1_Boiling_vapour_condensation_hin",
             "type": "LITERATURE",
             "full_name": "H1 Boiling vapour, condensation (with desuperheating), inlet enthalpy flow",
             "user_grade": "MANDATORY",
@@ -679,7 +679,7 @@
             "description": "Heat load of the hot stream, per 1 t/h of beer"
         },
         {
-            "var_name": "H1_Boiling_vapour_condensation_with_hout",
+            "var_name": "H1_Boiling_vapour_condensation_hout",
             "type": "LITERATURE",
             "full_name": "H1 Boiling vapour, condensation (with desuperheating), outlet enthalpy flow",
             "user_grade": "MANDATORY",
@@ -693,7 +693,7 @@
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
-            "var_name": "H1_Boiling_vapour_condensation_with_dTmin",
+            "var_name": "H1_Boiling_vapour_condensation_dTmin",
             "type": "CONTEXT",
             "full_name": "H1 Boiling vapour, condensation (with desuperheating), ΔTmin/2 contribution",
             "user_grade": "MANDATORY",
@@ -707,7 +707,7 @@
             "description": "Minimum temperature difference contribution of stream H1"
         },
         {
-            "var_name": "H1_Boiling_vapour_condensation_with_alpha",
+            "var_name": "H1_Boiling_vapour_condensation_alpha",
             "type": "CONTEXT",
             "full_name": "H1 Boiling vapour, condensation (with desuperheating), heat transfer coefficient",
             "user_grade": "MANDATORY",
@@ -973,7 +973,7 @@
             "description": "Heat transfer coefficient of stream C9; not used for energy targeting"
         },
         {
-            "var_name": "C10_Concentrated_beer_warming_before_Tin",
+            "var_name": "C10_Beer_warming_before_dilution_Tin",
             "type": "LITERATURE",
             "full_name": "C10 Concentrated beer warming before dilution, inlet temperature",
             "user_grade": "MANDATORY",
@@ -987,7 +987,7 @@
             "description": "Inlet temperature of cold stream C10 (beer treatment)"
         },
         {
-            "var_name": "C10_Concentrated_beer_warming_before_Tout",
+            "var_name": "C10_Beer_warming_before_dilution_Tout",
             "type": "LITERATURE",
             "full_name": "C10 Concentrated beer warming before dilution, outlet temperature",
             "user_grade": "MANDATORY",
@@ -1001,7 +1001,7 @@
             "description": "Outlet temperature of cold stream C10 (beer treatment)"
         },
         {
-            "var_name": "C10_Concentrated_beer_warming_before_hin",
+            "var_name": "C10_Beer_warming_before_dilution_hin",
             "type": "LITERATURE",
             "full_name": "C10 Concentrated beer warming before dilution, inlet enthalpy flow",
             "user_grade": "MANDATORY",
@@ -1015,7 +1015,7 @@
             "description": "Taken as zero: the heat load of the cold stream is its outlet enthalpy flow"
         },
         {
-            "var_name": "C10_Concentrated_beer_warming_before_hout",
+            "var_name": "C10_Beer_warming_before_dilution_hout",
             "type": "LITERATURE",
             "full_name": "C10 Concentrated beer warming before dilution, outlet enthalpy flow",
             "user_grade": "MANDATORY",
@@ -1029,7 +1029,7 @@
             "description": "Heat load of the cold stream, per 1 t/h of beer"
         },
         {
-            "var_name": "C10_Concentrated_beer_warming_before_dTmin",
+            "var_name": "C10_Beer_warming_before_dilution_dTmin",
             "type": "CONTEXT",
             "full_name": "C10 Concentrated beer warming before dilution, ΔTmin/2 contribution",
             "user_grade": "MANDATORY",
@@ -1043,7 +1043,7 @@
             "description": "Minimum temperature difference contribution of stream C10"
         },
         {
-            "var_name": "C10_Concentrated_beer_warming_before_alpha",
+            "var_name": "C10_Beer_warming_before_dilution_alpha",
             "type": "CONTEXT",
             "full_name": "C10 Concentrated beer warming before dilution, heat transfer coefficient",
             "user_grade": "MANDATORY",
@@ -1729,7 +1729,7 @@
             "description": "Heat transfer coefficient of stream H10; not used for energy targeting"
         },
         {
-            "var_name": "H11_Pre_rinse_water_to_wastewater_co_Tin",
+            "var_name": "H11_Pre_rinse_water_cooling_Tin",
             "type": "LITERATURE",
             "full_name": "H11 Pre-rinse water to wastewater, cooling, inlet temperature",
             "user_grade": "MANDATORY",
@@ -1743,7 +1743,7 @@
             "description": "Inlet temperature of hot stream H11 (bottle washing)"
         },
         {
-            "var_name": "H11_Pre_rinse_water_to_wastewater_co_Tout",
+            "var_name": "H11_Pre_rinse_water_cooling_Tout",
             "type": "LITERATURE",
             "full_name": "H11 Pre-rinse water to wastewater, cooling, outlet temperature",
             "user_grade": "MANDATORY",
@@ -1757,7 +1757,7 @@
             "description": "Outlet temperature of hot stream H11 (bottle washing)"
         },
         {
-            "var_name": "H11_Pre_rinse_water_to_wastewater_co_hin",
+            "var_name": "H11_Pre_rinse_water_cooling_hin",
             "type": "LITERATURE",
             "full_name": "H11 Pre-rinse water to wastewater, cooling, inlet enthalpy flow",
             "user_grade": "MANDATORY",
@@ -1771,7 +1771,7 @@
             "description": "Heat load of the hot stream, per 1 t/h of beer"
         },
         {
-            "var_name": "H11_Pre_rinse_water_to_wastewater_co_hout",
+            "var_name": "H11_Pre_rinse_water_cooling_hout",
             "type": "LITERATURE",
             "full_name": "H11 Pre-rinse water to wastewater, cooling, outlet enthalpy flow",
             "user_grade": "MANDATORY",
@@ -1785,7 +1785,7 @@
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
-            "var_name": "H11_Pre_rinse_water_to_wastewater_co_dTmin",
+            "var_name": "H11_Pre_rinse_water_cooling_dTmin",
             "type": "CONTEXT",
             "full_name": "H11 Pre-rinse water to wastewater, cooling, ΔTmin/2 contribution",
             "user_grade": "MANDATORY",
@@ -1799,7 +1799,7 @@
             "description": "Minimum temperature difference contribution of stream H11"
         },
         {
-            "var_name": "H11_Pre_rinse_water_to_wastewater_co_alpha",
+            "var_name": "H11_Pre_rinse_water_cooling_alpha",
             "type": "CONTEXT",
             "full_name": "H11 Pre-rinse water to wastewater, cooling, heat transfer coefficient",
             "user_grade": "MANDATORY",
@@ -1813,7 +1813,7 @@
             "description": "Heat transfer coefficient of stream H11; not used for energy targeting"
         },
         {
-            "var_name": "H3_Wort_cooling_to_pitching_tempera_Tin",
+            "var_name": "H3_Wort_cooling_to_pitching_Tin",
             "type": "LITERATURE",
             "full_name": "H3 Wort cooling to pitching temperature, inlet temperature",
             "user_grade": "MANDATORY",
@@ -1827,7 +1827,7 @@
             "description": "Inlet temperature of hot stream H3 (wort cooling)"
         },
         {
-            "var_name": "H3_Wort_cooling_to_pitching_tempera_Tout",
+            "var_name": "H3_Wort_cooling_to_pitching_Tout",
             "type": "LITERATURE",
             "full_name": "H3 Wort cooling to pitching temperature, outlet temperature",
             "user_grade": "MANDATORY",
@@ -1841,7 +1841,7 @@
             "description": "Outlet temperature of hot stream H3 (wort cooling)"
         },
         {
-            "var_name": "H3_Wort_cooling_to_pitching_tempera_hin",
+            "var_name": "H3_Wort_cooling_to_pitching_hin",
             "type": "LITERATURE",
             "full_name": "H3 Wort cooling to pitching temperature, inlet enthalpy flow",
             "user_grade": "MANDATORY",
@@ -1855,7 +1855,7 @@
             "description": "Heat load of the hot stream, per 1 t/h of beer"
         },
         {
-            "var_name": "H3_Wort_cooling_to_pitching_tempera_hout",
+            "var_name": "H3_Wort_cooling_to_pitching_hout",
             "type": "LITERATURE",
             "full_name": "H3 Wort cooling to pitching temperature, outlet enthalpy flow",
             "user_grade": "MANDATORY",
@@ -1869,7 +1869,7 @@
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
-            "var_name": "H3_Wort_cooling_to_pitching_tempera_dTmin",
+            "var_name": "H3_Wort_cooling_to_pitching_dTmin",
             "type": "CONTEXT",
             "full_name": "H3 Wort cooling to pitching temperature, ΔTmin/2 contribution",
             "user_grade": "MANDATORY",
@@ -1883,7 +1883,7 @@
             "description": "Minimum temperature difference contribution of stream H3"
         },
         {
-            "var_name": "H3_Wort_cooling_to_pitching_tempera_alpha",
+            "var_name": "H3_Wort_cooling_to_pitching_alpha",
             "type": "CONTEXT",
             "full_name": "H3 Wort cooling to pitching temperature, heat transfer coefficient",
             "user_grade": "MANDATORY",
@@ -1897,7 +1897,7 @@
             "description": "Heat transfer coefficient of stream H3; not used for energy targeting"
         },
         {
-            "var_name": "H4_Fermentation_at_10_C_heat_of_fer_Tin",
+            "var_name": "H4_Fermentation_at_10_C_Tin",
             "type": "LITERATURE",
             "full_name": "H4 Fermentation at 10 °C (heat of fermentation), inlet temperature",
             "user_grade": "MANDATORY",
@@ -1911,7 +1911,7 @@
             "description": "Inlet temperature of hot stream H4 (fermentation)"
         },
         {
-            "var_name": "H4_Fermentation_at_10_C_heat_of_fer_Tout",
+            "var_name": "H4_Fermentation_at_10_C_Tout",
             "type": "LITERATURE",
             "full_name": "H4 Fermentation at 10 °C (heat of fermentation), outlet temperature",
             "user_grade": "MANDATORY",
@@ -1925,7 +1925,7 @@
             "description": "Outlet temperature of hot stream H4 (fermentation)"
         },
         {
-            "var_name": "H4_Fermentation_at_10_C_heat_of_fer_hin",
+            "var_name": "H4_Fermentation_at_10_C_hin",
             "type": "LITERATURE",
             "full_name": "H4 Fermentation at 10 °C (heat of fermentation), inlet enthalpy flow",
             "user_grade": "MANDATORY",
@@ -1939,7 +1939,7 @@
             "description": "Heat load of the hot stream, per 1 t/h of beer"
         },
         {
-            "var_name": "H4_Fermentation_at_10_C_heat_of_fer_hout",
+            "var_name": "H4_Fermentation_at_10_C_hout",
             "type": "LITERATURE",
             "full_name": "H4 Fermentation at 10 °C (heat of fermentation), outlet enthalpy flow",
             "user_grade": "MANDATORY",
@@ -1953,7 +1953,7 @@
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
-            "var_name": "H4_Fermentation_at_10_C_heat_of_fer_dTmin",
+            "var_name": "H4_Fermentation_at_10_C_dTmin",
             "type": "CONTEXT",
             "full_name": "H4 Fermentation at 10 °C (heat of fermentation), ΔTmin/2 contribution",
             "user_grade": "MANDATORY",
@@ -1967,7 +1967,7 @@
             "description": "Minimum temperature difference contribution of stream H4"
         },
         {
-            "var_name": "H4_Fermentation_at_10_C_heat_of_fer_alpha",
+            "var_name": "H4_Fermentation_at_10_C_alpha",
             "type": "CONTEXT",
             "full_name": "H4 Fermentation at 10 °C (heat of fermentation), heat transfer coefficient",
             "user_grade": "MANDATORY",
@@ -1981,7 +1981,7 @@
             "description": "Heat transfer coefficient of stream H4; not used for energy targeting"
         },
         {
-            "var_name": "H5_Cooling_to_maturation_temperatur_Tin",
+            "var_name": "H5_Cooling_to_maturation_Tin",
             "type": "LITERATURE",
             "full_name": "H5 Cooling to maturation temperature, inlet temperature",
             "user_grade": "MANDATORY",
@@ -1995,7 +1995,7 @@
             "description": "Inlet temperature of hot stream H5 (maturation)"
         },
         {
-            "var_name": "H5_Cooling_to_maturation_temperatur_Tout",
+            "var_name": "H5_Cooling_to_maturation_Tout",
             "type": "LITERATURE",
             "full_name": "H5 Cooling to maturation temperature, outlet temperature",
             "user_grade": "MANDATORY",
@@ -2009,7 +2009,7 @@
             "description": "Outlet temperature of hot stream H5 (maturation)"
         },
         {
-            "var_name": "H5_Cooling_to_maturation_temperatur_hin",
+            "var_name": "H5_Cooling_to_maturation_hin",
             "type": "LITERATURE",
             "full_name": "H5 Cooling to maturation temperature, inlet enthalpy flow",
             "user_grade": "MANDATORY",
@@ -2023,7 +2023,7 @@
             "description": "Heat load of the hot stream, per 1 t/h of beer"
         },
         {
-            "var_name": "H5_Cooling_to_maturation_temperatur_hout",
+            "var_name": "H5_Cooling_to_maturation_hout",
             "type": "LITERATURE",
             "full_name": "H5 Cooling to maturation temperature, outlet enthalpy flow",
             "user_grade": "MANDATORY",
@@ -2037,7 +2037,7 @@
             "description": "Taken as zero: the heat load of the hot stream is its inlet enthalpy flow"
         },
         {
-            "var_name": "H5_Cooling_to_maturation_temperatur_dTmin",
+            "var_name": "H5_Cooling_to_maturation_dTmin",
             "type": "CONTEXT",
             "full_name": "H5 Cooling to maturation temperature, ΔTmin/2 contribution",
             "user_grade": "MANDATORY",
@@ -2051,7 +2051,7 @@
             "description": "Minimum temperature difference contribution of stream H5"
         },
         {
-            "var_name": "H5_Cooling_to_maturation_temperatur_alpha",
+            "var_name": "H5_Cooling_to_maturation_alpha",
             "type": "CONTEXT",
             "full_name": "H5 Cooling to maturation temperature, heat transfer coefficient",
             "user_grade": "MANDATORY",
@@ -2429,7 +2429,7 @@
             "description": "Caustic soda for the soda bath of the bottle washer"
         },
         {
-            "var_name": "WATER_FOR_BOTTLE_WASHING_SODA_BATH_PRE_R_flow",
+            "var_name": "WATER_FOR_BOTTLE_WASHING_flow",
             "type": "LITERATURE",
             "full_name": "Water for bottle washing (soda bath, pre-rinse, final rinse)",
             "user_grade": "MANDATORY",
@@ -2471,18 +2471,18 @@
             "description": "Spent grains separated in lautering, sold as animal feed"
         },
         {
-            "var_name": "VAPOUR_FROM_WORT_BOILING_flow",
+            "var_name": "WORT_BOILING_CONDENSATE_flow",
             "type": "LITERATURE",
-            "full_name": "Vapour from wort boiling",
+            "full_name": "Condensate from wort boiling",
             "user_grade": "MANDATORY",
             "value": 80.9778,
             "physical_unit": "kg/h",
             "formula": null,
             "min_bound": null,
             "max_bound": null,
-            "latex_syntax": "$\\dot m_{vap,wort}$",
+            "latex_syntax": "$\\dot m_{cond,wort}$",
             "reference": "Maréchal et al. (2013), Tables 27.1 and 27.5; case study V0, Table 1",
-            "description": "Water evaporated in wort boiling, 10 % of the wort"
+            "description": "Water evaporated in wort boiling, 10 % of the wort, that leaves as condensate after H1 and H2"
         },
         {
             "var_name": "TRUB_flow",
@@ -2573,7 +2573,7 @@
                     "unit": "-"
                 }
             },
-            "connectors_description": "The unit takes malt, corn (adjunct), water for mashing, sparge water, whirlpool make-up water, dilution water, water for cleaning (CIP), caustic soda (NaOH) and water for bottle washing, and electricity, and delivers beer, spent grains (dregs), vapour from wort boiling, trub, CO2 from fermentation, hot water to cleaning and bottle-washing wastewater. The material flows close at 1,972.4 kg/h in and out.",
+            "connectors_description": "The unit takes malt, corn (adjunct), water for mashing, sparge water, whirlpool make-up water, dilution water, water for cleaning (CIP), caustic soda (NaOH) and water for bottle washing, and electricity, and delivers beer, spent grains (dregs), condensate from wort boiling, trub, CO2 from fermentation, hot water to cleaning and bottle-washing wastewater. The material flows close at 1,972.4 kg/h in and out.",
             "connectors": [
                 {
                     "name": "ELECTRICITY",
@@ -3026,14 +3026,14 @@
                     "description": "Caustic soda for the soda bath of the bottle washer"
                 },
                 {
-                    "name": "WATER_FOR_BOTTLE_WASHING_SODA_BATH_PRE_R",
+                    "name": "WATER_FOR_BOTTLE_WASHING",
                     "full_name": "Water for bottle washing",
                     "scope": "GLOBAL",
                     "type": "RAW MATERIAL",
                     "direction": "IN",
                     "flow": {
                         "value": 438.14,
-                        "formula": "=WATER_FOR_BOTTLE_WASHING_SODA_BATH_PRE_R_flow",
+                        "formula": "=WATER_FOR_BOTTLE_WASHING_flow",
                         "unit": "kg/h"
                     },
                     "temperature": {
@@ -3176,18 +3176,18 @@
                     "description": "Spent grains separated in lautering, sold as animal feed"
                 },
                 {
-                    "name": "VAPOUR_FROM_WORT_BOILING",
-                    "full_name": "Vapour from wort boiling",
+                    "name": "WORT_BOILING_CONDENSATE",
+                    "full_name": "Condensate from wort boiling",
                     "scope": "GLOBAL",
-                    "type": "EMISSIONS",
+                    "type": "WASTE",
                     "direction": "OUT",
                     "flow": {
                         "value": 80.9778,
-                        "formula": "=VAPOUR_FROM_WORT_BOILING_flow",
+                        "formula": "=WORT_BOILING_CONDENSATE_flow",
                         "unit": "kg/h"
                     },
                     "temperature": {
-                        "value": 100,
+                        "value": 25,
                         "formula": null,
                         "unit": "°C"
                     },
@@ -3212,7 +3212,7 @@
                         "unit": "-"
                     },
                     "phase": {
-                        "value": "(V)",
+                        "value": "(L)",
                         "formula": null,
                         "unit": "-"
                     },
@@ -3223,7 +3223,7 @@
                     },
                     "method": "-",
                     "reference_stream": "No",
-                    "description": "Water evaporated in wort boiling, 10 % of the wort"
+                    "description": "Water evaporated in wort boiling (10 % of the wort), condensed (H1) and cooled to 25 °C (H2), sent to the drain"
                 },
                 {
                     "name": "TRUB",
@@ -3525,28 +3525,28 @@
                     "reference_stream": "No"
                 },
                 {
-                    "name": "C3_Mash_heating_in_MAK_and_MAT_lump",
+                    "name": "C3_Mash_heating_MAK_and_MAT",
                     "full_name": "C3 Mash heating in MAK and MAT (lumped)",
                     "description": "Mashing: mash heating in MAK and MAT (lumped), from 48 to 65 °C",
                     "type": "Cold",
                     "inlet_temperature": {
                         "value": 48,
-                        "formula": "=C3_Mash_heating_in_MAK_and_MAT_lump_Tin",
+                        "formula": "=C3_Mash_heating_MAK_and_MAT_Tin",
                         "unit": "°C"
                     },
                     "outlet_temperature": {
                         "value": 65,
-                        "formula": "=C3_Mash_heating_in_MAK_and_MAT_lump_Tout",
+                        "formula": "=C3_Mash_heating_MAK_and_MAT_Tout",
                         "unit": "°C"
                     },
                     "inlet_enthalpy": {
                         "value": 0,
-                        "formula": "=C3_Mash_heating_in_MAK_and_MAT_lump_hin",
+                        "formula": "=C3_Mash_heating_MAK_and_MAT_hin",
                         "unit": "kW"
                     },
                     "outlet_enthalpy": {
                         "value": 8.86213,
-                        "formula": "=C3_Mash_heating_in_MAK_and_MAT_lump_hout",
+                        "formula": "=C3_Mash_heating_MAK_and_MAT_hout",
                         "unit": "kW"
                     },
                     "spec_heat_cap": {
@@ -3561,12 +3561,12 @@
                     },
                     "dtmin": {
                         "value": 5,
-                        "formula": "=C3_Mash_heating_in_MAK_and_MAT_lump_dTmin",
+                        "formula": "=C3_Mash_heating_MAK_and_MAT_dTmin",
                         "unit": "K"
                     },
                     "heat_transfer_coef": {
                         "value": 1,
-                        "formula": "=C3_Mash_heating_in_MAK_and_MAT_lump_alpha",
+                        "formula": "=C3_Mash_heating_MAK_and_MAT_alpha",
                         "unit": "kW/m2K"
                     },
                     "heat_cascade": "DEFAULT",
@@ -3861,28 +3861,28 @@
                     "reference_stream": "No"
                 },
                 {
-                    "name": "C10_Concentrated_beer_warming_before",
+                    "name": "C10_Beer_warming_before_dilution",
                     "full_name": "C10 Concentrated beer warming before dilution",
                     "description": "Beer treatment: concentrated beer warming before dilution, from 1 to 15 °C; scaled to the flow of concentrated beer after the release of CO2",
                     "type": "Cold",
                     "inlet_temperature": {
                         "value": 1,
-                        "formula": "=C10_Concentrated_beer_warming_before_Tin",
+                        "formula": "=C10_Beer_warming_before_dilution_Tin",
                         "unit": "°C"
                     },
                     "outlet_temperature": {
                         "value": 15,
-                        "formula": "=C10_Concentrated_beer_warming_before_Tout",
+                        "formula": "=C10_Beer_warming_before_dilution_Tout",
                         "unit": "°C"
                     },
                     "inlet_enthalpy": {
                         "value": 0,
-                        "formula": "=C10_Concentrated_beer_warming_before_hin",
+                        "formula": "=C10_Beer_warming_before_dilution_hin",
                         "unit": "kW"
                     },
                     "outlet_enthalpy": {
                         "value": 11.4128,
-                        "formula": "=C10_Concentrated_beer_warming_before_hout",
+                        "formula": "=C10_Beer_warming_before_dilution_hout",
                         "unit": "kW"
                     },
                     "spec_heat_cap": {
@@ -3897,12 +3897,12 @@
                     },
                     "dtmin": {
                         "value": 5,
-                        "formula": "=C10_Concentrated_beer_warming_before_dTmin",
+                        "formula": "=C10_Beer_warming_before_dilution_dTmin",
                         "unit": "K"
                     },
                     "heat_transfer_coef": {
                         "value": 1,
-                        "formula": "=C10_Concentrated_beer_warming_before_alpha",
+                        "formula": "=C10_Beer_warming_before_dilution_alpha",
                         "unit": "kW/m2K"
                     },
                     "heat_cascade": "DEFAULT",
@@ -4197,28 +4197,28 @@
                     "reference_stream": "No"
                 },
                 {
-                    "name": "H1_Boiling_vapour_condensation_with",
+                    "name": "H1_Boiling_vapour_condensation",
                     "full_name": "H1 Boiling vapour, condensation (with desuperheating)",
                     "description": "Wort boiling: boiling vapour, condensation (with desuperheating), from 100.1 to 100 °C",
                     "type": "Hot",
                     "inlet_temperature": {
                         "value": 100.1,
-                        "formula": "=H1_Boiling_vapour_condensation_with_Tin",
+                        "formula": "=H1_Boiling_vapour_condensation_Tin",
                         "unit": "°C"
                     },
                     "outlet_temperature": {
                         "value": 100,
-                        "formula": "=H1_Boiling_vapour_condensation_with_Tout",
+                        "formula": "=H1_Boiling_vapour_condensation_Tout",
                         "unit": "°C"
                     },
                     "inlet_enthalpy": {
                         "value": 51.0311,
-                        "formula": "=H1_Boiling_vapour_condensation_with_hin",
+                        "formula": "=H1_Boiling_vapour_condensation_hin",
                         "unit": "kW"
                     },
                     "outlet_enthalpy": {
                         "value": 0,
-                        "formula": "=H1_Boiling_vapour_condensation_with_hout",
+                        "formula": "=H1_Boiling_vapour_condensation_hout",
                         "unit": "kW"
                     },
                     "spec_heat_cap": {
@@ -4233,12 +4233,12 @@
                     },
                     "dtmin": {
                         "value": 2,
-                        "formula": "=H1_Boiling_vapour_condensation_with_dTmin",
+                        "formula": "=H1_Boiling_vapour_condensation_dTmin",
                         "unit": "K"
                     },
                     "heat_transfer_coef": {
                         "value": 1,
-                        "formula": "=H1_Boiling_vapour_condensation_with_alpha",
+                        "formula": "=H1_Boiling_vapour_condensation_alpha",
                         "unit": "kW/m2K"
                     },
                     "heat_cascade": "DEFAULT",
@@ -4293,28 +4293,28 @@
                     "reference_stream": "No"
                 },
                 {
-                    "name": "H3_Wort_cooling_to_pitching_tempera",
+                    "name": "H3_Wort_cooling_to_pitching",
                     "full_name": "H3 Wort cooling to pitching temperature",
                     "description": "Wort cooling: wort cooling to pitching temperature, from 102.5 to 10 °C",
                     "type": "Hot",
                     "inlet_temperature": {
                         "value": 102.5,
-                        "formula": "=H3_Wort_cooling_to_pitching_tempera_Tin",
+                        "formula": "=H3_Wort_cooling_to_pitching_Tin",
                         "unit": "°C"
                     },
                     "outlet_temperature": {
                         "value": 10,
-                        "formula": "=H3_Wort_cooling_to_pitching_tempera_Tout",
+                        "formula": "=H3_Wort_cooling_to_pitching_Tout",
                         "unit": "°C"
                     },
                     "inlet_enthalpy": {
                         "value": 79.123,
-                        "formula": "=H3_Wort_cooling_to_pitching_tempera_hin",
+                        "formula": "=H3_Wort_cooling_to_pitching_hin",
                         "unit": "kW"
                     },
                     "outlet_enthalpy": {
                         "value": 0,
-                        "formula": "=H3_Wort_cooling_to_pitching_tempera_hout",
+                        "formula": "=H3_Wort_cooling_to_pitching_hout",
                         "unit": "kW"
                     },
                     "spec_heat_cap": {
@@ -4329,40 +4329,40 @@
                     },
                     "dtmin": {
                         "value": 5,
-                        "formula": "=H3_Wort_cooling_to_pitching_tempera_dTmin",
+                        "formula": "=H3_Wort_cooling_to_pitching_dTmin",
                         "unit": "K"
                     },
                     "heat_transfer_coef": {
                         "value": 1,
-                        "formula": "=H3_Wort_cooling_to_pitching_tempera_alpha",
+                        "formula": "=H3_Wort_cooling_to_pitching_alpha",
                         "unit": "kW/m2K"
                     },
                     "heat_cascade": "DEFAULT",
                     "reference_stream": "No"
                 },
                 {
-                    "name": "H4_Fermentation_at_10_C_heat_of_fer",
+                    "name": "H4_Fermentation_at_10_C",
                     "full_name": "H4 Fermentation at 10 °C (heat of fermentation)",
                     "description": "Fermentation: fermentation at 10 °C (heat of fermentation), from 10 to 9.9 °C",
                     "type": "Hot",
                     "inlet_temperature": {
                         "value": 10,
-                        "formula": "=H4_Fermentation_at_10_C_heat_of_fer_Tin",
+                        "formula": "=H4_Fermentation_at_10_C_Tin",
                         "unit": "°C"
                     },
                     "outlet_temperature": {
                         "value": 9.9,
-                        "formula": "=H4_Fermentation_at_10_C_heat_of_fer_Tout",
+                        "formula": "=H4_Fermentation_at_10_C_Tout",
                         "unit": "°C"
                     },
                     "inlet_enthalpy": {
                         "value": 7.78621,
-                        "formula": "=H4_Fermentation_at_10_C_heat_of_fer_hin",
+                        "formula": "=H4_Fermentation_at_10_C_hin",
                         "unit": "kW"
                     },
                     "outlet_enthalpy": {
                         "value": 0,
-                        "formula": "=H4_Fermentation_at_10_C_heat_of_fer_hout",
+                        "formula": "=H4_Fermentation_at_10_C_hout",
                         "unit": "kW"
                     },
                     "spec_heat_cap": {
@@ -4377,40 +4377,40 @@
                     },
                     "dtmin": {
                         "value": 5,
-                        "formula": "=H4_Fermentation_at_10_C_heat_of_fer_dTmin",
+                        "formula": "=H4_Fermentation_at_10_C_dTmin",
                         "unit": "K"
                     },
                     "heat_transfer_coef": {
                         "value": 1,
-                        "formula": "=H4_Fermentation_at_10_C_heat_of_fer_alpha",
+                        "formula": "=H4_Fermentation_at_10_C_alpha",
                         "unit": "kW/m2K"
                     },
                     "heat_cascade": "DEFAULT",
                     "reference_stream": "No"
                 },
                 {
-                    "name": "H5_Cooling_to_maturation_temperatur",
+                    "name": "H5_Cooling_to_maturation",
                     "full_name": "H5 Cooling to maturation temperature",
                     "description": "Maturation: cooling to maturation temperature, from 10 to 6 °C",
                     "type": "Hot",
                     "inlet_temperature": {
                         "value": 10,
-                        "formula": "=H5_Cooling_to_maturation_temperatur_Tin",
+                        "formula": "=H5_Cooling_to_maturation_Tin",
                         "unit": "°C"
                     },
                     "outlet_temperature": {
                         "value": 6,
-                        "formula": "=H5_Cooling_to_maturation_temperatur_Tout",
+                        "formula": "=H5_Cooling_to_maturation_Tout",
                         "unit": "°C"
                     },
                     "inlet_enthalpy": {
                         "value": 3.40392,
-                        "formula": "=H5_Cooling_to_maturation_temperatur_hin",
+                        "formula": "=H5_Cooling_to_maturation_hin",
                         "unit": "kW"
                     },
                     "outlet_enthalpy": {
                         "value": 0,
-                        "formula": "=H5_Cooling_to_maturation_temperatur_hout",
+                        "formula": "=H5_Cooling_to_maturation_hout",
                         "unit": "kW"
                     },
                     "spec_heat_cap": {
@@ -4425,12 +4425,12 @@
                     },
                     "dtmin": {
                         "value": 5,
-                        "formula": "=H5_Cooling_to_maturation_temperatur_dTmin",
+                        "formula": "=H5_Cooling_to_maturation_dTmin",
                         "unit": "K"
                     },
                     "heat_transfer_coef": {
                         "value": 1,
-                        "formula": "=H5_Cooling_to_maturation_temperatur_alpha",
+                        "formula": "=H5_Cooling_to_maturation_alpha",
                         "unit": "kW/m2K"
                     },
                     "heat_cascade": "DEFAULT",
@@ -4677,28 +4677,28 @@
                     "reference_stream": "No"
                 },
                 {
-                    "name": "H11_Pre_rinse_water_to_wastewater_co",
+                    "name": "H11_Pre_rinse_water_cooling",
                     "full_name": "H11 Pre-rinse water to wastewater, cooling",
                     "description": "Bottle washing: pre-rinse water to wastewater, cooling, from 40 to 20 °C",
                     "type": "Hot",
                     "inlet_temperature": {
                         "value": 40,
-                        "formula": "=H11_Pre_rinse_water_to_wastewater_co_Tin",
+                        "formula": "=H11_Pre_rinse_water_cooling_Tin",
                         "unit": "°C"
                     },
                     "outlet_temperature": {
                         "value": 20,
-                        "formula": "=H11_Pre_rinse_water_to_wastewater_co_Tout",
+                        "formula": "=H11_Pre_rinse_water_cooling_Tout",
                         "unit": "°C"
                     },
                     "inlet_enthalpy": {
                         "value": 10.3908,
-                        "formula": "=H11_Pre_rinse_water_to_wastewater_co_hin",
+                        "formula": "=H11_Pre_rinse_water_cooling_hin",
                         "unit": "kW"
                     },
                     "outlet_enthalpy": {
                         "value": 0,
-                        "formula": "=H11_Pre_rinse_water_to_wastewater_co_hout",
+                        "formula": "=H11_Pre_rinse_water_cooling_hout",
                         "unit": "kW"
                     },
                     "spec_heat_cap": {
@@ -4713,12 +4713,12 @@
                     },
                     "dtmin": {
                         "value": 5,
-                        "formula": "=H11_Pre_rinse_water_to_wastewater_co_dTmin",
+                        "formula": "=H11_Pre_rinse_water_cooling_dTmin",
                         "unit": "K"
                     },
                     "heat_transfer_coef": {
                         "value": 1,
-                        "formula": "=H11_Pre_rinse_water_to_wastewater_co_alpha",
+                        "formula": "=H11_Pre_rinse_water_cooling_alpha",
                         "unit": "kW/m2K"
                     },
                     "heat_cascade": "DEFAULT",
