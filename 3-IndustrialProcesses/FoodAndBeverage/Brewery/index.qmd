@@ -29,9 +29,11 @@ Minimum utility requirements of variant V0 on its own, from its heat streams.
 
 ## Model
 
-Throughout this page, names written like `CAPACITY` are variables of the model: hover one for its definition, click it to go to its row in the [variables](#variables) table. @fig-brewery-v0 shows the process of variant V0, with the mass flows per 1 t/h of beer.
+Throughout this page, names written like `CAPACITY` are variables of the model: hover one for its definition, click it to go to its row in the [variables](#variables) table. @fig-brewery-v0 shows the process of variant V0, with the mass flows per 1 t/h of beer, and @fig-brewery-v0-pfd its equipment, with the heat streams of the model; the stream tags and flow labels on it are linked the same way.
 
 ![Block flow diagram of variant V0, mass flows in kg/h per 1 t/h of beer. Click to enlarge.](Figures/brewery_V0_flowsheet.png){#fig-brewery-v0 .lightbox width=100%}
+
+![Process flow diagram of variant V0: the equipment and the 27 heat streams of the model, cold streams (C) to be heated and hot streams (H) to be cooled. Click to enlarge.](Figures/Brewery_V0_PFD.svg){#fig-brewery-v0-pfd .lightbox width=100% mv-src="JSON/Brewery_V0.json" mv-links="C1=C1_Water_to_the_mash_cooker_MAK_hout;C2=C2_Water_to_the_mash_tun_MAT_hout;C3=C3_Mash_heating_MAK_and_MAT_hout;C4=C4_Combined_mash_heating_hout;C5=C5_Sparge_water_heating_hout;C6=C6_Wort_heating_to_boiling_hout;C7=C7_Wort_boiling_water_evaporation_hout;C8=C8_Make_up_water_heating_hout;C9=C9_Hot_water_for_cleaning_in_place_hout;C10=C10_Beer_warming_before_dilution_hout;C11=C11_Pasteurisation_heating_hout;C12=C12_Soda_bath_heating_hout;C13=C13_Pre_rinse_bath_heating_hout;C14=C14_Soda_bath_make_up_water_and_soda_hout;C15=C15_Pre_rinse_make_up_water_heating_hout;C16=C16_Final_rinse_water_heating_hout;H1=H1_Boiling_vapour_condensation_hin;H2=H2_Vapour_condensate_cooling_hin;H3=H3_Wort_cooling_to_pitching_hin;H4=H4_Fermentation_at_10_C_hin;H5=H5_Cooling_to_maturation_hin;H6=H6_Maturation_at_6_C_hin;H7=H7_Beer_chilling_hin;H8=H8_Chillage_at_1_C_hin;H9=H9_Pasteurised_beer_cooling_hin;H10=H10_Soda_bath_rinse_water_cooling_hin;H11=H11_Pre_rinse_water_cooling_hin;malt=MALT_flow;corn=CORN_ADJUNCT_flow;water=WATER_FOR_MASHING_MAK_AND_MAT_flow;sparge water=SPARGE_WATER_flow;spent grains=SPENT_GRAINS_DREGS_flow;condensate=WORT_BOILING_CONDENSATE_flow;make-up water=MAKE_UP_WATER_AT_THE_WHIRLPOOL_flow;trub=TRUB_flow;CO₂=CO2_FROM_FERMENTATION_flow;dilution water=DILUTION_WATER_flow;beer, 5 °C=BEER_flow;CIP water=WATER_FOR_CLEANING_IN_PLACE_flow;to CIP, 80 °C=HOT_WATER_TO_CLEANING_IN_PLACE_flow;fresh water=WATER_FOR_BOTTLE_WASHING_flow;soda, water=SODA_NAOH_FOR_BOTTLE_WASHING_flow;wastewater, 20 °C=BOTTLE_WASHING_WASTEWATER_flow"}
 
 ### Process
 
@@ -101,11 +103,11 @@ The methane of the biogas, 29.6 kW on a lower heating value basis, is used by on
 
 ## Supplementary material
 
-For each variant: the OSMOSE (Lua) implementation of the model, its description in the Task XXIV JSON format, the case study with its process data for mass and heat integration, the data workbook of the case study and the block flow diagram.
+For each variant: the OSMOSE (Lua) implementation of the model, its description in the Task XXIV JSON format, the case study with its process data for mass and heat integration, the data workbook of the case study and the block flow diagram; for V0, also the process flow diagram.
 
 | Variant | Model | Case study and data |
 |:--|:--|:--|
-| V0, spent grains as animal feed | [Brewery_V0_ET.lua](Osmoses/Brewery_V0_ET.lua), [Brewery_V0.json](JSON/Brewery_V0.json) | [Case study](Documents/Brewery_V0_Case_Study_rs_qt.docx), [data workbook](Documents/Brewery_V0_rs_qt.xlsx), [diagram](Figures/brewery_V0_flowsheet.png) |
+| V0, spent grains as animal feed | [Brewery_V0_ET.lua](Osmoses/Brewery_V0_ET.lua), [Brewery_V0.json](JSON/Brewery_V0.json) | [Case study](Documents/Brewery_V0_Case_Study_rs_qt.docx), [data workbook](Documents/Brewery_V0_rs_qt.xlsx), [diagram](Figures/brewery_V0_flowsheet.png), [process flow diagram](Figures/Brewery_V0_PFD.svg) |
 | V1, biogas | [Brewery_V1_ET.lua](Osmoses/Brewery_V1_ET.lua), [Brewery_V1.json](JSON/Brewery_V1.json) | [Case study](Documents/BreweryBiog_V1_Case_Study_rs_qt.docx), [data workbook](Documents/BreweryBiog_V1_rs_qt.xlsx), [diagram](Figures/brewerybiog_V1_flowsheet.png) |
 
 ## References
