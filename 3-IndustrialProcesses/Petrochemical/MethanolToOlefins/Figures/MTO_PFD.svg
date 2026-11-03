@@ -1,18 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1440px" height="1216px" viewBox="0 0 1440 1216">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1440px" height="1232px" viewBox="0 0 1440 1232">
 <defs><marker id="pfd-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#222222"/></marker></defs>
-<rect x="0" y="0" width="1440" height="1216" fill="#ffffff"/>
+<rect x="0" y="0" width="1440" height="1232" fill="#ffffff"/>
 <rect x="10" y="10" width="1420" height="272" rx="12" fill="#fdf5ee"/>
 <text x="1375" y="30" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#666666" text-anchor="end">REACTION</text>
-<rect x="10" y="290" width="1420" height="180" rx="12" fill="#f4f1fa"/>
+<rect x="10" y="290" width="1420" height="186" rx="12" fill="#f4f1fa"/>
 <text x="1375" y="310" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#666666" text-anchor="end">QUENCH, COMPRESSION AND CO₂ WASH</text>
-<rect x="10" y="478" width="1180" height="392" rx="12" fill="#eef4f9"/>
-<text x="1135" y="498" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#666666" text-anchor="end">SEPARATION</text>
-<rect x="10" y="878" width="1180" height="288" rx="12" fill="#eef7f1"/>
-<text x="1135" y="898" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#666666" text-anchor="end">OLEFIN CRACKING</text>
-<rect x="1200" y="478" width="230" height="688" rx="12" fill="#f3f4f5"/>
-<text x="1415" y="498" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#666666" text-anchor="end">OXY-COMBUSTION</text>
-<text x="42" y="90" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="start">methanol</text>
-<text x="42" y="103" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="normal" fill="#2471a3" text-anchor="start">meoh_input</text>
+<rect x="10" y="484" width="1180" height="392" rx="12" fill="#eef4f9"/>
+<text x="1135" y="504" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#666666" text-anchor="end">SEPARATION</text>
+<rect x="10" y="884" width="1180" height="298" rx="12" fill="#eef7f1"/>
+<text x="1135" y="904" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#666666" text-anchor="end">OLEFIN CRACKING</text>
+<rect x="1200" y="484" width="230" height="698" rx="12" fill="#f3f4f5"/>
+<text x="1415" y="504" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#666666" text-anchor="end">OXY-COMBUSTION</text>
+<text x="42" y="80" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="start">methanol</text>
+<rect x="42.0" y="84" width="71.0" height="18" rx="9" fill="#e8f6f3" stroke="#148f77" stroke-width="1.2"/>
+<text x="77.5" y="97" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#148f77" text-anchor="middle">meoh_input</text>
 <path d="M 40 120 L 102 120" fill="none" stroke="#222222" stroke-width="2.6"/>
 <circle cx="115" cy="120" r="13" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
 <path d="M 109 112 L 124 120 L 109 128 Z" fill="none" stroke="#222222" stroke-width="1.3"/>
@@ -23,13 +24,11 @@
 <polyline points="166,120 173,120 176.5,113 183.5,127 187,120 194,120" fill="none" stroke="#222222" stroke-width="1.4"/>
 <rect x="147.55" y="83" width="64.9" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
 <text x="180" y="96" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c1_ho</text>
-<text x="180" y="76" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">25 → 94 °C</text>
 <path d="M 194 120 L 246 120" fill="none" stroke="#222222" stroke-width="2.6"/>
 <circle cx="260" cy="120" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
 <polyline points="246,120 253,120 256.5,113 263.5,127 267,120 274,120" fill="none" stroke="#222222" stroke-width="1.4"/>
 <rect x="227.55" y="83" width="64.9" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
 <text x="260" y="96" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c2_ho</text>
-<text x="260" y="76" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">94 °C</text>
 <path d="M 274 120 L 340 120" fill="none" stroke="#222222" stroke-width="2.6"/>
 <circle cx="340" cy="120" r="3.5" fill="#222222"/>
 <path d="M 340 120 L 391 120" fill="none" stroke="#222222" stroke-width="2.6"/>
@@ -37,7 +36,6 @@
 <polyline points="391,120 398,120 401.5,113 408.5,127 412,120 419,120" fill="none" stroke="#222222" stroke-width="1.4"/>
 <rect x="372.55" y="83" width="64.9" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
 <text x="405" y="96" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c3_ho</text>
-<text x="405" y="76" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">107 → 310 °C</text>
 <path d="M 419 120 L 469 120" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
 <rect x="470" y="70" width="80" height="165" rx="40.0" ry="18" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
 <rect x="482" y="165" width="56" height="40" fill="#ffffff" stroke="#222222" stroke-width="1.2"/>
@@ -54,42 +52,39 @@
 <path d="M 522 205 L 538 189" fill="none" stroke="#222222" stroke-width="0.9"/>
 <path d="M 530 205 L 538 197" fill="none" stroke="#222222" stroke-width="0.9"/>
 <text x="462" y="228" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">MTO reactor</text>
-<rect x="474.5" y="92" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="510" y="105" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h22_ho</text>
-<text x="510" y="124" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">410 °C</text>
+<rect x="474.5" y="100" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="510" y="113" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h22_ho</text>
 <rect x="630" y="105" width="76" height="120" rx="38.0" ry="18" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
 <text x="716" y="182" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="start">Regenerator</text>
-<rect x="635.55" y="130" width="64.9" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="668" y="143" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h1_ho</text>
-<text x="668" y="162" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">1000 °C</text>
+<rect x="635.55" y="150" width="64.9" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="668" y="163" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h1_ho</text>
 <path d="M 550 150 L 629 150" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
 <path d="M 630 200 L 551 200" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
 <text x="595" y="182" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle" font-style="italic">catalyst</text>
 <path d="M 790 208 L 707 208" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
 <text x="798" y="212" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="start" font-style="italic">oxygen</text>
-<text x="798" y="225" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="normal" fill="#2471a3" text-anchor="start">oxygen_regen</text>
+<rect x="798.0" y="216" width="83.19999999999999" height="18" rx="9" fill="#e8f6f3" stroke="#148f77" stroke-width="1.2"/>
+<text x="839.6" y="229" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#148f77" text-anchor="middle">oxygen_regen</text>
 <path d="M 668 105 L 668 80 L 796 80" fill="none" stroke="#222222" stroke-width="1.6"/>
 <circle cx="810" cy="80" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
 <polyline points="796,80 803,80 806.5,73 813.5,87 817,80 824,80" fill="none" stroke="#222222" stroke-width="1.4"/>
 <rect x="774.5" y="99" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
 <text x="810" y="112" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h18_ho</text>
-<text x="810" y="130" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">1000 → 25 °C</text>
 <path d="M 824 80 L 890 80" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
 <text x="898" y="85" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="start" font-style="italic">CO<tspan baseline-shift="sub" font-size="9">2</tspan></text>
-<text x="898" y="98" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="normal" fill="#2471a3" text-anchor="start">CO2_regen</text>
+<rect x="898.0" y="89" width="64.9" height="18" rx="9" fill="#e8f6f3" stroke="#148f77" stroke-width="1.2"/>
+<text x="930.45" y="102" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#148f77" text-anchor="middle">CO2_regen</text>
 <text x="1360" y="250" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="end" font-style="italic">process water</text>
 <path d="M 1360 258 L 1094 258" fill="none" stroke="#222222" stroke-width="1.6"/>
 <circle cx="1080" cy="258" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
 <polyline points="1066,258 1073,258 1076.5,251 1083.5,265 1087,258 1094,258" fill="none" stroke="#222222" stroke-width="1.4"/>
 <rect x="1047.55" y="221" width="64.9" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
 <text x="1080" y="234" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c4_ho</text>
-<text x="1080" y="214" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">25 → 132.7 °C</text>
 <path d="M 1066 258 L 974 258" fill="none" stroke="#222222" stroke-width="1.6"/>
 <circle cx="960" cy="258" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
 <polyline points="946,258 953,258 956.5,251 963.5,265 967,258 974,258" fill="none" stroke="#222222" stroke-width="1.4"/>
 <rect x="927.55" y="221" width="64.9" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
 <text x="960" y="234" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c5_ho</text>
-<text x="960" y="214" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">132.7 → 134.4 °C</text>
 <path d="M 946 258 L 340 258 L 340 120" fill="none" stroke="#222222" stroke-width="1.6"/>
 <text x="700" y="252" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="middle" font-style="italic">steam</text>
 <path d="M 510 70 L 510 44 L 1386 44 L 1386 358 L 1364 358" fill="none" stroke="#222222" stroke-width="2.6"/>
@@ -98,25 +93,21 @@
 <polyline points="1336,358 1343,358 1346.5,351 1353.5,365 1357,358 1364,358" fill="none" stroke="#222222" stroke-width="1.4"/>
 <rect x="1311.45" y="377" width="77.1" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
 <text x="1350" y="390" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h2_ho_a</text>
-<text x="1350" y="408" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">410 → 126 °C</text>
 <path d="M 1336 358 L 1279 358" fill="none" stroke="#222222" stroke-width="2.6"/>
 <circle cx="1265" cy="358" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
 <polyline points="1251,358 1258,358 1261.5,351 1268.5,365 1272,358 1279,358" fill="none" stroke="#222222" stroke-width="1.4"/>
 <rect x="1226.45" y="377" width="77.1" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
 <text x="1265" y="390" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h2_ho_b</text>
-<text x="1265" y="408" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">126 → 118 °C</text>
 <path d="M 1251 358 L 1194 358" fill="none" stroke="#222222" stroke-width="2.6"/>
 <circle cx="1180" cy="358" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
 <polyline points="1166,358 1173,358 1176.5,351 1183.5,365 1187,358 1194,358" fill="none" stroke="#222222" stroke-width="1.4"/>
 <rect x="1141.45" y="377" width="77.1" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
 <text x="1180" y="390" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h2_ho_c</text>
-<text x="1180" y="408" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">118 → 96 °C</text>
 <path d="M 1166 358 L 1109 358" fill="none" stroke="#222222" stroke-width="2.6"/>
 <circle cx="1095" cy="358" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
 <polyline points="1081,358 1088,358 1091.5,351 1098.5,365 1102,358 1109,358" fill="none" stroke="#222222" stroke-width="1.4"/>
 <rect x="1056.45" y="377" width="77.1" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
 <text x="1095" y="390" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h2_ho_d</text>
-<text x="1095" y="408" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">96 → 25 °C</text>
 <path d="M 1081 358 L 1056 358" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
 <rect x="1015" y="318" width="40" height="80" rx="20.0" ry="14" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
 <text x="1035" y="310" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="middle">Quench drum</text>
@@ -127,7 +118,8 @@
 <path d="M 1101 418 L 1101 434 L 1119 418 L 1119 434 Z" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
 <path d="M 1119 426 L 1170 426" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
 <text x="1178" y="424" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="start" font-style="italic">waste water</text>
-<text x="1178" y="437" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="normal" fill="#2471a3" text-anchor="start">WasteWater_output</text>
+<rect x="1178.0" y="428" width="113.69999999999999" height="18" rx="9" fill="#e8f6f3" stroke="#148f77" stroke-width="1.2"/>
+<text x="1234.85" y="441" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#148f77" text-anchor="middle">WasteWater_output</text>
 <path d="M 1015 358 L 975 358" fill="none" stroke="#222222" stroke-width="2.6"/>
 <polygon points="975,344 945,351 945,365 975,372" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
 <rect x="933.65" y="322" width="52.699999999999996" height="18" rx="9" fill="#fef5e7" stroke="#b9770e" stroke-width="1.2"/>
@@ -137,7 +129,6 @@
 <polyline points="886,358 893,358 896.5,351 903.5,365 907,358 914,358" fill="none" stroke="#222222" stroke-width="1.4"/>
 <rect x="867.55" y="377" width="64.9" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
 <text x="900" y="390" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h3_ho</text>
-<text x="900" y="408" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">88 → 25 °C</text>
 <path d="M 886 358 L 855 358" fill="none" stroke="#222222" stroke-width="2.6"/>
 <polygon points="855,344 825,351 825,365 855,372" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
 <rect x="813.65" y="322" width="52.699999999999996" height="18" rx="9" fill="#fef5e7" stroke="#b9770e" stroke-width="1.2"/>
@@ -147,13 +138,13 @@
 <polyline points="766,358 773,358 776.5,351 783.5,365 787,358 794,358" fill="none" stroke="#222222" stroke-width="1.4"/>
 <rect x="747.55" y="377" width="64.9" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
 <text x="780" y="390" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h4_ho</text>
-<text x="780" y="408" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">92 → 25 °C</text>
 <path d="M 766 358 L 731 358" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
 <rect x="690" y="328" width="40" height="80" rx="20.0" ry="14" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
 <text x="710" y="320" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="middle">Three-phase flash</text>
 <path d="M 710 408 L 710 428" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
 <text x="710" y="444" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="middle" font-style="italic">water</text>
-<text x="710" y="457" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="normal" fill="#2471a3" text-anchor="middle">WasteWater_flash</text>
+<rect x="656.2" y="448" width="107.6" height="18" rx="9" fill="#e8f6f3" stroke="#148f77" stroke-width="1.2"/>
+<text x="710" y="461" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#148f77" text-anchor="middle">WasteWater_flash</text>
 <path d="M 690 343 L 271 343" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
 <path d="M 690 388 L 470 388 L 470 345" fill="none" stroke="#222222" stroke-width="1.6"/>
 <circle cx="470" cy="343" r="3.5" fill="#222222"/>
@@ -165,386 +156,364 @@
 <text x="250" y="394" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="middle">CO<tspan baseline-shift="sub" font-size="9">2</tspan> wash</text>
 <path d="M 250 313 L 250 300 L 300 300" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
 <text x="308" y="304" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="start" font-style="italic">CO<tspan baseline-shift="sub" font-size="9">2</tspan></text>
-<text x="308" y="317" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="normal" fill="#2471a3" text-anchor="start">CO2_wash</text>
+<rect x="308.0" y="308" width="58.8" height="18" rx="9" fill="#e8f6f3" stroke="#148f77" stroke-width="1.2"/>
+<text x="337.4" y="321" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#148f77" text-anchor="middle">CO2_wash</text>
 <path d="M 230 343 L 60 343 L 60 374" fill="none" stroke="#222222" stroke-width="2.6"/>
 <circle cx="60" cy="388" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
 <polyline points="60,374 60,381 53,384.5 67,391.5 60,395 60,402" fill="none" stroke="#222222" stroke-width="1.4"/>
-<rect x="80.0" y="370" width="64.9" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="112.45" y="383" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h5_ho</text>
-<text x="82" y="402" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">27.8 → 10 °C</text>
-<rect x="90" y="608" width="40" height="102" rx="20.0" ry="14" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
-<path d="M 90 628 L 117.2 628" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 102.8 643 L 130 643" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 90 658 L 117.2 658" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 102.8 673 L 130 673" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 90 688 L 117.2 688" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 110.0 608 L 110.0 584 L 138.0 584" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="152.0" cy="584" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="138.0,584 145.0,584 148.5,577 155.5,591 159.0,584 166.0,584" fill="none" stroke="#222222" stroke-width="1.4"/>
-<path d="M 166.0 584 L 164.0 584 L 164.0 611 L 175.0 611" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<rect x="176.0" y="602" width="36" height="18" rx="9" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<rect x="119.55" y="547" width="64.9" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="152.0" y="560" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h6_ho</text>
-<text x="152.0" y="540" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">−24 °C</text>
-<path d="M 194.0 620 L 194.0 638" fill="none" stroke="#222222" stroke-width="1.6"/>
-<path d="M 194.0 638 L 131 638" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<path d="M 194.0 602 L 194.0 584" fill="none" stroke="#222222" stroke-width="1.6"/>
-<path d="M 110.0 710 L 110.0 732 L 138.0 732" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="152.0" cy="732" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="138.0,732 145.0,732 148.5,725 155.5,739 159.0,732 166.0,732" fill="none" stroke="#222222" stroke-width="1.4"/>
-<circle cx="110.0" cy="732" r="3" fill="#222222"/>
-<path d="M 166.0 732 L 180.0 732 L 180.0 692 L 131 692" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<rect x="119.55" y="751" width="64.9" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
-<text x="152.0" y="764" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c7_ho</text>
-<text x="152.0" y="782" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">69 °C</text>
-<text x="82" y="663" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">DE-C<tspan baseline-shift="sub" font-size="9">2</tspan></text>
-<path d="M 60 402 L 60 626.3529411764706 L 89 626.3529411764706" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
-<rect x="290" y="608" width="40" height="108" rx="20.0" ry="14" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
-<path d="M 290 628 L 317.2 628" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 302.8 643 L 330 643" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 290 658 L 317.2 658" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 302.8 673 L 330 673" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 290 688 L 317.2 688" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 310.0 608 L 310.0 584 L 338.0 584" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="352.0" cy="584" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="338.0,584 345.0,584 348.5,577 355.5,591 359.0,584 366.0,584" fill="none" stroke="#222222" stroke-width="1.4"/>
-<path d="M 366.0 584 L 364.0 584 L 364.0 611 L 375.0 611" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<rect x="376.0" y="602" width="36" height="18" rx="9" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<rect x="319.55" y="547" width="64.9" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="352.0" y="560" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h7_ho</text>
-<text x="352.0" y="540" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">59 °C</text>
-<path d="M 394.0 620 L 394.0 638" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="394.0" cy="638" r="3" fill="#222222"/>
-<path d="M 394.0 638 L 331 638" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<path d="M 310.0 716 L 310.0 738 L 338.0 738" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="352.0" cy="738" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="338.0,738 345.0,738 348.5,731 355.5,745 359.0,738 366.0,738" fill="none" stroke="#222222" stroke-width="1.4"/>
-<circle cx="310.0" cy="738" r="3" fill="#222222"/>
-<path d="M 366.0 738 L 380.0 738 L 380.0 698 L 331 698" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<rect x="319.55" y="757" width="64.9" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
-<text x="352.0" y="770" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c8_ho</text>
-<text x="352.0" y="788" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">116 °C</text>
-<text x="282" y="630" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">DE-C<tspan baseline-shift="sub" font-size="9">3</tspan></text>
-<rect x="470" y="608" width="40" height="178" rx="20.0" ry="14" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
-<path d="M 470 628 L 497.2 628" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 482.8 643 L 510 643" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 470 658 L 497.2 658" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 482.8 673 L 510 673" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 470 688 L 497.2 688" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 482.8 703 L 510 703" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 470 718 L 497.2 718" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 482.8 733 L 510 733" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 470 748 L 497.2 748" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 482.8 763 L 510 763" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 490.0 608 L 490.0 584 L 518.0 584" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="532.0" cy="584" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="518.0,584 525.0,584 528.5,577 535.5,591 539.0,584 546.0,584" fill="none" stroke="#222222" stroke-width="1.4"/>
-<path d="M 546.0 584 L 544.0 584 L 544.0 611 L 555.0 611" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<rect x="556.0" y="602" width="36" height="18" rx="9" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<rect x="499.55" y="547" width="64.9" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="532.0" y="560" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h8_ho</text>
-<text x="532.0" y="540" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">59 °C</text>
-<path d="M 574.0 620 L 574.0 638" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="574.0" cy="638" r="3" fill="#222222"/>
-<path d="M 574.0 638 L 511 638" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<path d="M 490.0 786 L 490.0 808 L 518.0 808" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="532.0" cy="808" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="518.0,808 525.0,808 528.5,801 535.5,815 539.0,808 546.0,808" fill="none" stroke="#222222" stroke-width="1.4"/>
-<circle cx="490.0" cy="808" r="3" fill="#222222"/>
-<path d="M 546.0 808 L 560.0 808 L 560.0 768 L 511 768" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<rect x="499.55" y="827" width="64.9" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
-<text x="532.0" y="840" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c9_ho</text>
-<text x="532.0" y="858" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">61 °C</text>
-<text x="462" y="798" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">C<tspan baseline-shift="sub" font-size="9">3</tspan></text>
-<text x="462" y="813" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">splitter</text>
-<rect x="820" y="608" width="40" height="102" rx="20.0" ry="14" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
-<path d="M 820 628 L 847.2 628" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 832.8 643 L 860 643" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 820 658 L 847.2 658" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 832.8 673 L 860 673" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 820 688 L 847.2 688" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 840.0 608 L 840.0 584 L 868.0 584" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="882.0" cy="584" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="868.0,584 875.0,584 878.5,577 885.5,591 889.0,584 896.0,584" fill="none" stroke="#222222" stroke-width="1.4"/>
-<path d="M 896.0 584 L 894.0 584 L 894.0 611 L 905.0 611" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<rect x="906.0" y="602" width="36" height="18" rx="9" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<rect x="846.5" y="547" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="882.0" y="560" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h10_ho</text>
-<text x="882.0" y="540" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">−104.1 °C</text>
-<path d="M 924.0 620 L 924.0 638" fill="none" stroke="#222222" stroke-width="1.6"/>
-<path d="M 924.0 638 L 861 638" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<path d="M 924.0 602 L 924.0 584" fill="none" stroke="#222222" stroke-width="1.6"/>
-<path d="M 840.0 710 L 840.0 732 L 868.0 732" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="882.0" cy="732" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="868.0,732 875.0,732 878.5,725 885.5,739 889.0,732 896.0,732" fill="none" stroke="#222222" stroke-width="1.4"/>
-<circle cx="840.0" cy="732" r="3" fill="#222222"/>
-<path d="M 896.0 732 L 910.0 732 L 910.0 692 L 861 692" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<rect x="846.5" y="751" width="71.0" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
-<text x="882.0" y="764" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c10_ho</text>
-<text x="882.0" y="782" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">−8.3 °C</text>
-<text x="812" y="670" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">DE-C<tspan baseline-shift="sub" font-size="9">1</tspan></text>
-<rect x="1000" y="608" width="40" height="130" rx="20.0" ry="14" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
-<path d="M 1000 628 L 1027.2 628" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 1012.8 643 L 1040 643" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 1000 658 L 1027.2 658" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 1012.8 673 L 1040 673" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 1000 688 L 1027.2 688" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 1012.8 703 L 1040 703" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 1000 718 L 1027.2 718" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 1020.0 608 L 1020.0 584 L 1048.0 584" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="1062.0" cy="584" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="1048.0,584 1055.0,584 1058.5,577 1065.5,591 1069.0,584 1076.0,584" fill="none" stroke="#222222" stroke-width="1.4"/>
-<path d="M 1076.0 584 L 1074.0 584 L 1074.0 611 L 1085.0 611" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<rect x="1086.0" y="602" width="36" height="18" rx="9" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<rect x="1026.5" y="547" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="1062.0" y="560" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h11_ho</text>
-<text x="1062.0" y="540" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">−9.7 °C</text>
-<path d="M 1104.0 620 L 1104.0 638" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="1104.0" cy="638" r="3" fill="#222222"/>
-<path d="M 1104.0 638 L 1041 638" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<path d="M 1020.0 738 L 1020.0 760 L 1048.0 760" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="1062.0" cy="760" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="1048.0,760 1055.0,760 1058.5,753 1065.5,767 1069.0,760 1076.0,760" fill="none" stroke="#222222" stroke-width="1.4"/>
-<circle cx="1020.0" cy="760" r="3" fill="#222222"/>
-<path d="M 1076.0 760 L 1090.0 760 L 1090.0 720 L 1041 720" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<rect x="1026.5" y="779" width="71.0" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
-<text x="1062.0" y="792" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c11_ho</text>
-<text x="1062.0" y="810" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">32.3 °C</text>
-<text x="992" y="648" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">C<tspan baseline-shift="sub" font-size="9">2</tspan></text>
-<text x="992" y="663" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">splitter</text>
-<path d="M 194.0 584 L 194.0 518 L 565 518" fill="none" stroke="#222222" stroke-width="2.6"/>
-<polygon points="565,504 595,511 595,525 565,532" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
-<rect x="553.65" y="482" width="52.699999999999996" height="18" rx="9" fill="#fef5e7" stroke="#b9770e" stroke-width="1.2"/>
-<text x="580" y="495" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#b9770e" text-anchor="middle">e_mto_4</text>
-<path d="M 595 518 L 641 518" fill="none" stroke="#222222" stroke-width="2.6"/>
-<circle cx="655" cy="518" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="641,518 648,518 651.5,511 658.5,525 662,518 669,518" fill="none" stroke="#222222" stroke-width="1.4"/>
-<rect x="616.45" y="537" width="77.1" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="655" y="550" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h9_ho_a</text>
-<text x="655" y="568" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">−2 → −9 °C</text>
-<path d="M 669 518 L 726 518" fill="none" stroke="#222222" stroke-width="2.6"/>
-<circle cx="740" cy="518" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="726,518 733,518 736.5,511 743.5,525 747,518 754,518" fill="none" stroke="#222222" stroke-width="1.4"/>
-<rect x="701.45" y="537" width="77.1" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="740" y="550" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h9_ho_b</text>
-<text x="740" y="568" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">−9 → −20 °C</text>
-<path d="M 754 518 L 790 518 L 790 645.9411764705883 L 819 645.9411764705883" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
-<text x="400" y="512" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle" font-style="italic">C<tspan baseline-shift="sub" font-size="8">2</tspan> and lighter</text>
-<path d="M 110.0 732 L 110.0 790 L 270 790 L 270 663.025641025641 L 289 663.025641025641" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
-<text x="190" y="805" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle" font-style="italic">C<tspan baseline-shift="sub" font-size="8">3</tspan> and heavier</text>
-<path d="M 394.0 638 L 450 638 L 450 708.9098712446352 L 469 708.9098712446352" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
-<path d="M 574.0 638 L 636 638" fill="none" stroke="#222222" stroke-width="2.6"/>
-<circle cx="650" cy="638" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="636,638 643,638 646.5,631 653.5,645 657,638 664,638" fill="none" stroke="#222222" stroke-width="1.4"/>
-<rect x="614.5" y="657" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="650" y="670" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h20_ho</text>
-<text x="650" y="688" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">59 → 25 °C</text>
-<path d="M 664 638 L 700 638 L 700 708" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
-<text x="700" y="724" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="middle">propylene</text>
-<text x="700" y="737" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="normal" fill="#2471a3" text-anchor="middle">propylene_output</text>
-<path d="M 490.0 808 L 490.0 836 L 420 836" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<text x="412" y="840" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="end" font-style="italic">propane</text>
-<path d="M 924.0 584 L 960 584 L 960 500" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<text x="968" y="510" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="start" font-style="italic">off-gas</text>
-<path d="M 840.0 732 L 840.0 795 L 975 795 L 975 679.6521739130435 L 999 679.6521739130435" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
-<path d="M 1104.0 638 L 1127 638" fill="none" stroke="#222222" stroke-width="2.6"/>
-<circle cx="1140" cy="638" r="13" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
-<path d="M 1134 630 L 1149 638 L 1134 646 Z" fill="none" stroke="#222222" stroke-width="1.3"/>
-<rect x="1113.65" y="657" width="52.699999999999996" height="18" rx="9" fill="#fef5e7" stroke="#b9770e" stroke-width="1.2"/>
-<text x="1140" y="670" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#b9770e" text-anchor="middle">e_mto_9</text>
-<path d="M 1153 638 L 1178 638 L 1178 688" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
-<text x="1185" y="704" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">ethylene</text>
-<text x="1185" y="717" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="normal" fill="#2471a3" text-anchor="end">ethylene_output</text>
-<path d="M 1020.0 760 L 1020.0 818 L 1120 818" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<text x="1128" y="822" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="start" font-style="italic">ethane</text>
-<path d="M 310.0 738 L 310.0 903" fill="none" stroke="#222222" stroke-width="2.6"/>
-<path d="M 302 903 L 318 903 L 302 921 L 318 921 Z" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<text x="322" y="908" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start" font-style="italic">C<tspan baseline-shift="sub" font-size="8">4</tspan> and heavier</text>
-<path d="M 310 921 L 310 998 L 356 998" fill="none" stroke="#222222" stroke-width="2.6"/>
-<circle cx="370" cy="998" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="356,998 363,998 366.5,991 373.5,1005 377,998 384,998" fill="none" stroke="#222222" stroke-width="1.4"/>
-<rect x="319.25" y="961" width="101.5" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
-<text x="370" y="974" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mpreheat_lat_ho</text>
-<text x="370" y="954" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">0.6 → 4.5 °C</text>
-<path d="M 384 998 L 436 998" fill="none" stroke="#222222" stroke-width="2.6"/>
-<circle cx="450" cy="998" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="436,998 443,998 446.5,991 453.5,1005 457,998 464,998" fill="none" stroke="#222222" stroke-width="1.4"/>
-<rect x="411.45" y="1017" width="77.1" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
-<text x="450" y="1030" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mpreheat_ho</text>
-<text x="450" y="1048" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">4.5 → 450 °C</text>
-<path d="M 464 998 L 499 998" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
-<rect x="500" y="950" width="76" height="122" rx="38.0" ry="18" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
-<rect x="512" y="1014" width="52" height="32" fill="#ffffff" stroke="#222222" stroke-width="1.2"/>
-<path d="M 512 1014 L 512 1014" fill="none" stroke="#222222" stroke-width="0.9"/>
-<path d="M 512 1022 L 520 1014" fill="none" stroke="#222222" stroke-width="0.9"/>
-<path d="M 512 1030 L 528 1014" fill="none" stroke="#222222" stroke-width="0.9"/>
-<path d="M 512 1038 L 536 1014" fill="none" stroke="#222222" stroke-width="0.9"/>
-<path d="M 512 1046 L 544 1014" fill="none" stroke="#222222" stroke-width="0.9"/>
-<path d="M 520 1046 L 552 1014" fill="none" stroke="#222222" stroke-width="0.9"/>
-<path d="M 528 1046 L 560 1014" fill="none" stroke="#222222" stroke-width="0.9"/>
-<path d="M 536 1046 L 564 1018" fill="none" stroke="#222222" stroke-width="0.9"/>
-<path d="M 544 1046 L 564 1026" fill="none" stroke="#222222" stroke-width="0.9"/>
-<path d="M 552 1046 L 564 1034" fill="none" stroke="#222222" stroke-width="0.9"/>
-<path d="M 560 1046 L 564 1042" fill="none" stroke="#222222" stroke-width="0.9"/>
-<text x="538" y="1090" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="middle">OCP reactor</text>
-<rect x="502.5" y="962" width="71.0" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
-<text x="538" y="975" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c12_ho</text>
-<text x="538" y="1006" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" fill="#666666" text-anchor="middle">450 → 600 °C</text>
-<path d="M 576 998 L 616 998" fill="none" stroke="#222222" stroke-width="2.6"/>
-<circle cx="630" cy="998" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="616,998 623,998 626.5,991 633.5,1005 637,998 644,998" fill="none" stroke="#222222" stroke-width="1.4"/>
-<rect x="588.4" y="1017" width="83.19999999999999" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="630" y="1030" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h12_ho_a</text>
-<text x="630" y="1048" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">600 → 25 °C</text>
-<path d="M 644 998 L 675 998" fill="none" stroke="#222222" stroke-width="2.6"/>
-<polygon points="675,984 705,991 705,1005 675,1012" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
-<rect x="663.65" y="962" width="52.699999999999996" height="18" rx="9" fill="#fef5e7" stroke="#b9770e" stroke-width="1.2"/>
-<text x="690" y="975" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#b9770e" text-anchor="middle">e_mto_5</text>
-<path d="M 705 998 L 736 998" fill="none" stroke="#222222" stroke-width="2.6"/>
-<circle cx="750" cy="998" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="736,998 743,998 746.5,991 753.5,1005 757,998 764,998" fill="none" stroke="#222222" stroke-width="1.4"/>
-<rect x="714.5" y="1017" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="750" y="1030" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h13_ho</text>
-<text x="750" y="1048" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">85 → 25 °C</text>
-<path d="M 764 998 L 795 998" fill="none" stroke="#222222" stroke-width="2.6"/>
-<polygon points="795,984 825,991 825,1005 795,1012" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
-<rect x="783.65" y="962" width="52.699999999999996" height="18" rx="9" fill="#fef5e7" stroke="#b9770e" stroke-width="1.2"/>
-<text x="810" y="975" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#b9770e" text-anchor="middle">e_mto_6</text>
-<path d="M 825 998 L 856 998" fill="none" stroke="#222222" stroke-width="2.6"/>
-<circle cx="870" cy="998" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="856,998 863,998 866.5,991 873.5,1005 877,998 884,998" fill="none" stroke="#222222" stroke-width="1.4"/>
-<rect x="834.5" y="1017" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="870" y="1030" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h14_ho</text>
-<text x="870" y="1048" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">86 → 10 °C</text>
-<rect x="920" y="965" width="40" height="68" rx="20.0" ry="14" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
-<path d="M 920 985 L 947.2 985" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 932.8 1000 L 960 1000" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 920 1015 L 947.2 1015" fill="none" stroke="#222222" stroke-width="1.1"/>
-<path d="M 940.0 965 L 940.0 941 L 968.0 941" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="982.0" cy="941" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="968.0,941 975.0,941 978.5,934 985.5,948 989.0,941 996.0,941" fill="none" stroke="#222222" stroke-width="1.4"/>
-<path d="M 996.0 941 L 994.0 941 L 994.0 968 L 1005.0 968" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<rect x="1006.0" y="959" width="36" height="18" rx="9" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<rect x="946.5" y="904" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="982.0" y="917" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h15_ho</text>
-<text x="982.0" y="897" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">−10 °C</text>
-<path d="M 1024.0 977 L 1024.0 995" fill="none" stroke="#222222" stroke-width="1.6"/>
-<path d="M 1024.0 995 L 961 995" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<path d="M 1024.0 959 L 1024.0 941" fill="none" stroke="#222222" stroke-width="1.6"/>
-<path d="M 940.0 1033 L 940.0 1055 L 968.0 1055" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="982.0" cy="1055" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="968.0,1055 975.0,1055 978.5,1048 985.5,1062 989.0,1055 996.0,1055" fill="none" stroke="#222222" stroke-width="1.4"/>
-<circle cx="940.0" cy="1055" r="3" fill="#222222"/>
-<path d="M 996.0 1055 L 1010.0 1055 L 1010.0 1015 L 961 1015" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<rect x="946.5" y="1074" width="71.0" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
-<text x="982.0" y="1087" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c13_ho</text>
-<text x="982.0" y="1105" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">61 °C</text>
-<text x="912" y="1075" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">Cracker</text>
-<text x="912" y="1090" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">product column</text>
-<path d="M 884 998 L 919 998" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
-<path d="M 1024.0 941 L 1063 941" fill="none" stroke="#222222" stroke-width="1.6"/>
-<polygon points="1063,927 1093,934 1093,948 1063,955" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
-<rect x="1051.65" y="960" width="52.699999999999996" height="18" rx="9" fill="#fef5e7" stroke="#b9770e" stroke-width="1.2"/>
-<text x="1078" y="973" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#b9770e" text-anchor="middle">e_mto_7</text>
-<path d="M 1093 941 L 1125 941" fill="none" stroke="#222222" stroke-width="1.6"/>
-<polygon points="1125,927 1155,934 1155,948 1125,955" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
-<rect x="1113.65" y="960" width="52.699999999999996" height="18" rx="9" fill="#fef5e7" stroke="#b9770e" stroke-width="1.2"/>
-<text x="1140" y="973" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#b9770e" text-anchor="middle">e_mto_8</text>
-<path d="M 1155 941 L 1176 941 L 1176 991" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<text x="1185" y="1007" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="end" font-style="italic">light stream,</text>
-<text x="1185" y="1021" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="end" font-style="italic">to the CO<tspan baseline-shift="sub" font-size="8">2</tspan> wash</text>
-<path d="M 940.0 1055 L 940.0 1113 L 1026 1113" fill="none" stroke="#222222" stroke-width="2.6"/>
-<circle cx="1040" cy="1113" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="1026,1113 1033,1113 1036.5,1106 1043.5,1120 1047,1113 1054,1113" fill="none" stroke="#222222" stroke-width="1.4"/>
-<rect x="1004.5" y="1132" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="1040" y="1145" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h21_ho</text>
-<text x="1040" y="1163" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">61 → 25 °C</text>
-<path d="M 1054 1113 L 1090 1113" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
-<text x="1098" y="1118" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="start">butene</text>
-<text x="1098" y="1131" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="normal" fill="#2471a3" text-anchor="start">butene_output</text>
-<text x="1215" y="522" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="start" font-style="italic">off-gas</text>
-<path d="M 1212 530 L 1266 530" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="1280" cy="530" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="1266,530 1273,530 1276.5,523 1283.5,537 1287,530 1294,530" fill="none" stroke="#222222" stroke-width="1.4"/>
-<rect x="1244.5" y="549" width="71.0" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
-<text x="1280" y="562" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c18_ho</text>
-<text x="1280" y="580" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">−104.1 → 25 °C</text>
-<path d="M 1294 530 L 1405 530" fill="none" stroke="#222222" stroke-width="1.6"/>
-<text x="1215" y="594" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="start" font-style="italic">ethane</text>
-<path d="M 1212 602 L 1258 602" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="1272" cy="602" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="1258,602 1265,602 1268.5,595 1275.5,609 1279,602 1286,602" fill="none" stroke="#222222" stroke-width="1.4"/>
-<rect x="1236.5" y="621" width="71.0" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
-<text x="1272" y="634" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c16_ho</text>
-<text x="1272" y="652" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">1.1 → 25 °C</text>
-<path d="M 1286 602 L 1305 602" fill="none" stroke="#222222" stroke-width="1.6"/>
-<path d="M 1305 594 L 1305 610 L 1323 594 L 1323 610 Z" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<path d="M 1323 602 L 1348 602" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="1362" cy="602" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="1348,602 1355,602 1358.5,595 1365.5,609 1369,602 1376,602" fill="none" stroke="#222222" stroke-width="1.4"/>
-<rect x="1326.5" y="621" width="71.0" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
-<text x="1362" y="634" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c17_ho</text>
-<text x="1362" y="652" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">10 → 25 °C</text>
-<path d="M 1376 602 L 1405 602" fill="none" stroke="#222222" stroke-width="1.6"/>
-<text x="1215" y="666" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="start" font-style="italic">propane</text>
-<path d="M 1212 674 L 1266 674" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="1280" cy="674" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="1266,674 1273,674 1276.5,667 1283.5,681 1287,674 1294,674" fill="none" stroke="#222222" stroke-width="1.4"/>
-<rect x="1244.5" y="693" width="71.0" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
-<text x="1280" y="706" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c15_ho</text>
-<text x="1280" y="724" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">12 → 25 °C</text>
-<path d="M 1294 674 L 1405 674" fill="none" stroke="#222222" stroke-width="1.6"/>
-<path d="M 1405 530 L 1405 716 L 1340 716 L 1340 738" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<rect x="1265" y="739" width="100" height="90" rx="4" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
-<text x="1315" y="757" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="middle">Combustor</text>
-<rect x="1279.5" y="767" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="1315" y="780" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h17_ho</text>
-<text x="1315" y="800" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle">1000 °C</text>
-<path d="M 1212 814 L 1264 814" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<text x="1210" y="846" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="start" font-style="italic">oxygen</text>
-<text x="1210" y="859" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="normal" fill="#2471a3" text-anchor="start">oxygen_combust</text>
-<path d="M 1315 829 L 1315 852" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="1315" cy="866" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="1315,852 1315,859 1308,862.5 1322,869.5 1315,873 1315,880" fill="none" stroke="#222222" stroke-width="1.4"/>
-<rect x="1335.0" y="848" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="1370.5" y="861" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h19_ho</text>
-<text x="1337" y="880" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">1000 → 88.1 °C</text>
-<path d="M 1315 880 L 1315 904" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="1315" cy="918" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="1315,904 1315,911 1308,914.5 1322,921.5 1315,925 1315,932" fill="none" stroke="#222222" stroke-width="1.4"/>
-<rect x="1335.0" y="900" width="83.19999999999999" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="1376.6" y="913" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h23_ho_a</text>
-<text x="1337" y="932" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">88.1 → 74.4 °C</text>
-<path d="M 1315 932 L 1315 956" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="1315" cy="970" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="1315,956 1315,963 1308,966.5 1322,973.5 1315,977 1315,984" fill="none" stroke="#222222" stroke-width="1.4"/>
-<rect x="1335.0" y="952" width="83.19999999999999" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="1376.6" y="965" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h23_ho_b</text>
-<text x="1337" y="984" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">74.4 → 48.1 °C</text>
-<path d="M 1315 984 L 1315 1008" fill="none" stroke="#222222" stroke-width="1.6"/>
-<circle cx="1315" cy="1022" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
-<polyline points="1315,1008 1315,1015 1308,1018.5 1322,1025.5 1315,1029 1315,1036" fill="none" stroke="#222222" stroke-width="1.4"/>
-<rect x="1335.0" y="1004" width="83.19999999999999" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="1376.6" y="1017" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h23_ho_c</text>
-<text x="1337" y="1036" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">48.1 → 25 °C</text>
-<path d="M 1315 1036 L 1315 1051" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<rect x="1295" y="1052" width="40" height="62" rx="20.0" ry="14" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
-<text x="1287" y="1088" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">Flash</text>
-<path d="M 1335 1067 L 1372 1067" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<text x="1418" y="1091" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="end" font-style="italic">CO<tspan baseline-shift="sub" font-size="9">2</tspan></text>
-<text x="1418" y="1104" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="normal" fill="#2471a3" text-anchor="end">CO2_combust</text>
-<path d="M 1315 1114 L 1315 1138" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
-<text x="1315" y="1153" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="middle" font-style="italic">water</text>
-<text x="1315" y="1166" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="normal" fill="#2471a3" text-anchor="middle">H2O_inFlueGas</text>
-<text x="30" y="1190" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">DE-C<tspan baseline-shift="sub" font-size="8">1</tspan> demethanizer · DE-C<tspan baseline-shift="sub" font-size="8">2</tspan> deethanizer · DE-C<tspan baseline-shift="sub" font-size="8">3</tspan> depropanizer · OCP olefin cracking · per 10 t/h of methanol</text>
-<text x="30" y="1206" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">Every label in a pill is the name of the model variable it shows.</text>
-<rect x="923.0" y="1177" width="14" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
-<text x="930" y="1190" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle"></text>
-<text x="942" y="1190" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">cold stream, to be heated</text>
-<rect x="1083.0" y="1177" width="14" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
-<text x="1090" y="1190" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle"></text>
-<text x="1102" y="1190" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">hot stream, to be cooled</text>
-<rect x="1235.0" y="1177" width="14" height="18" rx="9" fill="#fef5e7" stroke="#b9770e" stroke-width="1.2"/>
-<text x="1242" y="1190" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#b9770e" text-anchor="middle"></text>
-<text x="1254" y="1190" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">electricity</text>
+<rect x="80.0" y="379" width="64.9" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="112.45" y="392" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h5_ho</text>
+<rect x="90" y="614" width="40" height="102" rx="20.0" ry="14" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
+<path d="M 90 634 L 117.2 634" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 102.8 649 L 130 649" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 90 664 L 117.2 664" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 102.8 679 L 130 679" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 90 694 L 117.2 694" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 110.0 614 L 110.0 590 L 138.0 590" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="152.0" cy="590" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="138.0,590 145.0,590 148.5,583 155.5,597 159.0,590 166.0,590" fill="none" stroke="#222222" stroke-width="1.4"/>
+<path d="M 166.0 590 L 164.0 590 L 164.0 617 L 175.0 617" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<rect x="176.0" y="608" width="36" height="18" rx="9" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<rect x="119.55" y="553" width="64.9" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="152.0" y="566" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h6_ho</text>
+<path d="M 194.0 626 L 194.0 644" fill="none" stroke="#222222" stroke-width="1.6"/>
+<path d="M 194.0 644 L 131 644" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<path d="M 194.0 608 L 194.0 590" fill="none" stroke="#222222" stroke-width="1.6"/>
+<path d="M 110.0 716 L 110.0 738 L 138.0 738" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="152.0" cy="738" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="138.0,738 145.0,738 148.5,731 155.5,745 159.0,738 166.0,738" fill="none" stroke="#222222" stroke-width="1.4"/>
+<circle cx="110.0" cy="738" r="3" fill="#222222"/>
+<path d="M 166.0 738 L 180.0 738 L 180.0 698 L 131 698" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<rect x="119.55" y="757" width="64.9" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
+<text x="152.0" y="770" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c7_ho</text>
+<text x="82" y="669" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">DE-C<tspan baseline-shift="sub" font-size="9">2</tspan></text>
+<path d="M 60 402 L 60 632.3529411764706 L 89 632.3529411764706" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
+<rect x="290" y="614" width="40" height="108" rx="20.0" ry="14" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
+<path d="M 290 634 L 317.2 634" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 302.8 649 L 330 649" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 290 664 L 317.2 664" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 302.8 679 L 330 679" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 290 694 L 317.2 694" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 310.0 614 L 310.0 590 L 338.0 590" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="352.0" cy="590" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="338.0,590 345.0,590 348.5,583 355.5,597 359.0,590 366.0,590" fill="none" stroke="#222222" stroke-width="1.4"/>
+<path d="M 366.0 590 L 364.0 590 L 364.0 617 L 375.0 617" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<rect x="376.0" y="608" width="36" height="18" rx="9" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<rect x="319.55" y="553" width="64.9" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="352.0" y="566" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h7_ho</text>
+<path d="M 394.0 626 L 394.0 644" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="394.0" cy="644" r="3" fill="#222222"/>
+<path d="M 394.0 644 L 331 644" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<path d="M 310.0 722 L 310.0 744 L 338.0 744" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="352.0" cy="744" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="338.0,744 345.0,744 348.5,737 355.5,751 359.0,744 366.0,744" fill="none" stroke="#222222" stroke-width="1.4"/>
+<circle cx="310.0" cy="744" r="3" fill="#222222"/>
+<path d="M 366.0 744 L 380.0 744 L 380.0 704 L 331 704" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<rect x="319.55" y="763" width="64.9" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
+<text x="352.0" y="776" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c8_ho</text>
+<text x="282" y="636" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">DE-C<tspan baseline-shift="sub" font-size="9">3</tspan></text>
+<rect x="470" y="614" width="40" height="178" rx="20.0" ry="14" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
+<path d="M 470 634 L 497.2 634" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 482.8 649 L 510 649" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 470 664 L 497.2 664" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 482.8 679 L 510 679" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 470 694 L 497.2 694" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 482.8 709 L 510 709" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 470 724 L 497.2 724" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 482.8 739 L 510 739" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 470 754 L 497.2 754" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 482.8 769 L 510 769" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 490.0 614 L 490.0 590 L 518.0 590" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="532.0" cy="590" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="518.0,590 525.0,590 528.5,583 535.5,597 539.0,590 546.0,590" fill="none" stroke="#222222" stroke-width="1.4"/>
+<path d="M 546.0 590 L 544.0 590 L 544.0 617 L 555.0 617" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<rect x="556.0" y="608" width="36" height="18" rx="9" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<rect x="499.55" y="553" width="64.9" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="532.0" y="566" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h8_ho</text>
+<path d="M 574.0 626 L 574.0 644" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="574.0" cy="644" r="3" fill="#222222"/>
+<path d="M 574.0 644 L 511 644" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<path d="M 490.0 792 L 490.0 814 L 518.0 814" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="532.0" cy="814" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="518.0,814 525.0,814 528.5,807 535.5,821 539.0,814 546.0,814" fill="none" stroke="#222222" stroke-width="1.4"/>
+<circle cx="490.0" cy="814" r="3" fill="#222222"/>
+<path d="M 546.0 814 L 560.0 814 L 560.0 774 L 511 774" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<rect x="499.55" y="833" width="64.9" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
+<text x="532.0" y="846" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c9_ho</text>
+<text x="462" y="804" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">C<tspan baseline-shift="sub" font-size="9">3</tspan></text>
+<text x="462" y="819" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">splitter</text>
+<rect x="820" y="614" width="40" height="102" rx="20.0" ry="14" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
+<path d="M 820 634 L 847.2 634" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 832.8 649 L 860 649" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 820 664 L 847.2 664" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 832.8 679 L 860 679" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 820 694 L 847.2 694" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 840.0 614 L 840.0 590 L 868.0 590" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="882.0" cy="590" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="868.0,590 875.0,590 878.5,583 885.5,597 889.0,590 896.0,590" fill="none" stroke="#222222" stroke-width="1.4"/>
+<path d="M 896.0 590 L 894.0 590 L 894.0 617 L 905.0 617" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<rect x="906.0" y="608" width="36" height="18" rx="9" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<rect x="846.5" y="553" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="882.0" y="566" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h10_ho</text>
+<path d="M 924.0 626 L 924.0 644" fill="none" stroke="#222222" stroke-width="1.6"/>
+<path d="M 924.0 644 L 861 644" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<path d="M 924.0 608 L 924.0 590" fill="none" stroke="#222222" stroke-width="1.6"/>
+<path d="M 840.0 716 L 840.0 738 L 868.0 738" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="882.0" cy="738" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="868.0,738 875.0,738 878.5,731 885.5,745 889.0,738 896.0,738" fill="none" stroke="#222222" stroke-width="1.4"/>
+<circle cx="840.0" cy="738" r="3" fill="#222222"/>
+<path d="M 896.0 738 L 910.0 738 L 910.0 698 L 861 698" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<rect x="846.5" y="757" width="71.0" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
+<text x="882.0" y="770" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c10_ho</text>
+<text x="812" y="676" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">DE-C<tspan baseline-shift="sub" font-size="9">1</tspan></text>
+<rect x="1000" y="614" width="40" height="130" rx="20.0" ry="14" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
+<path d="M 1000 634 L 1027.2 634" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 1012.8 649 L 1040 649" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 1000 664 L 1027.2 664" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 1012.8 679 L 1040 679" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 1000 694 L 1027.2 694" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 1012.8 709 L 1040 709" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 1000 724 L 1027.2 724" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 1020.0 614 L 1020.0 590 L 1048.0 590" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="1062.0" cy="590" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="1048.0,590 1055.0,590 1058.5,583 1065.5,597 1069.0,590 1076.0,590" fill="none" stroke="#222222" stroke-width="1.4"/>
+<path d="M 1076.0 590 L 1074.0 590 L 1074.0 617 L 1085.0 617" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<rect x="1086.0" y="608" width="36" height="18" rx="9" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<rect x="1026.5" y="553" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="1062.0" y="566" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h11_ho</text>
+<path d="M 1104.0 626 L 1104.0 644" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="1104.0" cy="644" r="3" fill="#222222"/>
+<path d="M 1104.0 644 L 1041 644" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<path d="M 1020.0 744 L 1020.0 766 L 1048.0 766" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="1062.0" cy="766" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="1048.0,766 1055.0,766 1058.5,759 1065.5,773 1069.0,766 1076.0,766" fill="none" stroke="#222222" stroke-width="1.4"/>
+<circle cx="1020.0" cy="766" r="3" fill="#222222"/>
+<path d="M 1076.0 766 L 1090.0 766 L 1090.0 726 L 1041 726" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<rect x="1026.5" y="785" width="71.0" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
+<text x="1062.0" y="798" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c11_ho</text>
+<text x="992" y="654" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">C<tspan baseline-shift="sub" font-size="9">2</tspan></text>
+<text x="992" y="669" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">splitter</text>
+<path d="M 194.0 590 L 194.0 524 L 565 524" fill="none" stroke="#222222" stroke-width="2.6"/>
+<polygon points="565,510 595,517 595,531 565,538" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
+<rect x="553.65" y="488" width="52.699999999999996" height="18" rx="9" fill="#fef5e7" stroke="#b9770e" stroke-width="1.2"/>
+<text x="580" y="501" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#b9770e" text-anchor="middle">e_mto_4</text>
+<path d="M 595 524 L 641 524" fill="none" stroke="#222222" stroke-width="2.6"/>
+<circle cx="655" cy="524" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="641,524 648,524 651.5,517 658.5,531 662,524 669,524" fill="none" stroke="#222222" stroke-width="1.4"/>
+<rect x="616.45" y="543" width="77.1" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="655" y="556" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h9_ho_a</text>
+<path d="M 669 524 L 726 524" fill="none" stroke="#222222" stroke-width="2.6"/>
+<circle cx="740" cy="524" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="726,524 733,524 736.5,517 743.5,531 747,524 754,524" fill="none" stroke="#222222" stroke-width="1.4"/>
+<rect x="701.45" y="543" width="77.1" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="740" y="556" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h9_ho_b</text>
+<path d="M 754 524 L 790 524 L 790 651.9411764705883 L 819 651.9411764705883" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
+<text x="400" y="518" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle" font-style="italic">C<tspan baseline-shift="sub" font-size="8">2</tspan> and lighter</text>
+<path d="M 110.0 738 L 110.0 796 L 270 796 L 270 669.025641025641 L 289 669.025641025641" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
+<text x="190" y="811" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="middle" font-style="italic">C<tspan baseline-shift="sub" font-size="8">3</tspan> and heavier</text>
+<path d="M 394.0 644 L 450 644 L 450 714.9098712446352 L 469 714.9098712446352" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
+<path d="M 574.0 644 L 636 644" fill="none" stroke="#222222" stroke-width="2.6"/>
+<circle cx="650" cy="644" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="636,644 643,644 646.5,637 653.5,651 657,644 664,644" fill="none" stroke="#222222" stroke-width="1.4"/>
+<rect x="614.5" y="663" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="650" y="676" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h20_ho</text>
+<path d="M 664 644 L 700 644 L 700 714" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
+<text x="700" y="730" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="middle">propylene</text>
+<rect x="646.2" y="734" width="107.6" height="18" rx="9" fill="#e8f6f3" stroke="#148f77" stroke-width="1.2"/>
+<text x="700" y="747" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#148f77" text-anchor="middle">propylene_output</text>
+<path d="M 490.0 814 L 490.0 842 L 420 842" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<text x="412" y="846" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="end" font-style="italic">propane</text>
+<path d="M 924.0 590 L 960 590 L 960 506" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<text x="968" y="516" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="start" font-style="italic">off-gas</text>
+<path d="M 840.0 738 L 840.0 801 L 975 801 L 975 685.6521739130435 L 999 685.6521739130435" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
+<path d="M 1104.0 644 L 1127 644" fill="none" stroke="#222222" stroke-width="2.6"/>
+<circle cx="1140" cy="644" r="13" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
+<path d="M 1134 636 L 1149 644 L 1134 652 Z" fill="none" stroke="#222222" stroke-width="1.3"/>
+<rect x="1113.65" y="663" width="52.699999999999996" height="18" rx="9" fill="#fef5e7" stroke="#b9770e" stroke-width="1.2"/>
+<text x="1140" y="676" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#b9770e" text-anchor="middle">e_mto_9</text>
+<path d="M 1153 644 L 1178 644 L 1178 682" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
+<text x="1185" y="698" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">ethylene</text>
+<rect x="1083.5" y="702" width="101.5" height="18" rx="9" fill="#e8f6f3" stroke="#148f77" stroke-width="1.2"/>
+<text x="1134.25" y="715" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#148f77" text-anchor="middle">ethylene_output</text>
+<path d="M 1020.0 766 L 1020.0 824 L 1120 824" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<text x="1128" y="828" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="start" font-style="italic">ethane</text>
+<path d="M 310.0 744 L 310.0 909" fill="none" stroke="#222222" stroke-width="2.6"/>
+<path d="M 302 909 L 318 909 L 302 927 L 318 927 Z" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<text x="322" y="914" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start" font-style="italic">C<tspan baseline-shift="sub" font-size="8">4</tspan> and heavier</text>
+<path d="M 310 927 L 310 1004 L 356 1004" fill="none" stroke="#222222" stroke-width="2.6"/>
+<circle cx="370" cy="1004" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="356,1004 363,1004 366.5,997 373.5,1011 377,1004 384,1004" fill="none" stroke="#222222" stroke-width="1.4"/>
+<rect x="319.25" y="967" width="101.5" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
+<text x="370" y="980" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mpreheat_lat_ho</text>
+<path d="M 384 1004 L 436 1004" fill="none" stroke="#222222" stroke-width="2.6"/>
+<circle cx="450" cy="1004" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="436,1004 443,1004 446.5,997 453.5,1011 457,1004 464,1004" fill="none" stroke="#222222" stroke-width="1.4"/>
+<rect x="411.45" y="1023" width="77.1" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
+<text x="450" y="1036" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mpreheat_ho</text>
+<path d="M 464 1004 L 499 1004" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
+<rect x="500" y="956" width="76" height="122" rx="38.0" ry="18" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
+<rect x="512" y="1020" width="52" height="32" fill="#ffffff" stroke="#222222" stroke-width="1.2"/>
+<path d="M 512 1020 L 512 1020" fill="none" stroke="#222222" stroke-width="0.9"/>
+<path d="M 512 1028 L 520 1020" fill="none" stroke="#222222" stroke-width="0.9"/>
+<path d="M 512 1036 L 528 1020" fill="none" stroke="#222222" stroke-width="0.9"/>
+<path d="M 512 1044 L 536 1020" fill="none" stroke="#222222" stroke-width="0.9"/>
+<path d="M 512 1052 L 544 1020" fill="none" stroke="#222222" stroke-width="0.9"/>
+<path d="M 520 1052 L 552 1020" fill="none" stroke="#222222" stroke-width="0.9"/>
+<path d="M 528 1052 L 560 1020" fill="none" stroke="#222222" stroke-width="0.9"/>
+<path d="M 536 1052 L 564 1024" fill="none" stroke="#222222" stroke-width="0.9"/>
+<path d="M 544 1052 L 564 1032" fill="none" stroke="#222222" stroke-width="0.9"/>
+<path d="M 552 1052 L 564 1040" fill="none" stroke="#222222" stroke-width="0.9"/>
+<path d="M 560 1052 L 564 1048" fill="none" stroke="#222222" stroke-width="0.9"/>
+<text x="538" y="1096" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="middle">OCP reactor</text>
+<rect x="502.5" y="974" width="71.0" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
+<text x="538" y="987" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c12_ho</text>
+<path d="M 576 1004 L 616 1004" fill="none" stroke="#222222" stroke-width="2.6"/>
+<circle cx="630" cy="1004" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="616,1004 623,1004 626.5,997 633.5,1011 637,1004 644,1004" fill="none" stroke="#222222" stroke-width="1.4"/>
+<rect x="588.4" y="1023" width="83.19999999999999" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="630" y="1036" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h12_ho_a</text>
+<path d="M 644 1004 L 675 1004" fill="none" stroke="#222222" stroke-width="2.6"/>
+<polygon points="675,990 705,997 705,1011 675,1018" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
+<rect x="663.65" y="968" width="52.699999999999996" height="18" rx="9" fill="#fef5e7" stroke="#b9770e" stroke-width="1.2"/>
+<text x="690" y="981" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#b9770e" text-anchor="middle">e_mto_5</text>
+<path d="M 705 1004 L 736 1004" fill="none" stroke="#222222" stroke-width="2.6"/>
+<circle cx="750" cy="1004" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="736,1004 743,1004 746.5,997 753.5,1011 757,1004 764,1004" fill="none" stroke="#222222" stroke-width="1.4"/>
+<rect x="714.5" y="1023" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="750" y="1036" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h13_ho</text>
+<path d="M 764 1004 L 795 1004" fill="none" stroke="#222222" stroke-width="2.6"/>
+<polygon points="795,990 825,997 825,1011 795,1018" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
+<rect x="783.65" y="968" width="52.699999999999996" height="18" rx="9" fill="#fef5e7" stroke="#b9770e" stroke-width="1.2"/>
+<text x="810" y="981" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#b9770e" text-anchor="middle">e_mto_6</text>
+<path d="M 825 1004 L 856 1004" fill="none" stroke="#222222" stroke-width="2.6"/>
+<circle cx="870" cy="1004" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="856,1004 863,1004 866.5,997 873.5,1011 877,1004 884,1004" fill="none" stroke="#222222" stroke-width="1.4"/>
+<rect x="834.5" y="1023" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="870" y="1036" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h14_ho</text>
+<rect x="920" y="971" width="40" height="68" rx="20.0" ry="14" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
+<path d="M 920 991 L 947.2 991" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 932.8 1006 L 960 1006" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 920 1021 L 947.2 1021" fill="none" stroke="#222222" stroke-width="1.1"/>
+<path d="M 940.0 971 L 940.0 947 L 968.0 947" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="982.0" cy="947" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="968.0,947 975.0,947 978.5,940 985.5,954 989.0,947 996.0,947" fill="none" stroke="#222222" stroke-width="1.4"/>
+<path d="M 996.0 947 L 994.0 947 L 994.0 974 L 1005.0 974" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<rect x="1006.0" y="965" width="36" height="18" rx="9" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<rect x="946.5" y="910" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="982.0" y="923" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h15_ho</text>
+<path d="M 1024.0 983 L 1024.0 1001" fill="none" stroke="#222222" stroke-width="1.6"/>
+<path d="M 1024.0 1001 L 961 1001" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<path d="M 1024.0 965 L 1024.0 947" fill="none" stroke="#222222" stroke-width="1.6"/>
+<path d="M 940.0 1039 L 940.0 1061 L 968.0 1061" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="982.0" cy="1061" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="968.0,1061 975.0,1061 978.5,1054 985.5,1068 989.0,1061 996.0,1061" fill="none" stroke="#222222" stroke-width="1.4"/>
+<circle cx="940.0" cy="1061" r="3" fill="#222222"/>
+<path d="M 996.0 1061 L 1010.0 1061 L 1010.0 1021 L 961 1021" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<rect x="946.5" y="1080" width="71.0" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
+<text x="982.0" y="1093" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c13_ho</text>
+<text x="912" y="1081" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">Cracker</text>
+<text x="912" y="1096" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">product column</text>
+<path d="M 884 1004 L 919 1004" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
+<path d="M 1024.0 947 L 1063 947" fill="none" stroke="#222222" stroke-width="1.6"/>
+<polygon points="1063,933 1093,940 1093,954 1063,961" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
+<rect x="1051.65" y="966" width="52.699999999999996" height="18" rx="9" fill="#fef5e7" stroke="#b9770e" stroke-width="1.2"/>
+<text x="1078" y="979" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#b9770e" text-anchor="middle">e_mto_7</text>
+<path d="M 1093 947 L 1125 947" fill="none" stroke="#222222" stroke-width="1.6"/>
+<polygon points="1125,933 1155,940 1155,954 1125,961" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
+<rect x="1113.65" y="966" width="52.699999999999996" height="18" rx="9" fill="#fef5e7" stroke="#b9770e" stroke-width="1.2"/>
+<text x="1140" y="979" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#b9770e" text-anchor="middle">e_mto_8</text>
+<path d="M 1155 947 L 1176 947 L 1176 997" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<text x="1185" y="1013" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="end" font-style="italic">light stream,</text>
+<text x="1185" y="1027" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="end" font-style="italic">to the CO<tspan baseline-shift="sub" font-size="8">2</tspan> wash</text>
+<path d="M 940.0 1061 L 940.0 1119 L 1026 1119" fill="none" stroke="#222222" stroke-width="2.6"/>
+<circle cx="1040" cy="1119" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="1026,1119 1033,1119 1036.5,1112 1043.5,1126 1047,1119 1054,1119" fill="none" stroke="#222222" stroke-width="1.4"/>
+<rect x="1004.5" y="1138" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="1040" y="1151" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h21_ho</text>
+<path d="M 1054 1119 L 1090 1119" fill="none" stroke="#222222" stroke-width="2.6" marker-end="url(#pfd-arrow)"/>
+<text x="1098" y="1124" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="start">butene</text>
+<rect x="1098.0" y="1128" width="89.3" height="18" rx="9" fill="#e8f6f3" stroke="#148f77" stroke-width="1.2"/>
+<text x="1142.65" y="1141" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#148f77" text-anchor="middle">butene_output</text>
+<text x="1215" y="528" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="start" font-style="italic">off-gas</text>
+<path d="M 1212 536 L 1266 536" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="1280" cy="536" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="1266,536 1273,536 1276.5,529 1283.5,543 1287,536 1294,536" fill="none" stroke="#222222" stroke-width="1.4"/>
+<rect x="1244.5" y="555" width="71.0" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
+<text x="1280" y="568" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c18_ho</text>
+<path d="M 1294 536 L 1405 536" fill="none" stroke="#222222" stroke-width="1.6"/>
+<text x="1215" y="600" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="start" font-style="italic">ethane</text>
+<path d="M 1212 608 L 1258 608" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="1272" cy="608" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="1258,608 1265,608 1268.5,601 1275.5,615 1279,608 1286,608" fill="none" stroke="#222222" stroke-width="1.4"/>
+<rect x="1236.5" y="627" width="71.0" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
+<text x="1272" y="640" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c16_ho</text>
+<path d="M 1286 608 L 1305 608" fill="none" stroke="#222222" stroke-width="1.6"/>
+<path d="M 1305 600 L 1305 616 L 1323 600 L 1323 616 Z" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<path d="M 1323 608 L 1348 608" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="1362" cy="608" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="1348,608 1355,608 1358.5,601 1365.5,615 1369,608 1376,608" fill="none" stroke="#222222" stroke-width="1.4"/>
+<rect x="1326.5" y="627" width="71.0" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
+<text x="1362" y="640" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c17_ho</text>
+<path d="M 1376 608 L 1405 608" fill="none" stroke="#222222" stroke-width="1.6"/>
+<text x="1215" y="672" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="start" font-style="italic">propane</text>
+<path d="M 1212 680 L 1266 680" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="1280" cy="680" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="1266,680 1273,680 1276.5,673 1283.5,687 1287,680 1294,680" fill="none" stroke="#222222" stroke-width="1.4"/>
+<rect x="1244.5" y="699" width="71.0" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
+<text x="1280" y="712" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle">mto_c15_ho</text>
+<path d="M 1294 680 L 1405 680" fill="none" stroke="#222222" stroke-width="1.6"/>
+<path d="M 1405 536 L 1405 722 L 1340 722 L 1340 744" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<rect x="1265" y="745" width="100" height="90" rx="4" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
+<text x="1315" y="763" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="middle">Combustor</text>
+<rect x="1279.5" y="785" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="1315" y="798" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h17_ho</text>
+<path d="M 1212 820 L 1264 820" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<text x="1206" y="840" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="start" font-style="italic">oxygen</text>
+<rect x="1206.0" y="844" width="95.39999999999999" height="18" rx="9" fill="#e8f6f3" stroke="#148f77" stroke-width="1.2"/>
+<text x="1253.7" y="857" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#148f77" text-anchor="middle">oxygen_combust</text>
+<path d="M 1315 835 L 1315 858" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="1315" cy="872" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="1315,858 1315,865 1308,868.5 1322,875.5 1315,879 1315,886" fill="none" stroke="#222222" stroke-width="1.4"/>
+<rect x="1335.0" y="863" width="71.0" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="1370.5" y="876" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h19_ho</text>
+<path d="M 1315 886 L 1315 910" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="1315" cy="924" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="1315,910 1315,917 1308,920.5 1322,927.5 1315,931 1315,938" fill="none" stroke="#222222" stroke-width="1.4"/>
+<rect x="1335.0" y="915" width="83.19999999999999" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="1376.6" y="928" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h23_ho_a</text>
+<path d="M 1315 938 L 1315 962" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="1315" cy="976" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="1315,962 1315,969 1308,972.5 1322,979.5 1315,983 1315,990" fill="none" stroke="#222222" stroke-width="1.4"/>
+<rect x="1335.0" y="967" width="83.19999999999999" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="1376.6" y="980" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h23_ho_b</text>
+<path d="M 1315 990 L 1315 1014" fill="none" stroke="#222222" stroke-width="1.6"/>
+<circle cx="1315" cy="1028" r="14" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<polyline points="1315,1014 1315,1021 1308,1024.5 1322,1031.5 1315,1035 1315,1042" fill="none" stroke="#222222" stroke-width="1.4"/>
+<rect x="1335.0" y="1019" width="83.19999999999999" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="1376.6" y="1032" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">mto_h23_ho_c</text>
+<path d="M 1315 1042 L 1315 1057" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<rect x="1295" y="1058" width="40" height="62" rx="20.0" ry="14" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
+<text x="1287" y="1094" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#222222" text-anchor="end">Flash</text>
+<path d="M 1335 1073 L 1372 1073" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<text x="1418" y="1097" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="end" font-style="italic">CO<tspan baseline-shift="sub" font-size="9">2</tspan></text>
+<rect x="1340.9" y="1101" width="77.1" height="18" rx="9" fill="#e8f6f3" stroke="#148f77" stroke-width="1.2"/>
+<text x="1379.45" y="1114" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#148f77" text-anchor="middle">CO2_combust</text>
+<path d="M 1315 1120 L 1315 1136" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#pfd-arrow)"/>
+<text x="1315" y="1150" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#666666" text-anchor="middle" font-style="italic">water</text>
+<rect x="1270.35" y="1154" width="89.3" height="18" rx="9" fill="#e8f6f3" stroke="#148f77" stroke-width="1.2"/>
+<text x="1315" y="1167" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#148f77" text-anchor="middle">H2O_inFlueGas</text>
+<text x="30" y="1206" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">DE-C<tspan baseline-shift="sub" font-size="8">1</tspan> demethanizer · DE-C<tspan baseline-shift="sub" font-size="8">2</tspan> deethanizer · DE-C<tspan baseline-shift="sub" font-size="8">3</tspan> depropanizer · OCP olefin cracking · per 10 t/h of methanol</text>
+<text x="30" y="1222" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">Every label in a pill is the name of the model variable it shows.</text>
+<rect x="853.0" y="1193" width="14" height="18" rx="9" fill="#eaf2fb" stroke="#2471a3" stroke-width="1.2"/>
+<text x="860" y="1206" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#2471a3" text-anchor="middle"></text>
+<text x="872" y="1206" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">cold stream, to be heated</text>
+<rect x="1013.0" y="1193" width="14" height="18" rx="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="1020" y="1206" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle"></text>
+<text x="1032" y="1206" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">hot stream, to be cooled</text>
+<rect x="1165.0" y="1193" width="14" height="18" rx="9" fill="#fef5e7" stroke="#b9770e" stroke-width="1.2"/>
+<text x="1172" y="1206" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#b9770e" text-anchor="middle"></text>
+<text x="1184" y="1206" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">electricity</text>
+<rect x="1263.0" y="1193" width="14" height="18" rx="9" fill="#e8f6f3" stroke="#148f77" stroke-width="1.2"/>
+<text x="1270" y="1206" font-family="Menlo, Consolas, monospace" font-size="10" font-weight="bold" fill="#148f77" text-anchor="middle"></text>
+<text x="1282" y="1206" font-family="Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" fill="#666666" text-anchor="start">flow</text>
 </svg>
