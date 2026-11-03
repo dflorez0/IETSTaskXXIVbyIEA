@@ -498,7 +498,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!isothermal) type = nTin > nTout ? "hot" : "cold";
     else type = decl || ((Hout - Hin) < 0 ? "hot" : "cold");
     var dutyF = fOf(Math.abs(Hout) >= Math.abs(Hin) ? hout : hin);
-    return { name: name, type: type, declared: decl, Tin: nTin, Tout: nTout, kW: Math.abs(Hout - Hin),
+    return { name: name, code: str(extra.code), type: type, declared: decl, Tin: nTin, Tout: nTout, kW: Math.abs(Hout - Hin),
              dtc: isFinite(nDtc) ? nDtc : 5, dtcGiven: isFinite(nDtc), mismatch: !!decl && decl !== type,
              htc: num(extra.htc), cascade: str(extra.cascade), description: str(extra.description),
              src: { Tin: fOf(Tin), Tout: fOf(Tout), kW: dutyF, dtc: fOf(dtc) } };
@@ -530,7 +530,7 @@ document.addEventListener("DOMContentLoaded", function () {
           streams: (u["Heat Streams"] || []).map(function (h) {
             return makeStream(h, str(h.NAME), str(h.TYPE), h["INLET TEMPERATURE VALUE"], h["OUTLET TEMPERATURE VALUE"],
               h["INLET ENTHALPY FLOW VALUE"], h["OUTLET ENTHALPY FLOW VALUE"], h["DTMIN CONTR VALUE"],
-              { htc: h["HEAT TRANSFER COEF VALUE"], cascade: h["HEAT CASCADE"], description: h.DESCRIPTION });
+              { htc: h["HEAT TRANSFER COEF VALUE"], cascade: h["HEAT CASCADE"], description: h.DESCRIPTION, code: h.NAME });
           }),
           connectors: (u.Connectors || []).map(function (c) {
             return makeConnector(str(c["NAME (ALIAS)"]), str(c.TYPE), str(c.DIRECTION), c["FLOW VALUE"], c["FLOW UNIT"],
@@ -553,7 +553,7 @@ document.addEventListener("DOMContentLoaded", function () {
           streams: (u.heat_streams || []).map(function (h) {
             return makeStream(h, str(h.full_name || h.name), str(h.type), h.inlet_temperature, h.outlet_temperature,
               h.inlet_enthalpy, h.outlet_enthalpy, h.dtmin,
-              { htc: h.heat_transfer_coef, cascade: h.heat_cascade, description: h.description });
+              { htc: h.heat_transfer_coef, cascade: h.heat_cascade, description: h.description, code: h.name });
           }),
           connectors: (u.connectors || []).map(function (c) {
             return makeConnector(str(c.full_name || c.name), str(c.type), str(c.direction), c.flow, c.flow && c.flow.unit,
@@ -1692,6 +1692,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   function targetInfo(t) {
     var src = t.getAttribute("data-mv-src"), name = t.getAttribute("data-mv-var"), formula = t.getAttribute("data-mv-formula");
+    if (src && t.getAttribute("data-mv-stream")) return models[src] ? { entry: models[src], stream: t.getAttribute("data-mv-stream") } : null;
     if (!src) {
       var href = t.getAttribute("href") || "", hit = idMap[href.replace(/^#/, "")];
       if (!hit) return null;
@@ -1705,7 +1706,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!info) return;
     clearTimeout(hideTimer);
     var card;
-    if (info.name) {
+    if (info.stream) {
+      var hs = findStream(info.entry, info.stream);
+      if (!hs) return;
+      card = cardFor(info.entry, "s:" + info.stream, function () { return streamCardHTML(info.entry, hs); });
+    } else if (info.name) {
       var v = info.entry.model.varIndex[info.name];
       if (!v) return;
       card = cardFor(info.entry, "v:" + info.name, function () { return varCardHTML(info.entry, v); });
@@ -1720,6 +1725,26 @@ document.addEventListener("DOMContentLoaded", function () {
     place(card, t);
     shown = { card: card, target: t };
   }
+  // A heat stream named in a figure: found by its name in the model, with the unit it belongs to
+  function findStream(entry, code) {
+    var hit = null;
+    entry.model.units.forEach(function (u) {
+      u.streams.forEach(function (st) { if (!hit && st.code === code) hit = { st: st, unit: u }; });
+    });
+    return hit;
+  }
+  function streamCardHTML(entry, hs) {
+    var st = hs.st, many = entry.model.units.length > 1;
+    var T = Math.abs(st.Tin - st.Tout) < 1e-9 ? fmt(st.Tin, 1) + " °C" : fmt(st.Tin, 1) + " → " + fmt(st.Tout, 1) + " °C";
+    var h = '<div class="mv-card-h"><code>' + xesc(st.code) + '</code><span class="mv-badge">heat stream</span></div>';
+    if (st.name && st.name !== st.code) h += '<div class="mv-card-name">' + xesc(st.name) + "</div>";
+    h += '<div class="mv-card-row"><span class="mv-type-' + st.type + '">' + st.type + "</span> · " + T + (many ? ' <span class="mv-muted">· ' + xesc(hs.unit.name) + "</span>" : "") + "</div>";
+    h += '<div class="mv-card-row"><b>Load</b> ' + nice(st.kW) + " kW" + (st.src.kW ? ' <span class="mv-muted">· from <code>' + xesc(st.src.kW) + "</code></span>" : "") + "</div>";
+    if (st.cascade && !/^default$/i.test(st.cascade.trim())) h += '<div class="mv-card-row"><b>Heat cascade</b> ' + xesc(st.cascade) + "</div>";
+    if (st.description && st.description !== st.name) h += '<div class="mv-card-desc">' + xesc(st.description) + "</div>";
+    if (st.src.kW && document.getElementById(varId(entry, st.src.kW))) h += '<div class="mv-card-hint">Click to go to its load variable</div>';
+    return h;
+  }
   function hideCard() {
     clearTimeout(hideTimer);
     hideTimer = setTimeout(function () { if (shown) { shown.card.hidden = true; shown = null; } }, 80);
@@ -1727,9 +1752,10 @@ document.addEventListener("DOMContentLoaded", function () {
   var LINK_SEL = 'a.mv-var, .mv-val, .mv-fig-var, mjx-container a[href^="#mv-var-"]';
   // An SVG figure carrying mv-src (its model's JSON) is placed inline, and its
   // labels become variable links (hover card, click to the variables table): a
-  // label that is exactly a variable name is linked by itself, any other label
-  // only when mv-links="Label=var;Label=var1,var2" names it. A label that appears
-  // more than once takes the variables in order from left to right.
+  // label that is exactly a variable name, or exactly the name of a heat stream,
+  // is linked by itself, any other label only when mv-links="Label=var;Label=var1,var2"
+  // names it. A label that appears more than once takes the variables in order
+  // from left to right.
   function linkFigures() {
     var norm = function (t) { return String(t || "").replace(/\s+/g, "").toLowerCase(); };
     var exact = function (t) { return String(t || "").replace(/\s+/g, ""); };
@@ -1741,6 +1767,10 @@ document.addEventListener("DOMContentLoaded", function () {
       // that a short or common word in a drawing never links by accident
       var byName = {};
       entry.model.vars.forEach(function (v) { if (v.name.length >= 3) byName[v.name] = [v.name]; });
+      var byStream = {};
+      entry.model.units.forEach(function (u) {
+        u.streams.forEach(function (st) { if (st.code.length >= 3 && !byStream[st.code]) byStream[st.code] = st; });
+      });
       (img.getAttribute("data-mv-links") || "").split(";").forEach(function (pair) {
         var k = pair.split("=");
         if (k.length === 2) map[norm(k[0])] = k[1].split(",").map(function (x) { return x.trim(); });
@@ -1763,7 +1793,22 @@ document.addEventListener("DOMContentLoaded", function () {
           var k = norm(el.textContent), e = exact(el.textContent);
           if (!map[k] && byName[e]) map[k] = byName[e];
           if (map[k]) (groups[k] = groups[k] || []).push(el);
+          else if (byStream[e]) linkStream(el, byStream[e]);
         });
+        function linkStream(el, st) {
+          el.classList.add("mv-fig-var");
+          el.setAttribute("data-mv-src", src); el.setAttribute("data-mv-stream", st.code);
+          el.setAttribute("tabindex", "0"); el.setAttribute("role", "link");
+          el.addEventListener("click", function (e) {
+            e.preventDefault(); e.stopPropagation();
+            if (!st.src.kW) return;
+            var id = varId(entry, st.src.kW);
+            reveal(id);
+            var dest = document.getElementById(id);
+            if (dest) { dest.scrollIntoView({ block: "center" }); dest.classList.remove("mv-flash"); void dest.offsetWidth; dest.classList.add("mv-flash"); }
+            if (history.replaceState) history.replaceState(null, "", "#" + id);
+          });
+        }
         Object.keys(groups).forEach(function (k) {
           groups[k].sort(function (a, b) { return a.getBoundingClientRect().left - b.getBoundingClientRect().left; })
             .forEach(function (el, i) {

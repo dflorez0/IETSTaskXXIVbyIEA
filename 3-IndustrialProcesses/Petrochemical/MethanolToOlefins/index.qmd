@@ -25,9 +25,9 @@ Minimum utility requirements of the unit on its own, from its heat streams.
 
 ## Model
 
-Throughout this page, names written like `meoh_input` are variables of the model: hover one for its definition, click it to go to its row in the [variables](#variables) table. @fig-mto shows the process; the variable names on it are linked the same way.
+Throughout this page, names written like `meoh_input` are variables of the model: hover one for its definition, click it to go to its row in the [variables](#variables) table. @fig-mto shows the process; the heat stream and variable names on it are linked the same way.
 
-![Process flow diagram of the MTO unit: every heat stream, electricity user and flow is labeled with the model variable it shows. Click to enlarge.](Figures/MTO_PFD.svg){#fig-mto .lightbox .column-page width=100% mv-src="JSON/MTO.json"}
+![Process flow diagram of the MTO unit: every heat stream is labeled with its stream name, and every flow and electricity user with its variable. Click to enlarge.](Figures/MTO_PFD.svg){#fig-mto .lightbox .column-page width=100% mv-src="JSON/MTO.json"}
 
 ### Process
 
