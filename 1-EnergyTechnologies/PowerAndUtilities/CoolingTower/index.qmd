@@ -68,8 +68,8 @@ Throughout this page, names written like `Cool_Qmax` are variables of the model:
 | File | Content |
 |:--|:--|
 | [CoolingTower_ET.lua](Osmoses/CoolingTower_ET.lua) | OSMOSE (Lua) implementation of the model |
-| [CoolingTower.json](JSON/CoolingTower.json) | Model description in the Task XXIV JSON format |
-| [CoolingTower_from_lua.json](JSON/CoolingTower_from_lua.json) | JSON description generated from the Lua model |
+| [CoolingTower_from_lua.json](JSON/CoolingTower_from_lua.json) | Model description in the Task XXIV JSON format, generated from the Lua model |
+| [CoolingTower.json](JSON/CoolingTower.json) | Earlier export of the Excel workbook, not in the Task XXIV JSON format |
 | [CoolingTower.xlsm](Excel/CoolingTower.xlsm) | Excel model description template |
 | [Cooling_Tower_Model_Documentation.docx](Documents/Cooling_Tower_Model_Documentation.docx) | Background on wet-bulb calculation and design guidelines |
 | [CoolTower.drawio](Figures/CoolTower.drawio) | Editable block flow diagram |

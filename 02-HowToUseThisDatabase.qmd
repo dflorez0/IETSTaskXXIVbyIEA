@@ -71,7 +71,7 @@ Only `index.qmd` and the JSON description are required; the other folders hold w
 followed by the model card, a description, the block flow diagram, the model equations and parameters, and a table linking every supplementary file, for example:
 
 ```markdown
-| [CoolingTower.json](JSON/CoolingTower.json) | Model description in the Task XXIV JSON format |
+| [CoolingTower_from_lua.json](JSON/CoolingTower_from_lua.json) | Model description in the Task XXIV JSON format |
 ```
 
 Files linked from the page are published with it, so readers can download them.
@@ -79,7 +79,7 @@ Files linked from the page are published with it, so readers can download them.
 **4. Add the generated views.** Each view is one line that renders part of the model from its JSON description; place them in the sections of the page where they belong:
 
 ```markdown
-{{{< model-viewer JSON/CoolingTower.json view="card" >}}}
+{{{< model-viewer JSON/CoolingTower_from_lua.json view="card" >}}}
 ```
 
 | View | Renders |
