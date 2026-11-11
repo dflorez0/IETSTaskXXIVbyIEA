@@ -54,7 +54,7 @@ For process integration, an ex-ante model is a bounded entity that exchanges mas
 
 The Task comprises a single subtask, led by EPFL: **Subtask 1 – Enabling a shared database of ex-ante models of industrial processes, decarbonization technologies and energy systems featuring sustainability metrics.** It is organized in the following activities (@fig-activities):
 
-![The activities of Subtask 1: the models of industrial sectors, decarbonization technologies and energy systems (ACT2, ACT3.1, ACT3.2) meet through their interfaces in process integration (ACT4), are assessed with sustainability metrics (ACT5) and lead to roadmaps, use cases and dissemination (ACT6), within the specifications of ACT1. Click to enlarge.](0-TaskXXIVDescription/IETSActivities.svg){#fig-activities .lightbox width=100%}
+![The activities of Subtask 1: the models of industrial sectors, decarbonization technologies and energy systems (ACT2, ACT3.1, ACT3.2) meet through their interfaces in process integration (ACT4), are assessed with sustainability metrics (ACT5) and lead to roadmaps, use cases and dissemination (ACT6), within the specifications of ACT1. Source: [Task XXIV description on the IETS website](https://iea-industry.org/tasks/process-integration-for-industry-decarbonization/). Click to enlarge.](0-TaskXXIVDescription/IETSActivities.svg){#fig-activities .lightbox width=100%}
 
 | Activity | Scope |
 |:--|:--|
