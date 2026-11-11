@@ -14,13 +14,11 @@ It collects and documents the **ex-ante models** contributed by the Task partici
 * **About IETS TCP Task XXIV** describes the Task, the rules for contributing, and how to use the database and add a model to it.
 * **Energy technologies**, **Decarbonization technologies** and **Industrial processes** are divided into categories, such as *Power and utilities* or *Petrochemical*. Each category page lists the models of the category, and each documented model has its own page.
 
-Each model lives in its own folder, which contains its documentation page and its supplementary material: the OSMOSE (Lua) implementation, the JSON description, the Excel template, figures and background documents. Every model page links to these files.
+Each model page documents the model and links to its files:
 
-Each model page also includes an interactive overview generated from the model's JSON description:
-
-* the **flows** entering and leaving the model, and its heat demand and heat release;
-* the **heat streams** table;
-* the **composite curves** and the **grand composite curve**, with the minimum hot and cold utility requirements and the pinch.
+* the model documented with the [ex-ante model template](01-ParticipationRules.qmd#the-ex-ante-model-template), as a spreadsheet or a JSON file;
+* the files of the model in its own software (OSMOSE/Lua, Aspen Plus, Python, ...), as far as they can be shared;
+* its supplementary material: block flow diagram, publications and other documentation.
 
 
 ## Task participants {.unnumbered}
