@@ -16,6 +16,8 @@ PAGE = ROOT / "integration.qmd"
 START, END = "<!-- integration-models:start -->", "<!-- integration-models:end -->"
 VIEWER = re.compile(r"\{\{<\s*model-viewer\s+(\S+\.json)")
 TITLE = re.compile(r"^# (.+?)(?: \{[^}]*\})?\s*$", re.M)
+# Menu sections that only group other sections; they are not part of a model's category.
+MENU_GROUPS = {"The Models Database"}
 
 
 def pages():
@@ -31,7 +33,7 @@ def pages():
             open_sections.append((indent, section.group(1)))
         elif page and page.group(1) not in seen:
             seen.add(page.group(1))
-            yield page.group(1), [title for _, title in open_sections]
+            yield page.group(1), [title for _, title in open_sections if title not in MENU_GROUPS]
 
 
 def models():
