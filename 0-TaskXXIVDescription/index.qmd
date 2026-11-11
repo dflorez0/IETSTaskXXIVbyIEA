@@ -1,4 +1,4 @@
-# Task XXIV {.unnumbered}
+# About IETS TCP Task XXIV {.unnumbered}
 
 IETS Task XXIV **Process Integration for Industry Decarbonization** (2025–2027) builds a shared, documented database of ex-ante models of industrial processes, decarbonization technologies and energy systems. This part describes:
 

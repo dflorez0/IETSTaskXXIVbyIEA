@@ -1,12 +1,8 @@
 ---
-title: "IETS Task XXIV"
-subtitle: "Database of IEA Task XXIV Process Integration for Industry Decarbonization"
-author: "IETS Task XXIV"
-date: today
-date-format: "YYYY-MM-DD"
+title: "Database of IEA Task XXIV Process Integration for Industry Decarbonization"
 ---
 
-# About this database {.unnumbered}
+# About this models database {.unnumbered}
 
 This is the **Database of IEA Task XXIV Process Integration for Industry Decarbonization**, developed within the IEA Technology Collaboration Programme on Industrial Energy-Related Technologies and Systems (IETS).
 
@@ -15,7 +11,7 @@ It collects and documents the **ex-ante models** contributed by the Task partici
 
 ## How the database is organized {.unnumbered}
 
-* **Task XXIV** describes the Task, the rules for contributing, and how to use the database and add a model to it.
+* **About IETS TCP Task XXIV** describes the Task, the rules for contributing, and how to use the database and add a model to it.
 * **Energy technologies**, **Decarbonization technologies** and **Industrial processes** are divided into categories, such as *Power and utilities* or *Petrochemical*. Each category page lists the models of the category, and each documented model has its own page.
 
 Each model lives in its own folder, which contains its documentation page and its supplementary material: the OSMOSE (Lua) implementation, the JSON description, the Excel template, figures and background documents. Every model page links to these files.
@@ -33,3 +29,9 @@ Each model page also includes an interactive overview generated from the model's
 * **EPFL team:** *Oktay Boztas*, *Meire Ellen Ribeiro Domingos*, *Pullah Bhatnagar*, *Dareen Dardor*, *Vibhu Baibhav*
 
 The Task gathers participants from Canada, Denmark, France, Germany, Italy, the Netherlands, Norway, Portugal, Sweden and Switzerland, and observers from Belgium, Chile and Colombia. See the [Task XXIV description](00-TaskDescription.qmd) for the objectives, activities and the list of participants, and the [rules for participating and sharing models](01-ParticipationRules.qmd).
+
+---
+
+::: {.text-muted .small}
+Last modified: 11.11.2026
+:::

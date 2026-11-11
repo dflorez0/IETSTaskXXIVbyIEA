@@ -43,10 +43,7 @@ website:
     style: docked
     collapse-level: 1
     contents:
-      - href: index.qmd
-        text: "About this database"
-
-      - section: "Task XXIV"
+      - section: "About IETS TCP Task XXIV"
         href: 0-TaskXXIVDescription/index.qmd
         contents:
           - 00-TaskDescription.qmd
@@ -56,6 +53,9 @@ website:
           - 04-IntraTaskPresentations.qmd
           - 05-DisseminationAndEvents.qmd
           - 06-ContactModelSubmissions.qmd
+
+      - href: index.qmd
+        text: "About this models database"
 
       # Each section holds categories; a category with documented or
       # placeholder model pages is itself a section, the others are a page.
