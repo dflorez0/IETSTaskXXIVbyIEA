@@ -1,0 +1,140 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.4 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.4">
+  <diagram name="Page-1" id="MyYZtCt2edRMnZFnR_G1">
+    <mxGraphModel dx="20720" dy="12120" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4599" pageHeight="3996" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="bi_ivtORDNHABneDhJF--1" value="ACT1 - Specifications, Ontologies and Procedures" style="swimlane;whiteSpace=wrap;html=1;startSize=30;" parent="1" vertex="1">
+          <mxGeometry x="310" y="80" width="660" height="550" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--28" value="Energy&lt;br&gt;infrastructure&lt;br&gt;interfaces" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="bi_ivtORDNHABneDhJF--1" source="bi_ivtORDNHABneDhJF--2" target="bi_ivtORDNHABneDhJF--5" edge="1">
+          <mxGeometry x="-0.3407" relative="1" as="geometry">
+            <mxPoint y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--2" value="&lt;b&gt;ACT3.2 - Energy Systems&lt;br&gt;&lt;/b&gt;&lt;br&gt;IAM and ES models" style="rounded=1;whiteSpace=wrap;html=1;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="240" y="70" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--3" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="20" y="50" width="190" height="347" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--4" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="450" y="50" width="190" height="346" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="bi_ivtORDNHABneDhJF--1" source="bi_ivtORDNHABneDhJF--5" target="bi_ivtORDNHABneDhJF--6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--5" value="&lt;b&gt;ACT4 - Process Integration &lt;br&gt;Heat and Mass&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="240" y="221" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" parent="bi_ivtORDNHABneDhJF--1" source="bi_ivtORDNHABneDhJF--6" target="bi_ivtORDNHABneDhJF--7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="bi_ivtORDNHABneDhJF--1" source="bi_ivtORDNHABneDhJF--6" target="bi_ivtORDNHABneDhJF--8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="bi_ivtORDNHABneDhJF--1" source="bi_ivtORDNHABneDhJF--6" target="bi_ivtORDNHABneDhJF--22" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--6" value="&lt;b&gt;ACT5 - Sustainability metrics&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="240" y="312" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--7" value="&lt;b&gt;ACT6.1a - Roadmaps and Recommendations&lt;/b&gt;&lt;span id=&quot;docs-internal-guid-107c5e49-7fff-463b-fe72-32a00ad2c530&quot;&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="35" y="327" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--8" value="&lt;b&gt;ACT6.1b - Roadmaps &lt;br&gt;and Recommendations&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="485" y="327" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--30" value="Process &lt;br&gt;interfaces" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1.004;exitY=0.355;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;exitPerimeter=0;" parent="bi_ivtORDNHABneDhJF--1" source="bi_ivtORDNHABneDhJF--11" target="bi_ivtORDNHABneDhJF--5" edge="1">
+          <mxGeometry x="0.3352" y="20" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--11" value="" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="50" y="137" width="110" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--10" value="Documentation &lt;br&gt;and validation" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.multi-document;whiteSpace=wrap;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="50" y="257" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.204;entryY=0.068;entryDx=0;entryDy=0;entryPerimeter=0;exitX=-0.016;exitY=0.58;exitDx=0;exitDy=0;exitPerimeter=0;" parent="bi_ivtORDNHABneDhJF--1" source="bi_ivtORDNHABneDhJF--13" target="bi_ivtORDNHABneDhJF--10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--13" value="Models" style="verticalLabelPosition=bottom;align=center;dashed=0;html=1;verticalAlign=top;shape=mxgraph.pid.filters.press_filter;strokeWidth=1;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="110" y="187" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=70;exitDy=20;exitPerimeter=0;entryX=0.656;entryY=-0.06;entryDx=0;entryDy=0;entryPerimeter=0;" parent="bi_ivtORDNHABneDhJF--1" source="bi_ivtORDNHABneDhJF--14" target="bi_ivtORDNHABneDhJF--13" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--14" value="Data" style="shape=note;size=20;whiteSpace=wrap;html=1;strokeWidth=1;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="50" y="147" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--31" value="Technologies&lt;br&gt;interfaces" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.01;exitY=0.34;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;exitPerimeter=0;" parent="bi_ivtORDNHABneDhJF--1" source="bi_ivtORDNHABneDhJF--15" target="bi_ivtORDNHABneDhJF--5" edge="1">
+          <mxGeometry x="0.318" y="-20" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--15" value="" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=1;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="500" y="136" width="110" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--16" value="Documentation &lt;br&gt;and validation" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.multi-document;whiteSpace=wrap;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="500" y="256" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.2;entryY=0.04;entryDx=0;entryDy=0;entryPerimeter=0;exitX=-0.008;exitY=0.533;exitDx=0;exitDy=0;exitPerimeter=0;" parent="bi_ivtORDNHABneDhJF--1" source="bi_ivtORDNHABneDhJF--17" target="bi_ivtORDNHABneDhJF--16" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--17" value="Models" style="verticalLabelPosition=bottom;align=center;dashed=0;html=1;verticalAlign=top;shape=mxgraph.pid.filters.press_filter;strokeWidth=1;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="560" y="186" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=70;exitDy=20;exitPerimeter=0;entryX=0.68;entryY=-0.053;entryDx=0;entryDy=0;entryPerimeter=0;" parent="bi_ivtORDNHABneDhJF--1" source="bi_ivtORDNHABneDhJF--18" target="bi_ivtORDNHABneDhJF--17" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--18" value="Data" style="shape=note;size=20;whiteSpace=wrap;html=1;strokeWidth=1;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="500" y="146" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--19" value="&lt;b&gt;ACT2 - Industrial Sectors&lt;/b&gt;&lt;span id=&quot;docs-internal-guid-8a8be76e-7fff-b8b0-40f0-167cc2e1a9eb&quot;&gt;&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="32.5" y="51" width="145" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--20" value="&lt;b&gt;ACT3.1 - Technologies&lt;/b&gt;&lt;span id=&quot;docs-internal-guid-8a8be76e-7fff-b8b0-40f0-167cc2e1a9eb&quot;&gt;&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="457.5" y="50" width="175" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="bi_ivtORDNHABneDhJF--1" source="bi_ivtORDNHABneDhJF--22" target="bi_ivtORDNHABneDhJF--23" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="240" y="450" />
+              <mxPoint x="130" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="bi_ivtORDNHABneDhJF--1" source="bi_ivtORDNHABneDhJF--22" target="bi_ivtORDNHABneDhJF--24" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="bi_ivtORDNHABneDhJF--1" source="bi_ivtORDNHABneDhJF--22" target="bi_ivtORDNHABneDhJF--25" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="420" y="450" />
+              <mxPoint x="520" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--22" value="Knowledge transfer - Business models - Documentation" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;strokeWidth=1;size=0;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="150" y="411" width="360" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--23" value="&lt;b&gt;ACT6.1c - Roadmaps and Recommendations&lt;/b&gt;&amp;nbsp;&lt;br&gt;Levers&lt;br&gt;&lt;span id=&quot;docs-internal-guid-3fd09bb0-7fff-e0e7-dc55-98a8618d38c2&quot;&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="40" y="470" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--24" value="&lt;b&gt;ACT6.1d - Use cases&lt;br&gt;&lt;/b&gt;Per sector&lt;br&gt;Per technology" style="rounded=1;whiteSpace=wrap;html=1;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="240" y="470" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--25" value="&lt;b&gt;ACT6.2 - Dissemination and Continuing Education&lt;br&gt;&lt;/b&gt;Decarbonization GPT" style="rounded=1;whiteSpace=wrap;html=1;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="430" y="470" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--26" value="&lt;b&gt;Sector based&lt;/b&gt;&lt;br&gt;Ex-ante process integration models&lt;br&gt;&lt;span id=&quot;docs-internal-guid-8a8be76e-7fff-b8b0-40f0-167cc2e1a9eb&quot;&gt;&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="bi_ivtORDNHABneDhJF--1" vertex="1">
+          <mxGeometry x="30" y="85" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_ivtORDNHABneDhJF--27" value="&lt;b&gt;Decarbonization&lt;br&gt;&lt;/b&gt;Ex-ante technology integration models&lt;br&gt;&lt;span id=&quot;docs-internal-guid-8a8be76e-7fff-b8b0-40f0-167cc2e1a9eb&quot;&gt;&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="788" y="165" width="152" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
